@@ -11,6 +11,7 @@ GitHub CLI has hundreds of public extensions. This atlas helps you choose the ri
 ## Contents
 
 - [Quick Start](#quick-start)
+- [Who should use this](#who-should-use-this)
 - [Why this exists](#why-this-exists)
 - [Selection Criteria](#selection-criteria)
 - [Top Picks](#top-picks)
@@ -36,6 +37,18 @@ gh extension install OWNER/REPO
 ```
 
 This list favors extensions that are installable, documented, not archived, and useful for repeated terminal workflows.
+
+## Who should use this
+
+Use this atlas when you know GitHub CLI can probably help, but you do not want to install five overlapping extensions to find the right one.
+
+| You are...                      | Start here                                                                  |
+| ------------------------------- | --------------------------------------------------------------------------- |
+| A daily `gh` user               | Try Top Picks and the dashboard, branch cleanup, and search categories.     |
+| An open source maintainer       | Start with PR review, notifications, milestone, and triage tools.           |
+| A security or platform engineer | Review SBOM, CodeQL, repository configuration, token, and migration tools.  |
+| Exploring AI and agents         | Compare `gh-aw`, `gh-models`, `gh-standup`, and `gh-mcp`.                   |
+| Maintaining an extension        | Check your listing and open a correction if the category or wording is off. |
 
 ## Why this exists
 
@@ -219,3 +232,5 @@ Contributions are welcome. Please read [`CONTRIBUTING.md`](CONTRIBUTING.md) befo
 If your extension is listed here, corrections are welcome. Open an issue or pull request when a summary, install command, category, comparison, or maintenance status is off.
 
 Good correction requests include the repository name, the field that should change, and a short reason. The atlas is intentionally conservative: a clearer description beats a louder one.
+
+If this helped you choose an extension, a star helps other `gh` users find it too.
