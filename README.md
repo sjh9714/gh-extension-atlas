@@ -1,0 +1,189 @@
+# Awesome GitHub CLI Extension Atlas [![Awesome](https://awesome.re/badge.svg)](https://awesome.re)
+
+> A curated field guide to GitHub CLI extensions: what to install, when to use them, and which ones are actively maintained.
+
+GitHub CLI has hundreds of public extensions. This atlas helps you choose the right one quickly by combining human recommendations with a small machine-readable catalog.
+
+## Contents
+
+- [Quick Start](#quick-start)
+- [Top Picks](#top-picks)
+- [Find by Use Case](#find-by-use-case)
+- [Comparison Guides](#comparison-guides)
+- [Dashboard/TUI](#dashboardtui)
+- [PR & Issues](#pr--issues)
+- [Actions/CI](#actionsci)
+- [Repo & Branch](#repo--branch)
+- [Search](#search)
+- [Notifications](#notifications)
+- [Security/Admin](#securityadmin)
+- [AI/Agents](#aiagents)
+- [Data](#data)
+
+## Quick Start
+
+Install the GitHub CLI, authenticate with `gh auth login`, then install any extension with:
+
+```sh
+gh extension install OWNER/REPO
+```
+
+This list favors extensions that are installable, documented, not archived, and useful for repeated terminal workflows.
+
+## Top Picks
+
+These are the first extensions to evaluate if you want broad value fast.
+
+| Extension             | Install                                             | Best for                  | Why it matters                                                               | Status |
+| --------------------- | --------------------------------------------------- | ------------------------- | ---------------------------------------------------------------------------- | ------ |
+| `gh-dash`             | `gh extension install dlvhdr/gh-dash`               | Daily PR and issue triage | Turns scattered GitHub work into a fast terminal dashboard.                  | active |
+| `gh-aw`               | `gh extension install github/gh-aw`                 | Agentic workflows         | Official GitHub project for running agent workflows from the CLI.            | active |
+| `gh-stack`            | `gh extension install github/gh-stack`              | Stacked pull requests     | Gives teams a GitHub-native way to manage dependent PRs.                     | active |
+| `gh-poi`              | `gh extension install seachicken/gh-poi`            | Branch cleanup            | Safely removes merged branches without making you inspect every ref by hand. | active |
+| `gh-markdown-preview` | `gh extension install yusukebe/gh-markdown-preview` | README and docs review    | Previews Markdown the way GitHub renders it before you push.                 | active |
+| `gh-sbom`             | `gh extension install advanced-security/gh-sbom`    | SBOM generation           | Creates software bills of materials from the terminal.                       | watch  |
+| `gh-s`                | `gh extension install gennaro-tedesco/gh-s`         | Repository search         | Provides an interactive repository search flow in the terminal.              | active |
+| `gh-notify`           | `gh extension install meiji163/gh-notify`           | Notifications             | Makes GitHub notifications visible without opening the browser.              | active |
+| `gh-pr-review`        | `gh extension install agynio/gh-pr-review`          | Inline PR review          | Lets reviewers navigate and resolve PR review threads from the terminal.     | active |
+| `gh-workflow-stats`   | `gh extension install fchimpan/gh-workflow-stats`   | CI health                 | Summarizes workflow success rate and duration for operational debugging.     | active |
+
+## Find by Use Case
+
+| If you need to...                     | Start with                                  |
+| ------------------------------------- | ------------------------------------------- |
+| See all your review work in one place | `gh-dash`, `gh-pr-review`, `gh-stack`       |
+| Clean local Git state                 | `gh-poi`, `gh-branch`, `gh-tidy`            |
+| Inspect CI and Actions usage          | `gh-signoff`, `gh-workflow-stats`, `gh-act` |
+| Search repositories, code, or stars   | `gh-s`, `gh-grep`, `gh-find-code`           |
+| Reduce notification noise             | `gh-notify`, `gh-not`, `gh-gonest`          |
+| Check security or admin posture       | `gh-sbom`, `gh-token`, `gh-codeql`          |
+| Try AI and agent workflows            | `gh-aw`, `gh-models`, `gh-mcp`              |
+
+## Comparison Guides
+
+| Guide                                                               | Best for                                                       |
+| ------------------------------------------------------------------- | -------------------------------------------------------------- |
+| [Dashboard and TUI extensions](docs/comparisons/dashboards.md)      | Choosing a terminal dashboard or visual interface.             |
+| [Branch cleanup extensions](docs/comparisons/branch-cleanup.md)     | Choosing a safe local branch cleanup workflow.                 |
+| [Notification extensions](docs/comparisons/notifications.md)        | Reducing notification noise from the terminal.                 |
+| [Markdown preview extensions](docs/comparisons/markdown-preview.md) | Previewing README and docs changes.                            |
+| [Actions and CI extensions](docs/comparisons/actions-ci.md)         | Understanding CI migration, local checks, and workflow health. |
+
+## Dashboard/TUI
+
+| Extension                                                              | Install                                             | Best for                          | Why it matters                                                     | Status |
+| ---------------------------------------------------------------------- | --------------------------------------------------- | --------------------------------- | ------------------------------------------------------------------ | ------ |
+| [gh-dash](https://github.com/dlvhdr/gh-dash)                           | `gh extension install dlvhdr/gh-dash`               | PR and issue dashboards           | Gives maintainers a fast terminal cockpit for review queues.       | active |
+| [gh-skyline](https://github.com/github/gh-skyline)                     | `gh extension install github/gh-skyline`            | Contribution visualization        | Creates a 3D model of contribution history for demos and profiles. | active |
+| [gh-markdown-preview](https://github.com/yusukebe/gh-markdown-preview) | `gh extension install yusukebe/gh-markdown-preview` | GitHub-flavored Markdown previews | Catches README rendering issues before publishing.                 | active |
+| [gh-eco](https://github.com/jrnxf/gh-eco)                              | `gh extension install jrnxf/gh-eco`                 | Ecosystem exploration             | Provides an exploratory view of GitHub profiles and projects.      | watch  |
+| [gh-lazy](https://github.com/gizmo385/gh-lazy)                         | `gh extension install gizmo385/gh-lazy`             | Terminal GitHub browsing          | Offers a TUI for interacting with GitHub resources.                | active |
+| [gh-graph](https://github.com/kawarimidoll/gh-graph)                   | `gh extension install kawarimidoll/gh-graph`        | Contribution graph views          | Brings contribution graph feedback into the terminal.              | active |
+| [gh-contrib](https://github.com/mislav/gh-contrib)                     | `gh extension install mislav/gh-contrib`            | Lightweight contribution graphs   | Renders contribution history without a browser.                    | active |
+| [gh-gfm-preview](https://github.com/thiagokokada/gh-gfm-preview)       | `gh extension install thiagokokada/gh-gfm-preview`  | Offline Markdown preview          | Provides a standalone GitHub-flavored Markdown preview path.       | active |
+
+## PR & Issues
+
+| Extension                                                    | Install                                          | Best for                 | Why it matters                                                    | Status |
+| ------------------------------------------------------------ | ------------------------------------------------ | ------------------------ | ----------------------------------------------------------------- | ------ |
+| [gh-stack](https://github.com/github/gh-stack)               | `gh extension install github/gh-stack`           | Stacked PRs              | Helps teams ship dependent changes without losing review context. | active |
+| [gh-pr-review](https://github.com/agynio/gh-pr-review)       | `gh extension install agynio/gh-pr-review`       | Inline review threads    | Keeps PR review work inside the terminal.                         | active |
+| [gh-dependabot](https://github.com/einride/gh-dependabot)    | `gh extension install einride/gh-dependabot`     | Dependency update review | Makes Dependabot review work faster and more focused.             | active |
+| [gh-i](https://github.com/gennaro-tedesco/gh-i)              | `gh extension install gennaro-tedesco/gh-i`      | Issue search             | Adds an interactive issue search flow.                            | watch  |
+| [gh-metrics](https://github.com/hectcastro/gh-metrics)       | `gh extension install hectcastro/gh-metrics`     | Pull request metrics     | Summarizes PR timing and review health.                           | active |
+| [gh-sherpa](https://github.com/InditexTech/gh-sherpa)        | `gh extension install InditexTech/gh-sherpa`     | Branch and PR creation   | Streamlines daily work from Jira or GitHub issues.                | active |
+| [gh-dep](https://github.com/jackchuka/gh-dep)                | `gh extension install jackchuka/gh-dep`          | Bulk dependency PRs      | Gives teams a TUI for dependency update queues.                   | active |
+| [gh-prism](https://github.com/kawarimidoll/gh-prism)         | `gh extension install kawarimidoll/gh-prism`     | PR review                | Provides a focused PR review experience.                          | active |
+| [gh-sql](https://github.com/KOBA789/gh-sql)                  | `gh extension install KOBA789/gh-sql`            | GitHub Projects queries  | Lets advanced users query project data with SQL.                  | stale  |
+| [gh-triage](https://github.com/samcoe/gh-triage)             | `gh extension install samcoe/gh-triage`          | Issue triage             | Helps maintainers process issue queues.                           | stale  |
+| [gh-milestone](https://github.com/valeriobelli/gh-milestone) | `gh extension install valeriobelli/gh-milestone` | Milestone management     | Adds terminal workflows for project planning.                     | active |
+
+## Actions/CI
+
+| Extension                                                            | Install                                           | Best for                    | Why it matters                                           | Status |
+| -------------------------------------------------------------------- | ------------------------------------------------- | --------------------------- | -------------------------------------------------------- | ------ |
+| [gh-actions-importer](https://github.com/github/gh-actions-importer) | `gh extension install github/gh-actions-importer` | CI migration                | Helps plan and automate migrations into GitHub Actions.  | active |
+| [gh-signoff](https://github.com/basecamp/gh-signoff)                 | `gh extension install basecamp/gh-signoff`        | Local signoff               | Runs local checks before you hand work to CI.            | active |
+| [gh-workflow-stats](https://github.com/fchimpan/gh-workflow-stats)   | `gh extension install fchimpan/gh-workflow-stats` | Workflow health             | Tracks success rate and duration for workflows and jobs. | active |
+| [gh-slimify](https://github.com/fchimpan/gh-slimify)                 | `gh extension install fchimpan/gh-slimify`        | Runner cost reduction       | Detects workflows that can move to slimmer runners.      | active |
+| [gh-act](https://github.com/nektos/gh-act)                           | `gh extension install nektos/gh-act`              | Local Actions runs          | Wraps local GitHub Actions execution through the CLI.    | active |
+| [gh-actions-status](https://github.com/rsese/gh-actions-status)      | `gh extension install rsese/gh-actions-status`    | Organization Actions health | Summarizes Actions health across an organization.        | stale  |
+
+## Repo & Branch
+
+| Extension                                                            | Install                                             | Best for             | Why it matters                                             | Status |
+| -------------------------------------------------------------------- | --------------------------------------------------- | -------------------- | ---------------------------------------------------------- | ------ |
+| [gh-poi](https://github.com/seachicken/gh-poi)                       | `gh extension install seachicken/gh-poi`            | Safe branch cleanup  | Removes merged branches without reckless deletion.         | active |
+| [gh-install](https://github.com/redraw/gh-install)                   | `gh extension install redraw/gh-install`            | Release binaries     | Installs GitHub release binaries interactively.            | active |
+| [gh-branch](https://github.com/mislav/gh-branch)                     | `gh extension install mislav/gh-branch`             | Branch switching     | Adds fuzzy branch finding and deletion.                    | watch  |
+| [gh-clean-branches](https://github.com/davidraviv/gh-clean-branches) | `gh extension install davidraviv/gh-clean-branches` | Local branch cleanup | Deletes branches with no upstream and no unpushed commits. | stale  |
+| [gh-clone-org](https://github.com/matt-bartel/gh-clone-org)          | `gh extension install matt-bartel/gh-clone-org`     | Organization cloning | Clones many organization repos with topic filtering.       | stale  |
+| [gh-cp](https://github.com/mislav/gh-cp)                             | `gh extension install mislav/gh-cp`                 | Copying repo files   | Copies a file from GitHub without cloning the repository.  | stale  |
+| [gh-download](https://github.com/yuler/gh-download)                  | `gh extension install yuler/gh-download`            | Downloading paths    | Downloads folders or files without a full clone.           | stale  |
+| [gh-bump](https://github.com/johnmanjiro13/gh-bump)                  | `gh extension install johnmanjiro13/gh-bump`        | Version bumps        | Helps bump repository versions from the CLI.               | active |
+| [gh-tidy](https://github.com/HaywardMorihara/gh-tidy)                | `gh extension install HaywardMorihara/gh-tidy`      | Workspace cleanup    | Gets a Git workspace ready for the next task.              | active |
+| [gh-worktree](https://github.com/despreston/gh-worktree)             | `gh extension install despreston/gh-worktree`       | Worktree workflows   | Makes Git worktree usage smoother with GitHub context.     | active |
+
+## Search
+
+| Extension                                                     | Install                                          | Best for              | Why it matters                                             | Status |
+| ------------------------------------------------------------- | ------------------------------------------------ | --------------------- | ---------------------------------------------------------- | ------ |
+| [gh-s](https://github.com/gennaro-tedesco/gh-s)               | `gh extension install gennaro-tedesco/gh-s`      | Repository search     | Adds a compact interactive repository search interface.    | active |
+| [gh-f](https://github.com/gennaro-tedesco/gh-f)               | `gh extension install gennaro-tedesco/gh-f`      | Fuzzy GitHub search   | Provides a compact fzf-powered GitHub workflow.            | active |
+| [gh-grep](https://github.com/k1LoW/gh-grep)                   | `gh extension install k1LoW/gh-grep`             | API-backed grep       | Searches repository content through GitHub APIs.           | active |
+| [gh-user-stars](https://github.com/korosuke613/gh-user-stars) | `gh extension install korosuke613/gh-user-stars` | Starred repo browsing | Makes personal starred repositories searchable.            | stale  |
+| [gh-find-code](https://github.com/LangLangBart/gh-find-code)  | `gh extension install LangLangBart/gh-find-code` | Code search           | Uses fzf for GitHub code searching.                        | active |
+| [gh-repo-explore](https://github.com/samcoe/gh-repo-explore)  | `gh extension install samcoe/gh-repo-explore`    | Repo exploration      | Explores repositories without cloning.                     | stale  |
+| [gh-stars](https://github.com/Link-/gh-stars)                 | `gh extension install Link-/gh-stars`            | Star search           | Searches starred repositories from the terminal.           | active |
+| [gh-q](https://github.com/kawarimidoll/gh-q)                  | `gh extension install kawarimidoll/gh-q`         | fzf and ghq cloning   | Combines GitHub search with local repository organization. | active |
+| [gh-fzf](https://github.com/benelan/gh-fzf)                   | `gh extension install benelan/gh-fzf`            | fzf workflows         | Wraps GitHub CLI commands in fzf interactions.             | active |
+
+## Notifications
+
+| Extension                                                  | Install                                           | Best for                 | Why it matters                                                | Status |
+| ---------------------------------------------------------- | ------------------------------------------------- | ------------------------ | ------------------------------------------------------------- | ------ |
+| [gh-notify](https://github.com/meiji163/gh-notify)         | `gh extension install meiji163/gh-notify`         | Notification display     | Brings GitHub notifications into the terminal.                | active |
+| [gh-gonest](https://github.com/emmanuel-ferdman/gh-gonest) | `gh extension install emmanuel-ferdman/gh-gonest` | Notification cleanup     | Removes phantom notifications from inaccessible repositories. | active |
+| [gh-not](https://github.com/nobe4/gh-not)                  | `gh extension install nobe4/gh-not`               | Rule-based notifications | Adds filtering and rules to GitHub notification workflows.    | active |
+| [gh-triage](https://github.com/k1LoW/gh-triage)            | `gh extension install k1LoW/gh-triage`            | Unread triage            | Processes issues and PRs through unread notifications.        | active |
+
+## Security/Admin
+
+| Extension                                                                 | Install                                                   | Best for                  | Why it matters                                      | Status |
+| ------------------------------------------------------------------------- | --------------------------------------------------------- | ------------------------- | --------------------------------------------------- | ------ |
+| [gh-token](https://github.com/Link-/gh-token)                             | `gh extension install Link-/gh-token`                     | GitHub App tokens         | Creates installation access tokens for GitHub Apps. | active |
+| [gh-sbom](https://github.com/advanced-security/gh-sbom)                   | `gh extension install advanced-security/gh-sbom`          | SBOM generation           | Generates software bills of materials from the CLI. | watch  |
+| [gh-gei](https://github.com/github/gh-gei)                                | `gh extension install github/gh-gei`                      | Enterprise migration      | Supports GitHub-to-GitHub migration workflows.      | active |
+| [gh-repo-stats](https://github.com/mona-actions/gh-repo-stats)            | `gh extension install mona-actions/gh-repo-stats`         | Migration metadata        | Pulls repository metadata for migration planning.   | active |
+| [gh-classroom](https://github.com/github/gh-classroom)                    | `gh extension install github/gh-classroom`                | Education administration  | Manages GitHub Classroom workflows.                 | active |
+| [gh-codeql](https://github.com/github/gh-codeql)                          | `gh extension install github/gh-codeql`                   | CodeQL workflows          | Adds CodeQL tasks to the GitHub CLI.                | watch  |
+| [gh-mrva](https://github.com/GitHubSecurityLab/gh-mrva)                   | `gh extension install GitHubSecurityLab/gh-mrva`          | Multi-repository analysis | Runs CodeQL variant analysis across repositories.   | watch  |
+| [gh-code-scanning](https://github.com/advanced-security/gh-code-scanning) | `gh extension install advanced-security/gh-code-scanning` | Code scanning             | Helps inspect GitHub code scanning data.            | active |
+| [gh-repo-config](https://github.com/twelvelabs/gh-repo-config)            | `gh extension install twelvelabs/gh-repo-config`          | Repository settings       | Manages repository configuration from the terminal. | active |
+
+## AI/Agents
+
+| Extension                                             | Install                                     | Best for          | Why it matters                                                | Status |
+| ----------------------------------------------------- | ------------------------------------------- | ----------------- | ------------------------------------------------------------- | ------ |
+| [gh-aw](https://github.com/github/gh-aw)              | `gh extension install github/gh-aw`         | Agentic workflows | Brings agent workflow execution to GitHub CLI.                | active |
+| [gh-models](https://github.com/github/gh-models)      | `gh extension install github/gh-models`     | GitHub Models     | Provides terminal access to the GitHub Models service.        | active |
+| [gh-standup](https://github.com/sgoedecke/gh-standup) | `gh extension install sgoedecke/gh-standup` | AI standups       | Generates AI-assisted standup summaries from GitHub activity. | active |
+| [gh-mcp](https://github.com/shuymn/gh-mcp)            | `gh extension install shuymn/gh-mcp`        | MCP setup         | Runs GitHub MCP Server through existing `gh` authentication.  | active |
+
+## Data
+
+The curated catalog lives in [`data/extensions.json`](data/extensions.json). It is intentionally small enough to review by hand and structured enough to validate in CI.
+
+Statuses mean:
+
+| Status   | Meaning                                                         |
+| -------- | --------------------------------------------------------------- |
+| `active` | Useful and pushed within roughly the last year.                 |
+| `watch`  | Useful, but maintenance should be checked before adopting.      |
+| `stale`  | Still notable, but verify compatibility before depending on it. |
+
+Recommended repository topics after publishing: `awesome`, `awesome-list`, `github-cli`, `gh-extension`, `cli`, `terminal`, `developer-tools`, `open-source`.
+
+## Contributing
+
+Contributions are welcome. Please read [`CONTRIBUTING.md`](CONTRIBUTING.md) before opening a pull request.
