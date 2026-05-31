@@ -75,9 +75,10 @@ I am doing a small accuracy pass before sharing the atlas more widely. Current w
 - Category: `Actions/CI`
 - Best for: `CI health`
 - Description: `Summarizes workflow success rate and duration for operational debugging.`
+- Install command listed in the atlas: `gh extension install fchimpan/gh-workflow-stats`
 - Maintenance label: `active`
 
-Could you sanity-check whether this is accurate?
+Could you sanity-check whether this is accurate, including the install command?
 
 No action needed if it looks fine. If something is off, a short correction here is enough, or an issue/PR in the atlas repo also works.
 
