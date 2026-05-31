@@ -34,6 +34,125 @@ Guardrails:
 - Do not ask maintainers for stars.
 - Do not open an issue if the project asks users not to use issues for this kind of contact.
 
+## First-Wave Ready Messages
+
+Send the first two messages first, wait 12-24 hours, then continue with the next three only if the tone and channel fit still feel acceptable.
+
+### gh-markdown-preview
+
+```text
+Title: Accuracy check: gh-markdown-preview description in GitHub CLI Extension Atlas
+
+Hi! I included `yusukebe/gh-markdown-preview` in the GitHub CLI Extension Atlas:
+
+https://github.com/sjh9714/gh-extension-atlas
+
+I am doing a small accuracy pass before sharing the atlas more widely. Current wording:
+
+- Category: `Dashboard/TUI`
+- Best for: `README and docs review`
+- Description: `Previews Markdown the way GitHub renders it before you push.`
+- Maintenance label: `active`
+
+Could you sanity-check whether this is accurate?
+
+No action needed if it looks fine. If something is off, a short correction here is enough, or an issue/PR in the atlas repo also works.
+
+I am asking only for factual correction, not for stars or promotion.
+```
+
+### gh-workflow-stats
+
+```text
+Title: Accuracy check: gh-workflow-stats description in GitHub CLI Extension Atlas
+
+Hi! I included `fchimpan/gh-workflow-stats` in the GitHub CLI Extension Atlas:
+
+https://github.com/sjh9714/gh-extension-atlas
+
+I am doing a small accuracy pass before sharing the atlas more widely. Current wording:
+
+- Category: `Actions/CI`
+- Best for: `CI health`
+- Description: `Summarizes workflow success rate and duration for operational debugging.`
+- Maintenance label: `active`
+
+Could you sanity-check whether this is accurate?
+
+No action needed if it looks fine. If something is off, a short correction here is enough, or an issue/PR in the atlas repo also works.
+
+I am asking only for factual correction, not for stars or promotion.
+```
+
+### gh-poi
+
+```text
+Title: Accuracy check: gh-poi description in GitHub CLI Extension Atlas
+
+Hi! I included `seachicken/gh-poi` in the GitHub CLI Extension Atlas:
+
+https://github.com/sjh9714/gh-extension-atlas
+
+I am doing a small accuracy pass before sharing the atlas more widely. Current wording:
+
+- Category: `Repo & Branch`
+- Best for: `Branch cleanup`
+- Description: `Safely removes merged branches without making you inspect every ref by hand.`
+- Maintenance label: `active`
+
+Could you sanity-check whether this is accurate, especially the branch-cleanup safety wording?
+
+No action needed if it looks fine. If something is off, a short correction here is enough, or an issue/PR in the atlas repo also works.
+
+I am asking only for factual correction, not for stars or promotion.
+```
+
+### gh-pr-review
+
+```text
+Title: Accuracy check: gh-pr-review description in GitHub CLI Extension Atlas
+
+Hi! I included `agynio/gh-pr-review` in the GitHub CLI Extension Atlas:
+
+https://github.com/sjh9714/gh-extension-atlas
+
+I am doing a small accuracy pass before sharing the atlas more widely. Current wording:
+
+- Category: `PR & Issues`
+- Best for: `Inline PR review`
+- Description: `Lets reviewers navigate and resolve PR review threads from the terminal.`
+- Maintenance label: `active`
+
+Could you sanity-check whether this is accurate?
+
+No action needed if it looks fine. If something is off, a short correction here is enough, or an issue/PR in the atlas repo also works.
+
+I am asking only for factual correction, not for stars or promotion.
+```
+
+### gh-dash
+
+```text
+Title: Accuracy check: gh-dash description in GitHub CLI Extension Atlas
+
+Hi! I included `dlvhdr/gh-dash` in the GitHub CLI Extension Atlas:
+
+https://github.com/sjh9714/gh-extension-atlas
+
+I am doing a small accuracy pass before sharing the atlas more widely. Current wording:
+
+- Category: `Dashboard/TUI`
+- Best for: `Daily PR and issue triage`
+- Description: `Turns scattered GitHub work into a fast terminal dashboard.`
+- Maintenance label: `active`
+
+Could you sanity-check whether this is accurate?
+
+No action needed if it looks fine. If something is off, a short correction here is enough, or an issue/PR in the atlas repo also works.
+
+I am asking only for factual correction, not for stars or promotion.
+```
+
 ## GitHub Discussions
 
 ```text

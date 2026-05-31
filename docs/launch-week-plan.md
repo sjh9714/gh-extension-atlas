@@ -4,10 +4,12 @@ The goal for the first week is simple: get the atlas in front of people who alre
 
 ## Day 1: Maintainer Verification
 
-- [ ] Contact the Top Picks maintainers listed in [`docs/outreach-targets.md`](outreach-targets.md).
-- [ ] Use the maintainer verification draft from [`docs/launch-kit.md`](launch-kit.md).
+- [ ] Check channel suitability for each first-wave repository before posting.
+- [ ] Send the first two ready messages: `gh-markdown-preview`, then `gh-workflow-stats`.
+- [ ] Wait 12-24 hours and review whether the tone, channel fit, and response quality still feel acceptable.
+- [ ] If the first two feel safe, send the next three messages: `gh-poi`, `gh-pr-review`, then `gh-dash`.
 - [ ] Track corrections as issues or pull requests in this repository.
-- [ ] Do not ask maintainers only for stars.
+- [ ] Do not ask maintainers for stars, promotion, reposts, or endorsements.
 
 ## Day 2: GitHub CLI Community
 
