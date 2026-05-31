@@ -1,0 +1,48 @@
+name: Add extension
+description: Suggest a GitHub CLI extension for the atlas.
+title: "Add extension: OWNER/REPO"
+labels: ["extension-suggestion"]
+body:
+  - type: input
+    id: repo
+    attributes:
+      label: Repository
+      description: Use OWNER/REPO format.
+      placeholder: owner/gh-example
+    validations:
+      required: true
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      options:
+        - Dashboard/TUI
+        - PR & Issues
+        - Actions/CI
+        - Repo & Branch
+        - Search
+        - Notifications
+        - Security/Admin
+        - AI/Agents
+    validations:
+      required: true
+  - type: textarea
+    id: use-case
+    attributes:
+      label: What workflow does it solve?
+      description: Explain who should install this and why.
+    validations:
+      required: true
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checklist
+      options:
+        - label: The repository name starts with `gh-`.
+          required: true
+        - label: It installs with `gh extension install OWNER/REPO`.
+          required: true
+        - label: The repository is not archived.
+          required: true
+        - label: The README explains what the extension does.
+          required: true

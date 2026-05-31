@@ -1,5 +1,9 @@
 # Awesome GitHub CLI Extension Atlas [![Awesome](https://awesome.re/badge.svg)](https://awesome.re)
 
+[![Validate](https://github.com/sjh9714/gh-extension-atlas/actions/workflows/validate.yml/badge.svg)](https://github.com/sjh9714/gh-extension-atlas/actions/workflows/validate.yml)
+[![License: CC0-1.0](https://img.shields.io/badge/license-CC0--1.0-lightgrey.svg)](LICENSE)
+![Extensions: 67](https://img.shields.io/badge/extensions-67-blue.svg)
+
 > A curated field guide to GitHub CLI extensions: what to install, when to use them, and which ones are actively maintained.
 
 GitHub CLI has hundreds of public extensions. This atlas helps you choose the right one quickly by combining human recommendations with a small machine-readable catalog.
@@ -7,6 +11,8 @@ GitHub CLI has hundreds of public extensions. This atlas helps you choose the ri
 ## Contents
 
 - [Quick Start](#quick-start)
+- [Why this exists](#why-this-exists)
+- [Selection Criteria](#selection-criteria)
 - [Top Picks](#top-picks)
 - [Find by Use Case](#find-by-use-case)
 - [Comparison Guides](#comparison-guides)
@@ -19,6 +25,7 @@ GitHub CLI has hundreds of public extensions. This atlas helps you choose the ri
 - [Security/Admin](#securityadmin)
 - [AI/Agents](#aiagents)
 - [Data](#data)
+- [For Extension Maintainers](#for-extension-maintainers)
 
 ## Quick Start
 
@@ -29,6 +36,25 @@ gh extension install OWNER/REPO
 ```
 
 This list favors extensions that are installable, documented, not archived, and useful for repeated terminal workflows.
+
+## Why this exists
+
+`gh extension search` is useful when you already know what to look for. This atlas is for the harder moment before that: choosing which extension is worth installing, comparing overlapping tools, and checking whether a project still looks maintained.
+
+The goal is not to list every repository with the `gh-extension` topic. The goal is to make the first useful choice faster.
+
+## Selection Criteria
+
+Every listed extension should be:
+
+| Signal                    | Requirement                                                                                       |
+| ------------------------- | ------------------------------------------------------------------------------------------------- |
+| Installable               | The repository name starts with `gh-` and supports `gh extension install OWNER/REPO`.             |
+| Publicly useful           | The extension solves a repeatable workflow for more than one project or team.                     |
+| Not archived              | Archived repositories are excluded from the atlas.                                                |
+| Documented                | The README or release notes explain what the extension does.                                      |
+| Maintained status labeled | `active`, `watch`, or `stale` is shown so readers can decide how much risk to accept.             |
+| Manually reviewed         | Top Picks are installed with isolated `GH_CONFIG_DIR` and `XDG_DATA_HOME` paths before promotion. |
 
 ## Top Picks
 
@@ -187,3 +213,9 @@ Recommended repository topics after publishing: `awesome`, `awesome-list`, `gith
 ## Contributing
 
 Contributions are welcome. Please read [`CONTRIBUTING.md`](CONTRIBUTING.md) before opening a pull request.
+
+## For Extension Maintainers
+
+If your extension is listed here, corrections are welcome. Open an issue or pull request when a summary, install command, category, comparison, or maintenance status is off.
+
+Good correction requests include the repository name, the field that should change, and a short reason. The atlas is intentionally conservative: a clearer description beats a louder one.

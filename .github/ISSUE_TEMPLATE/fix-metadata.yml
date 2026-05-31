@@ -1,0 +1,34 @@
+name: Fix metadata
+description: Correct an existing atlas entry.
+title: "Fix metadata: OWNER/REPO"
+labels: ["metadata"]
+body:
+  - type: input
+    id: repo
+    attributes:
+      label: Repository
+      placeholder: owner/gh-example
+    validations:
+      required: true
+  - type: dropdown
+    id: field
+    attributes:
+      label: Field to fix
+      options:
+        - summary
+        - category
+        - best_for
+        - avoid_if
+        - license
+        - status
+        - install
+        - official
+    validations:
+      required: true
+  - type: textarea
+    id: correction
+    attributes:
+      label: Correction
+      description: Provide the corrected value and a short reason.
+    validations:
+      required: true

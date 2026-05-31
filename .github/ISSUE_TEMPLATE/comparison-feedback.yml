@@ -1,0 +1,29 @@
+name: Comparison guide feedback
+description: Improve one of the comparison guides.
+title: "Comparison feedback: "
+labels: ["comparison"]
+body:
+  - type: dropdown
+    id: guide
+    attributes:
+      label: Guide
+      options:
+        - dashboards
+        - branch-cleanup
+        - notifications
+        - markdown-preview
+        - actions-ci
+    validations:
+      required: true
+  - type: textarea
+    id: feedback
+    attributes:
+      label: Feedback
+      description: What is missing, inaccurate, or unclear?
+    validations:
+      required: true
+  - type: textarea
+    id: suggested-change
+    attributes:
+      label: Suggested change
+      description: Optional wording or table row changes.
