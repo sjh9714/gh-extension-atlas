@@ -8,6 +8,8 @@
 
 GitHub CLI has hundreds of public extensions. This atlas helps you choose the right one quickly by combining human recommendations with a small machine-readable catalog.
 
+If `gh extension search` gives you too many options, start here.
+
 ## Contents
 
 - [Quick Start](#quick-start)
@@ -212,6 +214,8 @@ These are the first extensions to evaluate if you want broad value fast.
 ## Data
 
 The curated catalog lives in [`data/extensions.json`](data/extensions.json). It is intentionally small enough to review by hand and structured enough to validate in CI.
+
+Metadata such as stars, last pushed date, and maintenance status is a reviewed snapshot, not a live ranking. Each entry includes a `verified_at` date.
 
 Statuses mean:
 

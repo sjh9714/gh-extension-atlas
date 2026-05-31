@@ -49,6 +49,8 @@ After the repository is at least 30 days old:
 3. Confirm the license is detected as `CC0-1.0`.
 4. Confirm the list is not a duplicate of another awesome list; the atlas must keep its comparison and maintenance-angle differentiation.
 5. Prepare a short explanation of why this list is curated rather than a raw topic scrape.
+6. Decide whether a future `awesome-github-cli-extensions` slug is needed before submitting to `sindresorhus/awesome`.
+7. Remove the CI badge from the README before official Awesome submission if their review rules require it.
 
 ## Handling Suggestions
 

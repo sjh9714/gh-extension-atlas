@@ -4,13 +4,35 @@ Use these drafts to share the atlas without sounding like a billboard. Lead with
 
 ## Maintainer Verification
 
+Use this only when the target project has a suitable issue tracker, discussion space, or contact path. Personalize every message and include the exact atlas wording so the maintainer can answer quickly.
+
 ```text
-Hi! I included your GitHub CLI extension in the GitHub CLI Extension Atlas:
+Title: Accuracy check: {extension_name} description in GitHub CLI Extension Atlas
+
+Hi! I included `{repo}` in the GitHub CLI Extension Atlas:
 
 https://github.com/sjh9714/gh-extension-atlas
 
-I am trying to keep the descriptions factual and useful. If the summary, install command, category, or "best for" guidance is off, I would love a correction as an issue or PR.
+I am doing a small accuracy pass before sharing the atlas more widely. Current wording:
+
+- Category: `{category}`
+- Best for: `{best_for}`
+- Description: `{description}`
+- Maintenance label: `{status}`
+
+Could you sanity-check whether this is accurate?
+
+No action needed if it looks fine. If something is off, a short correction here is enough, or an issue/PR in the atlas repo also works.
+
+I am asking only for factual correction, not for stars or promotion.
 ```
+
+Guardrails:
+
+- Contact only the first-wave maintainers before broad sharing.
+- Do not send identical messages to all projects at once.
+- Do not ask maintainers for stars.
+- Do not open an issue if the project asks users not to use issues for this kind of contact.
 
 ## GitHub Discussions
 
