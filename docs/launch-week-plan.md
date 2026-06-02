@@ -20,10 +20,11 @@ The goal for the first week is simple: get the atlas in front of people who alre
 
 ## Day 3: Reddit
 
+- [ ] Proceed only after the Day 2 24-hour review shows no negative signal or pending corrections.
 - [ ] Post to r/commandline if the rules allow project/resource sharing.
-- [ ] Post to r/github only if the framing is clearly useful to GitHub users.
+- [ ] Do not post to r/github on the same day; hold it for a later decision.
 - [ ] Use the Reddit draft from the launch kit.
-- [ ] Avoid posting identical copy in both communities at the same time.
+- [ ] Keep the post focused on factual corrections and missing-extension suggestions.
 
 ## Day 4: Dev.to or Hashnode
 

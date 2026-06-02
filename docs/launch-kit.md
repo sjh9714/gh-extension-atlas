@@ -169,13 +169,19 @@ Feedback on missing extensions, inaccurate descriptions, or better categories wo
 ## Reddit
 
 ```text
+Title: I made a curated field guide for GitHub CLI extensions
+
 I made a curated field guide for GitHub CLI extensions:
 
 https://github.com/sjh9714/gh-extension-atlas
 
-It covers 67 extensions with install commands, maintenance labels, Top Picks, and comparison guides for dashboards, branch cleanup, notifications, Markdown preview, and Actions/CI.
+It is meant for the moment when `gh extension search` gives you many options, but you still need to decide what is actually worth installing.
 
-The goal is not to list everything with the `gh-extension` topic. It is to help people choose what to install faster. Corrections and missing-extension suggestions are welcome.
+The first version includes 67 curated extensions, Top Picks, use-case navigation, comparison guides, maintenance labels, and a small JSON catalog.
+
+The goal is not to list every repository with the `gh-extension` topic. It is to help people choose a useful extension faster.
+
+I am collecting factual corrections and missing-extension suggestions. Feedback on inaccurate descriptions, better categories, or useful extensions I missed would be welcome.
 ```
 
 ## Dev.to or Hashnode
