@@ -177,23 +177,115 @@ Reason: rules and tone risk; avoid over-promotion.
 ## Day 3 Article: Dev.to or Hashnode
 
 ```text
-Title: I made a field guide for GitHub CLI extensions
+Title: A Field Guide for Choosing GitHub CLI Extensions
 
-GitHub CLI has hundreds of public extensions, but choosing between them can be surprisingly hard. `gh extension search` helps you find candidates, but it does not explain which tools overlap, which ones are maintained, or which one to try first for a specific workflow.
+GitHub CLI has a healthy extension ecosystem, but choosing between extensions can still be surprisingly slow.
 
-I put together the GitHub CLI Extension Atlas:
+`gh extension search` helps you find candidates. What it does not tell you is whether two extensions solve the same problem, which one fits your workflow, which projects are still maintained, or which extension to try first when you just want a useful default.
+
+That is the problem I wanted to make easier, so I put together the GitHub CLI Extension Atlas:
 
 https://github.com/sjh9714/gh-extension-atlas
 
-The first version includes:
+It is a curated field guide for GitHub CLI extensions. The goal is not to mirror every repository with a `gh-extension` topic. The goal is to help GitHub CLI users make a faster, more informed first choice.
+
+## Why `gh extension search` was not enough
+
+Search is useful when you already know what you want. It is less helpful when your question is more like:
+
+- Which terminal dashboard should I try first?
+- Which branch cleanup extension is safer for my workflow?
+- Which tool helps with Markdown previews before I push docs?
+- Which Actions/CI extension is for migration, local runs, or workflow health?
+
+Those questions need context, not just a list of repositories.
+
+## What the atlas includes
+
+The first version of the atlas includes:
 
 - 67 curated extensions
 - Top Picks for broad daily value
 - use-case based navigation
 - comparison guides for dashboards, branch cleanup, notifications, Markdown preview, and Actions/CI
+- maintenance labels: active, watch, and stale
 - a small JSON catalog for validation and automation
 
-The project is intentionally conservative: archived repositories are excluded, status labels are visible, and Top Picks are manually install-checked. If you maintain a GitHub CLI extension or know one that belongs here, factual corrections and missing-extension suggestions are welcome.
+The README is the main interface, and `data/extensions.json` is kept as a small public data contract for people who want to inspect or automate against the catalog.
+
+## A few Top Picks
+
+These are examples of how the atlas tries to describe extensions by use case instead of only listing names.
+
+- `gh-dash` - a terminal dashboard for daily PR and issue triage.
+- `gh-poi` - branch cleanup when you want a safer default for removing merged branches.
+- `gh-markdown-preview` - GitHub-flavored Markdown preview before publishing README or docs changes.
+- `gh-pr-review` - inline PR review work from the terminal.
+- `gh-workflow-stats` - workflow success rate and duration summaries for CI debugging.
+
+Each entry includes the install command, best-fit use case, short rationale, and maintenance status.
+
+## Why comparison guides matter
+
+Some categories are hard to choose from because the tools look similar at first glance.
+
+The atlas includes comparison guides for:
+
+- Dashboard/TUI tools: https://github.com/sjh9714/gh-extension-atlas/blob/main/docs/comparisons/dashboards.md
+- Branch cleanup tools: https://github.com/sjh9714/gh-extension-atlas/blob/main/docs/comparisons/branch-cleanup.md
+- Actions and CI tools: https://github.com/sjh9714/gh-extension-atlas/blob/main/docs/comparisons/actions-ci.md
+
+The branch cleanup guide is a good example. `gh-poi`, `gh-branch`, `gh-clean-branches`, `gh-tidy`, and `gh-worktree` can all sound related, but they fit different habits and risk profiles.
+
+## Trust signals
+
+The project is intentionally conservative:
+
+- archived repositories are excluded
+- status labels are visible
+- Top Picks are manually install-checked
+- stars, last pushed dates, and status labels are treated as reviewed snapshots
+- `verified_at` is available in `data/extensions.json`
+
+The atlas is not a live ranking system and it is not a claim that every listed extension is right for every team. It is a starting point for choosing what to try.
+
+## What feedback would help
+
+I am looking for factual corrections more than promotion.
+
+Helpful feedback would be:
+
+- an inaccurate description
+- a wrong category
+- a misleading maintenance label
+- a better comparison between overlapping tools
+- a useful GitHub CLI extension I missed
+
+If you maintain a GitHub CLI extension and the atlas describes it poorly, a short correction is enough. Issues and pull requests are welcome too:
+
+https://github.com/sjh9714/gh-extension-atlas
+
+Note: I used AI assistance while organizing the launch plan, but the project metadata and article were reviewed before publishing.
+```
+
+## Hashnode Publish Checklist
+
+```text
+Primary channel: Hashnode
+
+Tags:
+- github
+- cli
+- opensource
+- terminal
+
+Before publishing:
+- Avoid "ultimate", "official", and "complete" in title or promotional framing.
+- Do not ask for stars.
+- Do not claim maintainer endorsement from thumbs-up reactions.
+- Keep the article framed as curated, conservative, and community-correctable.
+- Review every extension example and comparison link.
+- Keep the AI assistance note at the end.
 ```
 
 ## X or LinkedIn
