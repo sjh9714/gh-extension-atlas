@@ -10,9 +10,9 @@ This list keeps the first launch push focused and human. Do not mass-post. Start
 4. Send the next three maintainer verification requests only if the first two feel safe.
 5. Keep the remaining Top Picks for a second wave after corrections are handled.
 6. Share once in a GitHub CLI community space.
-7. Share in developer communities that like terminal workflows.
-8. Publish a short article only after maintainer corrections are handled.
-9. Post a concise social update and keep responding to feedback.
+7. Publish a short article only after maintainer corrections are handled.
+8. Review article feedback for 24 hours and fix factual corrections first.
+9. Post a concise social update only if there is no negative signal or pending correction.
 
 ## Top Picks Maintainer Targets
 
@@ -38,15 +38,20 @@ Hold these until after the first-wave response quality is reviewed.
 | `gh-s`      | [gennaro-tedesco/gh-s](https://github.com/gennaro-tedesco/gh-s)           | Verify repository search wording.             |
 | `gh-notify` | [meiji163/gh-notify](https://github.com/meiji163/gh-notify)               | Verify notification workflow wording.         |
 
-## Community Targets
+## Active Community Targets
 
 | Channel                | Fit                                                                                | Draft                                                                      |
 | ---------------------- | ---------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
 | GitHub CLI Discussions | Highest relevance if there is an appropriate showcase or extension-related thread. | Use the GitHub Discussions draft in [`docs/launch-kit.md`](launch-kit.md). |
-| r/commandline          | Strong fit for terminal workflow users.                                            | Use the Reddit draft and emphasize comparison guides.                      |
-| r/github               | Good fit if framed as a GitHub CLI resource, not generic self-promotion.           | Use the Reddit draft and invite missing-extension suggestions.             |
 | Dev.to or Hashnode     | Good for a fuller explanation and search traffic.                                  | Use the article draft.                                                     |
 | X or LinkedIn          | Good for a short launch note and follow-up thread.                                 | Use the short social draft.                                                |
+
+## Parked Community Targets
+
+| Channel       | Status      | Reason                                           |
+| ------------- | ----------- | ------------------------------------------------ |
+| r/commandline | Not planned | Rules and tone risk; avoid over-promotion.       |
+| r/github      | Not planned | Avoid over-posting and generic self-promotion.   |
 
 ## Avoid
 

@@ -166,25 +166,15 @@ It is meant for the moment when `gh extension search` gives you many options, bu
 Feedback on missing extensions, inaccurate descriptions, or better categories would be very welcome.
 ```
 
-## Reddit
+## Parked / Not Planned: Reddit
 
 ```text
-Title: I made a curated field guide for GitHub CLI extensions
+Reddit is not planned for this launch loop.
 
-I made a curated field guide for GitHub CLI extensions:
-
-https://github.com/sjh9714/gh-extension-atlas
-
-It is meant for the moment when `gh extension search` gives you many options, but you still need to decide what is actually worth installing.
-
-The first version includes 67 curated extensions, Top Picks, use-case navigation, comparison guides, maintenance labels, and a small JSON catalog.
-
-The goal is not to list every repository with the `gh-extension` topic. It is to help people choose a useful extension faster.
-
-I am collecting factual corrections and missing-extension suggestions. Feedback on inaccurate descriptions, better categories, or useful extensions I missed would be welcome.
+Reason: rules and tone risk; avoid over-promotion.
 ```
 
-## Dev.to or Hashnode
+## Day 3 Article: Dev.to or Hashnode
 
 ```text
 Title: I made a field guide for GitHub CLI extensions
@@ -203,7 +193,7 @@ The first version includes:
 - comparison guides for dashboards, branch cleanup, notifications, Markdown preview, and Actions/CI
 - a small JSON catalog for validation and automation
 
-The project is intentionally conservative: archived repositories are excluded, status labels are visible, and Top Picks are manually install-checked. If you maintain a GitHub CLI extension or know one that belongs here, corrections and PRs are welcome.
+The project is intentionally conservative: archived repositories are excluded, status labels are visible, and Top Picks are manually install-checked. If you maintain a GitHub CLI extension or know one that belongs here, factual corrections and missing-extension suggestions are welcome.
 ```
 
 ## X or LinkedIn
@@ -218,8 +208,8 @@ https://github.com/sjh9714/gh-extension-atlas
 Useful if `gh extension search` gives you options but not a clear first pick.
 ```
 
-## Short Ask
+## Correction Ask
 
 ```text
-If this saves you a few minutes choosing a GitHub CLI extension, a star helps other `gh` users find it too.
+If a description, category, maintenance label, or comparison is misleading, a correction would help keep the atlas useful.
 ```

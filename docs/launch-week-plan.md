@@ -18,27 +18,28 @@ The goal for the first week is simple: get the atlas in front of people who alre
 - [ ] Ask for missing extensions and inaccurate descriptions.
 - [ ] Reply to feedback within 24 hours.
 
-## Day 3: Reddit
+## Day 3: Article-First Share
 
 - [ ] Proceed only after the Day 2 24-hour review shows no negative signal or pending corrections.
-- [ ] Post to r/commandline if the rules allow project/resource sharing.
-- [ ] Do not post to r/github on the same day; hold it for a later decision.
-- [ ] Use the Reddit draft from the launch kit.
-- [ ] Keep the post focused on factual corrections and missing-extension suggestions.
+- [ ] Skip Reddit for this launch loop because of rules and tone risk.
+- [ ] Publish the Dev.to or Hashnode article draft from the launch kit.
+- [ ] Keep the article focused on GitHub CLI extension selection, comparison guides, and missing-extension suggestions.
+- [ ] Do not ask for stars.
 
-## Day 4: Dev.to or Hashnode
+## Day 4: Article Response Review
 
-- [ ] Publish the article draft from the launch kit.
-- [ ] Include concrete examples of choosing between overlapping extensions.
-- [ ] Link back to the comparison guides, not only the README.
-- [ ] Invite corrections from extension maintainers.
+- [ ] Wait 24 hours after the article before another public share.
+- [ ] Review article comments, GitHub issues, maintainer replies, and repository metrics.
+- [ ] Fix factual corrections before any new outreach.
+- [ ] Track missing-extension suggestions as issues when they need review.
 
 ## Day 5: X or LinkedIn
 
-- [ ] Post the short social draft from the launch kit.
+- [ ] Decide whether a short social share is still appropriate after the article response review.
+- [ ] Post the short social draft from the launch kit only if there is no negative signal or pending correction.
 - [ ] Add one reply/comment with the Top Picks list.
 - [ ] Add one reply/comment with the comparison guides.
-- [ ] Keep the star ask restrained.
+- [ ] Do not ask for stars.
 
 ## Day 6: Feedback Pass
 
