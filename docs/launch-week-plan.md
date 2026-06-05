@@ -33,12 +33,12 @@ The goal for the first week is simple: get the atlas in front of people who alre
 - [ ] Fix factual corrections before any new outreach.
 - [ ] Track missing-extension suggestions as issues when they need review.
 
-## Day 5: X or LinkedIn
+## Day 5: X Single Post
 
-- [ ] Decide whether a short social share is still appropriate after the article response review.
-- [ ] Post the short social draft from the launch kit only if there is no negative signal or pending correction.
-- [ ] Add one reply/comment with the Top Picks list.
-- [ ] Add one reply/comment with the comparison guides.
+- [ ] Decide whether a short X share is still appropriate after the article response review.
+- [ ] Post the X draft from the launch kit only if there is no negative signal or pending correction.
+- [ ] Use the repository link only.
+- [ ] Do not post a thread or follow-up reply today.
 - [ ] Do not ask for stars.
 
 ## Day 6: Feedback Pass

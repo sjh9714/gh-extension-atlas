@@ -288,16 +288,16 @@ Before publishing:
 - Keep the AI assistance note at the end.
 ```
 
-## X or LinkedIn
+## X Single Post
 
 ```text
 I made a curated field guide for GitHub CLI extensions:
 
 https://github.com/sjh9714/gh-extension-atlas
 
-67 extensions, Top Picks, maintenance labels, comparison guides, and a tiny JSON catalog.
+67 curated extensions, Top Picks, comparison guides, maintenance labels, and a JSON catalog.
 
-Useful if `gh extension search` gives you options but not a clear first pick.
+Useful when `gh extension search` gives too many options. Corrections welcome.
 ```
 
 ## Correction Ask
