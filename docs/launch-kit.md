@@ -143,8 +143,8 @@ https://github.com/sjh9714/gh-extension-atlas
 I am doing a small accuracy pass before sharing the atlas more widely. Current wording:
 
 - Category: `Dashboard/TUI`
-- Best for: `Daily PR and issue triage`
-- Description: `Turns scattered GitHub work into a fast terminal dashboard.`
+- Best for: `Daily GitHub triage`
+- Description: `Turns PRs, issues, and notifications into a fast terminal dashboard.`
 - Maintenance label: `active`
 
 Could you sanity-check whether this is accurate?
@@ -217,7 +217,7 @@ The README is the main interface, and `data/extensions.json` is kept as a small 
 
 These are examples of how the atlas tries to describe extensions by use case instead of only listing names.
 
-- `gh-dash` - a terminal dashboard for daily PR and issue triage.
+- `gh-dash` - a terminal dashboard for daily PR, issue, and notification triage.
 - `gh-poi` - branch cleanup when you want a safer default for removing merged branches.
 - `gh-markdown-preview` - GitHub-flavored Markdown preview before publishing README or docs changes.
 - `gh-pr-review` - inline PR review work from the terminal.

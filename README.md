@@ -77,7 +77,7 @@ These are the first extensions to evaluate if you want broad value fast.
 
 | Extension             | Install                                             | Best for                  | Why it matters                                                               | Status |
 | --------------------- | --------------------------------------------------- | ------------------------- | ---------------------------------------------------------------------------- | ------ |
-| `gh-dash`             | `gh extension install dlvhdr/gh-dash`               | Daily PR and issue triage | Turns scattered GitHub work into a fast terminal dashboard.                  | active |
+| `gh-dash`             | `gh extension install dlvhdr/gh-dash`               | Daily GitHub triage       | Turns PRs, issues, and notifications into a fast terminal dashboard.         | active |
 | `gh-aw`               | `gh extension install github/gh-aw`                 | Agentic workflows         | Official GitHub project for running agent workflows from the CLI.            | active |
 | `gh-stack`            | `gh extension install github/gh-stack`              | Stacked pull requests     | Gives teams a GitHub-native way to manage dependent PRs.                     | active |
 | `gh-poi`              | `gh extension install seachicken/gh-poi`            | Branch cleanup            | Safely removes merged branches without making you inspect every ref by hand. | active |
@@ -90,15 +90,15 @@ These are the first extensions to evaluate if you want broad value fast.
 
 ## Find by Use Case
 
-| If you need to...                     | Start with                                  |
-| ------------------------------------- | ------------------------------------------- |
-| See all your review work in one place | `gh-dash`, `gh-pr-review`, `gh-stack`       |
-| Clean local Git state                 | `gh-poi`, `gh-branch`, `gh-tidy`            |
-| Inspect CI and Actions usage          | `gh-signoff`, `gh-workflow-stats`, `gh-act` |
-| Search repositories, code, or stars   | `gh-s`, `gh-grep`, `gh-find-code`           |
-| Reduce notification noise             | `gh-notify`, `gh-not`, `gh-gonest`          |
-| Check security or admin posture       | `gh-sbom`, `gh-token`, `gh-codeql`          |
-| Try AI and agent workflows            | `gh-aw`, `gh-models`, `gh-mcp`              |
+| If you need to...                     | Start with                                             |
+| ------------------------------------- | ------------------------------------------------------ |
+| See all your review work in one place | `gh-dash`, `gh-pr-review`, `gh-stack`                  |
+| Clean local Git state                 | `gh-poi`, `gh-branch`, `gh-tidy`                       |
+| Inspect CI and Actions usage          | `gh-signoff`, `gh-workflow-stats`, `gh-act`            |
+| Search repositories, code, or stars   | `gh-s`, `gh-grep`, `gh-find-code`                      |
+| Reduce notification noise             | `gh-dash`, `gh-notify`, `gh-not`, `gh-gonest`          |
+| Check security or admin posture       | `gh-sbom`, `gh-token`, `gh-codeql`                     |
+| Try AI and agent workflows            | `gh-aw`, `gh-models`, `gh-mcp`                         |
 
 ## Comparison Guides
 
@@ -112,16 +112,16 @@ These are the first extensions to evaluate if you want broad value fast.
 
 ## Dashboard/TUI
 
-| Extension                                                              | Install                                             | Best for                          | Why it matters                                                     | Status |
-| ---------------------------------------------------------------------- | --------------------------------------------------- | --------------------------------- | ------------------------------------------------------------------ | ------ |
-| [gh-dash](https://github.com/dlvhdr/gh-dash)                           | `gh extension install dlvhdr/gh-dash`               | PR and issue dashboards           | Gives maintainers a fast terminal cockpit for review queues.       | active |
-| [gh-skyline](https://github.com/github/gh-skyline)                     | `gh extension install github/gh-skyline`            | Contribution visualization        | Creates a 3D model of contribution history for demos and profiles. | active |
-| [gh-markdown-preview](https://github.com/yusukebe/gh-markdown-preview) | `gh extension install yusukebe/gh-markdown-preview` | GitHub-flavored Markdown previews | Catches README rendering issues before publishing.                 | active |
-| [gh-eco](https://github.com/jrnxf/gh-eco)                              | `gh extension install jrnxf/gh-eco`                 | Ecosystem exploration             | Provides an exploratory view of GitHub profiles and projects.      | watch  |
-| [gh-lazy](https://github.com/gizmo385/gh-lazy)                         | `gh extension install gizmo385/gh-lazy`             | Terminal GitHub browsing          | Offers a TUI for interacting with GitHub resources.                | active |
-| [gh-graph](https://github.com/kawarimidoll/gh-graph)                   | `gh extension install kawarimidoll/gh-graph`        | Contribution graph views          | Brings contribution graph feedback into the terminal.              | active |
-| [gh-contrib](https://github.com/mislav/gh-contrib)                     | `gh extension install mislav/gh-contrib`            | Lightweight contribution graphs   | Renders contribution history without a browser.                    | active |
-| [gh-gfm-preview](https://github.com/thiagokokada/gh-gfm-preview)       | `gh extension install thiagokokada/gh-gfm-preview`  | Offline Markdown preview          | Provides a standalone GitHub-flavored Markdown preview path.       | active |
+| Extension                                                              | Install                                             | Best for                               | Why it matters                                                       | Status |
+| ---------------------------------------------------------------------- | --------------------------------------------------- | -------------------------------------- | -------------------------------------------------------------------- | ------ |
+| [gh-dash](https://github.com/dlvhdr/gh-dash)                           | `gh extension install dlvhdr/gh-dash`               | PR, issue, and notification dashboards | Gives maintainers a fast terminal cockpit for GitHub triage queues.  | active |
+| [gh-skyline](https://github.com/github/gh-skyline)                     | `gh extension install github/gh-skyline`            | Contribution visualization             | Creates a 3D model of contribution history for demos and profiles.   | active |
+| [gh-markdown-preview](https://github.com/yusukebe/gh-markdown-preview) | `gh extension install yusukebe/gh-markdown-preview` | GitHub-flavored Markdown previews      | Catches README rendering issues before publishing.                   | active |
+| [gh-eco](https://github.com/jrnxf/gh-eco)                              | `gh extension install jrnxf/gh-eco`                 | Ecosystem exploration                  | Provides an exploratory view of GitHub profiles and projects.        | watch  |
+| [gh-lazy](https://github.com/gizmo385/gh-lazy)                         | `gh extension install gizmo385/gh-lazy`             | Terminal GitHub browsing               | Offers a TUI for interacting with GitHub resources.                  | active |
+| [gh-graph](https://github.com/kawarimidoll/gh-graph)                   | `gh extension install kawarimidoll/gh-graph`        | Contribution graph views               | Brings contribution graph feedback into the terminal.                | active |
+| [gh-contrib](https://github.com/mislav/gh-contrib)                     | `gh extension install mislav/gh-contrib`            | Lightweight contribution graphs        | Renders contribution history without a browser.                      | active |
+| [gh-gfm-preview](https://github.com/thiagokokada/gh-gfm-preview)       | `gh extension install thiagokokada/gh-gfm-preview`  | Offline Markdown preview               | Provides a standalone GitHub-flavored Markdown preview path.         | active |
 
 ## PR & Issues
 
