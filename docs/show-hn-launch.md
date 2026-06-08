@@ -18,7 +18,7 @@ After the preflight passes, open the `HN submitlink` URL printed by `npm run lau
 Title:
 
 ```text
-Show HN: GitHub CLI Extension Atlas - audit and choose gh extensions
+Show HN: Audit your installed GitHub CLI extensions
 ```
 
 URL:

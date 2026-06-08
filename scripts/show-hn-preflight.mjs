@@ -3,7 +3,7 @@ import { execFileSync } from "node:child_process";
 const repo = "sjh9714/gh-extension-atlas";
 const guardrailAt = new Date("2026-06-09T15:10:00Z");
 const auditUrl = "https://sjh9714.github.io/gh-extension-atlas/audit.html?demo=1";
-const submissionTitle = "Show HN: GitHub CLI Extension Atlas - audit and choose gh extensions";
+const submissionTitle = "Show HN: Audit your installed GitHub CLI extensions";
 const hnSearchBaseUrl = "https://hn.algolia.com/api/v1/search";
 
 const failures = [];
