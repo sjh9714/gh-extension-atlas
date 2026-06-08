@@ -1,7 +1,7 @@
 # Awesome GitHub CLI Extension Atlas [![Awesome](https://awesome.re/badge.svg)](https://awesome.re)
 
 [![Validate](https://github.com/sjh9714/gh-extension-atlas/actions/workflows/validate.yml/badge.svg)](https://github.com/sjh9714/gh-extension-atlas/actions/workflows/validate.yml)
-[![Release](https://img.shields.io/github/v/release/sjh9714/gh-extension-atlas?sort=semver)](https://github.com/sjh9714/gh-extension-atlas/releases/tag/v0.1.0)
+[![Release](https://img.shields.io/github/v/release/sjh9714/gh-extension-atlas?sort=semver)](https://github.com/sjh9714/gh-extension-atlas/releases/latest)
 [![License: CC0-1.0](https://img.shields.io/badge/license-CC0--1.0-lightgrey.svg)](LICENSE)
 ![Extensions: 68](https://img.shields.io/badge/extensions-68-blue.svg)
 
