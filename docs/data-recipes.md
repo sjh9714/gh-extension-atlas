@@ -94,6 +94,28 @@ Return structured JSON for another tool:
 npm --silent run catalog:compare -- gh-s gh-grep gh-find-code --format json
 ```
 
+## Audit Installed Extensions
+
+Use `catalog:audit-installed` when you want to compare your current `gh extension list` output with the atlas.
+
+Audit locally installed extensions:
+
+```sh
+npm --silent run catalog:audit-installed
+```
+
+Pipe saved or live extension output into the audit:
+
+```sh
+gh extension list | npm --silent run catalog:audit-installed -- --stdin
+```
+
+Print install commands for missing Top Picks from a demo list:
+
+```sh
+npm --silent run catalog:audit-installed -- --demo --format install
+```
+
 ## Use the Public API
 
 Inspect the endpoint manifest:

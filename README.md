@@ -132,6 +132,12 @@ Want to compare a few overlapping choices?
 npm --silent run catalog:compare -- gh-dash gh-notify gh-pr-review
 ```
 
+Want to audit the extensions you already have installed?
+
+```sh
+npm --silent run catalog:audit-installed
+```
+
 ## Starter Packs
 
 Use the [starter packs](docs/starter-packs.md) when you want a small install sequence for a specific workflow instead of browsing the full catalog.
@@ -481,6 +487,12 @@ Or ask the catalog for a small workflow recommendation:
 
 ```sh
 npm --silent run catalog:recommend -- --workflow notifications --format install
+```
+
+Or compare your installed extensions against the atlas:
+
+```sh
+gh extension list | npm --silent run catalog:audit-installed -- --stdin
 ```
 
 ## Maintainer Badges

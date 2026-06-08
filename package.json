@@ -12,13 +12,15 @@
     "catalog:recommend:check": "node scripts/recommend.mjs --list > /dev/null && node scripts/recommend.mjs --workflow actions > /dev/null && node scripts/recommend.mjs --workflow notifications --format install > /dev/null && node scripts/recommend.mjs --workflow security --format json > /dev/null",
     "catalog:compare": "node scripts/compare-catalog.mjs",
     "catalog:compare:check": "node scripts/compare-catalog.mjs gh-dash gh-notify > /dev/null && node scripts/compare-catalog.mjs dlvhdr/gh-enhance fchimpan/gh-workflow-stats --format json > /dev/null && node scripts/compare-catalog.mjs gh-poi gh-branch --format install > /dev/null",
+    "catalog:audit-installed": "node scripts/audit-installed.mjs",
+    "catalog:audit-installed:check": "node scripts/audit-installed.mjs --demo > /dev/null && node scripts/audit-installed.mjs --demo --format json > /dev/null && node scripts/audit-installed.mjs --demo --format install > /dev/null",
     "metadata:audit": "node scripts/audit-metadata.mjs",
     "site:build": "node scripts/build-catalog-site.mjs",
     "site:check": "node scripts/build-catalog-site.mjs --check",
     "summary:weekly": "node scripts/weekly-summary.mjs",
     "lint:awesome": "node scripts/run-awesome-lint.mjs",
     "lint:awesome:strict": "npx --yes awesome-lint README.md",
-    "test": "npm run validate:data && npm run catalog:recommend:check && npm run catalog:compare:check && npm run site:check && npm run check:links && npm run lint:awesome"
+    "test": "npm run validate:data && npm run catalog:recommend:check && npm run catalog:compare:check && npm run catalog:audit-installed:check && npm run site:check && npm run check:links && npm run lint:awesome"
   },
   "license": "CC0-1.0"
 }
