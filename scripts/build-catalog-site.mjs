@@ -20,10 +20,48 @@ const categoryDescriptions = {
 const workflowGuides = {
   "Actions/CI": {
     title: "GitHub Actions CLI extension guide",
-    path: "guides/github-actions-extensions.md",
+    path: "guides/github-actions-extensions.html",
+    sourcePath: "guides/github-actions-extensions.md",
     summary: "Choose an Actions TUI, local runner, migration, or workflow health extension.",
   },
 };
+const actionsGuideRows = [
+  {
+    need: "Inspect and manage workflows interactively",
+    repo: "dlvhdr/gh-enhance",
+    why: "A focused terminal UI for GitHub Actions workflows.",
+  },
+  {
+    need: "Understand workflow health over time",
+    repo: "fchimpan/gh-workflow-stats",
+    why: "Summarizes workflow and job success rate and execution time.",
+  },
+  {
+    need: "Run project checks before pushing",
+    repo: "basecamp/gh-signoff",
+    why: "Gives teams a repeatable local signoff step.",
+  },
+  {
+    need: "Test Actions locally",
+    repo: "nektos/gh-act",
+    why: "Wraps local GitHub Actions execution through the GitHub CLI.",
+  },
+  {
+    need: "Migrate another CI system into Actions",
+    repo: "github/gh-actions-importer",
+    why: "Built for CI migration planning and automation.",
+  },
+  {
+    need: "Reduce runner cost",
+    repo: "fchimpan/gh-slimify",
+    why: "Looks for workflows that can move to slimmer GitHub-hosted runners.",
+  },
+  {
+    need: "Check organization-wide Actions status",
+    repo: "rsese/gh-actions-status",
+    why: "Targets organization-level Actions reporting; verify compatibility because it is stale.",
+  },
+];
 const topPickRepos = [
   "dlvhdr/gh-dash",
   "github/gh-aw",
@@ -66,6 +104,10 @@ const categoryPageFiles = categories.map((category) => ({
   path: `docs/${categoryPagePath(category)}`,
   content: renderCategoryPage(category, entries.filter((entry) => entry.category === category)),
 }));
+const guidePageFiles = Object.entries(workflowGuides).map(([category, guide]) => ({
+  path: `docs/${guide.path}`,
+  content: renderWorkflowGuidePage(category, guide, entries.filter((entry) => entry.category === category)),
+}));
 const endpointFiles = [
   { path: "docs/api/index.json", content: renderJson(renderApiIndex(entries)) },
   { path: "docs/api/extensions.json", content: renderJson(stableEntries(entries)) },
@@ -92,6 +134,7 @@ const generatedFiles = [
   { path: "docs/sitemap.xml", content: renderSitemapXml(entries) },
   { path: "docs/social-card.svg", content: renderSocialCard(entries) },
   ...categoryPageFiles,
+  ...guidePageFiles,
   ...endpointFiles,
 ];
 
@@ -1443,6 +1486,333 @@ function renderCategoryPage(category, items) {
 `;
 }
 
+function renderWorkflowGuidePage(category, guide, items) {
+  const sortedItems = [...items].sort(categorySort);
+  const generatedAt = latestVerifiedAt(sortedItems);
+  const pageUrl = `${siteUrl}${guide.path}`;
+  const categoryUrl = `${siteUrl}${categoryPagePath(category)}`;
+  const catalogUrl = `${siteUrl}?category=${encodeURIComponent(category)}`;
+  const starterPackCommands = getStarterPackEntries(starterPacks.find((pack) => pack.name === "GitHub Actions Operator"), entries)
+    .map((entry) => entry.install)
+    .join("\n");
+
+  return `<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GitHub Actions CLI Extension Guide | GitHub CLI Extension Atlas</title>
+  <meta name="description" content="${escapeAttribute(guide.summary)}">
+  <meta property="og:title" content="GitHub Actions CLI Extension Guide">
+  <meta property="og:description" content="${escapeAttribute(guide.summary)}">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="${pageUrl}">
+  <meta property="og:image" content="${socialImageUrl}">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="GitHub Actions CLI Extension Guide">
+  <meta name="twitter:description" content="${escapeAttribute(guide.summary)}">
+  <meta name="twitter:image" content="${socialImageUrl}">
+  <link rel="canonical" href="${pageUrl}">
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f7f8fa;
+      --panel: #ffffff;
+      --text: #1f2328;
+      --muted: #656d76;
+      --border: #d0d7de;
+      --accent: #0969da;
+      --accent-soft: #ddf4ff;
+      --good: #1a7f37;
+      --warn: #9a6700;
+      --stale: #8250df;
+      --shadow: 0 1px 2px rgba(31, 35, 40, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font: 15px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    header {
+      background: var(--panel);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .wrap {
+      width: min(1080px, calc(100vw - 32px));
+      margin: 0 auto;
+    }
+
+    .header-inner {
+      display: grid;
+      gap: 13px;
+      padding: 30px 0 24px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(30px, 4vw, 44px);
+      line-height: 1.1;
+      letter-spacing: 0;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 20px;
+      line-height: 1.25;
+      letter-spacing: 0;
+    }
+
+    p {
+      margin: 0;
+    }
+
+    .lead {
+      max-width: 800px;
+      color: var(--muted);
+      font-size: 17px;
+    }
+
+    .meta,
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 3px 10px;
+      background: var(--panel);
+      color: var(--muted);
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    main {
+      display: grid;
+      gap: 14px;
+      padding: 20px 0 42px;
+    }
+
+    .panel,
+    .table-wrap {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+    }
+
+    .panel {
+      display: grid;
+      gap: 11px;
+      padding: 16px;
+    }
+
+    .panel p,
+    .muted {
+      color: var(--muted);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .tool-card {
+      display: grid;
+      gap: 7px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px;
+      background: var(--panel);
+    }
+
+    .table-wrap {
+      overflow: auto;
+    }
+
+    table {
+      width: 100%;
+      min-width: 900px;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      padding: 11px 12px;
+      border-bottom: 1px solid var(--border);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: #f6f8fa;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    tr:last-child td {
+      border-bottom: 0;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    code {
+      font: 13px/1.45 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+
+    pre {
+      margin: 0;
+      overflow: auto;
+      border-radius: 6px;
+      padding: 10px;
+      background: #f6f8fa;
+    }
+
+    .repo {
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      min-height: 24px;
+      border-radius: 999px;
+      padding: 2px 9px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .status.active {
+      background: #dafbe1;
+      color: var(--good);
+    }
+
+    .status.watch {
+      background: #fff8c5;
+      color: var(--warn);
+    }
+
+    .status.stale {
+      background: #fbefff;
+      color: var(--stale);
+    }
+
+    @media (max-width: 760px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap header-inner">
+      <h1>${escapeHtml(guide.title)}</h1>
+      <p class="lead">Choose a GitHub Actions TUI, local runner, migration helper, workflow health reporter, or runner cost tool without installing every extension first.</p>
+      <div class="meta">
+        <span class="pill">${sortedItems.length} Actions/CI extensions</span>
+        <span class="pill">${sortedItems.filter((entry) => entry.status === "active").length} active</span>
+        <span class="pill">Reviewed ${escapeHtml(generatedAt)}</span>
+      </div>
+      <div class="actions">
+        <a href="../">Searchable catalog</a>
+        <a href="../categories/actions-ci.html">Actions/CI category</a>
+        <a href="../api/categories/actions-ci.json">Category JSON</a>
+        <a href="../${escapeAttribute(guide.sourcePath)}">Markdown source</a>
+        <a href="https://github.com/sjh9714/gh-extension-atlas#readme">README</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="panel">
+      <h2>Start Here</h2>
+      <p class="muted">Use the table as a quick chooser. The goal is not to rank every Actions extension; it is to pick the first useful tool for the specific CI problem in front of you.</p>
+    </section>
+
+    <section class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>If you need to...</th>
+            <th>Start with</th>
+            <th>Why</th>
+            <th>Status</th>
+            <th>Install</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${actionsGuideRows.map((row) => actionsGuideRowHtml(row)).join("\n          ")}
+        </tbody>
+      </table>
+    </section>
+
+    <section class="panel">
+      <h2>First Picks</h2>
+      <div class="grid">
+        ${toolCard("dlvhdr/gh-enhance", "Interactive workflow triage")}
+        ${toolCard("fchimpan/gh-workflow-stats", "Workflow health patterns")}
+        ${toolCard("basecamp/gh-signoff", "Local signoff before CI")}
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Local Checks And Operations</h2>
+      <p class="muted">Use local runners for fast feedback, not as a perfect replacement for GitHub-hosted runners. Runner images, permissions, secrets, service containers, and network access can still differ.</p>
+      <div class="grid">
+        ${toolCard("nektos/gh-act", "Local Actions runs")}
+        ${toolCard("github/gh-actions-importer", "CI migration projects")}
+        ${toolCard("fchimpan/gh-slimify", "Runner cost review")}
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Starter Pack</h2>
+      <p class="muted">Review the commands before installing. Do not pipe install bundles directly into a shell.</p>
+      <pre><code>${escapeHtml(starterPackCommands)}</code></pre>
+      <div class="actions">
+        <a href="../install/starter-packs/github-actions-operator.txt">Starter pack TXT</a>
+        <a href="${escapeAttribute(categoryUrl)}">Actions/CI page</a>
+        <a href="${escapeAttribute(catalogUrl)}">Open filtered catalog</a>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Freshness Notes</h2>
+      <p class="muted">The atlas is a reviewed snapshot, not a live ranking. Recheck upstream repositories before adopting a tool for production workflows, especially when the extension will touch CI secrets, workflow permissions, or release automation.</p>
+    </section>
+  </main>
+</body>
+</html>
+`;
+}
+
 function renderSitemapXml(items) {
   const lastmod = latestVerifiedAt(items);
   const guideUrls = Object.values(workflowGuides)
@@ -1509,6 +1879,27 @@ function socialMetric(x, y, value, label) {
   </g>`;
 }
 
+function actionsGuideRowHtml(row) {
+  const entry = getEntryByRepo(row.repo);
+  return `<tr>
+            <td>${escapeHtml(row.need)}</td>
+            <td><a class="repo" href="https://github.com/${escapeAttribute(entry.repo)}">${escapeHtml(entry.name)}</a><br><span class="muted">${escapeHtml(entry.summary)}</span></td>
+            <td>${escapeHtml(row.why)}</td>
+            <td><span class="status ${entry.status}">${entry.status}</span></td>
+            <td><code>${escapeHtml(entry.install)}</code></td>
+          </tr>`;
+}
+
+function toolCard(repo, label) {
+  const entry = getEntryByRepo(repo);
+  return `<article class="tool-card">
+          <strong><a href="https://github.com/${escapeAttribute(entry.repo)}">${escapeHtml(entry.name)}</a></strong>
+          <span class="muted">${escapeHtml(label)}</span>
+          <span>${escapeHtml(entry.best_for)}</span>
+          <code>${escapeHtml(entry.install)}</code>
+        </article>`;
+}
+
 function categoryRowHtml(entry) {
   return `<tr>
             <td><a class="repo" href="https://github.com/${escapeAttribute(entry.repo)}">${escapeHtml(entry.repo)}</a><br><span>${escapeHtml(entry.summary)}</span></td>
@@ -1517,6 +1908,15 @@ function categoryRowHtml(entry) {
             <td>${entry.stars.toLocaleString()}</td>
             <td><code>${escapeHtml(entry.install)}</code></td>
           </tr>`;
+}
+
+function getEntryByRepo(repo) {
+  const entry = entries.find((candidate) => candidate.repo === repo);
+  if (!entry) {
+    throw new Error(`Missing catalog entry for ${repo}`);
+  }
+
+  return entry;
 }
 
 function categorySort(a, b) {

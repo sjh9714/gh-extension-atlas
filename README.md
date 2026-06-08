@@ -151,9 +151,11 @@ These are the first extensions to evaluate if you want broad value fast.
 
 ## Workflow Guides
 
-| Guide                                                                          | Use this when...                                                                          |
-| ------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------- |
-| [GitHub Actions CLI extension guide](docs/guides/github-actions-extensions.md) | You want to choose an Actions TUI, local runner, migration, or workflow health extension. |
+| Guide                                               | Use this when...                                                                          |
+| --------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| [GitHub Actions CLI extension guide][guide-actions] | You want to choose an Actions TUI, local runner, migration, or workflow health extension. |
+
+[guide-actions]: https://sjh9714.github.io/gh-extension-atlas/guides/github-actions-extensions.html
 
 ## Catalog Browser
 

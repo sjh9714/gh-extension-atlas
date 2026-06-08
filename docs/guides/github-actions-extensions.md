@@ -2,6 +2,8 @@
 
 Use this guide when `gh workflow list`, `gh run list`, or the GitHub Actions web UI tells you what happened, but you still need a faster way to choose the right terminal workflow.
 
+Readable HTML version: https://sjh9714.github.io/gh-extension-atlas/guides/github-actions-extensions.html
+
 The short version:
 
 | If you need to... | Start with | Why |
