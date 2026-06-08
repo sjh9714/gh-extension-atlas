@@ -17,6 +17,13 @@ const categoryDescriptions = {
   "Search": "Search repositories, code, stars, and GitHub resources from the command line.",
   "Security/Admin": "Generate SBOMs, inspect security posture, manage tokens, and support admin workflows.",
 };
+const workflowGuides = {
+  "Actions/CI": {
+    title: "GitHub Actions CLI extension guide",
+    path: "guides/github-actions-extensions.md",
+    summary: "Choose an Actions TUI, local runner, migration, or workflow health extension.",
+  },
+};
 const topPickRepos = [
   "dlvhdr/gh-dash",
   "github/gh-aw",
@@ -1122,6 +1129,20 @@ function renderCategoryPage(category, items) {
   const catalogUrl = `${siteUrl}?category=${encodeURIComponent(category)}`;
   const slug = categorySlug(category);
   const commands = sortedItems.map((entry) => entry.install).join("\n");
+  const guide = workflowGuides[category];
+  const guidePath = guide ? `../${guide.path}` : "";
+  const guideHeaderLink = guide ? `
+        <a href="${escapeAttribute(guidePath)}">Workflow guide</a>` : "";
+  const guidePanel = guide
+    ? `
+    <section class="panel">
+      <strong>${escapeHtml(guide.title)}</strong>
+      <p>${escapeHtml(guide.summary)}</p>
+      <div class="actions">
+        <a href="${escapeAttribute(guidePath)}">Read the workflow guide</a>
+      </div>
+    </section>`
+    : "";
 
   return `<!doctype html>
 <html lang="en">
@@ -1354,7 +1375,7 @@ function renderCategoryPage(category, items) {
         <a href="../">Searchable catalog</a>
         <a href="${escapeAttribute(catalogUrl)}">Open this category with filters</a>
         <a href="../api/categories/${escapeAttribute(slug)}.json">Category JSON</a>
-        <a href="../install/categories/${escapeAttribute(slug)}.txt">Install commands TXT</a>
+        <a href="../install/categories/${escapeAttribute(slug)}.txt">Install commands TXT</a>${guideHeaderLink}
         <a href="https://github.com/sjh9714/gh-extension-atlas#readme">README</a>
       </div>
     </div>
@@ -1367,7 +1388,7 @@ function renderCategoryPage(category, items) {
         <button type="button" id="copy-category-installs" data-install-all="${escapeAttribute(commands).replaceAll("\n", "&#10;")}">Copy all ${sortedItems.length} install commands</button>
         <span class="hint" id="copy-feedback" aria-live="polite"></span>
       </div>
-    </section>
+    </section>${guidePanel}
 
     <section class="table-wrap">
       <table>
@@ -1424,6 +1445,14 @@ function renderCategoryPage(category, items) {
 
 function renderSitemapXml(items) {
   const lastmod = latestVerifiedAt(items);
+  const guideUrls = Object.values(workflowGuides)
+    .map((guide) => `  <url>
+    <loc>${siteUrl}${guide.path}</loc>
+    <lastmod>${escapeHtml(lastmod)}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>`)
+    .join("\n");
   const categoryUrls = unique(items.map((entry) => entry.category))
     .map((category) => `  <url>
     <loc>${siteUrl}${categoryPagePath(category)}</loc>
@@ -1442,6 +1471,7 @@ function renderSitemapXml(items) {
     <priority>1.0</priority>
   </url>
 ${categoryUrls}
+${guideUrls}
 </urlset>
 `;
 }

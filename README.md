@@ -22,6 +22,7 @@ If `gh extension search` gives you too many options, start here.
 - [Top Picks](#top-picks)
 - [Find by Use Case](#find-by-use-case)
 - [Comparison Guides](#comparison-guides)
+- [Workflow Guides](#workflow-guides)
 - [Catalog Browser](#catalog-browser)
 - [Dashboard/TUI](#dashboardtui)
 - [PR & Issues](#pr--issues)
@@ -147,6 +148,12 @@ These are the first extensions to evaluate if you want broad value fast.
 | [Notification extensions](docs/comparisons/notifications.md)        | Reducing notification noise from the terminal.                 |
 | [Markdown preview extensions](docs/comparisons/markdown-preview.md) | Previewing README and docs changes.                            |
 | [Actions and CI extensions](docs/comparisons/actions-ci.md)         | Understanding CI migration, local checks, and workflow health. |
+
+## Workflow Guides
+
+| Guide                                                                          | Use this when...                                                                          |
+| ------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------- |
+| [GitHub Actions CLI extension guide](docs/guides/github-actions-extensions.md) | You want to choose an Actions TUI, local runner, migration, or workflow health extension. |
 
 ## Catalog Browser
 
