@@ -512,6 +512,11 @@ if (checkOnly) {
     hasStaleFile = true;
   }
 
+  for (const error of validateStructuredDataFiles(generatedFiles)) {
+    console.error(error);
+    hasStaleFile = true;
+  }
+
   if (hasStaleFile) {
     process.exit(1);
   }
@@ -544,6 +549,52 @@ function validateSocialPreviewAssets() {
   }
 
   return errors;
+}
+
+function validateStructuredDataFiles(files) {
+  const errors = [];
+
+  for (const file of files.filter((candidate) => candidate.path.endsWith(".html"))) {
+    const scripts = [...file.content.matchAll(/<script type="application\/ld\+json">\s*([\s\S]*?)\s*<\/script>/g)];
+
+    if (requiresStructuredData(file.path) && scripts.length === 0) {
+      errors.push(`${file.path} must include schema.org JSON-LD structured data.`);
+      continue;
+    }
+
+    for (const [index, script] of scripts.entries()) {
+      try {
+        const parsed = JSON.parse(script[1]);
+        const items = Array.isArray(parsed) ? parsed : [parsed];
+
+        if (items.length === 0) {
+          errors.push(`${file.path} JSON-LD script #${index + 1} must not be an empty array.`);
+          continue;
+        }
+
+        for (const [itemIndex, item] of items.entries()) {
+          if (!item || typeof item !== "object" || Array.isArray(item)) {
+            errors.push(`${file.path} JSON-LD script #${index + 1} item #${itemIndex + 1} must be an object.`);
+          } else if (!item["@type"]) {
+            errors.push(`${file.path} JSON-LD script #${index + 1} item #${itemIndex + 1} is missing @type.`);
+          }
+        }
+      } catch (error) {
+        errors.push(`${file.path} JSON-LD script #${index + 1} is invalid JSON: ${error.message}`);
+      }
+    }
+  }
+
+  return errors;
+}
+
+function requiresStructuredData(filePath) {
+  return [
+    "docs/index.html",
+    "docs/chooser.html",
+    "docs/recommendations.html",
+    "docs/awesome-github-cli-extensions.html",
+  ].includes(filePath) || filePath.startsWith("docs/extensions/");
 }
 
 function readPngSize(filePath) {
@@ -692,6 +743,37 @@ function recommendationsPageJsonLd(items, pageUrl) {
           name: recommendation.label,
           description: recommendation.summary,
           url: `${pageUrl}#${recommendation.id}`,
+        })),
+      },
+    },
+    {
+      "@context": "https://schema.org",
+      "@id": `${siteUrl}#dataset`,
+      ...atlasDatasetJsonLd(items),
+    },
+  ];
+}
+
+function chooserPageJsonLd(items, choices, pageUrl) {
+  return [
+    {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      name: "GitHub CLI Extension Chooser",
+      description:
+        "A workflow-first chooser for finding the right GitHub CLI extension faster.",
+      url: pageUrl,
+      image: socialImageUrl,
+      mainEntity: {
+        "@type": "ItemList",
+        name: "GitHub CLI extension workflow starting points",
+        numberOfItems: choices.length,
+        itemListElement: choices.map((choice, index) => ({
+          "@type": "ListItem",
+          position: index + 1,
+          name: choice.title,
+          description: choice.question,
+          url: `${pageUrl}#${categorySlug(choice.title)}`,
         })),
       },
     },
@@ -2267,7 +2349,7 @@ function renderWorkflowGuidePage(category, guide, items) {
 
     h1 {
       margin: 0;
-      font-size: clamp(30px, 4vw, 44px);
+      font-size: 40px;
       line-height: 1.1;
       letter-spacing: 0;
     }
@@ -2596,7 +2678,7 @@ function renderAwesomeLandingPage(items) {
 
     h1 {
       margin: 0;
-      font-size: clamp(32px, 4.5vw, 50px);
+      font-size: 42px;
       line-height: 1.08;
       letter-spacing: 0;
     }
@@ -3365,6 +3447,7 @@ function renderChooserPage(items) {
   <meta name="twitter:description" content="Pick a GitHub CLI extension by workflow, then inspect commands before installing.">
   <meta name="twitter:image" content="${socialImageUrl}">
   <link rel="canonical" href="${pageUrl}">
+  ${renderJsonLd(chooserPageJsonLd(items, choices, pageUrl))}
   <style>
     :root {
       color-scheme: light;
@@ -3410,7 +3493,7 @@ function renderChooserPage(items) {
 
     h1 {
       margin: 0;
-      font-size: clamp(30px, 4vw, 46px);
+      font-size: 40px;
       line-height: 1.08;
       letter-spacing: 0;
     }
@@ -3672,7 +3755,7 @@ function renderExtensionPage(entry) {
 
     h1 {
       margin: 0;
-      font-size: clamp(30px, 4vw, 44px);
+      font-size: 40px;
       line-height: 1.1;
       letter-spacing: 0;
     }
@@ -4174,7 +4257,7 @@ function renderChooserChoice(choice) {
     .map((entry) => `<a class="tool" href="${escapeAttribute(extensionPagePath(entry))}">${escapeHtml(entry.repo)}</a>`)
     .join("\n          ");
 
-  return `<article class="choice">
+  return `<article class="choice" id="${escapeAttribute(categorySlug(choice.title))}">
         <h3>${escapeHtml(choice.title)}</h3>
         <p>${escapeHtml(choice.question)}</p>
         <div class="tool-list">

@@ -15,6 +15,133 @@
   <meta name="twitter:description" content="Pick a GitHub CLI extension by workflow, then inspect commands before installing.">
   <meta name="twitter:image" content="https://sjh9714.github.io/gh-extension-atlas/social-card.png">
   <link rel="canonical" href="https://sjh9714.github.io/gh-extension-atlas/chooser.html">
+  <script type="application/ld+json">
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "GitHub CLI Extension Chooser",
+    "description": "A workflow-first chooser for finding the right GitHub CLI extension faster.",
+    "url": "https://sjh9714.github.io/gh-extension-atlas/chooser.html",
+    "image": "https://sjh9714.github.io/gh-extension-atlas/social-card.png",
+    "mainEntity": {
+      "@type": "ItemList",
+      "name": "GitHub CLI extension workflow starting points",
+      "numberOfItems": 8,
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Daily maintainer triage",
+          "description": "I need to keep up with PRs, issues, review threads, and notifications.",
+          "url": "https://sjh9714.github.io/gh-extension-atlas/chooser.html#daily-maintainer-triage"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "GitHub Actions operations",
+          "description": "I need to inspect workflows, understand CI health, or migrate pipelines.",
+          "url": "https://sjh9714.github.io/gh-extension-atlas/chooser.html#github-actions-operations"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Local repository cleanup",
+          "description": "I need safer branch cleanup, branch switching, or local setup help.",
+          "url": "https://sjh9714.github.io/gh-extension-atlas/chooser.html#local-repository-cleanup"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "Documentation review",
+          "description": "I need to preview README or GitHub-flavored Markdown before publishing.",
+          "url": "https://sjh9714.github.io/gh-extension-atlas/chooser.html#documentation-review"
+        },
+        {
+          "@type": "ListItem",
+          "position": 5,
+          "name": "Search and discovery",
+          "description": "I need to find repositories, code, stars, or saved tools from the terminal.",
+          "url": "https://sjh9714.github.io/gh-extension-atlas/chooser.html#search-and-discovery"
+        },
+        {
+          "@type": "ListItem",
+          "position": 6,
+          "name": "Security and admin",
+          "description": "I need SBOMs, CodeQL, tokens, webhooks, repository config, or migration support.",
+          "url": "https://sjh9714.github.io/gh-extension-atlas/chooser.html#security-and-admin"
+        },
+        {
+          "@type": "ListItem",
+          "position": 7,
+          "name": "AI and agents",
+          "description": "I need GitHub-native agent workflows, Models, standup summaries, or MCP setup.",
+          "url": "https://sjh9714.github.io/gh-extension-atlas/chooser.html#ai-and-agents"
+        },
+        {
+          "@type": "ListItem",
+          "position": 8,
+          "name": "Reusable catalog data",
+          "description": "I want JSON, schema, install bundles, or automation-friendly catalog data.",
+          "url": "https://sjh9714.github.io/gh-extension-atlas/chooser.html#reusable-catalog-data"
+        }
+      ]
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@id": "https://sjh9714.github.io/gh-extension-atlas/#dataset",
+    "@type": "Dataset",
+    "name": "GitHub CLI Extension Atlas",
+    "description": "A curated catalog of GitHub CLI extensions with install commands, categories, maintenance labels, and workflow recommendations.",
+    "url": "https://sjh9714.github.io/gh-extension-atlas/",
+    "license": "https://github.com/sjh9714/gh-extension-atlas/blob/main/LICENSE",
+    "isAccessibleForFree": true,
+    "dateModified": "2026-06-08",
+    "keywords": [
+      "GitHub CLI",
+      "gh extension",
+      "GitHub CLI extensions",
+      "awesome list",
+      "developer tools",
+      "terminal",
+      "open source"
+    ],
+    "creator": {
+      "@type": "Person",
+      "name": "JinHyuk Sung",
+      "url": "https://github.com/sjh9714"
+    },
+    "distribution": [
+      {
+        "@type": "DataDownload",
+        "encodingFormat": "application/json",
+        "contentUrl": "https://sjh9714.github.io/gh-extension-atlas/api/extensions.json"
+      },
+      {
+        "@type": "DataDownload",
+        "encodingFormat": "application/schema+json",
+        "contentUrl": "https://sjh9714.github.io/gh-extension-atlas/api/schema.json"
+      },
+      {
+        "@type": "DataDownload",
+        "encodingFormat": "text/plain",
+        "contentUrl": "https://sjh9714.github.io/gh-extension-atlas/install/all.txt"
+      }
+    ],
+    "variableMeasured": [
+      "install command",
+      "category",
+      "best use case",
+      "avoid-if note",
+      "license",
+      "maintenance status",
+      "last pushed date",
+      "verified date"
+    ]
+  }
+]
+  </script>
   <style>
     :root {
       color-scheme: light;
@@ -60,7 +187,7 @@
 
     h1 {
       margin: 0;
-      font-size: clamp(30px, 4vw, 46px);
+      font-size: 40px;
       line-height: 1.08;
       letter-spacing: 0;
     }
@@ -225,7 +352,7 @@
     </section>
 
     <section class="choice-grid">
-      <article class="choice">
+      <article class="choice" id="daily-maintainer-triage">
         <h3>Daily maintainer triage</h3>
         <p>I need to keep up with PRs, issues, review threads, and notifications.</p>
         <div class="tool-list">
@@ -243,7 +370,7 @@ gh extension install meiji163/gh-notify</code></pre>
           <a href="categories/dashboard-tui.html">Dashboard/TUI category</a>
         </div>
       </article>
-      <article class="choice">
+      <article class="choice" id="github-actions-operations">
         <h3>GitHub Actions operations</h3>
         <p>I need to inspect workflows, understand CI health, or migrate pipelines.</p>
         <div class="tool-list">
@@ -261,7 +388,7 @@ gh extension install github/gh-actions-importer</code></pre>
           <a href="categories/actions-ci.html">Actions/CI category</a>
         </div>
       </article>
-      <article class="choice">
+      <article class="choice" id="local-repository-cleanup">
         <h3>Local repository cleanup</h3>
         <p>I need safer branch cleanup, branch switching, or local setup help.</p>
         <div class="tool-list">
@@ -279,7 +406,7 @@ gh extension install redraw/gh-install</code></pre>
           <a href="categories/repo-branch.html">Repo &amp; Branch category</a>
         </div>
       </article>
-      <article class="choice">
+      <article class="choice" id="documentation-review">
         <h3>Documentation review</h3>
         <p>I need to preview README or GitHub-flavored Markdown before publishing.</p>
         <div class="tool-list">
@@ -295,7 +422,7 @@ gh extension install thiagokokada/gh-gfm-preview</code></pre>
           <a href="categories/dashboard-tui.html">Dashboard/TUI category</a>
         </div>
       </article>
-      <article class="choice">
+      <article class="choice" id="search-and-discovery">
         <h3>Search and discovery</h3>
         <p>I need to find repositories, code, stars, or saved tools from the terminal.</p>
         <div class="tool-list">
@@ -313,7 +440,7 @@ gh extension install LangLangBart/gh-find-code</code></pre>
           <a href="categories/search.html">Search category</a>
         </div>
       </article>
-      <article class="choice">
+      <article class="choice" id="security-and-admin">
         <h3>Security and admin</h3>
         <p>I need SBOMs, CodeQL, tokens, webhooks, repository config, or migration support.</p>
         <div class="tool-list">
@@ -331,7 +458,7 @@ gh extension install github/gh-gei</code></pre>
           <a href="categories/security-admin.html">Security/Admin category</a>
         </div>
       </article>
-      <article class="choice">
+      <article class="choice" id="ai-and-agents">
         <h3>AI and agents</h3>
         <p>I need GitHub-native agent workflows, Models, standup summaries, or MCP setup.</p>
         <div class="tool-list">
@@ -349,7 +476,7 @@ gh extension install shuymn/gh-mcp</code></pre>
           <a href="categories/ai-agents.html">AI/Agents category</a>
         </div>
       </article>
-      <article class="choice">
+      <article class="choice" id="reusable-catalog-data">
         <h3>Reusable catalog data</h3>
         <p>I want JSON, schema, install bundles, or automation-friendly catalog data.</p>
         <div class="tool-list">
