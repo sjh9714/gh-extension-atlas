@@ -1,5 +1,20 @@
 # Changelog
 
+## v0.2.8
+
+This patch release adds an AI and agent workflow guide for GitHub CLI extensions.
+
+### Added
+
+- GitHub AI And Agent CLI Extension Guide with a public HTML landing page.
+- AI And Agents starter pack TXT bundle.
+
+### Improved
+
+- AI/Agents category page now links to its workflow guide.
+- README Workflow Guides now includes AI and agent workflows as a first-class entry point.
+- Public API manifest now includes the AI And Agents starter pack.
+
 ## v0.2.7
 
 This patch release adds a security and admin workflow guide for GitHub CLI extensions.
