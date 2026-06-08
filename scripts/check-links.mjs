@@ -100,9 +100,14 @@ function extractHtmlLinks(content) {
   const links = [];
   const staticHtml = content.replace(/<script\b[\s\S]*?<\/script>/gi, "");
   const htmlLinkPattern = /\b(?:href|src)="([^"]+)"/g;
+  const htmlContentUrlPattern = /\bcontent="(https?:\/\/[^"]+)"/g;
   let match;
 
   while ((match = htmlLinkPattern.exec(staticHtml)) !== null) {
+    links.push(match[1]);
+  }
+
+  while ((match = htmlContentUrlPattern.exec(staticHtml)) !== null) {
     links.push(match[1]);
   }
 
