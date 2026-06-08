@@ -1,0 +1,799 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GitHub CLI Extension Atlas Badge Builder</title>
+  <meta name="description" content="Generate optional Markdown and HTML badge snippets for GitHub CLI extensions listed in the atlas.">
+  <meta property="og:title" content="GitHub CLI Extension Atlas Badge Builder">
+  <meta property="og:description" content="Generate optional badge snippets that link to reviewed GitHub CLI extension detail pages.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://sjh9714.github.io/gh-extension-atlas/badges.html">
+  <meta property="og:image" content="https://sjh9714.github.io/gh-extension-atlas/social-card.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="GitHub CLI Extension Atlas Badge Builder">
+  <meta name="twitter:description" content="Generate optional badge snippets for extensions listed in the atlas.">
+  <meta name="twitter:image" content="https://sjh9714.github.io/gh-extension-atlas/social-card.png">
+  <link rel="canonical" href="https://sjh9714.github.io/gh-extension-atlas/badges.html">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "GitHub CLI Extension Atlas Badge Builder",
+  "description": "Generate optional Markdown and HTML badge snippets for GitHub CLI extensions listed in the atlas.",
+  "url": "https://sjh9714.github.io/gh-extension-atlas/badges.html",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Any",
+  "isAccessibleForFree": true,
+  "dateModified": "2026-06-08"
+}
+  </script>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f7f8fa;
+      --panel: #ffffff;
+      --text: #1f2328;
+      --muted: #656d76;
+      --border: #d0d7de;
+      --accent: #0969da;
+      --accent-soft: #ddf4ff;
+      --good: #1a7f37;
+      --warn: #9a6700;
+      --stale: #8250df;
+      --shadow: 0 1px 2px rgba(31, 35, 40, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font: 15px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    header {
+      background: var(--panel);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .wrap {
+      width: min(1180px, calc(100vw - 32px));
+      margin: 0 auto;
+    }
+
+    .header-inner {
+      display: grid;
+      gap: 13px;
+      padding: 32px 0 24px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 40px;
+      line-height: 1.1;
+      letter-spacing: 0;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 20px;
+      line-height: 1.25;
+      letter-spacing: 0;
+    }
+
+    p {
+      margin: 0;
+    }
+
+    .lead,
+    .muted {
+      color: var(--muted);
+    }
+
+    .lead {
+      max-width: 820px;
+      font-size: 17px;
+    }
+
+    .actions,
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 3px 10px;
+      background: var(--panel);
+      color: var(--muted);
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    main {
+      display: grid;
+      gap: 14px;
+      padding: 20px 0 42px;
+    }
+
+    .panel,
+    .table-wrap {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+    }
+
+    .panel {
+      display: grid;
+      gap: 11px;
+      padding: 16px;
+    }
+
+    label {
+      display: grid;
+      gap: 6px;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 9px 10px;
+      background: var(--panel);
+      color: var(--text);
+      font: inherit;
+    }
+
+    textarea {
+      min-height: 96px;
+      resize: vertical;
+      font: 12px/1.45 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+
+    .table-wrap {
+      overflow: auto;
+    }
+
+    table {
+      width: 100%;
+      min-width: 1120px;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      padding: 11px 12px;
+      border-bottom: 1px solid var(--border);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: #f6f8fa;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    tr:last-child td {
+      border-bottom: 0;
+    }
+
+    tr[hidden] {
+      display: none;
+    }
+
+    .repo {
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      min-height: 24px;
+      border-radius: 999px;
+      padding: 2px 9px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .status.active {
+      background: #dafbe1;
+      color: var(--good);
+    }
+
+    .status.watch {
+      background: #fff8c5;
+      color: var(--warn);
+    }
+
+    .status.stale {
+      background: #fbefff;
+      color: var(--stale);
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    code {
+      font: 13px/1.45 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+
+    .notice {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px;
+      background: var(--accent-soft);
+    }
+
+    @media (max-width: 760px) {
+      h1 {
+        font-size: 32px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap header-inner">
+      <h1>GitHub CLI Extension Atlas Badge Builder</h1>
+      <p class="lead">Copy optional Markdown or HTML snippets for listed extensions when the atlas entry is accurate enough to link as comparison context.</p>
+      <div class="meta">
+        <span class="pill">68 listed extensions</span>
+        <span class="pill">Optional maintainer snippet</span>
+        <span class="pill">Reviewed 2026-06-08</span>
+      </div>
+      <div class="actions">
+        <a href="maintainer-badges.md">Badge guidance</a>
+        <a href="./">Searchable catalog</a>
+        <a href="guides/">Guides</a>
+        <a href="https://github.com/sjh9714/gh-extension-atlas/issues/new/choose">Suggest a correction</a>
+        <a href="https://github.com/sjh9714/gh-extension-atlas">Star on GitHub</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="notice">
+      This badge is optional. It is not required for factual corrections, and it should not imply official GitHub endorsement or maintainer endorsement.
+    </section>
+
+    <section class="panel">
+      <h2>Find Your Extension</h2>
+      <p class="muted">Filter by repository, extension name, or category. If the listing is wrong, open a correction before linking a badge.</p>
+      <label>
+        Filter listed extensions
+        <input id="filter" type="search" placeholder="dlvhdr/gh-dash, notifications, actions">
+      </label>
+    </section>
+
+    <section class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Extension</th>
+            <th>Category</th>
+            <th>Preview</th>
+            <th>Markdown</th>
+            <th>HTML</th>
+          </tr>
+        </thead>
+        <tbody id="badge-rows">
+          <tr data-repo="github/gh-actions-importer" data-name="actions-importer" data-category="actions/ci">
+            <td><a class="repo" href="https://sjh9714.github.io/gh-extension-atlas/extensions/github-gh-actions-importer.html">github/gh-actions-importer</a><br><span class="muted">Plan and automate migrations into GitHub Actions.</span></td>
+            <td>Actions/CI<br><span class="status active">active</span></td>
+            <td><a href="https://sjh9714.github.io/gh-extension-atlas/extensions/github-gh-actions-importer.html"><img alt="Listed in GitHub CLI Extension Atlas" src="https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue"></a></td>
+            <td><textarea readonly>[![Listed in GitHub CLI Extension Atlas](https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue)](https://sjh9714.github.io/gh-extension-atlas/extensions/github-gh-actions-importer.html)</textarea></td>
+            <td><textarea readonly>&lt;a href=&quot;https://sjh9714.github.io/gh-extension-atlas/extensions/github-gh-actions-importer.html&quot;&gt;&lt;img alt=&quot;Listed in GitHub CLI Extension Atlas&quot; src=&quot;https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue&quot;&gt;&lt;/a&gt;</textarea></td>
+          </tr>
+<tr data-repo="basecamp/gh-signoff" data-name="signoff" data-category="actions/ci">
+            <td><a class="repo" href="https://sjh9714.github.io/gh-extension-atlas/extensions/basecamp-gh-signoff.html">basecamp/gh-signoff</a><br><span class="muted">Run local CI-style checks before signing off work.</span></td>
+            <td>Actions/CI<br><span class="status active">active</span></td>
+            <td><a href="https://sjh9714.github.io/gh-extension-atlas/extensions/basecamp-gh-signoff.html"><img alt="Listed in GitHub CLI Extension Atlas" src="https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue"></a></td>
+            <td><textarea readonly>[![Listed in GitHub CLI Extension Atlas](https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue)](https://sjh9714.github.io/gh-extension-atlas/extensions/basecamp-gh-signoff.html)</textarea></td>
+            <td><textarea readonly>&lt;a href=&quot;https://sjh9714.github.io/gh-extension-atlas/extensions/basecamp-gh-signoff.html&quot;&gt;&lt;img alt=&quot;Listed in GitHub CLI Extension Atlas&quot; src=&quot;https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue&quot;&gt;&lt;/a&gt;</textarea></td>
+          </tr>
+<tr data-repo="dlvhdr/gh-enhance" data-name="enhance" data-category="actions/ci">
+            <td><a class="repo" href="https://sjh9714.github.io/gh-extension-atlas/extensions/dlvhdr-gh-enhance.html">dlvhdr/gh-enhance</a><br><span class="muted">A fast terminal UI for inspecting and managing GitHub Actions.</span></td>
+            <td>Actions/CI<br><span class="status active">active</span></td>
+            <td><a href="https://sjh9714.github.io/gh-extension-atlas/extensions/dlvhdr-gh-enhance.html"><img alt="Listed in GitHub CLI Extension Atlas" src="https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue"></a></td>
+            <td><textarea readonly>[![Listed in GitHub CLI Extension Atlas](https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue)](https://sjh9714.github.io/gh-extension-atlas/extensions/dlvhdr-gh-enhance.html)</textarea></td>
+            <td><textarea readonly>&lt;a href=&quot;https://sjh9714.github.io/gh-extension-atlas/extensions/dlvhdr-gh-enhance.html&quot;&gt;&lt;img alt=&quot;Listed in GitHub CLI Extension Atlas&quot; src=&quot;https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue&quot;&gt;&lt;/a&gt;</textarea></td>
+          </tr>
+<tr data-repo="fchimpan/gh-workflow-stats" data-name="workflow-stats" data-category="actions/ci">
+            <td><a class="repo" href="https://sjh9714.github.io/gh-extension-atlas/extensions/fchimpan-gh-workflow-stats.html">fchimpan/gh-workflow-stats</a><br><span class="muted">Calculate workflow and job success rate and execution time.</span></td>
+            <td>Actions/CI<br><span class="status active">active</span></td>
+            <td><a href="https://sjh9714.github.io/gh-extension-atlas/extensions/fchimpan-gh-workflow-stats.html"><img alt="Listed in GitHub CLI Extension Atlas" src="https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue"></a></td>
+            <td><textarea readonly>[![Listed in GitHub CLI Extension Atlas](https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue)](https://sjh9714.github.io/gh-extension-atlas/extensions/fchimpan-gh-workflow-stats.html)</textarea></td>
+            <td><textarea readonly>&lt;a href=&quot;https://sjh9714.github.io/gh-extension-atlas/extensions/fchimpan-gh-workflow-stats.html&quot;&gt;&lt;img alt=&quot;Listed in GitHub CLI Extension Atlas&quot; src=&quot;https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue&quot;&gt;&lt;/a&gt;</textarea></td>
+          </tr>
+<tr data-repo="fchimpan/gh-slimify" data-name="slimify" data-category="actions/ci">
+            <td><a class="repo" href="https://sjh9714.github.io/gh-extension-atlas/extensions/fchimpan-gh-slimify.html">fchimpan/gh-slimify</a><br><span class="muted">Detect workflows that can move to cost-efficient slim runners.</span></td>
+            <td>Actions/CI<br><span class="status active">active</span></td>
+            <td><a href="https://sjh9714.github.io/gh-extension-atlas/extensions/fchimpan-gh-slimify.html"><img alt="Listed in GitHub CLI Extension Atlas" src="https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue"></a></td>
+            <td><textarea readonly>[![Listed in GitHub CLI Extension Atlas](https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue)](https://sjh9714.github.io/gh-extension-atlas/extensions/fchimpan-gh-slimify.html)</textarea></td>
+            <td><textarea readonly>&lt;a href=&quot;https://sjh9714.github.io/gh-extension-atlas/extensions/fchimpan-gh-slimify.html&quot;&gt;&lt;img alt=&quot;Listed in GitHub CLI Extension Atlas&quot; src=&quot;https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue&quot;&gt;&lt;/a&gt;</textarea></td>
+          </tr>
+<tr data-repo="nektos/gh-act" data-name="act" data-category="actions/ci">
+            <td><a class="repo" href="https://sjh9714.github.io/gh-extension-atlas/extensions/nektos-gh-act.html">nektos/gh-act</a><br><span class="muted">Run GitHub Actions locally through a GitHub CLI extension.</span></td>
+            <td>Actions/CI<br><span class="status active">active</span></td>
+            <td><a href="https://sjh9714.github.io/gh-extension-atlas/extensions/nektos-gh-act.html"><img alt="Listed in GitHub CLI Extension Atlas" src="https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue"></a></td>
+            <td><textarea readonly>[![Listed in GitHub CLI Extension Atlas](https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue)](https://sjh9714.github.io/gh-extension-atlas/extensions/nektos-gh-act.html)</textarea></td>
+            <td><textarea readonly>&lt;a href=&quot;https://sjh9714.github.io/gh-extension-atlas/extensions/nektos-gh-act.html&quot;&gt;&lt;img alt=&quot;Listed in GitHub CLI Extension Atlas&quot; src=&quot;https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue&quot;&gt;&lt;/a&gt;</textarea></td>
+          </tr>
+<tr data-repo="rsese/gh-actions-status" data-name="actions-status" data-category="actions/ci">
+            <td><a class="repo" href="https://sjh9714.github.io/gh-extension-atlas/extensions/rsese-gh-actions-status.html">rsese/gh-actions-status</a><br><span class="muted">View the overall health of an organization's use of Actions.</span></td>
+            <td>Actions/CI<br><span class="status stale">stale</span></td>
+            <td><a href="https://sjh9714.github.io/gh-extension-atlas/extensions/rsese-gh-actions-status.html"><img alt="Listed in GitHub CLI Extension Atlas" src="https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue"></a></td>
+            <td><textarea readonly>[![Listed in GitHub CLI Extension Atlas](https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue)](https://sjh9714.github.io/gh-extension-atlas/extensions/rsese-gh-actions-status.html)</textarea></td>
+            <td><textarea readonly>&lt;a href=&quot;https://sjh9714.github.io/gh-extension-atlas/extensions/rsese-gh-actions-status.html&quot;&gt;&lt;img alt=&quot;Listed in GitHub CLI Extension Atlas&quot; src=&quot;https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue&quot;&gt;&lt;/a&gt;</textarea></td>
+          </tr>
+<tr data-repo="github/gh-aw" data-name="aw" data-category="ai/agents">
+            <td><a class="repo" href="https://sjh9714.github.io/gh-extension-atlas/extensions/github-gh-aw.html">github/gh-aw</a><br><span class="muted">Run GitHub agentic workflows from the CLI.</span></td>
+            <td>AI/Agents<br><span class="status active">active</span></td>
+            <td><a href="https://sjh9714.github.io/gh-extension-atlas/extensions/github-gh-aw.html"><img alt="Listed in GitHub CLI Extension Atlas" src="https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue"></a></td>
+            <td><textarea readonly>[![Listed in GitHub CLI Extension Atlas](https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue)](https://sjh9714.github.io/gh-extension-atlas/extensions/github-gh-aw.html)</textarea></td>
+            <td><textarea readonly>&lt;a href=&quot;https://sjh9714.github.io/gh-extension-atlas/extensions/github-gh-aw.html&quot;&gt;&lt;img alt=&quot;Listed in GitHub CLI Extension Atlas&quot; src=&quot;https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue&quot;&gt;&lt;/a&gt;</textarea></td>
+          </tr>
+<tr data-repo="github/gh-models" data-name="models" data-category="ai/agents">
+            <td><a class="repo" href="https://sjh9714.github.io/gh-extension-atlas/extensions/github-gh-models.html">github/gh-models</a><br><span class="muted">Use GitHub Models from GitHub CLI.</span></td>
+            <td>AI/Agents<br><span class="status active">active</span></td>
+            <td><a href="https://sjh9714.github.io/gh-extension-atlas/extensions/github-gh-models.html"><img alt="Listed in GitHub CLI Extension Atlas" src="https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue"></a></td>
+            <td><textarea readonly>[![Listed in GitHub CLI Extension Atlas](https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue)](https://sjh9714.github.io/gh-extension-atlas/extensions/github-gh-models.html)</textarea></td>
+            <td><textarea readonly>&lt;a href=&quot;https://sjh9714.github.io/gh-extension-atlas/extensions/github-gh-models.html&quot;&gt;&lt;img alt=&quot;Listed in GitHub CLI Extension Atlas&quot; src=&quot;https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue&quot;&gt;&lt;/a&gt;</textarea></td>
+          </tr>
+<tr data-repo="sgoedecke/gh-standup" data-name="standup" data-category="ai/agents">
+            <td><a class="repo" href="https://sjh9714.github.io/gh-extension-atlas/extensions/sgoedecke-gh-standup.html">sgoedecke/gh-standup</a><br><span class="muted">Generate an AI-assisted standup report from GitHub activity.</span></td>
+            <td>AI/Agents<br><span class="status active">active</span></td>
+            <td><a href="https://sjh9714.github.io/gh-extension-atlas/extensions/sgoedecke-gh-standup.html"><img alt="Listed in GitHub CLI Extension Atlas" src="https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue"></a></td>
+            <td><textarea readonly>[![Listed in GitHub CLI Extension Atlas](https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue)](https://sjh9714.github.io/gh-extension-atlas/extensions/sgoedecke-gh-standup.html)</textarea></td>
+            <td><textarea readonly>&lt;a href=&quot;https://sjh9714.github.io/gh-extension-atlas/extensions/sgoedecke-gh-standup.html&quot;&gt;&lt;img alt=&quot;Listed in GitHub CLI Extension Atlas&quot; src=&quot;https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue&quot;&gt;&lt;/a&gt;</textarea></td>
+          </tr>
+<tr data-repo="shuymn/gh-mcp" data-name="mcp" data-category="ai/agents">
+            <td><a class="repo" href="https://sjh9714.github.io/gh-extension-atlas/extensions/shuymn-gh-mcp.html">shuymn/gh-mcp</a><br><span class="muted">Run GitHub MCP Server using existing GitHub CLI authentication.</span></td>
+            <td>AI/Agents<br><span class="status active">active</span></td>
+            <td><a href="https://sjh9714.github.io/gh-extension-atlas/extensions/shuymn-gh-mcp.html"><img alt="Listed in GitHub CLI Extension Atlas" src="https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue"></a></td>
+            <td><textarea readonly>[![Listed in GitHub CLI Extension Atlas](https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue)](https://sjh9714.github.io/gh-extension-atlas/extensions/shuymn-gh-mcp.html)</textarea></td>
+            <td><textarea readonly>&lt;a href=&quot;https://sjh9714.github.io/gh-extension-atlas/extensions/shuymn-gh-mcp.html&quot;&gt;&lt;img alt=&quot;Listed in GitHub CLI Extension Atlas&quot; src=&quot;https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue&quot;&gt;&lt;/a&gt;</textarea></td>
+          </tr>
+<tr data-repo="dlvhdr/gh-dash" data-name="dash" data-category="dashboard/tui">
+            <td><a class="repo" href="https://sjh9714.github.io/gh-extension-atlas/extensions/dlvhdr-gh-dash.html">dlvhdr/gh-dash</a><br><span class="muted">A rich terminal dashboard for pull requests, issues, and notifications.</span></td>
+            <td>Dashboard/TUI<br><span class="status active">active</span></td>
+            <td><a href="https://sjh9714.github.io/gh-extension-atlas/extensions/dlvhdr-gh-dash.html"><img alt="Listed in GitHub CLI Extension Atlas" src="https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue"></a></td>
+            <td><textarea readonly>[![Listed in GitHub CLI Extension Atlas](https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue)](https://sjh9714.github.io/gh-extension-atlas/extensions/dlvhdr-gh-dash.html)</textarea></td>
+            <td><textarea readonly>&lt;a href=&quot;https://sjh9714.github.io/gh-extension-atlas/extensions/dlvhdr-gh-dash.html&quot;&gt;&lt;img alt=&quot;Listed in GitHub CLI Extension Atlas&quot; src=&quot;https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue&quot;&gt;&lt;/a&gt;</textarea></td>
+          </tr>
+<tr data-repo="github/gh-skyline" data-name="skyline" data-category="dashboard/tui">
+            <td><a class="repo" href="https://sjh9714.github.io/gh-extension-atlas/extensions/github-gh-skyline.html">github/gh-skyline</a><br><span class="muted">Generate a 3D model of GitHub contribution history.</span></td>
+            <td>Dashboard/TUI<br><span class="status active">active</span></td>
+            <td><a href="https://sjh9714.github.io/gh-extension-atlas/extensions/github-gh-skyline.html"><img alt="Listed in GitHub CLI Extension Atlas" src="https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue"></a></td>
+            <td><textarea readonly>[![Listed in GitHub CLI Extension Atlas](https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue)](https://sjh9714.github.io/gh-extension-atlas/extensions/github-gh-skyline.html)</textarea></td>
+            <td><textarea readonly>&lt;a href=&quot;https://sjh9714.github.io/gh-extension-atlas/extensions/github-gh-skyline.html&quot;&gt;&lt;img alt=&quot;Listed in GitHub CLI Extension Atlas&quot; src=&quot;https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue&quot;&gt;&lt;/a&gt;</textarea></td>
+          </tr>
+<tr data-repo="yusukebe/gh-markdown-preview" data-name="markdown-preview" data-category="dashboard/tui">
+            <td><a class="repo" href="https://sjh9714.github.io/gh-extension-atlas/extensions/yusukebe-gh-markdown-preview.html">yusukebe/gh-markdown-preview</a><br><span class="muted">Preview Markdown as it appears on GitHub.</span></td>
+            <td>Dashboard/TUI<br><span class="status active">active</span></td>
+            <td><a href="https://sjh9714.github.io/gh-extension-atlas/extensions/yusukebe-gh-markdown-preview.html"><img alt="Listed in GitHub CLI Extension Atlas" src="https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue"></a></td>
+            <td><textarea readonly>[![Listed in GitHub CLI Extension Atlas](https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue)](https://sjh9714.github.io/gh-extension-atlas/extensions/yusukebe-gh-markdown-preview.html)</textarea></td>
+            <td><textarea readonly>&lt;a href=&quot;https://sjh9714.github.io/gh-extension-atlas/extensions/yusukebe-gh-markdown-preview.html&quot;&gt;&lt;img alt=&quot;Listed in GitHub CLI Extension Atlas&quot; src=&quot;https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue&quot;&gt;&lt;/a&gt;</textarea></td>
+          </tr>
+<tr data-repo="kawarimidoll/gh-graph" data-name="graph" data-category="dashboard/tui">
+            <td><a class="repo" href="https://sjh9714.github.io/gh-extension-atlas/extensions/kawarimidoll-gh-graph.html">kawarimidoll/gh-graph</a><br><span class="muted">Display a GitHub contribution graph in the terminal.</span></td>
+            <td>Dashboard/TUI<br><span class="status active">active</span></td>
+            <td><a href="https://sjh9714.github.io/gh-extension-atlas/extensions/kawarimidoll-gh-graph.html"><img alt="Listed in GitHub CLI Extension Atlas" src="https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue"></a></td>
+            <td><textarea readonly>[![Listed in GitHub CLI Extension Atlas](https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue)](https://sjh9714.github.io/gh-extension-atlas/extensions/kawarimidoll-gh-graph.html)</textarea></td>
+            <td><textarea readonly>&lt;a href=&quot;https://sjh9714.github.io/gh-extension-atlas/extensions/kawarimidoll-gh-graph.html&quot;&gt;&lt;img alt=&quot;Listed in GitHub CLI Extension Atlas&quot; src=&quot;https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue&quot;&gt;&lt;/a&gt;</textarea></td>
+          </tr>
+<tr data-repo="thiagokokada/gh-gfm-preview" data-name="gfm-preview" data-category="dashboard/tui">
+            <td><a class="repo" href="https://sjh9714.github.io/gh-extension-atlas/extensions/thiagokokada-gh-gfm-preview.html">thiagokokada/gh-gfm-preview</a><br><span class="muted">Preview GitHub-flavored Markdown, including offline workflows.</span></td>
+            <td>Dashboard/TUI<br><span class="status active">active</span></td>
+            <td><a href="https://sjh9714.github.io/gh-extension-atlas/extensions/thiagokokada-gh-gfm-preview.html"><img alt="Listed in GitHub CLI Extension Atlas" src="https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue"></a></td>
+            <td><textarea readonly>[![Listed in GitHub CLI Extension Atlas](https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue)](https://sjh9714.github.io/gh-extension-atlas/extensions/thiagokokada-gh-gfm-preview.html)</textarea></td>
+            <td><textarea readonly>&lt;a href=&quot;https://sjh9714.github.io/gh-extension-atlas/extensions/thiagokokada-gh-gfm-preview.html&quot;&gt;&lt;img alt=&quot;Listed in GitHub CLI Extension Atlas&quot; src=&quot;https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue&quot;&gt;&lt;/a&gt;</textarea></td>
+          </tr>
+<tr data-repo="mislav/gh-contrib" data-name="contrib" data-category="dashboard/tui">
+            <td><a class="repo" href="https://sjh9714.github.io/gh-extension-atlas/extensions/mislav-gh-contrib.html">mislav/gh-contrib</a><br><span class="muted">Render your GitHub contribution graph in the terminal.</span></td>
+            <td>Dashboard/TUI<br><span class="status active">active</span></td>
+            <td><a href="https://sjh9714.github.io/gh-extension-atlas/extensions/mislav-gh-contrib.html"><img alt="Listed in GitHub CLI Extension Atlas" src="https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue"></a></td>
+            <td><textarea readonly>[![Listed in GitHub CLI Extension Atlas](https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue)](https://sjh9714.github.io/gh-extension-atlas/extensions/mislav-gh-contrib.html)</textarea></td>
+            <td><textarea readonly>&lt;a href=&quot;https://sjh9714.github.io/gh-extension-atlas/extensions/mislav-gh-contrib.html&quot;&gt;&lt;img alt=&quot;Listed in GitHub CLI Extension Atlas&quot; src=&quot;https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue&quot;&gt;&lt;/a&gt;</textarea></td>
+          </tr>
+<tr data-repo="gizmo385/gh-lazy" data-name="lazy" data-category="dashboard/tui">
+            <td><a class="repo" href="https://sjh9714.github.io/gh-extension-atlas/extensions/gizmo385-gh-lazy.html">gizmo385/gh-lazy</a><br><span class="muted">A terminal UI for interacting with GitHub.</span></td>
+            <td>Dashboard/TUI<br><span class="status active">active</span></td>
+            <td><a href="https://sjh9714.github.io/gh-extension-atlas/extensions/gizmo385-gh-lazy.html"><img alt="Listed in GitHub CLI Extension Atlas" src="https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue"></a></td>
+            <td><textarea readonly>[![Listed in GitHub CLI Extension Atlas](https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue)](https://sjh9714.github.io/gh-extension-atlas/extensions/gizmo385-gh-lazy.html)</textarea></td>
+            <td><textarea readonly>&lt;a href=&quot;https://sjh9714.github.io/gh-extension-atlas/extensions/gizmo385-gh-lazy.html&quot;&gt;&lt;img alt=&quot;Listed in GitHub CLI Extension Atlas&quot; src=&quot;https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue&quot;&gt;&lt;/a&gt;</textarea></td>
+          </tr>
+<tr data-repo="jrnxf/gh-eco" data-name="eco" data-category="dashboard/tui">
+            <td><a class="repo" href="https://sjh9714.github.io/gh-extension-atlas/extensions/jrnxf-gh-eco.html">jrnxf/gh-eco</a><br><span class="muted">Explore GitHub profiles and ecosystem information.</span></td>
+            <td>Dashboard/TUI<br><span class="status watch">watch</span></td>
+            <td><a href="https://sjh9714.github.io/gh-extension-atlas/extensions/jrnxf-gh-eco.html"><img alt="Listed in GitHub CLI Extension Atlas" src="https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue"></a></td>
+            <td><textarea readonly>[![Listed in GitHub CLI Extension Atlas](https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue)](https://sjh9714.github.io/gh-extension-atlas/extensions/jrnxf-gh-eco.html)</textarea></td>
+            <td><textarea readonly>&lt;a href=&quot;https://sjh9714.github.io/gh-extension-atlas/extensions/jrnxf-gh-eco.html&quot;&gt;&lt;img alt=&quot;Listed in GitHub CLI Extension Atlas&quot; src=&quot;https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue&quot;&gt;&lt;/a&gt;</textarea></td>
+          </tr>
+<tr data-repo="meiji163/gh-notify" data-name="notify" data-category="notifications">
+            <td><a class="repo" href="https://sjh9714.github.io/gh-extension-atlas/extensions/meiji163-gh-notify.html">meiji163/gh-notify</a><br><span class="muted">Display GitHub notifications in the terminal.</span></td>
+            <td>Notifications<br><span class="status active">active</span></td>
+            <td><a href="https://sjh9714.github.io/gh-extension-atlas/extensions/meiji163-gh-notify.html"><img alt="Listed in GitHub CLI Extension Atlas" src="https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue"></a></td>
+            <td><textarea readonly>[![Listed in GitHub CLI Extension Atlas](https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue)](https://sjh9714.github.io/gh-extension-atlas/extensions/meiji163-gh-notify.html)</textarea></td>
+            <td><textarea readonly>&lt;a href=&quot;https://sjh9714.github.io/gh-extension-atlas/extensions/meiji163-gh-notify.html&quot;&gt;&lt;img alt=&quot;Listed in GitHub CLI Extension Atlas&quot; src=&quot;https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue&quot;&gt;&lt;/a&gt;</textarea></td>
+          </tr>
+<tr data-repo="emmanuel-ferdman/gh-gonest" data-name="gonest" data-category="notifications">
+            <td><a class="repo" href="https://sjh9714.github.io/gh-extension-atlas/extensions/emmanuel-ferdman-gh-gonest.html">emmanuel-ferdman/gh-gonest</a><br><span class="muted">Remove phantom notifications from inaccessible repositories.</span></td>
+            <td>Notifications<br><span class="status active">active</span></td>
+            <td><a href="https://sjh9714.github.io/gh-extension-atlas/extensions/emmanuel-ferdman-gh-gonest.html"><img alt="Listed in GitHub CLI Extension Atlas" src="https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue"></a></td>
+            <td><textarea readonly>[![Listed in GitHub CLI Extension Atlas](https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue)](https://sjh9714.github.io/gh-extension-atlas/extensions/emmanuel-ferdman-gh-gonest.html)</textarea></td>
+            <td><textarea readonly>&lt;a href=&quot;https://sjh9714.github.io/gh-extension-atlas/extensions/emmanuel-ferdman-gh-gonest.html&quot;&gt;&lt;img alt=&quot;Listed in GitHub CLI Extension Atlas&quot; src=&quot;https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue&quot;&gt;&lt;/a&gt;</textarea></td>
+          </tr>
+<tr data-repo="k1low/gh-triage" data-name="triage" data-category="notifications">
+            <td><a class="repo" href="https://sjh9714.github.io/gh-extension-atlas/extensions/k1low-gh-triage.html">k1LoW/gh-triage</a><br><span class="muted">Manage issues and pull requests through unread notifications.</span></td>
+            <td>Notifications<br><span class="status active">active</span></td>
+            <td><a href="https://sjh9714.github.io/gh-extension-atlas/extensions/k1low-gh-triage.html"><img alt="Listed in GitHub CLI Extension Atlas" src="https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue"></a></td>
+            <td><textarea readonly>[![Listed in GitHub CLI Extension Atlas](https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue)](https://sjh9714.github.io/gh-extension-atlas/extensions/k1low-gh-triage.html)</textarea></td>
+            <td><textarea readonly>&lt;a href=&quot;https://sjh9714.github.io/gh-extension-atlas/extensions/k1low-gh-triage.html&quot;&gt;&lt;img alt=&quot;Listed in GitHub CLI Extension Atlas&quot; src=&quot;https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue&quot;&gt;&lt;/a&gt;</textarea></td>
+          </tr>
+<tr data-repo="nobe4/gh-not" data-name="not" data-category="notifications">
+            <td><a class="repo" href="https://sjh9714.github.io/gh-extension-atlas/extensions/nobe4-gh-not.html">nobe4/gh-not</a><br><span class="muted">Manage GitHub notifications with rules.</span></td>
+            <td>Notifications<br><span class="status active">active</span></td>
+            <td><a href="https://sjh9714.github.io/gh-extension-atlas/extensions/nobe4-gh-not.html"><img alt="Listed in GitHub CLI Extension Atlas" src="https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue"></a></td>
+            <td><textarea readonly>[![Listed in GitHub CLI Extension Atlas](https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue)](https://sjh9714.github.io/gh-extension-atlas/extensions/nobe4-gh-not.html)</textarea></td>
+            <td><textarea readonly>&lt;a href=&quot;https://sjh9714.github.io/gh-extension-atlas/extensions/nobe4-gh-not.html&quot;&gt;&lt;img alt=&quot;Listed in GitHub CLI Extension Atlas&quot; src=&quot;https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue&quot;&gt;&lt;/a&gt;</textarea></td>
+          </tr>
+<tr data-repo="github/gh-stack" data-name="stack" data-category="pr &amp; issues">
+            <td><a class="repo" href="https://sjh9714.github.io/gh-extension-atlas/extensions/github-gh-stack.html">github/gh-stack</a><br><span class="muted">Manage stacked pull requests on GitHub.</span></td>
+            <td>PR &amp; Issues<br><span class="status active">active</span></td>
+            <td><a href="https://sjh9714.github.io/gh-extension-atlas/extensions/github-gh-stack.html"><img alt="Listed in GitHub CLI Extension Atlas" src="https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue"></a></td>
+            <td><textarea readonly>[![Listed in GitHub CLI Extension Atlas](https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue)](https://sjh9714.github.io/gh-extension-atlas/extensions/github-gh-stack.html)</textarea></td>
+            <td><textarea readonly>&lt;a href=&quot;https://sjh9714.github.io/gh-extension-atlas/extensions/github-gh-stack.html&quot;&gt;&lt;img alt=&quot;Listed in GitHub CLI Extension Atlas&quot; src=&quot;https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue&quot;&gt;&lt;/a&gt;</textarea></td>
+          </tr>
+<tr data-repo="agynio/gh-pr-review" data-name="pr-review" data-category="pr &amp; issues">
+            <td><a class="repo" href="https://sjh9714.github.io/gh-extension-atlas/extensions/agynio-gh-pr-review.html">agynio/gh-pr-review</a><br><span class="muted">View, navigate, reply to, and resolve PR review threads.</span></td>
+            <td>PR &amp; Issues<br><span class="status active">active</span></td>
+            <td><a href="https://sjh9714.github.io/gh-extension-atlas/extensions/agynio-gh-pr-review.html"><img alt="Listed in GitHub CLI Extension Atlas" src="https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue"></a></td>
+            <td><textarea readonly>[![Listed in GitHub CLI Extension Atlas](https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue)](https://sjh9714.github.io/gh-extension-atlas/extensions/agynio-gh-pr-review.html)</textarea></td>
+            <td><textarea readonly>&lt;a href=&quot;https://sjh9714.github.io/gh-extension-atlas/extensions/agynio-gh-pr-review.html&quot;&gt;&lt;img alt=&quot;Listed in GitHub CLI Extension Atlas&quot; src=&quot;https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue&quot;&gt;&lt;/a&gt;</textarea></td>
+          </tr>
+<tr data-repo="valeriobelli/gh-milestone" data-name="milestone" data-category="pr &amp; issues">
+            <td><a class="repo" href="https://sjh9714.github.io/gh-extension-atlas/extensions/valeriobelli-gh-milestone.html">valeriobelli/gh-milestone</a><br><span class="muted">Manage GitHub milestones from the terminal.</span></td>
+            <td>PR &amp; Issues<br><span class="status active">active</span></td>
+            <td><a href="https://sjh9714.github.io/gh-extension-atlas/extensions/valeriobelli-gh-milestone.html"><img alt="Listed in GitHub CLI Extension Atlas" src="https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue"></a></td>
+            <td><textarea readonly>[![Listed in GitHub CLI Extension Atlas](https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue)](https://sjh9714.github.io/gh-extension-atlas/extensions/valeriobelli-gh-milestone.html)</textarea></td>
+            <td><textarea readonly>&lt;a href=&quot;https://sjh9714.github.io/gh-extension-atlas/extensions/valeriobelli-gh-milestone.html&quot;&gt;&lt;img alt=&quot;Listed in GitHub CLI Extension Atlas&quot; src=&quot;https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue&quot;&gt;&lt;/a&gt;</textarea></td>
+          </tr>
+<tr data-repo="inditextech/gh-sherpa" data-name="sherpa" data-category="pr &amp; issues">
+            <td><a class="repo" href="https://sjh9714.github.io/gh-extension-atlas/extensions/inditextech-gh-sherpa.html">InditexTech/gh-sherpa</a><br><span class="muted">Create branches and pull requests from Jira or GitHub issues.</span></td>
+            <td>PR &amp; Issues<br><span class="status active">active</span></td>
+            <td><a href="https://sjh9714.github.io/gh-extension-atlas/extensions/inditextech-gh-sherpa.html"><img alt="Listed in GitHub CLI Extension Atlas" src="https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue"></a></td>
+            <td><textarea readonly>[![Listed in GitHub CLI Extension Atlas](https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue)](https://sjh9714.github.io/gh-extension-atlas/extensions/inditextech-gh-sherpa.html)</textarea></td>
+            <td><textarea readonly>&lt;a href=&quot;https://sjh9714.github.io/gh-extension-atlas/extensions/inditextech-gh-sherpa.html&quot;&gt;&lt;img alt=&quot;Listed in GitHub CLI Extension Atlas&quot; src=&quot;https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue&quot;&gt;&lt;/a&gt;</textarea></td>
+          </tr>
+<tr data-repo="hectcastro/gh-metrics" data-name="metrics" data-category="pr &amp; issues">
+            <td><a class="repo" href="https://sjh9714.github.io/gh-extension-atlas/extensions/hectcastro-gh-metrics.html">hectcastro/gh-metrics</a><br><span class="muted">Summarize pull request metrics.</span></td>
+            <td>PR &amp; Issues<br><span class="status active">active</span></td>
+            <td><a href="https://sjh9714.github.io/gh-extension-atlas/extensions/hectcastro-gh-metrics.html"><img alt="Listed in GitHub CLI Extension Atlas" src="https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue"></a></td>
+            <td><textarea readonly>[![Listed in GitHub CLI Extension Atlas](https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue)](https://sjh9714.github.io/gh-extension-atlas/extensions/hectcastro-gh-metrics.html)</textarea></td>
+            <td><textarea readonly>&lt;a href=&quot;https://sjh9714.github.io/gh-extension-atlas/extensions/hectcastro-gh-metrics.html&quot;&gt;&lt;img alt=&quot;Listed in GitHub CLI Extension Atlas&quot; src=&quot;https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue&quot;&gt;&lt;/a&gt;</textarea></td>
+          </tr>
+<tr data-repo="kawarimidoll/gh-prism" data-name="prism" data-category="pr &amp; issues">
+            <td><a class="repo" href="https://sjh9714.github.io/gh-extension-atlas/extensions/kawarimidoll-gh-prism.html">kawarimidoll/gh-prism</a><br><span class="muted">Review pull requests from GitHub CLI.</span></td>
+            <td>PR &amp; Issues<br><span class="status active">active</span></td>
+            <td><a href="https://sjh9714.github.io/gh-extension-atlas/extensions/kawarimidoll-gh-prism.html"><img alt="Listed in GitHub CLI Extension Atlas" src="https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue"></a></td>
+            <td><textarea readonly>[![Listed in GitHub CLI Extension Atlas](https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue)](https://sjh9714.github.io/gh-extension-atlas/extensions/kawarimidoll-gh-prism.html)</textarea></td>
+            <td><textarea readonly>&lt;a href=&quot;https://sjh9714.github.io/gh-extension-atlas/extensions/kawarimidoll-gh-prism.html&quot;&gt;&lt;img alt=&quot;Listed in GitHub CLI Extension Atlas&quot; src=&quot;https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue&quot;&gt;&lt;/a&gt;</textarea></td>
+          </tr>
+<tr data-repo="einride/gh-dependabot" data-name="dependabot" data-category="pr &amp; issues">
+            <td><a class="repo" href="https://sjh9714.github.io/gh-extension-atlas/extensions/einride-gh-dependabot.html">einride/gh-dependabot</a><br><span class="muted">Review Dependabot pull requests from GitHub CLI.</span></td>
+            <td>PR &amp; Issues<br><span class="status active">active</span></td>
+            <td><a href="https://sjh9714.github.io/gh-extension-atlas/extensions/einride-gh-dependabot.html"><img alt="Listed in GitHub CLI Extension Atlas" src="https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue"></a></td>
+            <td><textarea readonly>[![Listed in GitHub CLI Extension Atlas](https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue)](https://sjh9714.github.io/gh-extension-atlas/extensions/einride-gh-dependabot.html)</textarea></td>
+            <td><textarea readonly>&lt;a href=&quot;https://sjh9714.github.io/gh-extension-atlas/extensions/einride-gh-dependabot.html&quot;&gt;&lt;img alt=&quot;Listed in GitHub CLI Extension Atlas&quot; src=&quot;https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue&quot;&gt;&lt;/a&gt;</textarea></td>
+          </tr>
+<tr data-repo="jackchuka/gh-dep" data-name="dep" data-category="pr &amp; issues">
+            <td><a class="repo" href="https://sjh9714.github.io/gh-extension-atlas/extensions/jackchuka-gh-dep.html">jackchuka/gh-dep</a><br><span class="muted">Bulk manage dependency pull requests in a TUI.</span></td>
+            <td>PR &amp; Issues<br><span class="status active">active</span></td>
+            <td><a href="https://sjh9714.github.io/gh-extension-atlas/extensions/jackchuka-gh-dep.html"><img alt="Listed in GitHub CLI Extension Atlas" src="https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue"></a></td>
+            <td><textarea readonly>[![Listed in GitHub CLI Extension Atlas](https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue)](https://sjh9714.github.io/gh-extension-atlas/extensions/jackchuka-gh-dep.html)</textarea></td>
+            <td><textarea readonly>&lt;a href=&quot;https://sjh9714.github.io/gh-extension-atlas/extensions/jackchuka-gh-dep.html&quot;&gt;&lt;img alt=&quot;Listed in GitHub CLI Extension Atlas&quot; src=&quot;https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue&quot;&gt;&lt;/a&gt;</textarea></td>
+          </tr>
+<tr data-repo="gennaro-tedesco/gh-i" data-name="i" data-category="pr &amp; issues">
+            <td><a class="repo" href="https://sjh9714.github.io/gh-extension-atlas/extensions/gennaro-tedesco-gh-i.html">gennaro-tedesco/gh-i</a><br><span class="muted">Interactively search GitHub issues.</span></td>
+            <td>PR &amp; Issues<br><span class="status watch">watch</span></td>
+            <td><a href="https://sjh9714.github.io/gh-extension-atlas/extensions/gennaro-tedesco-gh-i.html"><img alt="Listed in GitHub CLI Extension Atlas" src="https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue"></a></td>
+            <td><textarea readonly>[![Listed in GitHub CLI Extension Atlas](https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue)](https://sjh9714.github.io/gh-extension-atlas/extensions/gennaro-tedesco-gh-i.html)</textarea></td>
+            <td><textarea readonly>&lt;a href=&quot;https://sjh9714.github.io/gh-extension-atlas/extensions/gennaro-tedesco-gh-i.html&quot;&gt;&lt;img alt=&quot;Listed in GitHub CLI Extension Atlas&quot; src=&quot;https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue&quot;&gt;&lt;/a&gt;</textarea></td>
+          </tr>
+<tr data-repo="koba789/gh-sql" data-name="sql" data-category="pr &amp; issues">
+            <td><a class="repo" href="https://sjh9714.github.io/gh-extension-atlas/extensions/koba789-gh-sql.html">KOBA789/gh-sql</a><br><span class="muted">Query GitHub Projects data with SQL.</span></td>
+            <td>PR &amp; Issues<br><span class="status stale">stale</span></td>
+            <td><a href="https://sjh9714.github.io/gh-extension-atlas/extensions/koba789-gh-sql.html"><img alt="Listed in GitHub CLI Extension Atlas" src="https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue"></a></td>
+            <td><textarea readonly>[![Listed in GitHub CLI Extension Atlas](https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue)](https://sjh9714.github.io/gh-extension-atlas/extensions/koba789-gh-sql.html)</textarea></td>
+            <td><textarea readonly>&lt;a href=&quot;https://sjh9714.github.io/gh-extension-atlas/extensions/koba789-gh-sql.html&quot;&gt;&lt;img alt=&quot;Listed in GitHub CLI Extension Atlas&quot; src=&quot;https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue&quot;&gt;&lt;/a&gt;</textarea></td>
+          </tr>
+<tr data-repo="samcoe/gh-triage" data-name="triage" data-category="pr &amp; issues">
+            <td><a class="repo" href="https://sjh9714.github.io/gh-extension-atlas/extensions/samcoe-gh-triage.html">samcoe/gh-triage</a><br><span class="muted">Triage GitHub issues from the terminal.</span></td>
+            <td>PR &amp; Issues<br><span class="status stale">stale</span></td>
+            <td><a href="https://sjh9714.github.io/gh-extension-atlas/extensions/samcoe-gh-triage.html"><img alt="Listed in GitHub CLI Extension Atlas" src="https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue"></a></td>
+            <td><textarea readonly>[![Listed in GitHub CLI Extension Atlas](https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue)](https://sjh9714.github.io/gh-extension-atlas/extensions/samcoe-gh-triage.html)</textarea></td>
+            <td><textarea readonly>&lt;a href=&quot;https://sjh9714.github.io/gh-extension-atlas/extensions/samcoe-gh-triage.html&quot;&gt;&lt;img alt=&quot;Listed in GitHub CLI Extension Atlas&quot; src=&quot;https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue&quot;&gt;&lt;/a&gt;</textarea></td>
+          </tr>
+<tr data-repo="seachicken/gh-poi" data-name="poi" data-category="repo &amp; branch">
+            <td><a class="repo" href="https://sjh9714.github.io/gh-extension-atlas/extensions/seachicken-gh-poi.html">seachicken/gh-poi</a><br><span class="muted">Safely clean up local branches.</span></td>
+            <td>Repo &amp; Branch<br><span class="status active">active</span></td>
+            <td><a href="https://sjh9714.github.io/gh-extension-atlas/extensions/seachicken-gh-poi.html"><img alt="Listed in GitHub CLI Extension Atlas" src="https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue"></a></td>
+            <td><textarea readonly>[![Listed in GitHub CLI Extension Atlas](https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue)](https://sjh9714.github.io/gh-extension-atlas/extensions/seachicken-gh-poi.html)</textarea></td>
+            <td><textarea readonly>&lt;a href=&quot;https://sjh9714.github.io/gh-extension-atlas/extensions/seachicken-gh-poi.html&quot;&gt;&lt;img alt=&quot;Listed in GitHub CLI Extension Atlas&quot; src=&quot;https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue&quot;&gt;&lt;/a&gt;</textarea></td>
+          </tr>
+<tr data-repo="redraw/gh-install" data-name="install" data-category="repo &amp; branch">
+            <td><a class="repo" href="https://sjh9714.github.io/gh-extension-atlas/extensions/redraw-gh-install.html">redraw/gh-install</a><br><span class="muted">Install GitHub release binaries interactively.</span></td>
+            <td>Repo &amp; Branch<br><span class="status active">active</span></td>
+            <td><a href="https://sjh9714.github.io/gh-extension-atlas/extensions/redraw-gh-install.html"><img alt="Listed in GitHub CLI Extension Atlas" src="https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue"></a></td>
+            <td><textarea readonly>[![Listed in GitHub CLI Extension Atlas](https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue)](https://sjh9714.github.io/gh-extension-atlas/extensions/redraw-gh-install.html)</textarea></td>
+            <td><textarea readonly>&lt;a href=&quot;https://sjh9714.github.io/gh-extension-atlas/extensions/redraw-gh-install.html&quot;&gt;&lt;img alt=&quot;Listed in GitHub CLI Extension Atlas&quot; src=&quot;https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue&quot;&gt;&lt;/a&gt;</textarea></td>
+          </tr>
+<tr data-repo="johnmanjiro13/gh-bump" data-name="bump" data-category="repo &amp; branch">
+            <td><a class="repo" href="https://sjh9714.github.io/gh-extension-atlas/extensions/johnmanjiro13-gh-bump.html">johnmanjiro13/gh-bump</a><br><span class="muted">Bump repository versions from the CLI.</span></td>
+            <td>Repo &amp; Branch<br><span class="status active">active</span></td>
+            <td><a href="https://sjh9714.github.io/gh-extension-atlas/extensions/johnmanjiro13-gh-bump.html"><img alt="Listed in GitHub CLI Extension Atlas" src="https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue"></a></td>
+            <td><textarea readonly>[![Listed in GitHub CLI Extension Atlas](https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue)](https://sjh9714.github.io/gh-extension-atlas/extensions/johnmanjiro13-gh-bump.html)</textarea></td>
+            <td><textarea readonly>&lt;a href=&quot;https://sjh9714.github.io/gh-extension-atlas/extensions/johnmanjiro13-gh-bump.html&quot;&gt;&lt;img alt=&quot;Listed in GitHub CLI Extension Atlas&quot; src=&quot;https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue&quot;&gt;&lt;/a&gt;</textarea></td>
+          </tr>
+<tr data-repo="haywardmorihara/gh-tidy" data-name="tidy" data-category="repo &amp; branch">
+            <td><a class="repo" href="https://sjh9714.github.io/gh-extension-atlas/extensions/haywardmorihara-gh-tidy.html">HaywardMorihara/gh-tidy</a><br><span class="muted">Clean up a Git workspace before starting new work.</span></td>
+            <td>Repo &amp; Branch<br><span class="status active">active</span></td>
+            <td><a href="https://sjh9714.github.io/gh-extension-atlas/extensions/haywardmorihara-gh-tidy.html"><img alt="Listed in GitHub CLI Extension Atlas" src="https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue"></a></td>
+            <td><textarea readonly>[![Listed in GitHub CLI Extension Atlas](https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue)](https://sjh9714.github.io/gh-extension-atlas/extensions/haywardmorihara-gh-tidy.html)</textarea></td>
+            <td><textarea readonly>&lt;a href=&quot;https://sjh9714.github.io/gh-extension-atlas/extensions/haywardmorihara-gh-tidy.html&quot;&gt;&lt;img alt=&quot;Listed in GitHub CLI Extension Atlas&quot; src=&quot;https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue&quot;&gt;&lt;/a&gt;</textarea></td>
+          </tr>
+<tr data-repo="despreston/gh-worktree" data-name="worktree" data-category="repo &amp; branch">
+            <td><a class="repo" href="https://sjh9714.github.io/gh-extension-atlas/extensions/despreston-gh-worktree.html">despreston/gh-worktree</a><br><span class="muted">Improve Git worktree workflows with GitHub context.</span></td>
+            <td>Repo &amp; Branch<br><span class="status active">active</span></td>
+            <td><a href="https://sjh9714.github.io/gh-extension-atlas/extensions/despreston-gh-worktree.html"><img alt="Listed in GitHub CLI Extension Atlas" src="https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue"></a></td>
+            <td><textarea readonly>[![Listed in GitHub CLI Extension Atlas](https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue)](https://sjh9714.github.io/gh-extension-atlas/extensions/despreston-gh-worktree.html)</textarea></td>
+            <td><textarea readonly>&lt;a href=&quot;https://sjh9714.github.io/gh-extension-atlas/extensions/despreston-gh-worktree.html&quot;&gt;&lt;img alt=&quot;Listed in GitHub CLI Extension Atlas&quot; src=&quot;https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue&quot;&gt;&lt;/a&gt;</textarea></td>
+          </tr>
+<tr data-repo="mislav/gh-branch" data-name="branch" data-category="repo &amp; branch">
+            <td><a class="repo" href="https://sjh9714.github.io/gh-extension-atlas/extensions/mislav-gh-branch.html">mislav/gh-branch</a><br><span class="muted">Fuzzy find, switch between, and delete branches.</span></td>
+            <td>Repo &amp; Branch<br><span class="status watch">watch</span></td>
+            <td><a href="https://sjh9714.github.io/gh-extension-atlas/extensions/mislav-gh-branch.html"><img alt="Listed in GitHub CLI Extension Atlas" src="https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue"></a></td>
+            <td><textarea readonly>[![Listed in GitHub CLI Extension Atlas](https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue)](https://sjh9714.github.io/gh-extension-atlas/extensions/mislav-gh-branch.html)</textarea></td>
+            <td><textarea readonly>&lt;a href=&quot;https://sjh9714.github.io/gh-extension-atlas/extensions/mislav-gh-branch.html&quot;&gt;&lt;img alt=&quot;Listed in GitHub CLI Extension Atlas&quot; src=&quot;https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue&quot;&gt;&lt;/a&gt;</textarea></td>
+          </tr>
+<tr data-repo="chelnak/gh-changelog" data-name="changelog" data-category="repo &amp; branch">
+            <td><a class="repo" href="https://sjh9714.github.io/gh-extension-atlas/extensions/chelnak-gh-changelog.html">chelnak/gh-changelog</a><br><span class="muted">Create changelogs that follow Keep a Changelog.</span></td>
+            <td>Repo &amp; Branch<br><span class="status watch">watch</span></td>
+            <td><a href="https://sjh9714.github.io/gh-extension-atlas/extensions/chelnak-gh-changelog.html"><img alt="Listed in GitHub CLI Extension Atlas" src="https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue"></a></td>
+            <td><textarea readonly>[![Listed in GitHub CLI Extension Atlas](https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue)](https://sjh9714.github.io/gh-extension-atlas/extensions/chelnak-gh-changelog.html)</textarea></td>
+            <td><textarea readonly>&lt;a href=&quot;https://sjh9714.github.io/gh-extension-atlas/extensions/chelnak-gh-changelog.html&quot;&gt;&lt;img alt=&quot;Listed in GitHub CLI Extension Atlas&quot; src=&quot;https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue&quot;&gt;&lt;/a&gt;</textarea></td>
+          </tr>
+<tr data-repo="davidraviv/gh-clean-branches" data-name="clean-branches" data-category="repo &amp; branch">
+            <td><a class="repo" href="https://sjh9714.github.io/gh-extension-atlas/extensions/davidraviv-gh-clean-branches.html">davidraviv/gh-clean-branches</a><br><span class="muted">Delete local branches with no upstream and no unpushed commits.</span></td>
+            <td>Repo &amp; Branch<br><span class="status stale">stale</span></td>
+            <td><a href="https://sjh9714.github.io/gh-extension-atlas/extensions/davidraviv-gh-clean-branches.html"><img alt="Listed in GitHub CLI Extension Atlas" src="https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue"></a></td>
+            <td><textarea readonly>[![Listed in GitHub CLI Extension Atlas](https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue)](https://sjh9714.github.io/gh-extension-atlas/extensions/davidraviv-gh-clean-branches.html)</textarea></td>
+            <td><textarea readonly>&lt;a href=&quot;https://sjh9714.github.io/gh-extension-atlas/extensions/davidraviv-gh-clean-branches.html&quot;&gt;&lt;img alt=&quot;Listed in GitHub CLI Extension Atlas&quot; src=&quot;https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue&quot;&gt;&lt;/a&gt;</textarea></td>
+          </tr>
+<tr data-repo="matt-bartel/gh-clone-org" data-name="clone-org" data-category="repo &amp; branch">
+            <td><a class="repo" href="https://sjh9714.github.io/gh-extension-atlas/extensions/matt-bartel-gh-clone-org.html">matt-bartel/gh-clone-org</a><br><span class="muted">Clone all repositories in an organization with optional filtering.</span></td>
+            <td>Repo &amp; Branch<br><span class="status stale">stale</span></td>
+            <td><a href="https://sjh9714.github.io/gh-extension-atlas/extensions/matt-bartel-gh-clone-org.html"><img alt="Listed in GitHub CLI Extension Atlas" src="https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue"></a></td>
+            <td><textarea readonly>[![Listed in GitHub CLI Extension Atlas](https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue)](https://sjh9714.github.io/gh-extension-atlas/extensions/matt-bartel-gh-clone-org.html)</textarea></td>
+            <td><textarea readonly>&lt;a href=&quot;https://sjh9714.github.io/gh-extension-atlas/extensions/matt-bartel-gh-clone-org.html&quot;&gt;&lt;img alt=&quot;Listed in GitHub CLI Extension Atlas&quot; src=&quot;https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue&quot;&gt;&lt;/a&gt;</textarea></td>
+          </tr>
+<tr data-repo="mislav/gh-cp" data-name="cp" data-category="repo &amp; branch">
+            <td><a class="repo" href="https://sjh9714.github.io/gh-extension-atlas/extensions/mislav-gh-cp.html">mislav/gh-cp</a><br><span class="muted">Copy a file from a GitHub repository without cloning.</span></td>
+            <td>Repo &amp; Branch<br><span class="status stale">stale</span></td>
+            <td><a href="https://sjh9714.github.io/gh-extension-atlas/extensions/mislav-gh-cp.html"><img alt="Listed in GitHub CLI Extension Atlas" src="https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue"></a></td>
+            <td><textarea readonly>[![Listed in GitHub CLI Extension Atlas](https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue)](https://sjh9714.github.io/gh-extension-atlas/extensions/mislav-gh-cp.html)</textarea></td>
+            <td><textarea readonly>&lt;a href=&quot;https://sjh9714.github.io/gh-extension-atlas/extensions/mislav-gh-cp.html&quot;&gt;&lt;img alt=&quot;Listed in GitHub CLI Extension Atlas&quot; src=&quot;https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue&quot;&gt;&lt;/a&gt;</textarea></td>
+          </tr>
+<tr data-repo="yuler/gh-download" data-name="download" data-category="repo &amp; branch">
+            <td><a class="repo" href="https://sjh9714.github.io/gh-extension-atlas/extensions/yuler-gh-download.html">yuler/gh-download</a><br><span class="muted">Download folders or files without cloning a repository.</span></td>
+            <td>Repo &amp; Branch<br><span class="status stale">stale</span></td>
+            <td><a href="https://sjh9714.github.io/gh-extension-atlas/extensions/yuler-gh-download.html"><img alt="Listed in GitHub CLI Extension Atlas" src="https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue"></a></td>
+            <td><textarea readonly>[![Listed in GitHub CLI Extension Atlas](https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue)](https://sjh9714.github.io/gh-extension-atlas/extensions/yuler-gh-download.html)</textarea></td>
+            <td><textarea readonly>&lt;a href=&quot;https://sjh9714.github.io/gh-extension-atlas/extensions/yuler-gh-download.html&quot;&gt;&lt;img alt=&quot;Listed in GitHub CLI Extension Atlas&quot; src=&quot;https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue&quot;&gt;&lt;/a&gt;</textarea></td>
+          </tr>
+<tr data-repo="gennaro-tedesco/gh-s" data-name="s" data-category="search">
+            <td><a class="repo" href="https://sjh9714.github.io/gh-extension-atlas/extensions/gennaro-tedesco-gh-s.html">gennaro-tedesco/gh-s</a><br><span class="muted">Interactively search GitHub repositories.</span></td>
+            <td>Search<br><span class="status active">active</span></td>
+            <td><a href="https://sjh9714.github.io/gh-extension-atlas/extensions/gennaro-tedesco-gh-s.html"><img alt="Listed in GitHub CLI Extension Atlas" src="https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue"></a></td>
+            <td><textarea readonly>[![Listed in GitHub CLI Extension Atlas](https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue)](https://sjh9714.github.io/gh-extension-atlas/extensions/gennaro-tedesco-gh-s.html)</textarea></td>
+            <td><textarea readonly>&lt;a href=&quot;https://sjh9714.github.io/gh-extension-atlas/extensions/gennaro-tedesco-gh-s.html&quot;&gt;&lt;img alt=&quot;Listed in GitHub CLI Extension Atlas&quot; src=&quot;https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue&quot;&gt;&lt;/a&gt;</textarea></td>
+          </tr>
+<tr data-repo="gennaro-tedesco/gh-f" data-name="f" data-category="search">
+            <td><a class="repo" href="https://sjh9714.github.io/gh-extension-atlas/extensions/gennaro-tedesco-gh-f.html">gennaro-tedesco/gh-f</a><br><span class="muted">A compact fzf-powered GitHub extension.</span></td>
+            <td>Search<br><span class="status active">active</span></td>
+            <td><a href="https://sjh9714.github.io/gh-extension-atlas/extensions/gennaro-tedesco-gh-f.html"><img alt="Listed in GitHub CLI Extension Atlas" src="https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue"></a></td>
+            <td><textarea readonly>[![Listed in GitHub CLI Extension Atlas](https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue)](https://sjh9714.github.io/gh-extension-atlas/extensions/gennaro-tedesco-gh-f.html)</textarea></td>
+            <td><textarea readonly>&lt;a href=&quot;https://sjh9714.github.io/gh-extension-atlas/extensions/gennaro-tedesco-gh-f.html&quot;&gt;&lt;img alt=&quot;Listed in GitHub CLI Extension Atlas&quot; src=&quot;https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue&quot;&gt;&lt;/a&gt;</textarea></td>
+          </tr>
+<tr data-repo="k1low/gh-grep" data-name="grep" data-category="search">
+            <td><a class="repo" href="https://sjh9714.github.io/gh-extension-atlas/extensions/k1low-gh-grep.html">k1LoW/gh-grep</a><br><span class="muted">Print matching lines from repositories through the GitHub API.</span></td>
+            <td>Search<br><span class="status active">active</span></td>
+            <td><a href="https://sjh9714.github.io/gh-extension-atlas/extensions/k1low-gh-grep.html"><img alt="Listed in GitHub CLI Extension Atlas" src="https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue"></a></td>
+            <td><textarea readonly>[![Listed in GitHub CLI Extension Atlas](https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue)](https://sjh9714.github.io/gh-extension-atlas/extensions/k1low-gh-grep.html)</textarea></td>
+            <td><textarea readonly>&lt;a href=&quot;https://sjh9714.github.io/gh-extension-atlas/extensions/k1low-gh-grep.html&quot;&gt;&lt;img alt=&quot;Listed in GitHub CLI Extension Atlas&quot; src=&quot;https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue&quot;&gt;&lt;/a&gt;</textarea></td>
+          </tr>
+<tr data-repo="langlangbart/gh-find-code" data-name="find-code" data-category="search">
+            <td><a class="repo" href="https://sjh9714.github.io/gh-extension-atlas/extensions/langlangbart-gh-find-code.html">LangLangBart/gh-find-code</a><br><span class="muted">Search GitHub code with fzf.</span></td>
+            <td>Search<br><span class="status active">active</span></td>
+            <td><a href="https://sjh9714.github.io/gh-extension-atlas/extensions/langlangbart-gh-find-code.html"><img alt="Listed in GitHub CLI Extension Atlas" src="https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue"></a></td>
+            <td><textarea readonly>[![Listed in GitHub CLI Extension Atlas](https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue)](https://sjh9714.github.io/gh-extension-atlas/extensions/langlangbart-gh-find-code.html)</textarea></td>
+            <td><textarea readonly>&lt;a href=&quot;https://sjh9714.github.io/gh-extension-atlas/extensions/langlangbart-gh-find-code.html&quot;&gt;&lt;img alt=&quot;Listed in GitHub CLI Extension Atlas&quot; src=&quot;https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue&quot;&gt;&lt;/a&gt;</textarea></td>
+          </tr>
+<tr data-repo="kawarimidoll/gh-q" data-name="q" data-category="search">
+            <td><a class="repo" href="https://sjh9714.github.io/gh-extension-atlas/extensions/kawarimidoll-gh-q.html">kawarimidoll/gh-q</a><br><span class="muted">Clone GitHub repositories using fzf and ghq.</span></td>
+            <td>Search<br><span class="status active">active</span></td>
+            <td><a href="https://sjh9714.github.io/gh-extension-atlas/extensions/kawarimidoll-gh-q.html"><img alt="Listed in GitHub CLI Extension Atlas" src="https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue"></a></td>
+            <td><textarea readonly>[![Listed in GitHub CLI Extension Atlas](https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue)](https://sjh9714.github.io/gh-extension-atlas/extensions/kawarimidoll-gh-q.html)</textarea></td>
+            <td><textarea readonly>&lt;a href=&quot;https://sjh9714.github.io/gh-extension-atlas/extensions/kawarimidoll-gh-q.html&quot;&gt;&lt;img alt=&quot;Listed in GitHub CLI Extension Atlas&quot; src=&quot;https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue&quot;&gt;&lt;/a&gt;</textarea></td>
+          </tr>
+<tr data-repo="benelan/gh-fzf" data-name="fzf" data-category="search">
+            <td><a class="repo" href="https://sjh9714.github.io/gh-extension-atlas/extensions/benelan-gh-fzf.html">benelan/gh-fzf</a><br><span class="muted">Wrap GitHub CLI workflows with fzf.</span></td>
+            <td>Search<br><span class="status active">active</span></td>
+            <td><a href="https://sjh9714.github.io/gh-extension-atlas/extensions/benelan-gh-fzf.html"><img alt="Listed in GitHub CLI Extension Atlas" src="https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue"></a></td>
+            <td><textarea readonly>[![Listed in GitHub CLI Extension Atlas](https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue)](https://sjh9714.github.io/gh-extension-atlas/extensions/benelan-gh-fzf.html)</textarea></td>
+            <td><textarea readonly>&lt;a href=&quot;https://sjh9714.github.io/gh-extension-atlas/extensions/benelan-gh-fzf.html&quot;&gt;&lt;img alt=&quot;Listed in GitHub CLI Extension Atlas&quot; src=&quot;https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue&quot;&gt;&lt;/a&gt;</textarea></td>
+          </tr>
+<tr data-repo="link-/gh-stars" data-name="stars" data-category="search">
+            <td><a class="repo" href="https://sjh9714.github.io/gh-extension-atlas/extensions/link-gh-stars.html">Link-/gh-stars</a><br><span class="muted">Search starred repositories from GitHub CLI.</span></td>
+            <td>Search<br><span class="status active">active</span></td>
+            <td><a href="https://sjh9714.github.io/gh-extension-atlas/extensions/link-gh-stars.html"><img alt="Listed in GitHub CLI Extension Atlas" src="https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue"></a></td>
+            <td><textarea readonly>[![Listed in GitHub CLI Extension Atlas](https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue)](https://sjh9714.github.io/gh-extension-atlas/extensions/link-gh-stars.html)</textarea></td>
+            <td><textarea readonly>&lt;a href=&quot;https://sjh9714.github.io/gh-extension-atlas/extensions/link-gh-stars.html&quot;&gt;&lt;img alt=&quot;Listed in GitHub CLI Extension Atlas&quot; src=&quot;https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue&quot;&gt;&lt;/a&gt;</textarea></td>
+          </tr>
+<tr data-repo="korosuke613/gh-user-stars" data-name="user-stars" data-category="search">
+            <td><a class="repo" href="https://sjh9714.github.io/gh-extension-atlas/extensions/korosuke613-gh-user-stars.html">korosuke613/gh-user-stars</a><br><span class="muted">Interactively browse and search starred repositories.</span></td>
+            <td>Search<br><span class="status stale">stale</span></td>
+            <td><a href="https://sjh9714.github.io/gh-extension-atlas/extensions/korosuke613-gh-user-stars.html"><img alt="Listed in GitHub CLI Extension Atlas" src="https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue"></a></td>
+            <td><textarea readonly>[![Listed in GitHub CLI Extension Atlas](https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue)](https://sjh9714.github.io/gh-extension-atlas/extensions/korosuke613-gh-user-stars.html)</textarea></td>
+            <td><textarea readonly>&lt;a href=&quot;https://sjh9714.github.io/gh-extension-atlas/extensions/korosuke613-gh-user-stars.html&quot;&gt;&lt;img alt=&quot;Listed in GitHub CLI Extension Atlas&quot; src=&quot;https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue&quot;&gt;&lt;/a&gt;</textarea></td>
+          </tr>
+<tr data-repo="samcoe/gh-repo-explore" data-name="repo-explore" data-category="search">
+            <td><a class="repo" href="https://sjh9714.github.io/gh-extension-atlas/extensions/samcoe-gh-repo-explore.html">samcoe/gh-repo-explore</a><br><span class="muted">Interactively explore a repository without cloning it.</span></td>
+            <td>Search<br><span class="status stale">stale</span></td>
+            <td><a href="https://sjh9714.github.io/gh-extension-atlas/extensions/samcoe-gh-repo-explore.html"><img alt="Listed in GitHub CLI Extension Atlas" src="https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue"></a></td>
+            <td><textarea readonly>[![Listed in GitHub CLI Extension Atlas](https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue)](https://sjh9714.github.io/gh-extension-atlas/extensions/samcoe-gh-repo-explore.html)</textarea></td>
+            <td><textarea readonly>&lt;a href=&quot;https://sjh9714.github.io/gh-extension-atlas/extensions/samcoe-gh-repo-explore.html&quot;&gt;&lt;img alt=&quot;Listed in GitHub CLI Extension Atlas&quot; src=&quot;https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue&quot;&gt;&lt;/a&gt;</textarea></td>
+          </tr>
+<tr data-repo="github/gh-gei" data-name="gei" data-category="security/admin">
+            <td><a class="repo" href="https://sjh9714.github.io/gh-extension-atlas/extensions/github-gh-gei.html">github/gh-gei</a><br><span class="muted">Support GitHub Enterprise Importer migration workflows.</span></td>
+            <td>Security/Admin<br><span class="status active">active</span></td>
+            <td><a href="https://sjh9714.github.io/gh-extension-atlas/extensions/github-gh-gei.html"><img alt="Listed in GitHub CLI Extension Atlas" src="https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue"></a></td>
+            <td><textarea readonly>[![Listed in GitHub CLI Extension Atlas](https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue)](https://sjh9714.github.io/gh-extension-atlas/extensions/github-gh-gei.html)</textarea></td>
+            <td><textarea readonly>&lt;a href=&quot;https://sjh9714.github.io/gh-extension-atlas/extensions/github-gh-gei.html&quot;&gt;&lt;img alt=&quot;Listed in GitHub CLI Extension Atlas&quot; src=&quot;https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue&quot;&gt;&lt;/a&gt;</textarea></td>
+          </tr>
+<tr data-repo="link-/gh-token" data-name="token" data-category="security/admin">
+            <td><a class="repo" href="https://sjh9714.github.io/gh-extension-atlas/extensions/link-gh-token.html">Link-/gh-token</a><br><span class="muted">Create installation access tokens for GitHub Apps.</span></td>
+            <td>Security/Admin<br><span class="status active">active</span></td>
+            <td><a href="https://sjh9714.github.io/gh-extension-atlas/extensions/link-gh-token.html"><img alt="Listed in GitHub CLI Extension Atlas" src="https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue"></a></td>
+            <td><textarea readonly>[![Listed in GitHub CLI Extension Atlas](https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue)](https://sjh9714.github.io/gh-extension-atlas/extensions/link-gh-token.html)</textarea></td>
+            <td><textarea readonly>&lt;a href=&quot;https://sjh9714.github.io/gh-extension-atlas/extensions/link-gh-token.html&quot;&gt;&lt;img alt=&quot;Listed in GitHub CLI Extension Atlas&quot; src=&quot;https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue&quot;&gt;&lt;/a&gt;</textarea></td>
+          </tr>
+<tr data-repo="mona-actions/gh-repo-stats" data-name="repo-stats" data-category="security/admin">
+            <td><a class="repo" href="https://sjh9714.github.io/gh-extension-atlas/extensions/mona-actions-gh-repo-stats.html">mona-actions/gh-repo-stats</a><br><span class="muted">Collect repository metadata used in GitHub migration work.</span></td>
+            <td>Security/Admin<br><span class="status active">active</span></td>
+            <td><a href="https://sjh9714.github.io/gh-extension-atlas/extensions/mona-actions-gh-repo-stats.html"><img alt="Listed in GitHub CLI Extension Atlas" src="https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue"></a></td>
+            <td><textarea readonly>[![Listed in GitHub CLI Extension Atlas](https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue)](https://sjh9714.github.io/gh-extension-atlas/extensions/mona-actions-gh-repo-stats.html)</textarea></td>
+            <td><textarea readonly>&lt;a href=&quot;https://sjh9714.github.io/gh-extension-atlas/extensions/mona-actions-gh-repo-stats.html&quot;&gt;&lt;img alt=&quot;Listed in GitHub CLI Extension Atlas&quot; src=&quot;https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue&quot;&gt;&lt;/a&gt;</textarea></td>
+          </tr>
+<tr data-repo="babarot/gh-infra" data-name="infra" data-category="security/admin">
+            <td><a class="repo" href="https://sjh9714.github.io/gh-extension-atlas/extensions/babarot-gh-infra.html">babarot/gh-infra</a><br><span class="muted">Manage GitHub infrastructure declaratively with YAML.</span></td>
+            <td>Security/Admin<br><span class="status active">active</span></td>
+            <td><a href="https://sjh9714.github.io/gh-extension-atlas/extensions/babarot-gh-infra.html"><img alt="Listed in GitHub CLI Extension Atlas" src="https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue"></a></td>
+            <td><textarea readonly>[![Listed in GitHub CLI Extension Atlas](https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue)](https://sjh9714.github.io/gh-extension-atlas/extensions/babarot-gh-infra.html)</textarea></td>
+            <td><textarea readonly>&lt;a href=&quot;https://sjh9714.github.io/gh-extension-atlas/extensions/babarot-gh-infra.html&quot;&gt;&lt;img alt=&quot;Listed in GitHub CLI Extension Atlas&quot; src=&quot;https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue&quot;&gt;&lt;/a&gt;</textarea></td>
+          </tr>
+<tr data-repo="github/gh-classroom" data-name="classroom" data-category="security/admin">
+            <td><a class="repo" href="https://sjh9714.github.io/gh-extension-atlas/extensions/github-gh-classroom.html">github/gh-classroom</a><br><span class="muted">Manage GitHub Classroom workflows from the terminal.</span></td>
+            <td>Security/Admin<br><span class="status active">active</span></td>
+            <td><a href="https://sjh9714.github.io/gh-extension-atlas/extensions/github-gh-classroom.html"><img alt="Listed in GitHub CLI Extension Atlas" src="https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue"></a></td>
+            <td><textarea readonly>[![Listed in GitHub CLI Extension Atlas](https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue)](https://sjh9714.github.io/gh-extension-atlas/extensions/github-gh-classroom.html)</textarea></td>
+            <td><textarea readonly>&lt;a href=&quot;https://sjh9714.github.io/gh-extension-atlas/extensions/github-gh-classroom.html&quot;&gt;&lt;img alt=&quot;Listed in GitHub CLI Extension Atlas&quot; src=&quot;https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue&quot;&gt;&lt;/a&gt;</textarea></td>
+          </tr>
+<tr data-repo="twelvelabs/gh-repo-config" data-name="repo-config" data-category="security/admin">
+            <td><a class="repo" href="https://sjh9714.github.io/gh-extension-atlas/extensions/twelvelabs-gh-repo-config.html">twelvelabs/gh-repo-config</a><br><span class="muted">Manage repository settings from GitHub CLI.</span></td>
+            <td>Security/Admin<br><span class="status active">active</span></td>
+            <td><a href="https://sjh9714.github.io/gh-extension-atlas/extensions/twelvelabs-gh-repo-config.html"><img alt="Listed in GitHub CLI Extension Atlas" src="https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue"></a></td>
+            <td><textarea readonly>[![Listed in GitHub CLI Extension Atlas](https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue)](https://sjh9714.github.io/gh-extension-atlas/extensions/twelvelabs-gh-repo-config.html)</textarea></td>
+            <td><textarea readonly>&lt;a href=&quot;https://sjh9714.github.io/gh-extension-atlas/extensions/twelvelabs-gh-repo-config.html&quot;&gt;&lt;img alt=&quot;Listed in GitHub CLI Extension Atlas&quot; src=&quot;https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue&quot;&gt;&lt;/a&gt;</textarea></td>
+          </tr>
+<tr data-repo="cli/gh-webhook" data-name="webhook" data-category="security/admin">
+            <td><a class="repo" href="https://sjh9714.github.io/gh-extension-atlas/extensions/cli-gh-webhook.html">cli/gh-webhook</a><br><span class="muted">Work with GitHub webhooks from GitHub CLI.</span></td>
+            <td>Security/Admin<br><span class="status active">active</span></td>
+            <td><a href="https://sjh9714.github.io/gh-extension-atlas/extensions/cli-gh-webhook.html"><img alt="Listed in GitHub CLI Extension Atlas" src="https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue"></a></td>
+            <td><textarea readonly>[![Listed in GitHub CLI Extension Atlas](https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue)](https://sjh9714.github.io/gh-extension-atlas/extensions/cli-gh-webhook.html)</textarea></td>
+            <td><textarea readonly>&lt;a href=&quot;https://sjh9714.github.io/gh-extension-atlas/extensions/cli-gh-webhook.html&quot;&gt;&lt;img alt=&quot;Listed in GitHub CLI Extension Atlas&quot; src=&quot;https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue&quot;&gt;&lt;/a&gt;</textarea></td>
+          </tr>
+<tr data-repo="advanced-security/gh-code-scanning" data-name="code-scanning" data-category="security/admin">
+            <td><a class="repo" href="https://sjh9714.github.io/gh-extension-atlas/extensions/advanced-security-gh-code-scanning.html">advanced-security/gh-code-scanning</a><br><span class="muted">Inspect GitHub code scanning data from the terminal.</span></td>
+            <td>Security/Admin<br><span class="status active">active</span></td>
+            <td><a href="https://sjh9714.github.io/gh-extension-atlas/extensions/advanced-security-gh-code-scanning.html"><img alt="Listed in GitHub CLI Extension Atlas" src="https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue"></a></td>
+            <td><textarea readonly>[![Listed in GitHub CLI Extension Atlas](https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue)](https://sjh9714.github.io/gh-extension-atlas/extensions/advanced-security-gh-code-scanning.html)</textarea></td>
+            <td><textarea readonly>&lt;a href=&quot;https://sjh9714.github.io/gh-extension-atlas/extensions/advanced-security-gh-code-scanning.html&quot;&gt;&lt;img alt=&quot;Listed in GitHub CLI Extension Atlas&quot; src=&quot;https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue&quot;&gt;&lt;/a&gt;</textarea></td>
+          </tr>
+<tr data-repo="advanced-security/gh-sbom" data-name="sbom" data-category="security/admin">
+            <td><a class="repo" href="https://sjh9714.github.io/gh-extension-atlas/extensions/advanced-security-gh-sbom.html">advanced-security/gh-sbom</a><br><span class="muted">Generate software bills of materials with GitHub CLI.</span></td>
+            <td>Security/Admin<br><span class="status watch">watch</span></td>
+            <td><a href="https://sjh9714.github.io/gh-extension-atlas/extensions/advanced-security-gh-sbom.html"><img alt="Listed in GitHub CLI Extension Atlas" src="https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue"></a></td>
+            <td><textarea readonly>[![Listed in GitHub CLI Extension Atlas](https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue)](https://sjh9714.github.io/gh-extension-atlas/extensions/advanced-security-gh-sbom.html)</textarea></td>
+            <td><textarea readonly>&lt;a href=&quot;https://sjh9714.github.io/gh-extension-atlas/extensions/advanced-security-gh-sbom.html&quot;&gt;&lt;img alt=&quot;Listed in GitHub CLI Extension Atlas&quot; src=&quot;https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue&quot;&gt;&lt;/a&gt;</textarea></td>
+          </tr>
+<tr data-repo="githubsecuritylab/gh-mrva" data-name="mrva" data-category="security/admin">
+            <td><a class="repo" href="https://sjh9714.github.io/gh-extension-atlas/extensions/githubsecuritylab-gh-mrva.html">GitHubSecurityLab/gh-mrva</a><br><span class="muted">Run CodeQL queries at scale with multi-repository variant analysis.</span></td>
+            <td>Security/Admin<br><span class="status watch">watch</span></td>
+            <td><a href="https://sjh9714.github.io/gh-extension-atlas/extensions/githubsecuritylab-gh-mrva.html"><img alt="Listed in GitHub CLI Extension Atlas" src="https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue"></a></td>
+            <td><textarea readonly>[![Listed in GitHub CLI Extension Atlas](https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue)](https://sjh9714.github.io/gh-extension-atlas/extensions/githubsecuritylab-gh-mrva.html)</textarea></td>
+            <td><textarea readonly>&lt;a href=&quot;https://sjh9714.github.io/gh-extension-atlas/extensions/githubsecuritylab-gh-mrva.html&quot;&gt;&lt;img alt=&quot;Listed in GitHub CLI Extension Atlas&quot; src=&quot;https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue&quot;&gt;&lt;/a&gt;</textarea></td>
+          </tr>
+<tr data-repo="githubsecuritylab/gh-qldb" data-name="qldb" data-category="security/admin">
+            <td><a class="repo" href="https://sjh9714.github.io/gh-extension-atlas/extensions/githubsecuritylab-gh-qldb.html">GitHubSecurityLab/gh-qldb</a><br><span class="muted">Manage CodeQL databases from GitHub CLI.</span></td>
+            <td>Security/Admin<br><span class="status watch">watch</span></td>
+            <td><a href="https://sjh9714.github.io/gh-extension-atlas/extensions/githubsecuritylab-gh-qldb.html"><img alt="Listed in GitHub CLI Extension Atlas" src="https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue"></a></td>
+            <td><textarea readonly>[![Listed in GitHub CLI Extension Atlas](https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue)](https://sjh9714.github.io/gh-extension-atlas/extensions/githubsecuritylab-gh-qldb.html)</textarea></td>
+            <td><textarea readonly>&lt;a href=&quot;https://sjh9714.github.io/gh-extension-atlas/extensions/githubsecuritylab-gh-qldb.html&quot;&gt;&lt;img alt=&quot;Listed in GitHub CLI Extension Atlas&quot; src=&quot;https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue&quot;&gt;&lt;/a&gt;</textarea></td>
+          </tr>
+<tr data-repo="github/gh-codeql" data-name="codeql" data-category="security/admin">
+            <td><a class="repo" href="https://sjh9714.github.io/gh-extension-atlas/extensions/github-gh-codeql.html">github/gh-codeql</a><br><span class="muted">Work with CodeQL through GitHub CLI.</span></td>
+            <td>Security/Admin<br><span class="status watch">watch</span></td>
+            <td><a href="https://sjh9714.github.io/gh-extension-atlas/extensions/github-gh-codeql.html"><img alt="Listed in GitHub CLI Extension Atlas" src="https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue"></a></td>
+            <td><textarea readonly>[![Listed in GitHub CLI Extension Atlas](https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue)](https://sjh9714.github.io/gh-extension-atlas/extensions/github-gh-codeql.html)</textarea></td>
+            <td><textarea readonly>&lt;a href=&quot;https://sjh9714.github.io/gh-extension-atlas/extensions/github-gh-codeql.html&quot;&gt;&lt;img alt=&quot;Listed in GitHub CLI Extension Atlas&quot; src=&quot;https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue&quot;&gt;&lt;/a&gt;</textarea></td>
+          </tr>
+<tr data-repo="andyfeller/gh-ssh-allowed-signers" data-name="ssh-allowed-signers" data-category="security/admin">
+            <td><a class="repo" href="https://sjh9714.github.io/gh-extension-atlas/extensions/andyfeller-gh-ssh-allowed-signers.html">andyfeller/gh-ssh-allowed-signers</a><br><span class="muted">Generate SSH allowed signers files for SSH commit signing.</span></td>
+            <td>Security/Admin<br><span class="status watch">watch</span></td>
+            <td><a href="https://sjh9714.github.io/gh-extension-atlas/extensions/andyfeller-gh-ssh-allowed-signers.html"><img alt="Listed in GitHub CLI Extension Atlas" src="https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue"></a></td>
+            <td><textarea readonly>[![Listed in GitHub CLI Extension Atlas](https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue)](https://sjh9714.github.io/gh-extension-atlas/extensions/andyfeller-gh-ssh-allowed-signers.html)</textarea></td>
+            <td><textarea readonly>&lt;a href=&quot;https://sjh9714.github.io/gh-extension-atlas/extensions/andyfeller-gh-ssh-allowed-signers.html&quot;&gt;&lt;img alt=&quot;Listed in GitHub CLI Extension Atlas&quot; src=&quot;https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue&quot;&gt;&lt;/a&gt;</textarea></td>
+          </tr>
+<tr data-repo="mislav/gh-repo-collab" data-name="repo-collab" data-category="security/admin">
+            <td><a class="repo" href="https://sjh9714.github.io/gh-extension-atlas/extensions/mislav-gh-repo-collab.html">mislav/gh-repo-collab</a><br><span class="muted">Manage repository collaborators from GitHub CLI.</span></td>
+            <td>Security/Admin<br><span class="status stale">stale</span></td>
+            <td><a href="https://sjh9714.github.io/gh-extension-atlas/extensions/mislav-gh-repo-collab.html"><img alt="Listed in GitHub CLI Extension Atlas" src="https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue"></a></td>
+            <td><textarea readonly>[![Listed in GitHub CLI Extension Atlas](https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue)](https://sjh9714.github.io/gh-extension-atlas/extensions/mislav-gh-repo-collab.html)</textarea></td>
+            <td><textarea readonly>&lt;a href=&quot;https://sjh9714.github.io/gh-extension-atlas/extensions/mislav-gh-repo-collab.html&quot;&gt;&lt;img alt=&quot;Listed in GitHub CLI Extension Atlas&quot; src=&quot;https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue&quot;&gt;&lt;/a&gt;</textarea></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <script>
+    const filter = document.getElementById("filter");
+    const rows = Array.from(document.querySelectorAll("#badge-rows tr"));
+
+    filter.addEventListener("input", () => {
+      const query = filter.value.trim().toLowerCase();
+      for (const row of rows) {
+        const haystack = row.dataset.repo + " " + row.dataset.name + " " + row.dataset.category;
+        row.hidden = query && !haystack.includes(query);
+      }
+    });
+  </script>
+</body>
+</html>

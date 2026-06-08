@@ -475,6 +475,7 @@ Published Pages endpoints:
 [api-starter-packs]: https://sjh9714.github.io/gh-extension-atlas/api/starter-packs.json
 [compare-presets]: https://sjh9714.github.io/gh-extension-atlas/compare.html
 [installed-audit]: https://sjh9714.github.io/gh-extension-atlas/audit.html
+[badge-builder]: https://sjh9714.github.io/gh-extension-atlas/badges.html
 [workflow-recommendations]: https://sjh9714.github.io/gh-extension-atlas/recommendations.html
 [llms]: https://sjh9714.github.io/gh-extension-atlas/llms.txt
 [llms-full]: https://sjh9714.github.io/gh-extension-atlas/llms-full.txt
@@ -519,7 +520,7 @@ gh extension list | npm --silent run catalog:audit-installed -- --stdin
 
 Each generated extension detail page includes an optional badge snippet for maintainers who want to point users to atlas comparison context.
 
-Use [`docs/maintainer-badges.md`](docs/maintainer-badges.md) to copy the Markdown or HTML snippet for a listed extension. This is optional, and inaccurate listings should be corrected before they are linked.
+Use the [badge builder][badge-builder] or [`docs/maintainer-badges.md`](docs/maintainer-badges.md) to copy the Markdown or HTML snippet for a listed extension. This is optional, and inaccurate listings should be corrected before they are linked.
 
 ## Metadata Refresh
 

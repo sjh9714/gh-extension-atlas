@@ -23,6 +23,7 @@ GitHub CLI Extension Atlas helps users choose a useful `gh` extension faster whe
 
 - Workflow chooser: https://sjh9714.github.io/gh-extension-atlas/chooser.html
 - Searchable catalog: https://sjh9714.github.io/gh-extension-atlas/
+- Badge builder: https://sjh9714.github.io/gh-extension-atlas/badges.html
 - Awesome overview: https://sjh9714.github.io/gh-extension-atlas/awesome-github-cli-extensions.html
 - Cheatsheet: https://sjh9714.github.io/gh-extension-atlas/cheatsheet.md
 - Workflow recommendations: https://sjh9714.github.io/gh-extension-atlas/recommendations.html

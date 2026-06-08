@@ -42,6 +42,12 @@ HTML:
 
 ## Finding your page
 
+Use the badge builder to filter the reviewed catalog and copy Markdown or HTML:
+
+```text
+https://sjh9714.github.io/gh-extension-atlas/badges.html
+```
+
 Open the searchable catalog, choose your extension, and copy the snippet from the `Maintainer Snippet` section:
 
 ```text

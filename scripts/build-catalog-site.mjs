@@ -486,6 +486,7 @@ const generatedFiles = [
   { path: "docs/index.html", content: renderCatalog(entries) },
   { path: "docs/chooser.html", content: renderChooserPage(entries) },
   { path: "docs/audit.html", content: renderAuditPage(entries) },
+  { path: "docs/badges.html", content: renderMaintainerBadgePage(entries) },
   { path: "docs/compare.html", content: renderComparePage(entries) },
   { path: "docs/recommendations.html", content: renderRecommendationsPage(entries) },
   { path: "docs/guides/choose-github-cli-extension.html", content: renderDecisionTreeGuidePage(entries) },
@@ -5281,6 +5282,351 @@ function renderAuditPage(items) {
 `;
 }
 
+function renderMaintainerBadgePage(items) {
+  const generatedAt = latestVerifiedAt(items);
+  const pageUrl = `${siteUrl}badges.html`;
+  const badgeImage = "https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue";
+  const rows = stableEntries(items)
+    .map((entry) => {
+      const detailUrl = `${siteUrl}${extensionPagePath(entry)}`;
+      const markdown = `[![Listed in GitHub CLI Extension Atlas](${badgeImage})](${detailUrl})`;
+      const html = `<a href="${detailUrl}"><img alt="Listed in GitHub CLI Extension Atlas" src="${badgeImage}"></a>`;
+      return `<tr data-repo="${escapeAttribute(entry.repo.toLowerCase())}" data-name="${escapeAttribute(entry.name.toLowerCase())}" data-category="${escapeAttribute(entry.category.toLowerCase())}">
+            <td><a class="repo" href="${escapeAttribute(detailUrl)}">${escapeHtml(entry.repo)}</a><br><span class="muted">${escapeHtml(entry.summary)}</span></td>
+            <td>${escapeHtml(entry.category)}<br><span class="status ${entry.status}">${escapeHtml(entry.status)}</span></td>
+            <td><a href="${escapeAttribute(detailUrl)}"><img alt="Listed in GitHub CLI Extension Atlas" src="${badgeImage}"></a></td>
+            <td><textarea readonly>${escapeHtml(markdown)}</textarea></td>
+            <td><textarea readonly>${escapeHtml(html)}</textarea></td>
+          </tr>`;
+    })
+    .join("\n");
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: "GitHub CLI Extension Atlas Badge Builder",
+    description: "Generate optional Markdown and HTML badge snippets for GitHub CLI extensions listed in the atlas.",
+    url: pageUrl,
+    applicationCategory: "DeveloperApplication",
+    operatingSystem: "Any",
+    isAccessibleForFree: true,
+    dateModified: generatedAt,
+  };
+
+  return `<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GitHub CLI Extension Atlas Badge Builder</title>
+  <meta name="description" content="Generate optional Markdown and HTML badge snippets for GitHub CLI extensions listed in the atlas.">
+  <meta property="og:title" content="GitHub CLI Extension Atlas Badge Builder">
+  <meta property="og:description" content="Generate optional badge snippets that link to reviewed GitHub CLI extension detail pages.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="${pageUrl}">
+  <meta property="og:image" content="${socialImageUrl}">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="GitHub CLI Extension Atlas Badge Builder">
+  <meta name="twitter:description" content="Generate optional badge snippets for extensions listed in the atlas.">
+  <meta name="twitter:image" content="${socialImageUrl}">
+  <link rel="canonical" href="${pageUrl}">
+  ${renderJsonLd(jsonLd)}
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f7f8fa;
+      --panel: #ffffff;
+      --text: #1f2328;
+      --muted: #656d76;
+      --border: #d0d7de;
+      --accent: #0969da;
+      --accent-soft: #ddf4ff;
+      --good: #1a7f37;
+      --warn: #9a6700;
+      --stale: #8250df;
+      --shadow: 0 1px 2px rgba(31, 35, 40, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font: 15px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    header {
+      background: var(--panel);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .wrap {
+      width: min(1180px, calc(100vw - 32px));
+      margin: 0 auto;
+    }
+
+    .header-inner {
+      display: grid;
+      gap: 13px;
+      padding: 32px 0 24px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 40px;
+      line-height: 1.1;
+      letter-spacing: 0;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 20px;
+      line-height: 1.25;
+      letter-spacing: 0;
+    }
+
+    p {
+      margin: 0;
+    }
+
+    .lead,
+    .muted {
+      color: var(--muted);
+    }
+
+    .lead {
+      max-width: 820px;
+      font-size: 17px;
+    }
+
+    .actions,
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 3px 10px;
+      background: var(--panel);
+      color: var(--muted);
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    main {
+      display: grid;
+      gap: 14px;
+      padding: 20px 0 42px;
+    }
+
+    .panel,
+    .table-wrap {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+    }
+
+    .panel {
+      display: grid;
+      gap: 11px;
+      padding: 16px;
+    }
+
+    label {
+      display: grid;
+      gap: 6px;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 9px 10px;
+      background: var(--panel);
+      color: var(--text);
+      font: inherit;
+    }
+
+    textarea {
+      min-height: 96px;
+      resize: vertical;
+      font: 12px/1.45 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+
+    .table-wrap {
+      overflow: auto;
+    }
+
+    table {
+      width: 100%;
+      min-width: 1120px;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      padding: 11px 12px;
+      border-bottom: 1px solid var(--border);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: #f6f8fa;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    tr:last-child td {
+      border-bottom: 0;
+    }
+
+    tr[hidden] {
+      display: none;
+    }
+
+    .repo {
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      min-height: 24px;
+      border-radius: 999px;
+      padding: 2px 9px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .status.active {
+      background: #dafbe1;
+      color: var(--good);
+    }
+
+    .status.watch {
+      background: #fff8c5;
+      color: var(--warn);
+    }
+
+    .status.stale {
+      background: #fbefff;
+      color: var(--stale);
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    code {
+      font: 13px/1.45 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+
+    .notice {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px;
+      background: var(--accent-soft);
+    }
+
+    @media (max-width: 760px) {
+      h1 {
+        font-size: 32px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap header-inner">
+      <h1>GitHub CLI Extension Atlas Badge Builder</h1>
+      <p class="lead">Copy optional Markdown or HTML snippets for listed extensions when the atlas entry is accurate enough to link as comparison context.</p>
+      <div class="meta">
+        <span class="pill">${items.length} listed extensions</span>
+        <span class="pill">Optional maintainer snippet</span>
+        <span class="pill">Reviewed ${escapeHtml(generatedAt)}</span>
+      </div>
+      <div class="actions">
+        <a href="maintainer-badges.md">Badge guidance</a>
+        <a href="./">Searchable catalog</a>
+        <a href="guides/">Guides</a>
+        <a href="${repoIssueChooserUrl}">Suggest a correction</a>
+        <a href="${repoUrl}">Star on GitHub</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="notice">
+      This badge is optional. It is not required for factual corrections, and it should not imply official GitHub endorsement or maintainer endorsement.
+    </section>
+
+    <section class="panel">
+      <h2>Find Your Extension</h2>
+      <p class="muted">Filter by repository, extension name, or category. If the listing is wrong, open a correction before linking a badge.</p>
+      <label>
+        Filter listed extensions
+        <input id="filter" type="search" placeholder="dlvhdr/gh-dash, notifications, actions">
+      </label>
+    </section>
+
+    <section class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Extension</th>
+            <th>Category</th>
+            <th>Preview</th>
+            <th>Markdown</th>
+            <th>HTML</th>
+          </tr>
+        </thead>
+        <tbody id="badge-rows">
+          ${rows}
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <script>
+    const filter = document.getElementById("filter");
+    const rows = Array.from(document.querySelectorAll("#badge-rows tr"));
+
+    filter.addEventListener("input", () => {
+      const query = filter.value.trim().toLowerCase();
+      for (const row of rows) {
+        const haystack = row.dataset.repo + " " + row.dataset.name + " " + row.dataset.category;
+        row.hidden = query && !haystack.includes(query);
+      }
+    });
+  </script>
+</body>
+</html>
+`;
+}
+
 function renderExtensionPage(entry) {
   const pagePath = extensionPagePath(entry);
   const pageUrl = `${siteUrl}${pagePath}`;
@@ -5727,6 +6073,12 @@ function renderSitemapXml(items) {
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>`;
+  const badgesUrl = `  <url>
+    <loc>${siteUrl}badges.html</loc>
+    <lastmod>${escapeHtml(lastmod)}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>`;
   const awesomeUrl = `  <url>
     <loc>${siteUrl}awesome-github-cli-extensions.html</loc>
     <lastmod>${escapeHtml(lastmod)}</lastmod>
@@ -5834,6 +6186,7 @@ function renderSitemapXml(items) {
   </url>
 ${chooserUrl}
 ${auditUrl}
+${badgesUrl}
 ${awesomeUrl}
 ${awesomeMarkdownUrl}
 ${cheatsheetUrl}
@@ -6394,6 +6747,7 @@ GitHub CLI Extension Atlas helps users choose a useful \`gh\` extension faster w
 
 - Workflow chooser: ${siteUrl}chooser.html
 - Searchable catalog: ${siteUrl}
+- Badge builder: ${siteUrl}badges.html
 - Awesome overview: ${siteUrl}awesome-github-cli-extensions.html
 - Cheatsheet: ${siteUrl}cheatsheet.md
 - Workflow recommendations: ${siteUrl}recommendations.html
@@ -6464,6 +6818,7 @@ This is not an official GitHub project, complete directory, endorsement list, or
 
 - Workflow chooser: ${siteUrl}chooser.html
 - Searchable catalog: ${siteUrl}
+- Badge builder: ${siteUrl}badges.html
 - Awesome overview: ${siteUrl}awesome-github-cli-extensions.html
 - Cheatsheet: ${siteUrl}cheatsheet.md
 - Workflow recommendations: ${siteUrl}recommendations.html
