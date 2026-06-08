@@ -560,6 +560,149 @@ function readPngSize(filePath) {
   };
 }
 
+function renderJsonLd(data) {
+  return `<script type="application/ld+json">
+${JSON.stringify(data, null, 2).replaceAll("<", "\\u003c")}
+  </script>`;
+}
+
+function atlasDatasetJsonLd(items) {
+  return {
+    "@type": "Dataset",
+    name: "GitHub CLI Extension Atlas",
+    description:
+      "A curated catalog of GitHub CLI extensions with install commands, categories, maintenance labels, and workflow recommendations.",
+    url: siteUrl,
+    license: `${repoUrl}/blob/main/LICENSE`,
+    isAccessibleForFree: true,
+    dateModified: latestVerifiedAt(items),
+    keywords: [
+      "GitHub CLI",
+      "gh extension",
+      "GitHub CLI extensions",
+      "awesome list",
+      "developer tools",
+      "terminal",
+      "open source",
+    ],
+    creator: {
+      "@type": "Person",
+      name: "JinHyuk Sung",
+      url: "https://github.com/sjh9714",
+    },
+    distribution: [
+      {
+        "@type": "DataDownload",
+        encodingFormat: "application/json",
+        contentUrl: `${siteUrl}api/extensions.json`,
+      },
+      {
+        "@type": "DataDownload",
+        encodingFormat: "application/schema+json",
+        contentUrl: `${siteUrl}api/schema.json`,
+      },
+      {
+        "@type": "DataDownload",
+        encodingFormat: "text/plain",
+        contentUrl: `${siteUrl}install/all.txt`,
+      },
+    ],
+    variableMeasured: [
+      "install command",
+      "category",
+      "best use case",
+      "avoid-if note",
+      "license",
+      "maintenance status",
+      "last pushed date",
+      "verified date",
+    ],
+  };
+}
+
+function catalogPageJsonLd(items) {
+  return [
+    {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      name: "GitHub CLI Extension Atlas",
+      description: `Search and filter ${items.length} curated GitHub CLI extensions by workflow, maintenance status, ownership, and install command.`,
+      url: siteUrl,
+      image: socialImageUrl,
+      mainEntity: {
+        "@id": `${siteUrl}#dataset`,
+      },
+    },
+    {
+      "@context": "https://schema.org",
+      "@id": `${siteUrl}#dataset`,
+      ...atlasDatasetJsonLd(items),
+    },
+  ];
+}
+
+function awesomePageJsonLd(items, topPicks, pageUrl) {
+  return [
+    {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      name: "Awesome GitHub CLI Extensions",
+      description:
+        "A curated awesome-style guide to useful GitHub CLI extensions, Top Picks, workflow guides, starter packs, and maintained install commands.",
+      url: pageUrl,
+      image: socialImageUrl,
+      mainEntity: {
+        "@type": "ItemList",
+        name: "Top GitHub CLI extension picks",
+        numberOfItems: topPicks.length,
+        itemListElement: topPicks.map((entry, index) => ({
+          "@type": "ListItem",
+          position: index + 1,
+          name: entry.name,
+          description: entry.summary,
+          url: `${siteUrl}extensions/${entry.repo.replace("/", "--")}.html`,
+        })),
+      },
+    },
+    {
+      "@context": "https://schema.org",
+      "@id": `${siteUrl}#dataset`,
+      ...atlasDatasetJsonLd(items),
+    },
+  ];
+}
+
+function recommendationsPageJsonLd(items, pageUrl) {
+  return [
+    {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      name: "GitHub CLI Extension Workflow Recommendations",
+      description:
+        "Workflow-first GitHub CLI extension recommendations with install commands, avoid-if notes, status labels, and detail links.",
+      url: pageUrl,
+      image: socialImageUrl,
+      mainEntity: {
+        "@type": "ItemList",
+        name: "GitHub CLI extension workflow recommendations",
+        numberOfItems: recommendations.length,
+        itemListElement: recommendations.map((recommendation, index) => ({
+          "@type": "ListItem",
+          position: index + 1,
+          name: recommendation.label,
+          description: recommendation.summary,
+          url: `${pageUrl}#${recommendation.id}`,
+        })),
+      },
+    },
+    {
+      "@context": "https://schema.org",
+      "@id": `${siteUrl}#dataset`,
+      ...atlasDatasetJsonLd(items),
+    },
+  ];
+}
+
 function renderCatalog(items) {
   const categories = unique(items.map((entry) => entry.category));
   const statuses = ["active", "watch", "stale"];
@@ -589,6 +732,7 @@ function renderCatalog(items) {
   <meta name="twitter:image" content="${socialImageUrl}">
   <link rel="canonical" href="${siteUrl}">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230969da'/%3E%3Cpath d='M18 33h28M30 21l12 12-12 12' fill='none' stroke='white' stroke-width='6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  ${renderJsonLd(catalogPageJsonLd(items))}
   <style>
     :root {
       color-scheme: light;
@@ -2409,6 +2553,7 @@ function renderAwesomeLandingPage(items) {
   <meta name="twitter:description" content="Top Picks, workflow guides, starter packs, and a reviewed catalog for GitHub CLI extensions.">
   <meta name="twitter:image" content="${socialImageUrl}">
   <link rel="canonical" href="${pageUrl}">
+  ${renderJsonLd(awesomePageJsonLd(items, topPicks, pageUrl))}
   <style>
     :root {
       color-scheme: light;
@@ -2844,6 +2989,7 @@ function renderRecommendationsPage(items) {
   <meta name="twitter:description" content="Choose a small starting set of GitHub CLI extensions by workflow.">
   <meta name="twitter:image" content="${socialImageUrl}">
   <link rel="canonical" href="${pageUrl}">
+  ${renderJsonLd(recommendationsPageJsonLd(items, pageUrl))}
   <style>
     :root {
       color-scheme: light;
