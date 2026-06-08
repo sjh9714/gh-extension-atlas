@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GitHub CLI Extension Guides | GitHub CLI Extension Atlas</title>
+  <meta name="description" content="Workflow-first guides for choosing, installing, auditing, and comparing GitHub CLI extensions.">
+  <meta property="og:title" content="GitHub CLI Extension Guides">
+  <meta property="og:description" content="A guide hub for choosing, installing, auditing, and comparing GitHub CLI extensions.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://sjh9714.github.io/gh-extension-atlas/guides/">
+  <meta property="og:image" content="https://sjh9714.github.io/gh-extension-atlas/social-card.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="GitHub CLI Extension Guides">
+  <meta name="twitter:description" content="Workflow-first guides for choosing useful GitHub CLI extensions faster.">
+  <meta name="twitter:image" content="https://sjh9714.github.io/gh-extension-atlas/social-card.png">
+  <link rel="canonical" href="https://sjh9714.github.io/gh-extension-atlas/guides/">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "GitHub CLI Extension Guides",
+  "description": "Workflow-first guides for choosing, installing, auditing, and comparing GitHub CLI extensions.",
+  "url": "https://sjh9714.github.io/gh-extension-atlas/guides/",
+  "isAccessibleForFree": true
+}
+  </script>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f7f8fa;
+      --panel: #ffffff;
+      --text: #1f2328;
+      --muted: #656d76;
+      --border: #d0d7de;
+      --accent: #0969da;
+      --shadow: 0 1px 2px rgba(31, 35, 40, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font: 15px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    header {
+      background: var(--panel);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .wrap {
+      width: min(1080px, calc(100vw - 32px));
+      margin: 0 auto;
+    }
+
+    .header-inner {
+      display: grid;
+      gap: 13px;
+      padding: 32px 0 24px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 40px;
+      line-height: 1.1;
+      letter-spacing: 0;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 20px;
+      line-height: 1.25;
+      letter-spacing: 0;
+    }
+
+    p {
+      margin: 0;
+    }
+
+    .lead,
+    .muted {
+      color: var(--muted);
+    }
+
+    .lead {
+      max-width: 780px;
+      font-size: 17px;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    main {
+      display: grid;
+      gap: 14px;
+      padding: 20px 0 42px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .card,
+    .panel {
+      display: grid;
+      gap: 8px;
+      padding: 14px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+    }
+
+    .card strong {
+      font-size: 16px;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    code {
+      font: 13px/1.45 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+
+    @media (max-width: 860px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      h1 {
+        font-size: 32px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap header-inner">
+      <h1>GitHub CLI Extension Guides</h1>
+      <p class="lead">Workflow-first guides for choosing, installing, auditing, and comparing GitHub CLI extensions without browsing every topic result.</p>
+      <div class="actions">
+        <a href="../">Searchable catalog</a>
+        <a href="../chooser.html">Interactive chooser</a>
+        <a href="../audit.html">Installed extension audit</a>
+        <a href="../install/">Install bundles</a>
+        <a href="index.md">Markdown index</a>
+        <a href="https://github.com/sjh9714/gh-extension-atlas">Star on GitHub</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="grid" aria-label="First choice guides">
+      <a class="card" href="choose-github-cli-extension.html">
+        <strong>Which GitHub CLI extension should I install?</strong>
+        <span class="muted">Start here when you want one practical first choice.</span>
+      </a>
+      <a class="card" href="install-github-cli-extensions.html">
+        <strong>Install GitHub CLI extensions safely</strong>
+        <span class="muted">Install, update, audit, pin, and remove extensions.</span>
+      </a>
+      <a class="card" href="audit-installed-gh-extensions.md">
+        <strong>Audit installed GitHub CLI extensions</strong>
+        <span class="muted">Compare your current <code>gh extension list</code> output with the atlas.</span>
+      </a>
+    </section>
+
+    <section class="panel">
+      <h2>Workflow Guides</h2>
+      <p class="muted">Choose a focused guide when you already know the repeated workflow that hurts.</p>
+    </section>
+
+    <section class="grid" aria-label="Workflow guides">
+      <a class="card" href="terminal-dashboard-extensions.html"><strong>Terminal dashboard extensions</strong><span class="muted">PR, issue, notification, Markdown preview, and visual terminal interfaces.</span></a>
+      <a class="card" href="github-actions-extensions.html"><strong>GitHub Actions extensions</strong><span class="muted">Actions TUI, local runner, migration helper, and workflow health tools.</span></a>
+      <a class="card" href="pr-issue-triage-extensions.html"><strong>PR and issue triage extensions</strong><span class="muted">PR review, stacked PRs, dependency PRs, metrics, and planning tools.</span></a>
+      <a class="card" href="branch-cleanup-extensions.html"><strong>Branch cleanup extensions</strong><span class="muted">Safer cleanup, branch switching, and worktree helpers.</span></a>
+      <a class="card" href="notification-triage-extensions.html"><strong>Notification triage extensions</strong><span class="muted">Terminal notification display, filtering, cleanup, or broader triage.</span></a>
+      <a class="card" href="repository-search-extensions.html"><strong>Repository search extensions</strong><span class="muted">Repository search, code search, starred-repository search, and clone helpers.</span></a>
+      <a class="card" href="security-admin-extensions.html"><strong>Security and admin extensions</strong><span class="muted">SBOM, CodeQL, token, webhook, repository config, and migration helpers.</span></a>
+      <a class="card" href="ai-agent-extensions.html"><strong>AI and agent extensions</strong><span class="muted">GitHub agent workflows, Models, standup summaries, and MCP setup.</span></a>
+    </section>
+
+    <section class="panel">
+      <h2>Reminder</h2>
+      <p>The atlas is a reviewed snapshot, not an official GitHub project, exhaustive directory, or live ranking. Recheck upstream repositories before adopting an extension for security, CI, release, admin, or production workflows.</p>
+    </section>
+  </main>
+</body>
+</html>

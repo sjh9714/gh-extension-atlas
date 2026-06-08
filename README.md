@@ -53,6 +53,8 @@ Pick the workflow that hurts right now, inspect the starter pack, then install o
 
 Not sure where to start? Open the [GitHub CLI Extension Chooser][chooser] first.
 
+Want every guide in one place? Open the [GitHub CLI Extension Guides index][guide-index].
+
 Want a plain-English install path? Read [Which GitHub CLI Extension Should I Install?][guide-decision-tree].
 
 New to `gh` extensions? Read [Install GitHub CLI Extensions Safely][guide-install].
@@ -239,6 +241,7 @@ These are the first extensions to evaluate if you want broad value fast.
 
 | Guide                                                                  | Use this when...                                                                          |
 | ---------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| [GitHub CLI Extension Guides index][guide-index]                       | You want all workflow, install, and audit guides in one place.                            |
 | [Which GitHub CLI extension should I install?][guide-decision-tree]    | You want a practical first choice before browsing the full catalog.                       |
 | [Install GitHub CLI extensions safely][guide-install]                  | You want install, update, audit, pin, and remove commands before trying an extension.     |
 | [GitHub terminal dashboard CLI extension guide][guide-dashboards]      | You want a terminal dashboard, Markdown preview TUI, or visual contribution tool.         |
@@ -259,6 +262,7 @@ These are the first extensions to evaluate if you want broad value fast.
 [guide-notifications]: https://sjh9714.github.io/gh-extension-atlas/guides/notification-triage-extensions.html
 [guide-search]: https://sjh9714.github.io/gh-extension-atlas/guides/repository-search-extensions.html
 [guide-security]: https://sjh9714.github.io/gh-extension-atlas/guides/security-admin-extensions.html
+[guide-index]: https://sjh9714.github.io/gh-extension-atlas/guides/
 [guide-decision-tree]: https://sjh9714.github.io/gh-extension-atlas/guides/choose-github-cli-extension.html
 [guide-install]: https://sjh9714.github.io/gh-extension-atlas/guides/install-github-cli-extensions.html
 [guide-installed-audit]: docs/guides/audit-installed-gh-extensions.md
