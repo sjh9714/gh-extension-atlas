@@ -10,6 +10,8 @@ Run a dry-run audit:
 npm run metadata:audit
 ```
 
+The same dry-run check also runs weekly through the [Metadata Audit workflow](../.github/workflows/metadata-audit.yml). The workflow posts the audit output and weekly summary to the GitHub Actions job summary, but it does not commit changes or rewrite catalog data.
+
 The audit checks each listed repository through the GitHub API and reports drift for:
 
 - `stars`

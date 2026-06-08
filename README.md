@@ -406,6 +406,8 @@ npm run catalog:query -- --category "Actions/CI" --status active
 
 Use [`docs/metadata-refresh.md`](docs/metadata-refresh.md) to audit live GitHub metadata and refresh mechanical fields such as stars, license, last pushed date, and verification date.
 
+The [Metadata Audit workflow](.github/workflows/metadata-audit.yml) runs a weekly dry-run audit and publishes the drift report in the Actions summary. It does not write catalog changes automatically.
+
 ```sh
 npm run metadata:audit
 ```

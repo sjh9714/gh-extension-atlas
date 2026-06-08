@@ -1,0 +1,40 @@
+name: Metadata Audit
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "37 6 * * 1"
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/metadata-audit.yml
+      - data/extensions.json
+      - package.json
+      - scripts/audit-metadata.mjs
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: "22"
+      - name: Audit live metadata
+        run: |
+          set -o pipefail
+          {
+            echo "## Metadata Audit"
+            echo
+            npm run metadata:audit
+            echo
+            echo "## Weekly Summary"
+            echo
+            npm run summary:weekly
+          } | tee "$GITHUB_STEP_SUMMARY"
+        env:
+          GITHUB_TOKEN: ${{ github.token }}

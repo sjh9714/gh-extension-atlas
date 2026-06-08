@@ -12,6 +12,8 @@ This playbook keeps the atlas useful after launch. The bias is toward trust: fac
 6. Re-check Top Picks that changed recently or received correction requests.
 7. Commit any accepted metadata, README, or comparison-guide updates.
 
+The scheduled [Metadata Audit workflow](../.github/workflows/metadata-audit.yml) runs the dry-run audit weekly. Treat its output as a review queue, not as permission to bulk-write every field without checking the diff.
+
 Use [`metadata-refresh.md`](metadata-refresh.md) for the safe write path when the audit should update mechanical fields.
 
 ## Extension Status
