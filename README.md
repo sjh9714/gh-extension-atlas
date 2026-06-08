@@ -41,6 +41,7 @@ If this saves you a few trial installs, [star the repo](https://github.com/sjh97
 - [AI/Agents](#aiagents)
 - [Data](#data)
 - [Data Recipes](#data-recipes)
+- [Maintainer Badges](#maintainer-badges)
 - [Metadata Refresh](#metadata-refresh)
 - [FAQ](#faq)
 - [Feedback](#feedback)
@@ -482,6 +483,12 @@ Or ask the catalog for a small workflow recommendation:
 npm --silent run catalog:recommend -- --workflow notifications --format install
 ```
 
+## Maintainer Badges
+
+Each generated extension detail page includes an optional badge snippet for maintainers who want to point users to atlas comparison context.
+
+Use [`docs/maintainer-badges.md`](docs/maintainer-badges.md) to copy the Markdown or HTML snippet for a listed extension. This is optional, and inaccurate listings should be corrected before they are linked.
+
 ## Metadata Refresh
 
 Use [`docs/metadata-refresh.md`](docs/metadata-refresh.md) to audit live GitHub metadata and refresh mechanical fields such as stars, license, last pushed date, and verification date.
@@ -519,4 +526,4 @@ If your extension is listed here, corrections are welcome. Open an issue or pull
 
 Good correction requests include the repository name, the field that should change, and a short reason. The atlas is intentionally conservative: a clearer description beats a louder one.
 
-Each generated extension detail page includes an optional badge snippet that maintainers can use when they want to point users to the atlas comparison context. See [`docs/maintainer-badges.md`](docs/maintainer-badges.md) for examples. This is optional and never required for factual corrections.
+Each generated extension detail page includes an optional badge snippet that maintainers can use when they want to point users to the atlas comparison context. See the Maintainer Badges section above for examples. This is optional and never required for factual corrections.
