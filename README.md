@@ -16,6 +16,14 @@ Try now: [Open a sample audit][audit-demo] · [Choose an extension][chooser] · 
 
 Corrections, missing useful extensions, and category feedback are welcome in the Feedback section.
 
+Quick audit path:
+
+```sh
+gh extension list
+```
+
+Then open the [sample audit][audit-demo], choose **Paste from clipboard** or paste the output manually, and review covered installs, unlisted extensions, and workflow gaps. The audit page is static, requires no sign-in, and does not upload pasted extension output.
+
 ## Contents
 
 - [Start Here](#start-here)
