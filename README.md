@@ -122,6 +122,12 @@ npm --silent run catalog:recommend -- --workflow actions
 
 Use `npm --silent run catalog:recommend -- --list` to see supported workflows such as `triage`, `pr`, `actions`, `ai`, `branches`, `docs`, `search`, and `security`.
 
+Want to compare a few overlapping choices?
+
+```sh
+npm --silent run catalog:compare -- gh-dash gh-notify gh-pr-review
+```
+
 ## Starter Packs
 
 Use the [starter packs](docs/starter-packs.md) when you want a small install sequence for a specific workflow instead of browsing the full catalog.

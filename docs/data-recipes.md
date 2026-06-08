@@ -66,6 +66,34 @@ The recommendation helper is intentionally small. It points to a few reviewed st
 
 The same workflow sets are published as a human-readable [Workflow Recommendations](recommendations.html) page and as JSON for automation.
 
+## Compare Overlapping Extensions
+
+Use `catalog:compare` when you have a short list but need to decide which extension fits the workflow.
+
+Compare daily triage options:
+
+```sh
+npm --silent run catalog:compare -- gh-dash gh-notify gh-pr-review
+```
+
+Compare Actions/CI tools:
+
+```sh
+npm --silent run catalog:compare -- dlvhdr/gh-enhance fchimpan/gh-workflow-stats
+```
+
+Print only install commands after choosing a pair:
+
+```sh
+npm --silent run catalog:compare -- gh-poi gh-branch --format install
+```
+
+Return structured JSON for another tool:
+
+```sh
+npm --silent run catalog:compare -- gh-s gh-grep gh-find-code --format json
+```
+
 ## Use the Public API
 
 Inspect the endpoint manifest:
