@@ -131,6 +131,22 @@ These are the first extensions to evaluate if you want broad value fast.
 
 Open the [searchable catalog browser](https://sjh9714.github.io/gh-extension-atlas/) to filter the same reviewed data by category, status, ownership, and search text.
 
+Quick entry points:
+
+| Start here                                                                           | Use this when...                                        |
+| ------------------------------------------------------------------------------------ | ------------------------------------------------------- |
+| [Top Picks][catalog-top-picks]                                                       | You want the shortest list of broadly useful choices.   |
+| [Actions TUI][catalog-actions]                                                       | You want to inspect GitHub Actions from the terminal.   |
+| [Notifications][catalog-notifications]                                               | You want GitHub notification tools without the browser. |
+| [Branch cleanup][catalog-branches]                                                   | You want safer local branch cleanup options.            |
+| [Security/Admin][catalog-security]                                                   | You want SBOM, CodeQL, token, or admin tooling.         |
+
+[catalog-top-picks]: https://sjh9714.github.io/gh-extension-atlas/?featured=top
+[catalog-actions]: https://sjh9714.github.io/gh-extension-atlas/?q=workflow&category=Actions%2FCI&status=active
+[catalog-notifications]: https://sjh9714.github.io/gh-extension-atlas/?category=Notifications&status=active
+[catalog-branches]: https://sjh9714.github.io/gh-extension-atlas/?q=branch+cleanup&category=Repo+%26+Branch&status=active
+[catalog-security]: https://sjh9714.github.io/gh-extension-atlas/?category=Security%2FAdmin&status=active
+
 The generated source lives at [`docs/index.html`](docs/index.html).
 
 Regenerate it after catalog changes with:
