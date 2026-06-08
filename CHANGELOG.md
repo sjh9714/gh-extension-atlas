@@ -1,5 +1,21 @@
 # Changelog
 
+## v0.2.3
+
+This patch release adds workflow-specific guide landing pages that are easier to share than the full catalog.
+
+### Added
+
+- GitHub Actions CLI extension guide with a public HTML landing page.
+- Git branch cleanup CLI extension guide with a public HTML landing page.
+- GitHub notification triage CLI extension guide with a public HTML landing page.
+
+### Improved
+
+- Workflow Guides are linked from the README and relevant category pages.
+- Generated sitemap now includes workflow guide landing pages.
+- Site generation now supports multiple workflow guide pages from one reusable template.
+
 ## v0.2.2
 
 This patch release adds a dedicated public API reference for the generated catalog endpoints.
