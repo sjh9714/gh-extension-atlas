@@ -105,6 +105,14 @@ This list favors extensions that are installable, documented, not archived, and 
 
 Prefer browsing first? The catalog browser supports filters and bulk command copy, and starter packs provide small workflow-specific install sequences.
 
+Want a quick local recommendation from the reviewed catalog?
+
+```sh
+npm --silent run catalog:recommend -- --workflow actions
+```
+
+Use `npm --silent run catalog:recommend -- --list` to see supported workflows such as `triage`, `pr`, `actions`, `ai`, `branches`, `docs`, `search`, and `security`.
+
 ## Starter Packs
 
 Use the [starter packs](docs/starter-packs.md) when you want a small install sequence for a specific workflow instead of browsing the full catalog.
@@ -436,6 +444,12 @@ For example:
 
 ```sh
 npm run catalog:query -- --category "Actions/CI" --status active
+```
+
+Or ask the catalog for a small workflow recommendation:
+
+```sh
+npm --silent run catalog:recommend -- --workflow notifications --format install
 ```
 
 ## Metadata Refresh

@@ -34,6 +34,36 @@ Limit output when you only want a quick sample:
 npm run catalog:query -- --status watch --limit 5
 ```
 
+## Recommend a Workflow Starter Set
+
+Use `catalog:recommend` when you know the workflow but do not want to compare the full category by hand.
+
+Show supported workflows and aliases:
+
+```sh
+npm --silent run catalog:recommend -- --list
+```
+
+Recommend a small Actions/CI set:
+
+```sh
+npm --silent run catalog:recommend -- --workflow actions
+```
+
+Print only install commands for notification triage:
+
+```sh
+npm --silent run catalog:recommend -- --workflow notifications --format install
+```
+
+Return structured JSON for security and admin recommendations:
+
+```sh
+npm --silent run catalog:recommend -- --workflow security --format json
+```
+
+The recommendation helper is intentionally small. It points to a few reviewed starting options, then leaves the final install decision to you.
+
 ## Use the Public API
 
 Inspect the endpoint manifest:
