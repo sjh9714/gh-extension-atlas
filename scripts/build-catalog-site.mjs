@@ -3,7 +3,7 @@ import fs from "node:fs";
 const dataPath = "data/extensions.json";
 const checkOnly = process.argv.includes("--check");
 const siteUrl = "https://sjh9714.github.io/gh-extension-atlas/";
-const socialImageUrl = `${siteUrl}social-card.svg`;
+const socialImageUrl = `${siteUrl}social-card.png`;
 const topPickRepos = [
   "dlvhdr/gh-dash",
   "github/gh-aw",
@@ -67,9 +67,10 @@ function renderCatalog(items) {
   <meta property="og:type" content="website">
   <meta property="og:url" content="${siteUrl}">
   <meta property="og:image" content="${socialImageUrl}">
-  <meta property="og:image:type" content="image/svg+xml">
+  <meta property="og:image:type" content="image/png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="GitHub CLI Extension Atlas social preview card">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="GitHub CLI Extension Atlas">
   <meta name="twitter:description" content="Search ${items.length} curated GitHub CLI extensions by workflow, maintenance status, ownership, and install command.">
