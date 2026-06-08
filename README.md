@@ -203,6 +203,8 @@ These are the first extensions to evaluate if you want broad value fast.
 
 Open the [searchable catalog browser](https://sjh9714.github.io/gh-extension-atlas/) to filter the same reviewed data by category, status, ownership, and search text. You can copy one install command, a starter pack, or every install command shown by the current filters.
 
+Every catalog row also links to a generated detail page, such as the [`gh-dash` extension page][extension-gh-dash], with install command, fit notes, maintenance metadata, and related alternatives.
+
 Quick entry points:
 
 | Start here                                                                           | Use this when...                                        |
@@ -218,6 +220,7 @@ Quick entry points:
 [catalog-notifications]: https://sjh9714.github.io/gh-extension-atlas/?category=Notifications&status=active
 [catalog-branches]: https://sjh9714.github.io/gh-extension-atlas/?q=branch+cleanup&category=Repo+%26+Branch&status=active
 [catalog-security]: https://sjh9714.github.io/gh-extension-atlas/?category=Security%2FAdmin&status=active
+[extension-gh-dash]: https://sjh9714.github.io/gh-extension-atlas/extensions/dlvhdr-gh-dash.html
 
 Static category pages:
 

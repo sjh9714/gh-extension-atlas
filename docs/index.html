@@ -949,7 +949,7 @@ gh extension install github/gh-gei</code></pre>
     function rowHtml(entry) {
       const topPickBadge = isTopPick(entry) ? '<span class="top-pick">Top Pick</span>' : "";
       return `<tr>
-        <td><a class="repo" href="https://github.com/${escapeAttribute(entry.repo)}">${escapeHtml(entry.repo)}</a>${topPickBadge}<br><span>${escapeHtml(entry.summary)}</span></td>
+        <td><a class="repo" href="${extensionDetailHref(entry)}">${escapeHtml(entry.repo)}</a>${topPickBadge}<br><span>${escapeHtml(entry.summary)}</span></td>
         <td>${escapeHtml(entry.category)}</td>
         <td>${escapeHtml(entry.best_for)}</td>
         <td><span class="status ${entry.status}">${entry.status}</span></td>
@@ -1069,6 +1069,18 @@ gh extension install github/gh-gei</code></pre>
 
     function countBy(items, status) {
       return items.filter((entry) => entry.status === status).length;
+    }
+
+    function extensionDetailHref(entry) {
+      return `extensions/${slugify(entry.repo)}.html`;
+    }
+
+    function slugify(value) {
+      return String(value)
+        .toLowerCase()
+        .replace(/&/g, " ")
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-|-$/g, "");
     }
 
     function pill(text) {
