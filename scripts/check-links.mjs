@@ -1,10 +1,15 @@
 import fs from "node:fs";
 import path from "node:path";
+import { execFileSync } from "node:child_process";
 
 const markdownFiles = listFiles(".", (file) => file.endsWith(".md"));
 const data = JSON.parse(fs.readFileSync("data/extensions.json", "utf8"));
 const links = new Map();
 const errors = [];
+const retryableStatusCodes = new Set([408, 425, 429, 500, 502, 503, 504]);
+const maxAttempts = 3;
+const retryBackoffMs = [500, 1000, 2000];
+const githubToken = getGitHubToken();
 
 for (const file of markdownFiles) {
   const content = fs.readFileSync(file, "utf8");
@@ -110,13 +115,9 @@ async function checkRemoteLinks(remoteLinks) {
     while (index < remoteLinks.length) {
       const link = remoteLinks[index++];
       const url = link.split("#")[0];
-      try {
-        const response = await fetchWithTimeout(url);
-        if (response.status >= 400) {
-          failures.push(`${link} returned HTTP ${response.status}.`);
-        }
-      } catch (error) {
-        failures.push(`${link} failed: ${error.message}`);
+      const failure = await checkRemoteLink(url, link);
+      if (failure) {
+        failures.push(failure);
       }
     }
   }
@@ -125,21 +126,128 @@ async function checkRemoteLinks(remoteLinks) {
   return failures;
 }
 
+async function checkRemoteLink(url, link) {
+  let lastError;
+  let lastStatus;
+  const validationUrl = getValidationUrl(url);
+
+  for (let attempt = 1; attempt <= maxAttempts; attempt += 1) {
+    try {
+      const response = await fetchWithTimeout(validationUrl);
+
+      if (response.status < 400) {
+        return null;
+      }
+
+      if (!isRetryableStatus(response.status)) {
+        return `${link} returned HTTP ${response.status}.`;
+      }
+
+      lastStatus = response.status;
+    } catch (error) {
+      if (!isRetryableError(error)) {
+        return `${link} failed: ${error.message}`;
+      }
+
+      lastError = error;
+    }
+
+    if (attempt < maxAttempts) {
+      await sleep(retryBackoffMs[attempt - 1]);
+    }
+  }
+
+  if (lastStatus) {
+    return `${link} returned HTTP ${lastStatus} after ${maxAttempts} attempts.`;
+  }
+
+  return `${link} failed after ${maxAttempts} attempts: ${lastError.message}`;
+}
+
 async function fetchWithTimeout(url) {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 15000);
+  const headers = {
+    accept: "application/vnd.github+json",
+    "user-agent": "gh-extension-atlas-link-checker",
+  };
+
+  if (githubToken && isGitHubUrl(url)) {
+    headers.authorization = `Bearer ${githubToken}`;
+  }
 
   try {
     const response = await fetch(url, {
       method: "GET",
       redirect: "follow",
       signal: controller.signal,
-      headers: {
-        "user-agent": "gh-extension-atlas-link-checker",
-      },
+      headers,
     });
     return response;
   } finally {
     clearTimeout(timeout);
   }
+}
+
+function getValidationUrl(url) {
+  const githubApiUrl = getGitHubApiValidationUrl(url);
+  return githubApiUrl ?? url;
+}
+
+function getGitHubApiValidationUrl(url) {
+  const parsed = new URL(url);
+  if (parsed.hostname !== "github.com") {
+    return null;
+  }
+
+  const [owner, repo, ...rest] = parsed.pathname.split("/").filter(Boolean);
+  if (!owner || !repo) {
+    return null;
+  }
+
+  if (rest.length === 0) {
+    return `https://api.github.com/repos/${owner}/${repo}`;
+  }
+
+  if (rest[0] === "actions" && rest[1] === "workflows" && rest[2] && rest[3] === "badge.svg") {
+    return `https://api.github.com/repos/${owner}/${repo}/actions/workflows/${rest[2]}`;
+  }
+
+  return null;
+}
+
+function isRetryableStatus(status) {
+  return retryableStatusCodes.has(status);
+}
+
+function isRetryableError(error) {
+  return error.name === "AbortError" || /fetch|network|timeout|aborted/i.test(error.message);
+}
+
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+function getGitHubToken() {
+  if (process.env.GITHUB_TOKEN) {
+    return process.env.GITHUB_TOKEN;
+  }
+
+  if (process.env.GH_TOKEN) {
+    return process.env.GH_TOKEN;
+  }
+
+  try {
+    return execFileSync("gh", ["auth", "token"], {
+      encoding: "utf8",
+      stdio: ["ignore", "pipe", "ignore"],
+    }).trim();
+  } catch {
+    return "";
+  }
+}
+
+function isGitHubUrl(url) {
+  const parsed = new URL(url);
+  return parsed.hostname === "github.com" || parsed.hostname === "api.github.com";
 }
