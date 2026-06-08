@@ -129,7 +129,9 @@ These are the first extensions to evaluate if you want broad value fast.
 
 ## Catalog Browser
 
-Use [`docs/index.html`](docs/index.html) as a static searchable catalog when the repo is served with GitHub Pages. It filters the same reviewed data by category, status, ownership, and search text.
+Open the [searchable catalog browser](https://sjh9714.github.io/gh-extension-atlas/) to filter the same reviewed data by category, status, ownership, and search text.
+
+The generated source lives at [`docs/index.html`](docs/index.html).
 
 Regenerate it after catalog changes with:
 
