@@ -521,6 +521,11 @@ if (checkOnly) {
     hasStaleFile = true;
   }
 
+  for (const error of validateAuditPage(generatedFiles)) {
+    console.error(error);
+    hasStaleFile = true;
+  }
+
   if (hasStaleFile) {
     process.exit(1);
   }
@@ -590,6 +595,57 @@ function validateStructuredDataFiles(files) {
   }
 
   return errors;
+}
+
+function validateAuditPage(files) {
+  const errors = [];
+  const file = files.find((candidate) => candidate.path === "docs/audit.html");
+
+  if (!file) {
+    return ["docs/audit.html must be generated."];
+  }
+
+  const requiredIds = ["catalog-data", "top-pick-data", "workflow-data", "extension-list", "run-audit", "load-sample", "copy-missing", "clear-input", "results"];
+
+  for (const id of requiredIds) {
+    if (!file.content.includes(`id="${id}"`)) {
+      errors.push(`docs/audit.html is missing #${id}.`);
+    }
+  }
+
+  const catalogData = readEmbeddedJson(file.content, "catalog-data", errors);
+  const topPickData = readEmbeddedJson(file.content, "top-pick-data", errors);
+  const workflowData = readEmbeddedJson(file.content, "workflow-data", errors);
+
+  if (catalogData && catalogData.length !== entries.length) {
+    errors.push(`docs/audit.html catalog-data has ${catalogData.length} entries; expected ${entries.length}.`);
+  }
+
+  if (topPickData && topPickData.length !== topPickRepos.length) {
+    errors.push(`docs/audit.html top-pick-data has ${topPickData.length} repos; expected ${topPickRepos.length}.`);
+  }
+
+  if (workflowData && workflowData.length !== recommendations.length) {
+    errors.push(`docs/audit.html workflow-data has ${workflowData.length} workflows; expected ${recommendations.length}.`);
+  }
+
+  return errors;
+}
+
+function readEmbeddedJson(content, id, errors) {
+  const match = content.match(new RegExp(`<script type="application/json" id="${id}">([\\s\\S]*?)<\\/script>`));
+
+  if (!match) {
+    errors.push(`docs/audit.html is missing embedded JSON #${id}.`);
+    return null;
+  }
+
+  try {
+    return JSON.parse(match[1]);
+  } catch (error) {
+    errors.push(`docs/audit.html embedded JSON #${id} is invalid: ${error.message}`);
+    return null;
+  }
 }
 
 function requiresStructuredData(filePath) {
