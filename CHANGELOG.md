@@ -1,5 +1,21 @@
 # Changelog
 
+## v0.2.2
+
+This patch release adds a dedicated public API reference for the generated catalog endpoints.
+
+### Added
+
+- Public API reference at `docs/api-reference.md`.
+- Endpoint documentation for JSON catalog files, category JSON files, install command bundles, and starter pack bundles.
+- Schema, freshness, and safety notes for using the static Pages API.
+
+### Improved
+
+- README Data section now links to the API reference.
+- Data recipes now point readers to the API reference before deeper `curl` and `jq` examples.
+- Searchable catalog header now links directly to the API reference.
+
 ## v0.2.1
 
 This patch release makes the public catalog endpoints easier to discover and use without cloning the repository.
