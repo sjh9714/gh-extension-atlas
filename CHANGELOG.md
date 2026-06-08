@@ -1,5 +1,15 @@
 # Changelog
 
+## v0.2.10
+
+This patch release makes workflow guide starter packs easier to find and inspect.
+
+### Improved
+
+- Workflow guide pages now show their starter pack directly after the Start Here section.
+- Workflow guide starter pack panels now include the public `curl -fsSL` TXT bundle command.
+- Starter pack safety copy now tells readers to inspect bundles and avoid piping install bundles directly into a shell.
+
 ## v0.2.9
 
 This patch release adds a generated Documentation Review starter pack for README and docs preview workflows.

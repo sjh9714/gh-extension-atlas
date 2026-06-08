@@ -1,6 +1,6 @@
 {
   "name": "gh-extension-atlas",
-  "version": "0.2.9",
+  "version": "0.2.10",
   "private": true,
   "description": "Curated field guide to GitHub CLI extensions.",
   "type": "module",
