@@ -13,6 +13,8 @@ Current guardrail:
 
 Use a link submission, not a text-only post.
 
+After the preflight passes, open the `HN submitlink` URL printed by `npm run launch:show-hn:preflight`. It pre-fills the URL and title, but still requires a manual final submit.
+
 Title:
 
 ```text

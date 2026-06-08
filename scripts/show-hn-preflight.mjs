@@ -30,6 +30,13 @@ function warn(message) {
   warnings.push(message);
 }
 
+function hnSubmitUrl() {
+  const url = new URL("https://news.ycombinator.com/submitlink");
+  url.searchParams.set("u", auditUrl);
+  url.searchParams.set("t", submissionTitle);
+  return url.toString();
+}
+
 function formatKst(date) {
   return new Intl.DateTimeFormat("en-CA", {
     timeZone: "Asia/Seoul",
@@ -194,6 +201,9 @@ async function main() {
   console.log("");
   console.log("Submission URL:");
   console.log(auditUrl);
+  console.log("");
+  console.log("HN submitlink:");
+  console.log(hnSubmitUrl());
 
   if (warnings.length) {
     console.log("");
