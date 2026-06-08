@@ -1,0 +1,704 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Compare GitHub CLI Extensions | GitHub CLI Extension Atlas</title>
+  <meta name="description" content="Compare overlapping GitHub CLI extensions by workflow, best fit, avoid-if note, maintenance status, and install command.">
+  <meta property="og:title" content="Compare GitHub CLI Extensions">
+  <meta property="og:description" content="Workflow-based comparison presets for choosing between overlapping GitHub CLI extensions.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://sjh9714.github.io/gh-extension-atlas/compare.html">
+  <meta property="og:image" content="https://sjh9714.github.io/gh-extension-atlas/social-card.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Compare GitHub CLI Extensions">
+  <meta name="twitter:description" content="Compare GitHub CLI extensions before installing overlapping tools.">
+  <meta name="twitter:image" content="https://sjh9714.github.io/gh-extension-atlas/social-card.png">
+  <link rel="canonical" href="https://sjh9714.github.io/gh-extension-atlas/compare.html">
+  <script type="application/ld+json">
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "GitHub CLI Extension Compare Presets",
+    "description": "Workflow-based comparison tables for overlapping GitHub CLI extensions.",
+    "url": "https://sjh9714.github.io/gh-extension-atlas/compare.html",
+    "image": "https://sjh9714.github.io/gh-extension-atlas/social-card.png",
+    "mainEntity": {
+      "@type": "ItemList",
+      "name": "GitHub CLI extension comparison presets",
+      "numberOfItems": 8,
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Daily maintainer triage",
+          "description": "Compare dlvhdr/gh-dash, agynio/gh-pr-review, meiji163/gh-notify.",
+          "url": "https://sjh9714.github.io/gh-extension-atlas/compare.html#triage"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "PR and issue review",
+          "description": "Compare agynio/gh-pr-review, github/gh-stack, einride/gh-dependabot.",
+          "url": "https://sjh9714.github.io/gh-extension-atlas/compare.html#pr"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "GitHub Actions operations",
+          "description": "Compare dlvhdr/gh-enhance, fchimpan/gh-workflow-stats, github/gh-actions-importer.",
+          "url": "https://sjh9714.github.io/gh-extension-atlas/compare.html#actions"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "AI and agent workflows",
+          "description": "Compare github/gh-aw, github/gh-models, shuymn/gh-mcp.",
+          "url": "https://sjh9714.github.io/gh-extension-atlas/compare.html#ai"
+        },
+        {
+          "@type": "ListItem",
+          "position": 5,
+          "name": "Local branch cleanup",
+          "description": "Compare seachicken/gh-poi, mislav/gh-branch, redraw/gh-install.",
+          "url": "https://sjh9714.github.io/gh-extension-atlas/compare.html#branches"
+        },
+        {
+          "@type": "ListItem",
+          "position": 6,
+          "name": "Documentation review",
+          "description": "Compare yusukebe/gh-markdown-preview, thiagokokada/gh-gfm-preview.",
+          "url": "https://sjh9714.github.io/gh-extension-atlas/compare.html#docs"
+        },
+        {
+          "@type": "ListItem",
+          "position": 7,
+          "name": "Search and discovery",
+          "description": "Compare gennaro-tedesco/gh-s, k1LoW/gh-grep, LangLangBart/gh-find-code.",
+          "url": "https://sjh9714.github.io/gh-extension-atlas/compare.html#search"
+        },
+        {
+          "@type": "ListItem",
+          "position": 8,
+          "name": "Security and admin",
+          "description": "Compare advanced-security/gh-sbom, Link-/gh-token, github/gh-gei.",
+          "url": "https://sjh9714.github.io/gh-extension-atlas/compare.html#security"
+        }
+      ]
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@id": "https://sjh9714.github.io/gh-extension-atlas/#dataset",
+    "@type": "Dataset",
+    "name": "GitHub CLI Extension Atlas",
+    "description": "A curated catalog of GitHub CLI extensions with install commands, categories, maintenance labels, and workflow recommendations.",
+    "url": "https://sjh9714.github.io/gh-extension-atlas/",
+    "license": "https://github.com/sjh9714/gh-extension-atlas/blob/main/LICENSE",
+    "isAccessibleForFree": true,
+    "dateModified": "2026-06-08",
+    "keywords": [
+      "GitHub CLI",
+      "gh extension",
+      "GitHub CLI extensions",
+      "awesome list",
+      "developer tools",
+      "terminal",
+      "open source"
+    ],
+    "creator": {
+      "@type": "Person",
+      "name": "JinHyuk Sung",
+      "url": "https://github.com/sjh9714"
+    },
+    "distribution": [
+      {
+        "@type": "DataDownload",
+        "encodingFormat": "application/json",
+        "contentUrl": "https://sjh9714.github.io/gh-extension-atlas/api/extensions.json"
+      },
+      {
+        "@type": "DataDownload",
+        "encodingFormat": "application/schema+json",
+        "contentUrl": "https://sjh9714.github.io/gh-extension-atlas/api/schema.json"
+      },
+      {
+        "@type": "DataDownload",
+        "encodingFormat": "text/plain",
+        "contentUrl": "https://sjh9714.github.io/gh-extension-atlas/install/all.txt"
+      }
+    ],
+    "variableMeasured": [
+      "install command",
+      "category",
+      "best use case",
+      "avoid-if note",
+      "license",
+      "maintenance status",
+      "last pushed date",
+      "verified date"
+    ]
+  }
+]
+  </script>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f7f8fa;
+      --panel: #ffffff;
+      --text: #1f2328;
+      --muted: #656d76;
+      --border: #d0d7de;
+      --accent: #0969da;
+      --accent-soft: #ddf4ff;
+      --good: #1a7f37;
+      --warn: #9a6700;
+      --stale: #8250df;
+      --shadow: 0 1px 2px rgba(31, 35, 40, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font: 15px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    header {
+      background: var(--panel);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .wrap {
+      width: min(1180px, calc(100vw - 32px));
+      margin: 0 auto;
+    }
+
+    .header-inner {
+      display: grid;
+      gap: 14px;
+      padding: 30px 0 24px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 40px;
+      line-height: 1.08;
+      letter-spacing: 0;
+    }
+
+    h2,
+    p {
+      margin: 0;
+    }
+
+    h2 {
+      font-size: 20px;
+      line-height: 1.25;
+      letter-spacing: 0;
+    }
+
+    .lead {
+      max-width: 840px;
+      color: var(--muted);
+      font-size: 18px;
+    }
+
+    .meta,
+    .actions,
+    .aliases {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 3px 10px;
+      background: var(--panel);
+      color: var(--muted);
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    main {
+      display: grid;
+      gap: 16px;
+      padding: 20px 0 42px;
+    }
+
+    .comparison {
+      display: grid;
+      gap: 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 15px;
+      background: var(--panel);
+      box-shadow: var(--shadow);
+    }
+
+    .comparison-head {
+      display: grid;
+      gap: 8px;
+    }
+
+    .table-wrap {
+      overflow: auto;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+    }
+
+    table {
+      width: 100%;
+      min-width: 980px;
+      border-collapse: collapse;
+      background: var(--panel);
+    }
+
+    th,
+    td {
+      border-bottom: 1px solid var(--border);
+      padding: 10px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .status {
+      display: inline-flex;
+      min-height: 24px;
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .status.active {
+      background: #dafbe1;
+      color: var(--good);
+    }
+
+    .status.watch {
+      background: #fff8c5;
+      color: var(--warn);
+    }
+
+    .status.stale {
+      background: #fbefff;
+      color: var(--stale);
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    code {
+      font: 13px/1.45 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      overflow-wrap: anywhere;
+    }
+
+    pre {
+      margin: 0;
+      overflow: auto;
+      border-radius: 6px;
+      padding: 10px;
+      background: #f6f8fa;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 560px) {
+      .wrap {
+        width: min(100vw - 20px, 1180px);
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap header-inner">
+      <h1>Compare GitHub CLI Extensions</h1>
+      <p class="lead">Use these workflow presets when two or three GitHub CLI extensions look useful but you need to pick the right starting point.</p>
+      <div class="meta">
+        <span class="pill">8 comparison presets</span>
+        <span class="pill">68 curated extensions</span>
+        <span class="pill">Reviewed 2026-06-08</span>
+      </div>
+      <div class="actions">
+        <a href="./">Searchable catalog</a>
+        <a href="chooser.html">Chooser</a>
+        <a href="recommendations.html">Recommendations</a>
+        <a href="install/">Install bundles</a>
+        <a href="https://github.com/sjh9714/gh-extension-atlas#readme">README</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="comparison" id="triage">
+      <div class="comparison-head">
+        <h2>Daily maintainer triage</h2>
+        <div class="aliases">Aliases: <code>maintainer</code>, <code>dashboard</code>, <code>notifications</code>, <code>notify</code></div>
+        <pre><code>npm --silent run catalog:compare -- dlvhdr/gh-dash agynio/gh-pr-review meiji163/gh-notify</code></pre>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Extension</th>
+              <th>Status</th>
+              <th>Best fit</th>
+              <th>Avoid if</th>
+              <th>Install</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><a href="extensions/dlvhdr-gh-dash.html"><strong>dlvhdr/gh-dash</strong></a><br><span class="muted">A rich terminal dashboard for pull requests, issues, and notifications.</span></td>
+              <td><span class="status active">active</span></td>
+              <td>Maintainers who live in PR, issue, and notification queues.</td>
+              <td>You prefer one-off commands over a persistent TUI.</td>
+              <td><code>gh extension install dlvhdr/gh-dash</code></td>
+            </tr>
+            <tr>
+              <td><a href="extensions/agynio-gh-pr-review.html"><strong>agynio/gh-pr-review</strong></a><br><span class="muted">View, navigate, reply to, and resolve PR review threads.</span></td>
+              <td><span class="status active">active</span></td>
+              <td>Reviewers who want inline PR review workflows in the terminal.</td>
+              <td>Your team reviews exclusively in the GitHub web UI.</td>
+              <td><code>gh extension install agynio/gh-pr-review</code></td>
+            </tr>
+            <tr>
+              <td><a href="extensions/meiji163-gh-notify.html"><strong>meiji163/gh-notify</strong></a><br><span class="muted">Display GitHub notifications in the terminal.</span></td>
+              <td><span class="status active">active</span></td>
+              <td>Developers who want notification awareness without the browser.</td>
+              <td>You already manage notifications through email or mobile.</td>
+              <td><code>gh extension install meiji163/gh-notify</code></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+    <section class="comparison" id="pr">
+      <div class="comparison-head">
+        <h2>PR and issue review</h2>
+        <div class="aliases">Aliases: <code>issues</code>, <code>review</code>, <code>pull-requests</code></div>
+        <pre><code>npm --silent run catalog:compare -- agynio/gh-pr-review github/gh-stack einride/gh-dependabot</code></pre>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Extension</th>
+              <th>Status</th>
+              <th>Best fit</th>
+              <th>Avoid if</th>
+              <th>Install</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><a href="extensions/agynio-gh-pr-review.html"><strong>agynio/gh-pr-review</strong></a><br><span class="muted">View, navigate, reply to, and resolve PR review threads.</span></td>
+              <td><span class="status active">active</span></td>
+              <td>Reviewers who want inline PR review workflows in the terminal.</td>
+              <td>Your team reviews exclusively in the GitHub web UI.</td>
+              <td><code>gh extension install agynio/gh-pr-review</code></td>
+            </tr>
+            <tr>
+              <td><a href="extensions/github-gh-stack.html"><strong>github/gh-stack</strong></a><br><span class="muted">Manage stacked pull requests on GitHub.</span></td>
+              <td><span class="status active">active</span></td>
+              <td>Teams that split large changes into dependent PRs.</td>
+              <td>Your team avoids stacked changes.</td>
+              <td><code>gh extension install github/gh-stack</code></td>
+            </tr>
+            <tr>
+              <td><a href="extensions/einride-gh-dependabot.html"><strong>einride/gh-dependabot</strong></a><br><span class="muted">Review Dependabot pull requests from GitHub CLI.</span></td>
+              <td><span class="status active">active</span></td>
+              <td>Teams that process many dependency update pull requests.</td>
+              <td>You do not use Dependabot.</td>
+              <td><code>gh extension install einride/gh-dependabot</code></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+    <section class="comparison" id="actions">
+      <div class="comparison-head">
+        <h2>GitHub Actions operations</h2>
+        <div class="aliases">Aliases: <code>ci</code>, <code>workflows</code></div>
+        <pre><code>npm --silent run catalog:compare -- dlvhdr/gh-enhance fchimpan/gh-workflow-stats github/gh-actions-importer</code></pre>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Extension</th>
+              <th>Status</th>
+              <th>Best fit</th>
+              <th>Avoid if</th>
+              <th>Install</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><a href="extensions/dlvhdr-gh-enhance.html"><strong>dlvhdr/gh-enhance</strong></a><br><span class="muted">A fast terminal UI for inspecting and managing GitHub Actions.</span></td>
+              <td><span class="status active">active</span></td>
+              <td>Developers who want an interactive terminal UI for GitHub Actions workflows.</td>
+              <td>You only need basic workflow status output or prefer the GitHub web UI.</td>
+              <td><code>gh extension install dlvhdr/gh-enhance</code></td>
+            </tr>
+            <tr>
+              <td><a href="extensions/fchimpan-gh-workflow-stats.html"><strong>fchimpan/gh-workflow-stats</strong></a><br><span class="muted">Calculate workflow and job success rate and execution time.</span></td>
+              <td><span class="status active">active</span></td>
+              <td>CI owners investigating slow or flaky workflows.</td>
+              <td>You only need the latest run status.</td>
+              <td><code>gh extension install fchimpan/gh-workflow-stats</code></td>
+            </tr>
+            <tr>
+              <td><a href="extensions/github-gh-actions-importer.html"><strong>github/gh-actions-importer</strong></a><br><span class="muted">Plan and automate migrations into GitHub Actions.</span></td>
+              <td><span class="status active">active</span></td>
+              <td>Enterprise teams migrating from other CI systems.</td>
+              <td>Your project is already on GitHub Actions.</td>
+              <td><code>gh extension install github/gh-actions-importer</code></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+    <section class="comparison" id="ai">
+      <div class="comparison-head">
+        <h2>AI and agent workflows</h2>
+        <div class="aliases">Aliases: <code>agents</code>, <code>models</code></div>
+        <pre><code>npm --silent run catalog:compare -- github/gh-aw github/gh-models shuymn/gh-mcp</code></pre>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Extension</th>
+              <th>Status</th>
+              <th>Best fit</th>
+              <th>Avoid if</th>
+              <th>Install</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><a href="extensions/github-gh-aw.html"><strong>github/gh-aw</strong></a><br><span class="muted">Run GitHub agentic workflows from the CLI.</span></td>
+              <td><span class="status active">active</span></td>
+              <td>Developers experimenting with GitHub-native agent workflows.</td>
+              <td>You are not using agentic automation yet.</td>
+              <td><code>gh extension install github/gh-aw</code></td>
+            </tr>
+            <tr>
+              <td><a href="extensions/github-gh-models.html"><strong>github/gh-models</strong></a><br><span class="muted">Use GitHub Models from GitHub CLI.</span></td>
+              <td><span class="status active">active</span></td>
+              <td>Developers testing prompts and models from the terminal.</td>
+              <td>You do not use GitHub Models.</td>
+              <td><code>gh extension install github/gh-models</code></td>
+            </tr>
+            <tr>
+              <td><a href="extensions/shuymn-gh-mcp.html"><strong>shuymn/gh-mcp</strong></a><br><span class="muted">Run GitHub MCP Server using existing GitHub CLI authentication.</span></td>
+              <td><span class="status active">active</span></td>
+              <td>Users connecting AI tools to GitHub through MCP.</td>
+              <td>You do not use MCP-compatible clients.</td>
+              <td><code>gh extension install shuymn/gh-mcp</code></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+    <section class="comparison" id="branches">
+      <div class="comparison-head">
+        <h2>Local branch cleanup</h2>
+        <div class="aliases">Aliases: <code>branch</code>, <code>cleanup</code>, <code>repo-cleanup</code></div>
+        <pre><code>npm --silent run catalog:compare -- seachicken/gh-poi mislav/gh-branch redraw/gh-install</code></pre>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Extension</th>
+              <th>Status</th>
+              <th>Best fit</th>
+              <th>Avoid if</th>
+              <th>Install</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><a href="extensions/seachicken-gh-poi.html"><strong>seachicken/gh-poi</strong></a><br><span class="muted">Safely clean up local branches.</span></td>
+              <td><span class="status active">active</span></td>
+              <td>Developers who want a trustworthy branch cleanup default.</td>
+              <td>You want to manually inspect every branch before deletion.</td>
+              <td><code>gh extension install seachicken/gh-poi</code></td>
+            </tr>
+            <tr>
+              <td><a href="extensions/mislav-gh-branch.html"><strong>mislav/gh-branch</strong></a><br><span class="muted">Fuzzy find, switch between, and delete branches.</span></td>
+              <td><span class="status watch">watch</span></td>
+              <td>Developers with many local branches.</td>
+              <td>You want only automated cleanup rather than manual selection.</td>
+              <td><code>gh extension install mislav/gh-branch</code></td>
+            </tr>
+            <tr>
+              <td><a href="extensions/redraw-gh-install.html"><strong>redraw/gh-install</strong></a><br><span class="muted">Install GitHub release binaries interactively.</span></td>
+              <td><span class="status active">active</span></td>
+              <td>Developers who often install tools from GitHub releases.</td>
+              <td>You already use a package manager for all release binaries.</td>
+              <td><code>gh extension install redraw/gh-install</code></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+    <section class="comparison" id="docs">
+      <div class="comparison-head">
+        <h2>Documentation review</h2>
+        <div class="aliases">Aliases: <code>markdown</code>, <code>readme</code></div>
+        <pre><code>npm --silent run catalog:compare -- yusukebe/gh-markdown-preview thiagokokada/gh-gfm-preview</code></pre>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Extension</th>
+              <th>Status</th>
+              <th>Best fit</th>
+              <th>Avoid if</th>
+              <th>Install</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><a href="extensions/yusukebe-gh-markdown-preview.html"><strong>yusukebe/gh-markdown-preview</strong></a><br><span class="muted">Preview Markdown as it appears on GitHub.</span></td>
+              <td><span class="status active">active</span></td>
+              <td>README, issue template, and documentation review.</td>
+              <td>You need fully offline preview support.</td>
+              <td><code>gh extension install yusukebe/gh-markdown-preview</code></td>
+            </tr>
+            <tr>
+              <td><a href="extensions/thiagokokada-gh-gfm-preview.html"><strong>thiagokokada/gh-gfm-preview</strong></a><br><span class="muted">Preview GitHub-flavored Markdown, including offline workflows.</span></td>
+              <td><span class="status active">active</span></td>
+              <td>Writers who need Markdown preview without relying on GitHub web UI.</td>
+              <td>You only need the simplest browser-based preview.</td>
+              <td><code>gh extension install thiagokokada/gh-gfm-preview</code></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+    <section class="comparison" id="search">
+      <div class="comparison-head">
+        <h2>Search and discovery</h2>
+        <div class="aliases">Aliases: <code>discovery</code>, <code>code-search</code></div>
+        <pre><code>npm --silent run catalog:compare -- gennaro-tedesco/gh-s k1LoW/gh-grep LangLangBart/gh-find-code</code></pre>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Extension</th>
+              <th>Status</th>
+              <th>Best fit</th>
+              <th>Avoid if</th>
+              <th>Install</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><a href="extensions/gennaro-tedesco-gh-s.html"><strong>gennaro-tedesco/gh-s</strong></a><br><span class="muted">Interactively search GitHub repositories.</span></td>
+              <td><span class="status active">active</span></td>
+              <td>Finding repositories quickly from a terminal workflow.</td>
+              <td>You need advanced code search rather than repository search.</td>
+              <td><code>gh extension install gennaro-tedesco/gh-s</code></td>
+            </tr>
+            <tr>
+              <td><a href="extensions/k1low-gh-grep.html"><strong>k1LoW/gh-grep</strong></a><br><span class="muted">Print matching lines from repositories through the GitHub API.</span></td>
+              <td><span class="status active">active</span></td>
+              <td>Searching repository content without cloning.</td>
+              <td>You need local ripgrep speed across checked-out code.</td>
+              <td><code>gh extension install k1LoW/gh-grep</code></td>
+            </tr>
+            <tr>
+              <td><a href="extensions/langlangbart-gh-find-code.html"><strong>LangLangBart/gh-find-code</strong></a><br><span class="muted">Search GitHub code with fzf.</span></td>
+              <td><span class="status active">active</span></td>
+              <td>Developers who want interactive code search from the terminal.</td>
+              <td>You need local search inside a checked-out repository.</td>
+              <td><code>gh extension install LangLangBart/gh-find-code</code></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+    <section class="comparison" id="security">
+      <div class="comparison-head">
+        <h2>Security and admin</h2>
+        <div class="aliases">Aliases: <code>admin</code>, <code>compliance</code></div>
+        <pre><code>npm --silent run catalog:compare -- advanced-security/gh-sbom Link-/gh-token github/gh-gei</code></pre>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Extension</th>
+              <th>Status</th>
+              <th>Best fit</th>
+              <th>Avoid if</th>
+              <th>Install</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><a href="extensions/advanced-security-gh-sbom.html"><strong>advanced-security/gh-sbom</strong></a><br><span class="muted">Generate software bills of materials with GitHub CLI.</span></td>
+              <td><span class="status watch">watch</span></td>
+              <td>Teams that need SBOM output during release or compliance work.</td>
+              <td>Your SBOM workflow is already handled by another build step.</td>
+              <td><code>gh extension install advanced-security/gh-sbom</code></td>
+            </tr>
+            <tr>
+              <td><a href="extensions/link-gh-token.html"><strong>Link-/gh-token</strong></a><br><span class="muted">Create installation access tokens for GitHub Apps.</span></td>
+              <td><span class="status active">active</span></td>
+              <td>Developers working with GitHub App authentication.</td>
+              <td>You only use personal access tokens or browser flows.</td>
+              <td><code>gh extension install Link-/gh-token</code></td>
+            </tr>
+            <tr>
+              <td><a href="extensions/github-gh-gei.html"><strong>github/gh-gei</strong></a><br><span class="muted">Support GitHub Enterprise Importer migration workflows.</span></td>
+              <td><span class="status active">active</span></td>
+              <td>Enterprise teams migrating repositories to GitHub Enterprise Cloud.</td>
+              <td>You are not running GitHub migration projects.</td>
+              <td><code>gh extension install github/gh-gei</code></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

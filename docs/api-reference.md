@@ -27,6 +27,7 @@ The API is a reviewed snapshot, not a live ranking. Fields such as `stars`, `las
 | `/api/starter-packs/{slug}.json` | JSON object | You want one workflow starter pack as structured data. |
 | [`/awesome-github-cli-extensions.md`](https://sjh9714.github.io/gh-extension-atlas/awesome-github-cli-extensions.md) | Markdown | You want a shareable markdown overview of Top Picks, workflow guides, and starter packs. |
 | [`/cheatsheet.md`](https://sjh9714.github.io/gh-extension-atlas/cheatsheet.md) | Markdown | You want a compact workflow and install-command quick reference. |
+| [`/compare.html`](https://sjh9714.github.io/gh-extension-atlas/compare.html) | HTML | You want side-by-side workflow comparison presets for overlapping extensions. |
 | [`/recommendations.html`](https://sjh9714.github.io/gh-extension-atlas/recommendations.html) | HTML | You want browser-friendly workflow-first picks with install commands and avoid-if notes. |
 | [`/recommendations.md`](https://sjh9714.github.io/gh-extension-atlas/recommendations.md) | Markdown | You want workflow recommendations as copyable markdown. |
 | [`/agent-guide.md`](https://sjh9714.github.io/gh-extension-atlas/agent-guide.md) | Markdown | You want prompt and JSON recipes for AI coding assistants. |

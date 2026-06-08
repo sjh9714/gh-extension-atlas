@@ -484,6 +484,7 @@ const endpointFiles = [
 const generatedFiles = [
   { path: "docs/index.html", content: renderCatalog(entries) },
   { path: "docs/chooser.html", content: renderChooserPage(entries) },
+  { path: "docs/compare.html", content: renderComparePage(entries) },
   { path: "docs/recommendations.html", content: renderRecommendationsPage(entries) },
   { path: "docs/install/index.html", content: renderInstallBundlesPage(entries) },
   { path: "docs/awesome-github-cli-extensions.html", content: renderAwesomeLandingPage(entries) },
@@ -593,6 +594,7 @@ function requiresStructuredData(filePath) {
   return [
     "docs/index.html",
     "docs/chooser.html",
+    "docs/compare.html",
     "docs/recommendations.html",
     "docs/install/index.html",
     "docs/awesome-github-cli-extensions.html",
@@ -776,6 +778,37 @@ function chooserPageJsonLd(items, choices, pageUrl) {
           name: choice.title,
           description: choice.question,
           url: `${pageUrl}#${categorySlug(choice.title)}`,
+        })),
+      },
+    },
+    {
+      "@context": "https://schema.org",
+      "@id": `${siteUrl}#dataset`,
+      ...atlasDatasetJsonLd(items),
+    },
+  ];
+}
+
+function comparePageJsonLd(items, pageUrl) {
+  return [
+    {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      name: "GitHub CLI Extension Compare Presets",
+      description:
+        "Workflow-based comparison tables for overlapping GitHub CLI extensions.",
+      url: pageUrl,
+      image: socialImageUrl,
+      mainEntity: {
+        "@type": "ItemList",
+        name: "GitHub CLI extension comparison presets",
+        numberOfItems: recommendations.length,
+        itemListElement: recommendations.map((recommendation, index) => ({
+          "@type": "ListItem",
+          position: index + 1,
+          name: recommendation.label,
+          description: `Compare ${recommendation.repos.join(", ")}.`,
+          url: `${pageUrl}#${recommendation.id}`,
         })),
       },
     },
@@ -1364,6 +1397,7 @@ function renderCatalog(items) {
         <span class="pill">API docs: <a href="api-reference.md">api-reference.md</a></span>
         <span class="pill"><a href="faq.md">FAQ</a></span>
         <span class="pill"><a href="cheatsheet.md">Cheatsheet</a></span>
+        <span class="pill"><a href="compare.html">Compare</a></span>
         <span class="pill"><a href="recommendations.html">Recommendations</a></span>
         <span class="pill"><a href="agent-guide.md">Agent guide</a></span>
         <span class="pill"><a href="install/">Install bundles</a></span>
@@ -3398,6 +3432,294 @@ function renderRecommendationCard(entry, index) {
         </article>`;
 }
 
+function renderComparePage(items) {
+  const generatedAt = latestVerifiedAt(items);
+  const pageUrl = `${siteUrl}compare.html`;
+
+  return `<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Compare GitHub CLI Extensions | GitHub CLI Extension Atlas</title>
+  <meta name="description" content="Compare overlapping GitHub CLI extensions by workflow, best fit, avoid-if note, maintenance status, and install command.">
+  <meta property="og:title" content="Compare GitHub CLI Extensions">
+  <meta property="og:description" content="Workflow-based comparison presets for choosing between overlapping GitHub CLI extensions.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="${pageUrl}">
+  <meta property="og:image" content="${socialImageUrl}">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Compare GitHub CLI Extensions">
+  <meta name="twitter:description" content="Compare GitHub CLI extensions before installing overlapping tools.">
+  <meta name="twitter:image" content="${socialImageUrl}">
+  <link rel="canonical" href="${pageUrl}">
+  ${renderJsonLd(comparePageJsonLd(items, pageUrl))}
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f7f8fa;
+      --panel: #ffffff;
+      --text: #1f2328;
+      --muted: #656d76;
+      --border: #d0d7de;
+      --accent: #0969da;
+      --accent-soft: #ddf4ff;
+      --good: #1a7f37;
+      --warn: #9a6700;
+      --stale: #8250df;
+      --shadow: 0 1px 2px rgba(31, 35, 40, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font: 15px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    header {
+      background: var(--panel);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .wrap {
+      width: min(1180px, calc(100vw - 32px));
+      margin: 0 auto;
+    }
+
+    .header-inner {
+      display: grid;
+      gap: 14px;
+      padding: 30px 0 24px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 40px;
+      line-height: 1.08;
+      letter-spacing: 0;
+    }
+
+    h2,
+    p {
+      margin: 0;
+    }
+
+    h2 {
+      font-size: 20px;
+      line-height: 1.25;
+      letter-spacing: 0;
+    }
+
+    .lead {
+      max-width: 840px;
+      color: var(--muted);
+      font-size: 18px;
+    }
+
+    .meta,
+    .actions,
+    .aliases {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 3px 10px;
+      background: var(--panel);
+      color: var(--muted);
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    main {
+      display: grid;
+      gap: 16px;
+      padding: 20px 0 42px;
+    }
+
+    .comparison {
+      display: grid;
+      gap: 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 15px;
+      background: var(--panel);
+      box-shadow: var(--shadow);
+    }
+
+    .comparison-head {
+      display: grid;
+      gap: 8px;
+    }
+
+    .table-wrap {
+      overflow: auto;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+    }
+
+    table {
+      width: 100%;
+      min-width: 980px;
+      border-collapse: collapse;
+      background: var(--panel);
+    }
+
+    th,
+    td {
+      border-bottom: 1px solid var(--border);
+      padding: 10px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .status {
+      display: inline-flex;
+      min-height: 24px;
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .status.active {
+      background: #dafbe1;
+      color: var(--good);
+    }
+
+    .status.watch {
+      background: #fff8c5;
+      color: var(--warn);
+    }
+
+    .status.stale {
+      background: #fbefff;
+      color: var(--stale);
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    code {
+      font: 13px/1.45 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      overflow-wrap: anywhere;
+    }
+
+    pre {
+      margin: 0;
+      overflow: auto;
+      border-radius: 6px;
+      padding: 10px;
+      background: #f6f8fa;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 560px) {
+      .wrap {
+        width: min(100vw - 20px, 1180px);
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap header-inner">
+      <h1>Compare GitHub CLI Extensions</h1>
+      <p class="lead">Use these workflow presets when two or three GitHub CLI extensions look useful but you need to pick the right starting point.</p>
+      <div class="meta">
+        <span class="pill">${recommendations.length} comparison presets</span>
+        <span class="pill">${items.length} curated extensions</span>
+        <span class="pill">Reviewed ${escapeHtml(generatedAt)}</span>
+      </div>
+      <div class="actions">
+        <a href="./">Searchable catalog</a>
+        <a href="chooser.html">Chooser</a>
+        <a href="recommendations.html">Recommendations</a>
+        <a href="install/">Install bundles</a>
+        <a href="${repoReadmeUrl}">README</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    ${recommendations.map((recommendation) => renderCompareSection(recommendation, items)).join("\n    ")}
+  </main>
+</body>
+</html>
+`;
+}
+
+function renderCompareSection(recommendation, items) {
+  const recommendationEntries = getRecommendationEntries(recommendation, items);
+  const localCommand = `npm --silent run catalog:compare -- ${recommendationEntries.map((entry) => entry.repo).join(" ")}`;
+
+  return `<section class="comparison" id="${escapeAttribute(recommendation.id)}">
+      <div class="comparison-head">
+        <h2>${escapeHtml(recommendation.label)}</h2>
+        <div class="aliases">Aliases: ${recommendation.aliases.map((alias) => `<code>${escapeHtml(alias)}</code>`).join(", ")}</div>
+        <pre><code>${escapeHtml(localCommand)}</code></pre>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Extension</th>
+              <th>Status</th>
+              <th>Best fit</th>
+              <th>Avoid if</th>
+              <th>Install</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${recommendationEntries.map(renderCompareRow).join("\n            ")}
+          </tbody>
+        </table>
+      </div>
+    </section>`;
+}
+
+function renderCompareRow(entry) {
+  return `<tr>
+              <td><a href="${escapeAttribute(extensionPagePath(entry))}"><strong>${escapeHtml(entry.repo)}</strong></a><br><span class="muted">${escapeHtml(entry.summary)}</span></td>
+              <td><span class="status ${escapeAttribute(entry.status)}">${escapeHtml(entry.status)}</span></td>
+              <td>${escapeHtml(entry.best_for)}</td>
+              <td>${escapeHtml(entry.avoid_if)}</td>
+              <td><code>${escapeHtml(entry.install)}</code></td>
+            </tr>`;
+}
+
 function renderInstallBundlesPage(items) {
   const generatedAt = latestVerifiedAt(items);
   const pageUrl = `${siteUrl}install/`;
@@ -4478,6 +4800,12 @@ function renderSitemapXml(items) {
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>`;
+  const compareUrl = `  <url>
+    <loc>${siteUrl}compare.html</loc>
+    <lastmod>${escapeHtml(lastmod)}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>`;
   const recommendationsUrl = `  <url>
     <loc>${siteUrl}recommendations.html</loc>
     <lastmod>${escapeHtml(lastmod)}</lastmod>
@@ -4539,6 +4867,7 @@ ${chooserUrl}
 ${awesomeUrl}
 ${awesomeMarkdownUrl}
 ${cheatsheetUrl}
+${compareUrl}
 ${recommendationsUrl}
 ${recommendationsMarkdownUrl}
 ${installBundlesUrl}
@@ -4706,6 +5035,7 @@ function renderApiIndex(items) {
       recommendations_schema: `${siteUrl}api/recommendations.schema.json`,
       starter_packs: `${siteUrl}api/starter-packs.json`,
       chooser: `${siteUrl}chooser.html`,
+      compare: `${siteUrl}compare.html`,
       awesome_markdown: `${siteUrl}awesome-github-cli-extensions.md`,
       cheatsheet: `${siteUrl}cheatsheet.md`,
       workflow_recommendations: `${siteUrl}recommendations.html`,

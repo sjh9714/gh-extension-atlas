@@ -24,6 +24,7 @@
     "recommendations_schema": "https://sjh9714.github.io/gh-extension-atlas/api/recommendations.schema.json",
     "starter_packs": "https://sjh9714.github.io/gh-extension-atlas/api/starter-packs.json",
     "chooser": "https://sjh9714.github.io/gh-extension-atlas/chooser.html",
+    "compare": "https://sjh9714.github.io/gh-extension-atlas/compare.html",
     "awesome_markdown": "https://sjh9714.github.io/gh-extension-atlas/awesome-github-cli-extensions.md",
     "cheatsheet": "https://sjh9714.github.io/gh-extension-atlas/cheatsheet.md",
     "workflow_recommendations": "https://sjh9714.github.io/gh-extension-atlas/recommendations.html",
