@@ -20,6 +20,7 @@ The API is a reviewed snapshot, not a live ranking. Fields such as `stars`, `las
 | [`/api/extensions.schema.json`](https://sjh9714.github.io/gh-extension-atlas/api/extensions.schema.json) | JSON Schema | You want the public data contract for catalog entries. |
 | [`/api/top-picks.json`](https://sjh9714.github.io/gh-extension-atlas/api/top-picks.json) | JSON array | You want the first-pass recommendations from the README Top Picks table. |
 | [`/api/search-index.json`](https://sjh9714.github.io/gh-extension-atlas/api/search-index.json) | JSON array | You want lightweight records for client-side search, docs indexing, or small tools. |
+| [`/api/recommendations.json`](https://sjh9714.github.io/gh-extension-atlas/api/recommendations.json) | JSON array | You want workflow-first recommendations with install commands and avoid-if notes. |
 | `/api/categories/{slug}.json` | JSON array | You want entries from one category, such as `actions-ci` or `dashboard-tui`. |
 | [`/api/starter-packs.json`](https://sjh9714.github.io/gh-extension-atlas/api/starter-packs.json) | JSON array | You want all workflow starter packs with entries and install commands. |
 | `/api/starter-packs/{slug}.json` | JSON object | You want one workflow starter pack as structured data. |
@@ -88,6 +89,13 @@ curl -fsSL https://sjh9714.github.io/gh-extension-atlas/api/index.json \
   | jq -r '.starter_packs[] | [.name, .json] | @tsv'
 ```
 
+Print workflow recommendation ids and aliases:
+
+```sh
+curl -fsSL https://sjh9714.github.io/gh-extension-atlas/api/recommendations.json \
+  | jq -r '.[] | [.id, .label, (.aliases | join(", "))] | @tsv'
+```
+
 Print the current health snapshot:
 
 ```sh
@@ -150,6 +158,13 @@ Search lightweight index records:
 ```sh
 curl -fsSL https://sjh9714.github.io/gh-extension-atlas/api/search-index.json \
   | jq -r '.[] | select(.keywords[]? == "notifications") | [.repo, .install] | @tsv'
+```
+
+Print install commands for the Actions recommendation set:
+
+```sh
+curl -fsSL https://sjh9714.github.io/gh-extension-atlas/api/recommendations.json \
+  | jq -r '.[] | select(.id == "actions") | .entries[].install'
 ```
 
 Fetch LLM-friendly atlas context:

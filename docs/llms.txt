@@ -48,6 +48,7 @@ GitHub CLI Extension Atlas helps users choose a useful `gh` extension faster whe
 - Catalog health JSON: https://sjh9714.github.io/gh-extension-atlas/api/health.json
 - Catalog schema: https://sjh9714.github.io/gh-extension-atlas/api/extensions.schema.json
 - Search index JSON: https://sjh9714.github.io/gh-extension-atlas/api/search-index.json
+- Workflow recommendations JSON: https://sjh9714.github.io/gh-extension-atlas/api/recommendations.json
 - Top Picks JSON: https://sjh9714.github.io/gh-extension-atlas/api/top-picks.json
 - Starter packs JSON: https://sjh9714.github.io/gh-extension-atlas/api/starter-packs.json
 - All install commands: https://sjh9714.github.io/gh-extension-atlas/install/all.txt

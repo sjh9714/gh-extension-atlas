@@ -393,30 +393,32 @@ Metadata such as stars, last pushed date, and maintenance status is a reviewed s
 
 Published Pages endpoints:
 
-| Endpoint                                      | Use this when...                                           |
-| --------------------------------------------- | ---------------------------------------------------------- |
-| [API index][api-index]                        | You want a manifest of every public catalog endpoint.      |
-| [Catalog health snapshot][health]             | You want counts, freshness, and guardrails.                |
-| [Awesome Markdown overview][awesome-markdown] | You want a shareable markdown overview of the atlas.       |
-| [Cheatsheet][]                                | You want a compact workflow and install-command reference. |
-| [Agent guide][agent-guide]                    | You want prompt and JSON recipes for AI coding assistants. |
-| [Full catalog JSON][api-extensions]           | You want the complete reviewed catalog for automation.     |
-| [Catalog JSON Schema][api-schema]             | You want the public data contract for catalog entries.     |
-| [Search index JSON][api-search-index]         | You want lightweight records for client-side search.       |
-| [Public API Reference][api-reference]         | You want endpoint docs, schema notes, and curl examples.   |
-| [Top Picks JSON][api-top-picks]               | You want only the first-pass recommendations.              |
-| [Starter pack JSON][api-starter-packs]        | You want workflow bundles as machine-readable JSON.        |
-| [LLM context][llms]                           | You want a concise plain-text map of the atlas.            |
-| [Full LLM context][llms-full]                 | You want plain-text workflow, API, and catalog context.    |
-| [All install commands][install-all]           | You want a plain-text command bundle for every entry.      |
-| [Top Picks install commands][install-top]     | You want a plain-text install bundle for Top Picks.        |
-| [Starter pack install bundles][install-packs] | You want workflow-specific plain-text install bundles.     |
+| Endpoint                                             | Use this when...                                                   |
+| ---------------------------------------------------- | ------------------------------------------------------------------ |
+| [API index][api-index]                               | You want a manifest of every public catalog endpoint.              |
+| [Catalog health snapshot][health]                    | You want counts, freshness, and guardrails.                        |
+| [Awesome Markdown overview][awesome-markdown]        | You want a shareable markdown overview of the atlas.               |
+| [Cheatsheet][]                                       | You want a compact workflow and install-command reference.         |
+| [Agent guide][agent-guide]                           | You want prompt and JSON recipes for AI coding assistants.         |
+| [Full catalog JSON][api-extensions]                  | You want the complete reviewed catalog for automation.             |
+| [Catalog JSON Schema][api-schema]                    | You want the public data contract for catalog entries.             |
+| [Search index JSON][api-search-index]                | You want lightweight records for client-side search.               |
+| [Workflow recommendations JSON][api-recommendations] | You want small workflow-first recommendations for tools or agents. |
+| [Public API Reference][api-reference]                | You want endpoint docs, schema notes, and curl examples.           |
+| [Top Picks JSON][api-top-picks]                      | You want only the first-pass recommendations.                      |
+| [Starter pack JSON][api-starter-packs]               | You want workflow bundles as machine-readable JSON.                |
+| [LLM context][llms]                                  | You want a concise plain-text map of the atlas.                    |
+| [Full LLM context][llms-full]                        | You want plain-text workflow, API, and catalog context.            |
+| [All install commands][install-all]                  | You want a plain-text command bundle for every entry.              |
+| [Top Picks install commands][install-top]            | You want a plain-text install bundle for Top Picks.                |
+| [Starter pack install bundles][install-packs]        | You want workflow-specific plain-text install bundles.             |
 
 [api-index]: https://sjh9714.github.io/gh-extension-atlas/api/index.json
 [health]: docs/health.md
 [api-extensions]: https://sjh9714.github.io/gh-extension-atlas/api/extensions.json
 [api-schema]: https://sjh9714.github.io/gh-extension-atlas/api/extensions.schema.json
 [api-search-index]: https://sjh9714.github.io/gh-extension-atlas/api/search-index.json
+[api-recommendations]: https://sjh9714.github.io/gh-extension-atlas/api/recommendations.json
 [api-reference]: docs/api-reference.md
 [api-top-picks]: https://sjh9714.github.io/gh-extension-atlas/api/top-picks.json
 [api-starter-packs]: https://sjh9714.github.io/gh-extension-atlas/api/starter-packs.json

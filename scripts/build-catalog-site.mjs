@@ -3,6 +3,7 @@ import path from "node:path";
 
 const dataPath = "data/extensions.json";
 const schemaPath = "data/extensions.schema.json";
+const recommendationsPath = "data/recommendations.json";
 const packageJson = JSON.parse(fs.readFileSync("package.json", "utf8"));
 const checkOnly = process.argv.includes("--check");
 const siteUrl = "https://sjh9714.github.io/gh-extension-atlas/";
@@ -428,6 +429,7 @@ const starterPacks = [
 
 const entries = JSON.parse(fs.readFileSync(dataPath, "utf8"));
 const schema = JSON.parse(fs.readFileSync(schemaPath, "utf8"));
+const recommendations = JSON.parse(fs.readFileSync(recommendationsPath, "utf8"));
 const categories = unique(entries.map((entry) => entry.category));
 const categoryPageFiles = categories.map((category) => ({
   path: `docs/${categoryPagePath(category)}`,
@@ -448,6 +450,7 @@ const endpointFiles = [
   { path: "docs/api/extensions.schema.json", content: renderJson(schema) },
   { path: "docs/api/top-picks.json", content: renderJson(getTopPickEntries(entries)) },
   { path: "docs/api/search-index.json", content: renderJson(renderSearchIndex(entries)) },
+  { path: "docs/api/recommendations.json", content: renderJson(renderRecommendations(entries)) },
   { path: "docs/api/starter-packs.json", content: renderJson(renderStarterPackIndex(entries)) },
   { path: "docs/cheatsheet.md", content: renderCheatsheetMarkdown(entries) },
   { path: "docs/health.md", content: renderHealthMarkdown(entries) },
@@ -3665,6 +3668,11 @@ function getStarterPackEntries(pack, items) {
   return pack.repos.map((repo) => entriesByRepo.get(repo)).filter(Boolean);
 }
 
+function getRecommendationEntries(recommendation, items) {
+  const entriesByRepo = new Map(items.map((entry) => [entry.repo, entry]));
+  return recommendation.repos.map((repo) => entriesByRepo.get(repo)).filter(Boolean);
+}
+
 function renderApiIndex(items) {
   const generatedAt = latestVerifiedAt(items);
 
@@ -3679,6 +3687,7 @@ function renderApiIndex(items) {
       top_picks: getTopPickEntries(items).length,
       categories: categories.length,
       starter_packs: starterPacks.length,
+      recommendations: recommendations.length,
       active: items.filter((entry) => entry.status === "active").length,
       watch: items.filter((entry) => entry.status === "watch").length,
       stale: items.filter((entry) => entry.status === "stale").length,
@@ -3689,6 +3698,7 @@ function renderApiIndex(items) {
       schema: `${siteUrl}api/extensions.schema.json`,
       top_picks: `${siteUrl}api/top-picks.json`,
       search_index: `${siteUrl}api/search-index.json`,
+      recommendations: `${siteUrl}api/recommendations.json`,
       starter_packs: `${siteUrl}api/starter-packs.json`,
       chooser: `${siteUrl}chooser.html`,
       awesome_markdown: `${siteUrl}awesome-github-cli-extensions.md`,
@@ -3725,7 +3735,39 @@ function renderApiIndex(items) {
         install_commands: `${siteUrl}install/starter-packs/${slug}.txt`,
       };
     }),
+    recommendations: recommendations.map((recommendation) => ({
+      id: recommendation.id,
+      label: recommendation.label,
+      aliases: recommendation.aliases,
+      repos: recommendation.repos,
+      endpoint: `${siteUrl}api/recommendations.json`,
+    })),
   };
+}
+
+function renderRecommendations(items) {
+  return recommendations.map((recommendation) => {
+    const recommendationEntries = getRecommendationEntries(recommendation, items);
+
+    return {
+      id: recommendation.id,
+      label: recommendation.label,
+      aliases: recommendation.aliases,
+      repos: recommendation.repos,
+      entries: recommendationEntries.map((entry, index) => ({
+        rank: index + 1,
+        repo: entry.repo,
+        name: entry.name,
+        category: entry.category,
+        status: entry.status,
+        summary: entry.summary,
+        best_for: entry.best_for,
+        avoid_if: entry.avoid_if,
+        install: entry.install,
+        detail: `${siteUrl}${extensionPagePath(entry)}`,
+      })),
+    };
+  });
 }
 
 function renderStarterPackIndex(items) {
@@ -3835,6 +3877,7 @@ function renderHealthSnapshot(items) {
       categories: categories.length,
       top_picks: getTopPickEntries(items).length,
       starter_packs: starterPacks.length,
+      recommendations: recommendations.length,
       workflow_guides: Object.keys(workflowGuides).length,
       extension_pages: sortedItems.length,
     },
@@ -3867,6 +3910,7 @@ function renderHealthSnapshot(items) {
       health_json: `${siteUrl}api/health.json`,
       api_manifest: `${siteUrl}api/index.json`,
       search_index: `${siteUrl}api/search-index.json`,
+      recommendations: `${siteUrl}api/recommendations.json`,
       llms: `${siteUrl}llms.txt`,
       llms_full: `${siteUrl}llms-full.txt`,
     },
@@ -3897,6 +3941,7 @@ GitHub CLI Extension Atlas is a reviewed snapshot, not a live ranking. This page
 | Categories | ${health.counts.categories} |
 | Top Picks | ${health.counts.top_picks} |
 | Starter packs | ${health.counts.starter_packs} |
+| Recommendations | ${health.counts.recommendations} |
 | Workflow guides | ${health.counts.workflow_guides} |
 | Generated extension pages | ${health.counts.extension_pages} |
 
@@ -4051,6 +4096,7 @@ ${Object.values(workflowGuides)
 - Catalog health JSON: ${siteUrl}api/health.json
 - Catalog schema: ${siteUrl}api/extensions.schema.json
 - Search index JSON: ${siteUrl}api/search-index.json
+- Workflow recommendations JSON: ${siteUrl}api/recommendations.json
 - Top Picks JSON: ${siteUrl}api/top-picks.json
 - Starter packs JSON: ${siteUrl}api/starter-packs.json
 - All install commands: ${siteUrl}install/all.txt
@@ -4106,6 +4152,7 @@ This is not an official GitHub project, complete directory, endorsement list, or
 - Catalog schema: ${siteUrl}api/extensions.schema.json
 - API manifest: ${siteUrl}api/index.json
 - Catalog health JSON: ${siteUrl}api/health.json
+- Workflow recommendations JSON: ${siteUrl}api/recommendations.json
 
 ## Top Picks
 
@@ -4132,6 +4179,7 @@ ${Object.entries(workflowGuides)
 - Full catalog JSON: ${siteUrl}api/extensions.json
 - Catalog JSON Schema: ${siteUrl}api/extensions.schema.json
 - Search index JSON: ${siteUrl}api/search-index.json
+- Workflow recommendations JSON: ${siteUrl}api/recommendations.json
 - Top Picks JSON: ${siteUrl}api/top-picks.json
 - Starter packs JSON: ${siteUrl}api/starter-packs.json
 - All install commands: ${siteUrl}install/all.txt

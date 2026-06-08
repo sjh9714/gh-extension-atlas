@@ -1,57 +1,8 @@
 import fs from "node:fs";
 
 const entries = JSON.parse(fs.readFileSync("data/extensions.json", "utf8"));
+const workflows = JSON.parse(fs.readFileSync("data/recommendations.json", "utf8"));
 const options = parseArgs(process.argv.slice(2));
-const workflows = [
-  {
-    id: "triage",
-    label: "Daily maintainer triage",
-    aliases: ["maintainer", "dashboard", "notifications", "notify"],
-    repos: ["dlvhdr/gh-dash", "agynio/gh-pr-review", "meiji163/gh-notify"],
-  },
-  {
-    id: "pr",
-    label: "PR and issue review",
-    aliases: ["issues", "review", "pull-requests"],
-    repos: ["agynio/gh-pr-review", "github/gh-stack", "einride/gh-dependabot"],
-  },
-  {
-    id: "actions",
-    label: "GitHub Actions operations",
-    aliases: ["ci", "workflows"],
-    repos: ["dlvhdr/gh-enhance", "fchimpan/gh-workflow-stats", "github/gh-actions-importer"],
-  },
-  {
-    id: "ai",
-    label: "AI and agent workflows",
-    aliases: ["agents", "models"],
-    repos: ["github/gh-aw", "github/gh-models", "shuymn/gh-mcp"],
-  },
-  {
-    id: "branches",
-    label: "Local branch cleanup",
-    aliases: ["branch", "cleanup", "repo-cleanup"],
-    repos: ["seachicken/gh-poi", "mislav/gh-branch", "redraw/gh-install"],
-  },
-  {
-    id: "docs",
-    label: "Documentation review",
-    aliases: ["markdown", "readme"],
-    repos: ["yusukebe/gh-markdown-preview", "thiagokokada/gh-gfm-preview"],
-  },
-  {
-    id: "search",
-    label: "Search and discovery",
-    aliases: ["discovery", "code-search"],
-    repos: ["gennaro-tedesco/gh-s", "k1LoW/gh-grep", "LangLangBart/gh-find-code"],
-  },
-  {
-    id: "security",
-    label: "Security and admin",
-    aliases: ["admin", "compliance"],
-    repos: ["advanced-security/gh-sbom", "Link-/gh-token", "github/gh-gei"],
-  },
-];
 
 const workflowIndex = new Map();
 

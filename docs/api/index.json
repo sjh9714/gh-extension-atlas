@@ -9,6 +9,7 @@
     "top_picks": 10,
     "categories": 8,
     "starter_packs": 8,
+    "recommendations": 8,
     "active": 49,
     "watch": 9,
     "stale": 10
@@ -19,6 +20,7 @@
     "schema": "https://sjh9714.github.io/gh-extension-atlas/api/extensions.schema.json",
     "top_picks": "https://sjh9714.github.io/gh-extension-atlas/api/top-picks.json",
     "search_index": "https://sjh9714.github.io/gh-extension-atlas/api/search-index.json",
+    "recommendations": "https://sjh9714.github.io/gh-extension-atlas/api/recommendations.json",
     "starter_packs": "https://sjh9714.github.io/gh-extension-atlas/api/starter-packs.json",
     "chooser": "https://sjh9714.github.io/gh-extension-atlas/chooser.html",
     "awesome_markdown": "https://sjh9714.github.io/gh-extension-atlas/awesome-github-cli-extensions.md",
@@ -200,6 +202,123 @@
       ],
       "json": "https://sjh9714.github.io/gh-extension-atlas/api/starter-packs/security-and-admin.json",
       "install_commands": "https://sjh9714.github.io/gh-extension-atlas/install/starter-packs/security-and-admin.txt"
+    }
+  ],
+  "recommendations": [
+    {
+      "id": "triage",
+      "label": "Daily maintainer triage",
+      "aliases": [
+        "maintainer",
+        "dashboard",
+        "notifications",
+        "notify"
+      ],
+      "repos": [
+        "dlvhdr/gh-dash",
+        "agynio/gh-pr-review",
+        "meiji163/gh-notify"
+      ],
+      "endpoint": "https://sjh9714.github.io/gh-extension-atlas/api/recommendations.json"
+    },
+    {
+      "id": "pr",
+      "label": "PR and issue review",
+      "aliases": [
+        "issues",
+        "review",
+        "pull-requests"
+      ],
+      "repos": [
+        "agynio/gh-pr-review",
+        "github/gh-stack",
+        "einride/gh-dependabot"
+      ],
+      "endpoint": "https://sjh9714.github.io/gh-extension-atlas/api/recommendations.json"
+    },
+    {
+      "id": "actions",
+      "label": "GitHub Actions operations",
+      "aliases": [
+        "ci",
+        "workflows"
+      ],
+      "repos": [
+        "dlvhdr/gh-enhance",
+        "fchimpan/gh-workflow-stats",
+        "github/gh-actions-importer"
+      ],
+      "endpoint": "https://sjh9714.github.io/gh-extension-atlas/api/recommendations.json"
+    },
+    {
+      "id": "ai",
+      "label": "AI and agent workflows",
+      "aliases": [
+        "agents",
+        "models"
+      ],
+      "repos": [
+        "github/gh-aw",
+        "github/gh-models",
+        "shuymn/gh-mcp"
+      ],
+      "endpoint": "https://sjh9714.github.io/gh-extension-atlas/api/recommendations.json"
+    },
+    {
+      "id": "branches",
+      "label": "Local branch cleanup",
+      "aliases": [
+        "branch",
+        "cleanup",
+        "repo-cleanup"
+      ],
+      "repos": [
+        "seachicken/gh-poi",
+        "mislav/gh-branch",
+        "redraw/gh-install"
+      ],
+      "endpoint": "https://sjh9714.github.io/gh-extension-atlas/api/recommendations.json"
+    },
+    {
+      "id": "docs",
+      "label": "Documentation review",
+      "aliases": [
+        "markdown",
+        "readme"
+      ],
+      "repos": [
+        "yusukebe/gh-markdown-preview",
+        "thiagokokada/gh-gfm-preview"
+      ],
+      "endpoint": "https://sjh9714.github.io/gh-extension-atlas/api/recommendations.json"
+    },
+    {
+      "id": "search",
+      "label": "Search and discovery",
+      "aliases": [
+        "discovery",
+        "code-search"
+      ],
+      "repos": [
+        "gennaro-tedesco/gh-s",
+        "k1LoW/gh-grep",
+        "LangLangBart/gh-find-code"
+      ],
+      "endpoint": "https://sjh9714.github.io/gh-extension-atlas/api/recommendations.json"
+    },
+    {
+      "id": "security",
+      "label": "Security and admin",
+      "aliases": [
+        "admin",
+        "compliance"
+      ],
+      "repos": [
+        "advanced-security/gh-sbom",
+        "Link-/gh-token",
+        "github/gh-gei"
+      ],
+      "endpoint": "https://sjh9714.github.io/gh-extension-atlas/api/recommendations.json"
     }
   ]
 }

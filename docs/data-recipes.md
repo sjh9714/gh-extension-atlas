@@ -98,6 +98,20 @@ curl -fsSL https://sjh9714.github.io/gh-extension-atlas/api/search-index.json \
   | jq -r '.[] | select(.keywords[]? == "actions") | [.repo, .category, .install] | @tsv'
 ```
 
+Fetch workflow-first recommendations:
+
+```sh
+curl -fsSL https://sjh9714.github.io/gh-extension-atlas/api/recommendations.json \
+  | jq -r '.[] | [.id, .label, (.entries | length)] | @tsv'
+```
+
+Print install commands for one recommendation workflow:
+
+```sh
+curl -fsSL https://sjh9714.github.io/gh-extension-atlas/api/recommendations.json \
+  | jq -r '.[] | select(.id == "actions") | .entries[].install'
+```
+
 Print active community-maintained Actions/CI install commands:
 
 ```sh

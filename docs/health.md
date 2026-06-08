@@ -13,6 +13,7 @@ GitHub CLI Extension Atlas is a reviewed snapshot, not a live ranking. This page
 | Categories | 8 |
 | Top Picks | 10 |
 | Starter packs | 8 |
+| Recommendations | 8 |
 | Workflow guides | 8 |
 | Generated extension pages | 68 |
 

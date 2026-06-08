@@ -2,6 +2,7 @@ import fs from "node:fs";
 
 const file = "data/extensions.json";
 const schemaFile = "data/extensions.schema.json";
+const recommendationsFile = "data/recommendations.json";
 const allowedCategories = new Set([
   "Dashboard/TUI",
   "PR & Issues",
@@ -33,6 +34,7 @@ const required = [
 const raw = fs.readFileSync(file, "utf8");
 const entries = JSON.parse(raw);
 const schema = JSON.parse(fs.readFileSync(schemaFile, "utf8"));
+const recommendations = JSON.parse(fs.readFileSync(recommendationsFile, "utf8"));
 const errors = [];
 
 validateSchemaContract();
@@ -130,6 +132,7 @@ if (!Array.isArray(entries)) {
 }
 
 const seenRepos = new Set();
+const validRepos = new Set();
 
 for (const [index, entry] of entries.entries()) {
   const label = entry && entry.repo ? entry.repo : `entry ${index + 1}`;
@@ -161,6 +164,7 @@ for (const [index, entry] of entries.entries()) {
       errors.push(`${label}: GitHub CLI extension repository names must start with "gh-".`);
     }
     seenRepos.add(entry.repo.toLowerCase());
+    validRepos.add(entry.repo);
   }
 
   for (const key of ["name", "summary", "best_for", "avoid_if", "license"]) {
@@ -202,12 +206,92 @@ for (const [index, entry] of entries.entries()) {
   }
 }
 
+validateRecommendations();
+
 if (errors.length > 0) {
   console.error(errors.join("\n"));
   process.exit(1);
 }
 
-console.log(`Validated ${entries.length} GitHub CLI extensions.`);
+console.log(`Validated ${entries.length} GitHub CLI extensions and ${recommendations.length} recommendation workflows.`);
+
+function validateRecommendations() {
+  if (!Array.isArray(recommendations)) {
+    errors.push(`${recommendationsFile} must contain a JSON array.`);
+    return;
+  }
+
+  const seenIds = new Set();
+  const seenAliases = new Set();
+
+  for (const [index, recommendation] of recommendations.entries()) {
+    const label = recommendation?.id || `recommendation ${index + 1}`;
+
+    if (!recommendation || typeof recommendation !== "object" || Array.isArray(recommendation)) {
+      errors.push(`${label}: recommendation must be an object.`);
+      continue;
+    }
+
+    for (const key of ["id", "label", "aliases", "repos"]) {
+      if (!(key in recommendation)) {
+        errors.push(`${label}: missing required field "${key}".`);
+      }
+    }
+
+    for (const key of Object.keys(recommendation)) {
+      if (!["id", "label", "aliases", "repos"].includes(key)) {
+        errors.push(`${label}: unknown field "${key}".`);
+      }
+    }
+
+    if (typeof recommendation.id !== "string" || !/^[a-z][a-z0-9-]*$/.test(recommendation.id)) {
+      errors.push(`${label}: id must be a lowercase slug.`);
+    } else if (seenIds.has(recommendation.id) || seenAliases.has(recommendation.id)) {
+      errors.push(`${label}: duplicate recommendation id or alias collision.`);
+    } else {
+      seenIds.add(recommendation.id);
+    }
+
+    if (typeof recommendation.label !== "string" || recommendation.label.trim().length === 0) {
+      errors.push(`${label}: label must be a non-empty string.`);
+    }
+
+    if (!Array.isArray(recommendation.aliases) || recommendation.aliases.length === 0) {
+      errors.push(`${label}: aliases must be a non-empty array.`);
+    } else {
+      for (const alias of recommendation.aliases) {
+        if (typeof alias !== "string" || !/^[a-z][a-z0-9-]*$/.test(alias)) {
+          errors.push(`${label}: alias "${alias}" must be a lowercase slug.`);
+          continue;
+        }
+
+        if (seenIds.has(alias) || seenAliases.has(alias)) {
+          errors.push(`${label}: alias "${alias}" collides with another id or alias.`);
+        }
+
+        seenAliases.add(alias);
+      }
+    }
+
+    if (!Array.isArray(recommendation.repos) || recommendation.repos.length === 0) {
+      errors.push(`${label}: repos must be a non-empty array.`);
+    } else {
+      const seenRecommendationRepos = new Set();
+      for (const repo of recommendation.repos) {
+        if (typeof repo !== "string" || !validRepos.has(repo)) {
+          errors.push(`${label}: repo "${repo}" must exist in ${file}.`);
+          continue;
+        }
+
+        if (seenRecommendationRepos.has(repo)) {
+          errors.push(`${label}: duplicate repo "${repo}".`);
+        }
+
+        seenRecommendationRepos.add(repo);
+      }
+    }
+  }
+}
 
 function sameSet(left, right) {
   if (left.length !== right.length) {

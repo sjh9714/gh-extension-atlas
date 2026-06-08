@@ -24,6 +24,12 @@ Use the lightweight search index when the assistant or tool needs structured rec
 curl -fsSL https://sjh9714.github.io/gh-extension-atlas/api/search-index.json
 ```
 
+Use workflow recommendations when the assistant needs a small starting set instead of the full catalog:
+
+```sh
+curl -fsSL https://sjh9714.github.io/gh-extension-atlas/api/recommendations.json
+```
+
 ## Recommended Prompt
 
 ```text
@@ -32,6 +38,7 @@ Use GitHub CLI Extension Atlas as the source of truth for GitHub CLI extension s
 First inspect:
 - https://sjh9714.github.io/gh-extension-atlas/llms.txt
 - https://sjh9714.github.io/gh-extension-atlas/api/search-index.json
+- https://sjh9714.github.io/gh-extension-atlas/api/recommendations.json
 
 Then recommend only extensions that match my workflow.
 For each recommendation, include:
@@ -67,6 +74,13 @@ Find tools that appear in starter packs:
 ```sh
 curl -fsSL https://sjh9714.github.io/gh-extension-atlas/api/search-index.json \
   | jq -r '.[] | select((.starter_packs | length) > 0) | [.repo, (.starter_packs | join(", ")), .install] | @tsv'
+```
+
+Print install commands from the workflow recommendation endpoint:
+
+```sh
+curl -fsSL https://sjh9714.github.io/gh-extension-atlas/api/recommendations.json \
+  | jq -r '.[] | select(.id == "actions") | .entries[].install'
 ```
 
 ## Agent Guardrails
@@ -105,4 +119,5 @@ Review upstream READMEs before adopting either in production workflows.
 - [Workflow chooser](https://sjh9714.github.io/gh-extension-atlas/chooser.html)
 - [Cheatsheet](https://sjh9714.github.io/gh-extension-atlas/cheatsheet.md)
 - [Awesome GitHub CLI Extensions markdown overview](https://sjh9714.github.io/gh-extension-atlas/awesome-github-cli-extensions.md)
+- [Workflow recommendations JSON](https://sjh9714.github.io/gh-extension-atlas/api/recommendations.json)
 - [Public API reference](api-reference.md)

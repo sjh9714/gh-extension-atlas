@@ -12,6 +12,7 @@
     "categories": 8,
     "top_picks": 10,
     "starter_packs": 8,
+    "recommendations": 8,
     "workflow_guides": 8,
     "extension_pages": 68
   },
@@ -204,6 +205,7 @@
     "health_json": "https://sjh9714.github.io/gh-extension-atlas/api/health.json",
     "api_manifest": "https://sjh9714.github.io/gh-extension-atlas/api/index.json",
     "search_index": "https://sjh9714.github.io/gh-extension-atlas/api/search-index.json",
+    "recommendations": "https://sjh9714.github.io/gh-extension-atlas/api/recommendations.json",
     "llms": "https://sjh9714.github.io/gh-extension-atlas/llms.txt",
     "llms_full": "https://sjh9714.github.io/gh-extension-atlas/llms-full.txt"
   },
