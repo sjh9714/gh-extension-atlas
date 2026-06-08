@@ -20,6 +20,7 @@ This is not an official GitHub project, complete directory, endorsement list, or
 - Searchable catalog: https://sjh9714.github.io/gh-extension-atlas/
 - Awesome overview: https://sjh9714.github.io/gh-extension-atlas/awesome-github-cli-extensions.html
 - Health snapshot: https://sjh9714.github.io/gh-extension-atlas/health.md
+- FAQ: https://sjh9714.github.io/gh-extension-atlas/faq.md
 - API reference: https://sjh9714.github.io/gh-extension-atlas/api-reference.md
 - Data recipes: https://sjh9714.github.io/gh-extension-atlas/data-recipes.md
 - Starter packs: https://sjh9714.github.io/gh-extension-atlas/starter-packs.md

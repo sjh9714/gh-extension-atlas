@@ -39,6 +39,7 @@ If this saves you a few trial installs, [star the repo](https://github.com/sjh97
 - [Data](#data)
 - [Data Recipes](#data-recipes)
 - [Metadata Refresh](#metadata-refresh)
+- [FAQ](#faq)
 - [Feedback](#feedback)
 - [For Extension Maintainers](#for-extension-maintainers)
 
@@ -426,6 +427,10 @@ The [Metadata Audit workflow](.github/workflows/metadata-audit.yml) runs a weekl
 ```sh
 npm run metadata:audit
 ```
+
+## FAQ
+
+Use [`docs/faq.md`](docs/faq.md) for answers about whether the atlas is official, how curation works, why the catalog is not ranked only by stars, how to inspect install bundles safely, and how to suggest corrections.
 
 ## Contributing
 

@@ -1027,6 +1027,7 @@ function renderCatalog(items) {
         <span class="pill">API index: <a href="api/index.json">index.json</a></span>
         <span class="pill">API: <a href="api/extensions.json">extensions.json</a></span>
         <span class="pill">API docs: <a href="api-reference.md">api-reference.md</a></span>
+        <span class="pill"><a href="faq.md">FAQ</a></span>
         <span class="pill">Install bundle: <a href="install/all.txt">all.txt</a></span>
         <span class="pill"><a href="chooser.html">Chooser</a></span>
         <span class="pill"><a href="awesome-github-cli-extensions.html">Awesome overview</a></span>
@@ -2559,6 +2560,7 @@ function renderAwesomeLandingPage(items) {
         <a href="${repoReadmeUrl}">README</a>
         <a href="${repoUrl}">Star on GitHub</a>
         <a href="${repoIssueChooserUrl}">Suggest a correction</a>
+        <a href="faq.md">FAQ</a>
         <a href="api/index.json">API manifest</a>
         <a href="install/all.txt">All install commands</a>
       </div>
@@ -2911,6 +2913,7 @@ function renderChooserPage(items) {
         <a href="./">Searchable catalog</a>
         <a href="awesome-github-cli-extensions.html">Awesome overview</a>
         <a href="api/index.json">API manifest</a>
+        <a href="faq.md">FAQ</a>
         <a href="${repoReadmeUrl}">README</a>
         <a href="${repoUrl}">Star on GitHub</a>
       </div>
@@ -3567,6 +3570,7 @@ function renderApiIndex(items) {
       top_picks: `${siteUrl}api/top-picks.json`,
       starter_packs: `${siteUrl}api/starter-packs.json`,
       chooser: `${siteUrl}chooser.html`,
+      faq: `${siteUrl}faq.md`,
       llms: `${siteUrl}llms.txt`,
       llms_full: `${siteUrl}llms-full.txt`,
       extension_page_template: `${siteUrl}extensions/{owner-repo}.html`,
@@ -3684,6 +3688,7 @@ function renderHealthSnapshot(items) {
       catalog: siteUrl,
       chooser: `${siteUrl}chooser.html`,
       awesome_overview: `${siteUrl}awesome-github-cli-extensions.html`,
+      faq: `${siteUrl}faq.md`,
       health: `${siteUrl}health.md`,
       health_json: `${siteUrl}api/health.json`,
       api_manifest: `${siteUrl}api/index.json`,
@@ -3761,6 +3766,7 @@ function renderLlmsTxt(items) {
 - Searchable catalog: ${siteUrl}
 - Workflow chooser: ${siteUrl}chooser.html
 - Awesome overview: ${siteUrl}awesome-github-cli-extensions.html
+- FAQ: ${siteUrl}faq.md
 - API manifest: ${siteUrl}api/index.json
 - Full LLM context: ${siteUrl}llms-full.txt
 - Reviewed snapshot: ${generatedAt}
@@ -3775,6 +3781,7 @@ GitHub CLI Extension Atlas helps users choose a useful \`gh\` extension faster w
 - Searchable catalog: ${siteUrl}
 - Awesome overview: ${siteUrl}awesome-github-cli-extensions.html
 - Health snapshot: ${siteUrl}health.md
+- FAQ: ${siteUrl}faq.md
 - API reference: ${siteUrl}api-reference.md
 - Data recipes: ${siteUrl}data-recipes.md
 - Starter packs: ${siteUrl}starter-packs.md
@@ -3835,6 +3842,7 @@ This is not an official GitHub project, complete directory, endorsement list, or
 - Searchable catalog: ${siteUrl}
 - Awesome overview: ${siteUrl}awesome-github-cli-extensions.html
 - Health snapshot: ${siteUrl}health.md
+- FAQ: ${siteUrl}faq.md
 - API reference: ${siteUrl}api-reference.md
 - Data recipes: ${siteUrl}data-recipes.md
 - Starter packs: ${siteUrl}starter-packs.md
