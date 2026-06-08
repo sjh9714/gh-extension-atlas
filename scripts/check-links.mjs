@@ -209,6 +209,14 @@ function getGitHubApiValidationUrl(url) {
     return `https://api.github.com/repos/${owner}/${repo}`;
   }
 
+  if (rest[0] === "discussions" && rest.length === 1) {
+    return `https://api.github.com/repos/${owner}/${repo}`;
+  }
+
+  if (rest[0] === "issues" && rest[1] === "new") {
+    return `https://api.github.com/repos/${owner}/${repo}`;
+  }
+
   if (rest[0] === "actions" && rest[1] === "workflows" && rest[2] && rest[3] === "badge.svg") {
     return `https://api.github.com/repos/${owner}/${repo}/actions/workflows/${rest[2]}`;
   }

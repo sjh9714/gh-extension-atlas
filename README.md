@@ -34,6 +34,7 @@ If `gh extension search` gives you too many options, start here.
 - [Data](#data)
 - [Data Recipes](#data-recipes)
 - [Metadata Refresh](#metadata-refresh)
+- [Feedback](#feedback)
 - [For Extension Maintainers](#for-extension-maintainers)
 
 ## Quick Start
@@ -311,6 +312,16 @@ npm run metadata:audit
 ## Contributing
 
 Contributions are welcome. Please read [`CONTRIBUTING.md`](CONTRIBUTING.md) before opening a pull request.
+
+## Feedback
+
+Use issues when the change is specific:
+
+- [Add an extension](https://github.com/sjh9714/gh-extension-atlas/issues/new?template=add-extension.yml)
+- [Fix metadata](https://github.com/sjh9714/gh-extension-atlas/issues/new?template=fix-metadata.yml)
+- [Improve a comparison guide](https://github.com/sjh9714/gh-extension-atlas/issues/new?template=comparison-feedback.yml)
+
+Use [Discussions](https://github.com/sjh9714/gh-extension-atlas/discussions) for questions, rough ideas, and lightweight feedback that is not yet a concrete issue.
 
 ## For Extension Maintainers
 

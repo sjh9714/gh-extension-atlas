@@ -2,6 +2,12 @@
 
 Thanks for helping improve the GitHub CLI Extension Atlas.
 
+## Where to start
+
+- Use an issue template for concrete extension suggestions, metadata fixes, or comparison-guide changes.
+- Use Discussions for questions, rough ideas, or early feedback that is not ready for a specific issue.
+- Use a pull request when you already have a tested catalog or documentation change.
+
 ## What belongs here
 
 Add an extension when it is useful to more than one project, installable with `gh extension install OWNER/REPO`, and documented well enough that readers can evaluate it quickly.

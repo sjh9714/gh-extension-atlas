@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Browse the catalog
+    url: https://sjh9714.github.io/gh-extension-atlas/
+    about: Search and filter the reviewed extension catalog before opening a suggestion.
+  - name: Ask a question or share a short idea
+    url: https://github.com/sjh9714/gh-extension-atlas/discussions
+    about: Use Discussions for questions, rough ideas, and lightweight feedback that is not yet a concrete issue.
+  - name: Use starter packs
+    url: https://github.com/sjh9714/gh-extension-atlas/blob/main/docs/starter-packs.md
+    about: Start from small workflow-based install sequences.
