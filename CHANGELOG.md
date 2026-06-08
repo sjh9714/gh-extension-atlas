@@ -1,5 +1,19 @@
 # Changelog
 
+## v0.2.12
+
+This patch release adds a shareable SEO landing page for awesome GitHub CLI extensions.
+
+### Added
+
+- Awesome GitHub CLI Extensions landing page at `awesome-github-cli-extensions.html`.
+
+### Improved
+
+- Searchable catalog header now links to the awesome overview.
+- Generated sitemap now includes the awesome overview page.
+- README Start Here now links to the shareable overview.
+
 ## v0.2.11
 
 This patch release adds a Start Here router near the top of the README.
