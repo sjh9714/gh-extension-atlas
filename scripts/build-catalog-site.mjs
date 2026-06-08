@@ -24,6 +24,12 @@ const workflowGuides = {
     sourcePath: "guides/github-actions-extensions.md",
     summary: "Choose an Actions TUI, local runner, migration, or workflow health extension.",
   },
+  "Repo & Branch": {
+    title: "Git Branch Cleanup CLI Extension Guide",
+    path: "guides/branch-cleanup-extensions.html",
+    sourcePath: "guides/branch-cleanup-extensions.md",
+    summary: "Choose a safe local branch cleanup, branch switching, or worktree helper.",
+  },
 };
 const actionsGuideRows = [
   {
@@ -60,6 +66,38 @@ const actionsGuideRows = [
     need: "Check organization-wide Actions status",
     repo: "rsese/gh-actions-status",
     why: "Targets organization-level Actions reporting; verify compatibility because it is stale.",
+  },
+];
+const branchCleanupGuideRows = [
+  {
+    need: "Safely remove merged local branches",
+    repo: "seachicken/gh-poi",
+    why: "A focused cleanup tool and the safest first stop for merged local branches.",
+  },
+  {
+    need: "Fuzzy find, switch, or delete branches manually",
+    repo: "mislav/gh-branch",
+    why: "Good when you want selection and navigation instead of automatic cleanup.",
+  },
+  {
+    need: "Clean a workspace before a new task",
+    repo: "HaywardMorihara/gh-tidy",
+    why: "A broader workspace cleanup helper for context switching.",
+  },
+  {
+    need: "Work across multiple branches at once",
+    repo: "despreston/gh-worktree",
+    why: "Useful when worktrees are already part of your branch workflow.",
+  },
+  {
+    need: "Delete branches with upstream and unpushed checks",
+    repo: "davidraviv/gh-clean-branches",
+    why: "A specific cleanup approach, but verify compatibility because it is stale.",
+  },
+  {
+    need: "Install release binaries while setting up a repo",
+    repo: "redraw/gh-install",
+    why: "Not a cleanup tool, but useful in local repo setup workflows.",
   },
 ];
 const topPickRepos = [
@@ -1492,7 +1530,48 @@ function renderWorkflowGuidePage(category, guide, items) {
   const pageUrl = `${siteUrl}${guide.path}`;
   const categoryUrl = `${siteUrl}${categoryPagePath(category)}`;
   const catalogUrl = `${siteUrl}?category=${encodeURIComponent(category)}`;
-  const starterPackCommands = getStarterPackEntries(starterPacks.find((pack) => pack.name === "GitHub Actions Operator"), entries)
+  const categorySlugValue = categorySlug(category);
+  const guideRows = category === "Repo & Branch" ? branchCleanupGuideRows : actionsGuideRows;
+  const starterPackName = category === "Repo & Branch" ? "Local Repository Cleanup" : "GitHub Actions Operator";
+  const starterPack = starterPacks.find((pack) => pack.name === starterPackName);
+  const guideLead =
+    category === "Repo & Branch"
+      ? "Choose a safe branch cleanup, branch switching, worktree, or local repository setup helper without risking unmerged work."
+      : "Choose a GitHub Actions TUI, local runner, migration helper, workflow health reporter, or runner cost tool without installing every extension first.";
+  const startHereCopy =
+    category === "Repo & Branch"
+      ? "Use the table as a quick chooser. The goal is not to automate deletion blindly; it is to pick the safest first tool for the branch cleanup or repository workflow in front of you."
+      : "Use the table as a quick chooser. The goal is not to rank every Actions extension; it is to pick the first useful tool for the specific CI problem in front of you.";
+  const firstCards =
+    category === "Repo & Branch"
+      ? [
+          ["seachicken/gh-poi", "Safe merged branch cleanup"],
+          ["mislav/gh-branch", "Fuzzy branch selection"],
+          ["HaywardMorihara/gh-tidy", "Workspace cleanup"],
+        ]
+      : [
+          ["dlvhdr/gh-enhance", "Interactive workflow triage"],
+          ["fchimpan/gh-workflow-stats", "Workflow health patterns"],
+          ["basecamp/gh-signoff", "Local signoff before CI"],
+        ];
+  const secondCards =
+    category === "Repo & Branch"
+      ? [
+          ["despreston/gh-worktree", "Parallel branch work"],
+          ["davidraviv/gh-clean-branches", "Upstream-aware cleanup"],
+          ["redraw/gh-install", "Release binary installs"],
+        ]
+      : [
+          ["nektos/gh-act", "Local Actions runs"],
+          ["github/gh-actions-importer", "CI migration projects"],
+          ["fchimpan/gh-slimify", "Runner cost review"],
+        ];
+  const secondSectionTitle = category === "Repo & Branch" ? "Safety Checks And Workflow Fit" : "Local Checks And Operations";
+  const secondSectionCopy =
+    category === "Repo & Branch"
+      ? "Prefer tools that make deletion explicit, show what will be removed, and help you avoid unmerged or unpushed work. Verify stale tools before trusting them with cleanup."
+      : "Use local runners for fast feedback, not as a perfect replacement for GitHub-hosted runners. Runner images, permissions, secrets, service containers, and network access can still differ.";
+  const starterPackCommands = getStarterPackEntries(starterPack, entries)
     .map((entry) => entry.install)
     .join("\n");
 
@@ -1501,15 +1580,15 @@ function renderWorkflowGuidePage(category, guide, items) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>GitHub Actions CLI Extension Guide | GitHub CLI Extension Atlas</title>
+  <title>${escapeHtml(guide.title)} | GitHub CLI Extension Atlas</title>
   <meta name="description" content="${escapeAttribute(guide.summary)}">
-  <meta property="og:title" content="GitHub Actions CLI Extension Guide">
+  <meta property="og:title" content="${escapeAttribute(guide.title)}">
   <meta property="og:description" content="${escapeAttribute(guide.summary)}">
   <meta property="og:type" content="article">
   <meta property="og:url" content="${pageUrl}">
   <meta property="og:image" content="${socialImageUrl}">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="GitHub Actions CLI Extension Guide">
+  <meta name="twitter:title" content="${escapeAttribute(guide.title)}">
   <meta name="twitter:description" content="${escapeAttribute(guide.summary)}">
   <meta name="twitter:image" content="${socialImageUrl}">
   <link rel="canonical" href="${pageUrl}">
@@ -1734,16 +1813,16 @@ function renderWorkflowGuidePage(category, guide, items) {
   <header>
     <div class="wrap header-inner">
       <h1>${escapeHtml(guide.title)}</h1>
-      <p class="lead">Choose a GitHub Actions TUI, local runner, migration helper, workflow health reporter, or runner cost tool without installing every extension first.</p>
+      <p class="lead">${escapeHtml(guideLead)}</p>
       <div class="meta">
-        <span class="pill">${sortedItems.length} Actions/CI extensions</span>
+        <span class="pill">${sortedItems.length} ${escapeHtml(category)} extensions</span>
         <span class="pill">${sortedItems.filter((entry) => entry.status === "active").length} active</span>
         <span class="pill">Reviewed ${escapeHtml(generatedAt)}</span>
       </div>
       <div class="actions">
         <a href="../">Searchable catalog</a>
-        <a href="../categories/actions-ci.html">Actions/CI category</a>
-        <a href="../api/categories/actions-ci.json">Category JSON</a>
+        <a href="../categories/${categorySlugValue}.html">${escapeHtml(category)} category</a>
+        <a href="../api/categories/${categorySlugValue}.json">Category JSON</a>
         <a href="../${escapeAttribute(guide.sourcePath)}">Markdown source</a>
         <a href="https://github.com/sjh9714/gh-extension-atlas#readme">README</a>
       </div>
@@ -1753,7 +1832,7 @@ function renderWorkflowGuidePage(category, guide, items) {
   <main class="wrap">
     <section class="panel">
       <h2>Start Here</h2>
-      <p class="muted">Use the table as a quick chooser. The goal is not to rank every Actions extension; it is to pick the first useful tool for the specific CI problem in front of you.</p>
+      <p class="muted">${escapeHtml(startHereCopy)}</p>
     </section>
 
     <section class="table-wrap">
@@ -1768,7 +1847,7 @@ function renderWorkflowGuidePage(category, guide, items) {
           </tr>
         </thead>
         <tbody>
-          ${actionsGuideRows.map((row) => actionsGuideRowHtml(row)).join("\n          ")}
+          ${guideRows.map((row) => workflowGuideRowHtml(row)).join("\n          ")}
         </tbody>
       </table>
     </section>
@@ -1776,19 +1855,15 @@ function renderWorkflowGuidePage(category, guide, items) {
     <section class="panel">
       <h2>First Picks</h2>
       <div class="grid">
-        ${toolCard("dlvhdr/gh-enhance", "Interactive workflow triage")}
-        ${toolCard("fchimpan/gh-workflow-stats", "Workflow health patterns")}
-        ${toolCard("basecamp/gh-signoff", "Local signoff before CI")}
+        ${firstCards.map(([repo, label]) => toolCard(repo, label)).join("\n        ")}
       </div>
     </section>
 
     <section class="panel">
-      <h2>Local Checks And Operations</h2>
-      <p class="muted">Use local runners for fast feedback, not as a perfect replacement for GitHub-hosted runners. Runner images, permissions, secrets, service containers, and network access can still differ.</p>
+      <h2>${escapeHtml(secondSectionTitle)}</h2>
+      <p class="muted">${escapeHtml(secondSectionCopy)}</p>
       <div class="grid">
-        ${toolCard("nektos/gh-act", "Local Actions runs")}
-        ${toolCard("github/gh-actions-importer", "CI migration projects")}
-        ${toolCard("fchimpan/gh-slimify", "Runner cost review")}
+        ${secondCards.map(([repo, label]) => toolCard(repo, label)).join("\n        ")}
       </div>
     </section>
 
@@ -1797,15 +1872,15 @@ function renderWorkflowGuidePage(category, guide, items) {
       <p class="muted">Review the commands before installing. Do not pipe install bundles directly into a shell.</p>
       <pre><code>${escapeHtml(starterPackCommands)}</code></pre>
       <div class="actions">
-        <a href="../install/starter-packs/github-actions-operator.txt">Starter pack TXT</a>
-        <a href="${escapeAttribute(categoryUrl)}">Actions/CI page</a>
+        <a href="../install/starter-packs/${starterPackSlug(starterPack)}.txt">Starter pack TXT</a>
+        <a href="${escapeAttribute(categoryUrl)}">${escapeHtml(category)} page</a>
         <a href="${escapeAttribute(catalogUrl)}">Open filtered catalog</a>
       </div>
     </section>
 
     <section class="panel">
       <h2>Freshness Notes</h2>
-      <p class="muted">The atlas is a reviewed snapshot, not a live ranking. Recheck upstream repositories before adopting a tool for production workflows, especially when the extension will touch CI secrets, workflow permissions, or release automation.</p>
+      <p class="muted">The atlas is a reviewed snapshot, not a live ranking. Recheck upstream repositories before adopting a tool for production workflows, especially when the extension can change local branches, CI workflows, repository state, or release automation.</p>
     </section>
   </main>
 </body>
@@ -1879,7 +1954,7 @@ function socialMetric(x, y, value, label) {
   </g>`;
 }
 
-function actionsGuideRowHtml(row) {
+function workflowGuideRowHtml(row) {
   const entry = getEntryByRepo(row.repo);
   return `<tr>
             <td>${escapeHtml(row.need)}</td>
