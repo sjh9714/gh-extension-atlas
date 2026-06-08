@@ -456,6 +456,7 @@ const endpointFiles = [
 ];
 const generatedFiles = [
   { path: "docs/index.html", content: renderCatalog(entries) },
+  { path: "docs/awesome-github-cli-extensions.html", content: renderAwesomeLandingPage(entries) },
   { path: "docs/robots.txt", content: renderRobotsTxt() },
   { path: "docs/sitemap.xml", content: renderSitemapXml(entries) },
   { path: "docs/social-card.svg", content: renderSocialCard(entries) },
@@ -1009,6 +1010,7 @@ function renderCatalog(items) {
         <span class="pill">API: <a href="api/extensions.json">extensions.json</a></span>
         <span class="pill">API docs: <a href="api-reference.md">api-reference.md</a></span>
         <span class="pill">Install bundle: <a href="install/all.txt">all.txt</a></span>
+        <span class="pill"><a href="awesome-github-cli-extensions.html">Awesome overview</a></span>
         <span class="pill"><a href="https://github.com/sjh9714/gh-extension-atlas/blob/main/docs/starter-packs.md">Starter Packs</a></span>
         <span class="pill"><a href="https://github.com/sjh9714/gh-extension-atlas#readme">README</a></span>
       </div>
@@ -2283,8 +2285,321 @@ function renderWorkflowGuidePage(category, guide, items) {
 `;
 }
 
+function renderAwesomeLandingPage(items) {
+  const sortedItems = stableEntries(items);
+  const topPicks = getTopPickEntries(items);
+  const activeCount = items.filter((entry) => entry.status === "active").length;
+  const generatedAt = latestVerifiedAt(items);
+  const pageUrl = `${siteUrl}awesome-github-cli-extensions.html`;
+  const workflowGuideCards = Object.entries(workflowGuides).map(([category, guide]) => {
+    const categoryItems = items.filter((entry) => entry.category === category);
+    return {
+      category,
+      guide,
+      count: categoryItems.length,
+      active: categoryItems.filter((entry) => entry.status === "active").length,
+    };
+  });
+
+  return `<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Awesome GitHub CLI Extensions | GitHub CLI Extension Atlas</title>
+  <meta name="description" content="A curated awesome-style guide to GitHub CLI extensions, Top Picks, workflow guides, starter packs, and maintained install commands.">
+  <meta property="og:title" content="Awesome GitHub CLI Extensions">
+  <meta property="og:description" content="Choose useful GitHub CLI extensions faster with Top Picks, workflow guides, starter packs, and a reviewed catalog.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="${pageUrl}">
+  <meta property="og:image" content="${socialImageUrl}">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Awesome GitHub CLI Extensions">
+  <meta name="twitter:description" content="Top Picks, workflow guides, starter packs, and a reviewed catalog for GitHub CLI extensions.">
+  <meta name="twitter:image" content="${socialImageUrl}">
+  <link rel="canonical" href="${pageUrl}">
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f7f8fa;
+      --panel: #ffffff;
+      --text: #1f2328;
+      --muted: #656d76;
+      --border: #d0d7de;
+      --accent: #0969da;
+      --accent-soft: #ddf4ff;
+      --shadow: 0 1px 2px rgba(31, 35, 40, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font: 15px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    header {
+      background: var(--panel);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .wrap {
+      width: min(1120px, calc(100vw - 32px));
+      margin: 0 auto;
+    }
+
+    .header-inner {
+      display: grid;
+      gap: 14px;
+      padding: 30px 0 24px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(32px, 4.5vw, 50px);
+      line-height: 1.08;
+      letter-spacing: 0;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 20px;
+      line-height: 1.25;
+      letter-spacing: 0;
+    }
+
+    h3,
+    p {
+      margin: 0;
+    }
+
+    .lead {
+      max-width: 820px;
+      color: var(--muted);
+      font-size: 18px;
+    }
+
+    .meta,
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 3px 10px;
+      background: var(--panel);
+      color: var(--muted);
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    main {
+      display: grid;
+      gap: 14px;
+      padding: 20px 0 42px;
+    }
+
+    .panel,
+    .table-wrap {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+    }
+
+    .panel {
+      display: grid;
+      gap: 12px;
+      padding: 16px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .card {
+      display: grid;
+      gap: 8px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px;
+      background: var(--panel);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .card:hover {
+      border-color: var(--accent);
+      text-decoration: none;
+    }
+
+    .card span,
+    .muted {
+      color: var(--muted);
+    }
+
+    .table-wrap {
+      overflow: auto;
+    }
+
+    table {
+      width: 100%;
+      min-width: 900px;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      padding: 11px 12px;
+      border-bottom: 1px solid var(--border);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: #f6f8fa;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    code {
+      font: 13px/1.45 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+
+    @media (max-width: 860px) {
+      .grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 560px) {
+      .wrap {
+        width: min(100vw - 20px, 1120px);
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap header-inner">
+      <h1>Awesome GitHub CLI Extensions</h1>
+      <p class="lead">A curated awesome-style guide to useful GitHub CLI extensions: Top Picks, workflow guides, starter packs, maintenance labels, and machine-readable install bundles.</p>
+      <div class="meta">
+        <span class="pill">${items.length} curated extensions</span>
+        <span class="pill">${activeCount} active</span>
+        <span class="pill">${topPicks.length} Top Picks</span>
+        <span class="pill">${starterPacks.length} starter packs</span>
+        <span class="pill">Reviewed ${escapeHtml(generatedAt)}</span>
+      </div>
+      <div class="actions">
+        <a href="./">Searchable catalog</a>
+        <a href="https://github.com/sjh9714/gh-extension-atlas#readme">README</a>
+        <a href="api/index.json">API manifest</a>
+        <a href="install/all.txt">All install commands</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="panel">
+      <h2>Start Here</h2>
+      <p class="muted">Pick the workflow that hurts right now. Each guide includes a starter pack near the top so you can inspect commands before installing anything.</p>
+      <div class="grid">
+        ${workflowGuideCards.map(({ category, guide, count, active }) => `<a class="card" href="${escapeAttribute(guide.path)}">
+          <strong>${escapeHtml(guide.title)}</strong>
+          <span>${escapeHtml(guide.summary)}</span>
+          <code>${count} entries, ${active} active</code>
+        </a>`).join("\n        ")}
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Starter Packs</h2>
+      <p class="muted">Small install-command bundles for common GitHub CLI workflows. Review bundle contents before installing.</p>
+      <div class="grid">
+        ${starterPacks.map((pack) => `<a class="card" href="install/starter-packs/${starterPackSlug(pack)}.txt">
+          <strong>${escapeHtml(pack.name)}</strong>
+          <span>${escapeHtml(pack.summary)}</span>
+          <code>curl -fsSL ${escapeHtml(siteUrl)}install/starter-packs/${starterPackSlug(pack)}.txt</code>
+        </a>`).join("\n        ")}
+      </div>
+    </section>
+
+    <section class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Top Pick</th>
+            <th>Workflow</th>
+            <th>Why it matters</th>
+            <th>Status</th>
+            <th>Install</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${topPicks.map((entry) => `<tr>
+            <td><a href="https://github.com/${escapeAttribute(entry.repo)}"><strong>${escapeHtml(entry.name)}</strong></a><br><span class="muted">${escapeHtml(entry.summary)}</span></td>
+            <td>${escapeHtml(entry.best_for)}</td>
+            <td>${escapeHtml(entry.avoid_if)}</td>
+            <td>${escapeHtml(entry.status)}</td>
+            <td><code>${escapeHtml(entry.install)}</code></td>
+          </tr>`).join("\n          ")}
+        </tbody>
+      </table>
+    </section>
+
+    <section class="panel">
+      <h2>Reusable Data</h2>
+      <p class="muted">The atlas publishes the same reviewed snapshot as JSON and plain-text install bundles.</p>
+      <div class="actions">
+        <a href="api/extensions.json">Full catalog JSON</a>
+        <a href="api/extensions.schema.json">JSON schema</a>
+        <a href="install/top-picks.txt">Top Picks install bundle</a>
+        <a href="api-reference.md">API reference</a>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
+`;
+}
+
 function renderSitemapXml(items) {
   const lastmod = latestVerifiedAt(items);
+  const awesomeUrl = `  <url>
+    <loc>${siteUrl}awesome-github-cli-extensions.html</loc>
+    <lastmod>${escapeHtml(lastmod)}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>`;
   const guideUrls = Object.values(workflowGuides)
     .map((guide) => `  <url>
     <loc>${siteUrl}${guide.path}</loc>
@@ -2310,6 +2625,7 @@ function renderSitemapXml(items) {
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
+${awesomeUrl}
 ${categoryUrls}
 ${guideUrls}
 </urlset>

@@ -43,6 +43,8 @@ If `gh extension search` gives you too many options, start here.
 
 Pick the workflow that hurts right now, inspect the starter pack, then install only the extensions that match your project.
 
+Want a shareable overview first? Open the [Awesome GitHub CLI Extensions overview][awesome-overview].
+
 | Workflow                  | Read first                                   | Inspect starter pack                                                                                                                  |
 | ------------------------- | -------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
 | Daily maintainer triage   | [Terminal dashboard guide][guide-dashboards] | [`daily-maintainer-triage.txt`](https://sjh9714.github.io/gh-extension-atlas/install/starter-packs/daily-maintainer-triage.txt)       |
@@ -195,6 +197,7 @@ These are the first extensions to evaluate if you want broad value fast.
 [guide-notifications]: https://sjh9714.github.io/gh-extension-atlas/guides/notification-triage-extensions.html
 [guide-search]: https://sjh9714.github.io/gh-extension-atlas/guides/repository-search-extensions.html
 [guide-security]: https://sjh9714.github.io/gh-extension-atlas/guides/security-admin-extensions.html
+[awesome-overview]: https://sjh9714.github.io/gh-extension-atlas/awesome-github-cli-extensions.html
 
 ## Catalog Browser
 
