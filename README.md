@@ -370,6 +370,7 @@ Published Pages endpoints:
 | Endpoint                                      | Use this when...                                         |
 | --------------------------------------------- | -------------------------------------------------------- |
 | [API index][api-index]                        | You want a manifest of every public catalog endpoint.    |
+| [Catalog health snapshot][health]             | You want counts, freshness, and guardrails.              |
 | [Full catalog JSON][api-extensions]           | You want the complete reviewed catalog for automation.   |
 | [Catalog JSON Schema][api-schema]             | You want the public data contract for catalog entries.   |
 | [Public API Reference][api-reference]         | You want endpoint docs, schema notes, and curl examples. |
@@ -381,6 +382,7 @@ Published Pages endpoints:
 | [Starter pack install bundles][install-packs] | You want workflow-specific plain-text install bundles.   |
 
 [api-index]: https://sjh9714.github.io/gh-extension-atlas/api/index.json
+[health]: docs/health.md
 [api-extensions]: https://sjh9714.github.io/gh-extension-atlas/api/extensions.json
 [api-schema]: https://sjh9714.github.io/gh-extension-atlas/api/extensions.schema.json
 [api-reference]: docs/api-reference.md

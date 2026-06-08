@@ -1,0 +1,211 @@
+{
+  "name": "gh-extension-atlas",
+  "version": "0.2.16",
+  "generated_at": "2026-06-08",
+  "source": "https://github.com/sjh9714/gh-extension-atlas",
+  "homepage": "https://sjh9714.github.io/gh-extension-atlas/",
+  "counts": {
+    "extensions": 68,
+    "active": 49,
+    "watch": 9,
+    "stale": 10,
+    "categories": 8,
+    "top_picks": 10,
+    "starter_packs": 8,
+    "workflow_guides": 8,
+    "extension_pages": 68
+  },
+  "freshness": {
+    "latest_verified_at": "2026-06-08",
+    "oldest_verified_at": "2026-06-08",
+    "latest_last_pushed_at": "2026-06-08T11:02:52Z",
+    "oldest_last_pushed_at": "2021-11-08T18:00:37Z"
+  },
+  "status_counts": {
+    "active": 49,
+    "watch": 9,
+    "stale": 10
+  },
+  "categories": [
+    {
+      "name": "Actions/CI",
+      "slug": "actions-ci",
+      "count": 7,
+      "active": 6,
+      "watch": 0,
+      "stale": 1,
+      "page": "https://sjh9714.github.io/gh-extension-atlas/categories/actions-ci.html"
+    },
+    {
+      "name": "AI/Agents",
+      "slug": "ai-agents",
+      "count": 4,
+      "active": 4,
+      "watch": 0,
+      "stale": 0,
+      "page": "https://sjh9714.github.io/gh-extension-atlas/categories/ai-agents.html"
+    },
+    {
+      "name": "Dashboard/TUI",
+      "slug": "dashboard-tui",
+      "count": 8,
+      "active": 7,
+      "watch": 1,
+      "stale": 0,
+      "page": "https://sjh9714.github.io/gh-extension-atlas/categories/dashboard-tui.html"
+    },
+    {
+      "name": "Notifications",
+      "slug": "notifications",
+      "count": 4,
+      "active": 4,
+      "watch": 0,
+      "stale": 0,
+      "page": "https://sjh9714.github.io/gh-extension-atlas/categories/notifications.html"
+    },
+    {
+      "name": "PR & Issues",
+      "slug": "pr-issues",
+      "count": 11,
+      "active": 8,
+      "watch": 1,
+      "stale": 2,
+      "page": "https://sjh9714.github.io/gh-extension-atlas/categories/pr-issues.html"
+    },
+    {
+      "name": "Repo & Branch",
+      "slug": "repo-branch",
+      "count": 11,
+      "active": 5,
+      "watch": 2,
+      "stale": 4,
+      "page": "https://sjh9714.github.io/gh-extension-atlas/categories/repo-branch.html"
+    },
+    {
+      "name": "Search",
+      "slug": "search",
+      "count": 9,
+      "active": 7,
+      "watch": 0,
+      "stale": 2,
+      "page": "https://sjh9714.github.io/gh-extension-atlas/categories/search.html"
+    },
+    {
+      "name": "Security/Admin",
+      "slug": "security-admin",
+      "count": 14,
+      "active": 8,
+      "watch": 5,
+      "stale": 1,
+      "page": "https://sjh9714.github.io/gh-extension-atlas/categories/security-admin.html"
+    }
+  ],
+  "top_picks": [
+    {
+      "repo": "dlvhdr/gh-dash",
+      "name": "dash",
+      "category": "Dashboard/TUI",
+      "status": "active",
+      "verified_at": "2026-06-08",
+      "install": "gh extension install dlvhdr/gh-dash",
+      "detail": "https://sjh9714.github.io/gh-extension-atlas/extensions/dlvhdr-gh-dash.html"
+    },
+    {
+      "repo": "github/gh-aw",
+      "name": "aw",
+      "category": "AI/Agents",
+      "status": "active",
+      "verified_at": "2026-06-08",
+      "install": "gh extension install github/gh-aw",
+      "detail": "https://sjh9714.github.io/gh-extension-atlas/extensions/github-gh-aw.html"
+    },
+    {
+      "repo": "github/gh-stack",
+      "name": "stack",
+      "category": "PR & Issues",
+      "status": "active",
+      "verified_at": "2026-06-08",
+      "install": "gh extension install github/gh-stack",
+      "detail": "https://sjh9714.github.io/gh-extension-atlas/extensions/github-gh-stack.html"
+    },
+    {
+      "repo": "seachicken/gh-poi",
+      "name": "poi",
+      "category": "Repo & Branch",
+      "status": "active",
+      "verified_at": "2026-06-08",
+      "install": "gh extension install seachicken/gh-poi",
+      "detail": "https://sjh9714.github.io/gh-extension-atlas/extensions/seachicken-gh-poi.html"
+    },
+    {
+      "repo": "yusukebe/gh-markdown-preview",
+      "name": "markdown-preview",
+      "category": "Dashboard/TUI",
+      "status": "active",
+      "verified_at": "2026-06-08",
+      "install": "gh extension install yusukebe/gh-markdown-preview",
+      "detail": "https://sjh9714.github.io/gh-extension-atlas/extensions/yusukebe-gh-markdown-preview.html"
+    },
+    {
+      "repo": "advanced-security/gh-sbom",
+      "name": "sbom",
+      "category": "Security/Admin",
+      "status": "watch",
+      "verified_at": "2026-06-08",
+      "install": "gh extension install advanced-security/gh-sbom",
+      "detail": "https://sjh9714.github.io/gh-extension-atlas/extensions/advanced-security-gh-sbom.html"
+    },
+    {
+      "repo": "gennaro-tedesco/gh-s",
+      "name": "s",
+      "category": "Search",
+      "status": "active",
+      "verified_at": "2026-06-08",
+      "install": "gh extension install gennaro-tedesco/gh-s",
+      "detail": "https://sjh9714.github.io/gh-extension-atlas/extensions/gennaro-tedesco-gh-s.html"
+    },
+    {
+      "repo": "meiji163/gh-notify",
+      "name": "notify",
+      "category": "Notifications",
+      "status": "active",
+      "verified_at": "2026-06-08",
+      "install": "gh extension install meiji163/gh-notify",
+      "detail": "https://sjh9714.github.io/gh-extension-atlas/extensions/meiji163-gh-notify.html"
+    },
+    {
+      "repo": "agynio/gh-pr-review",
+      "name": "pr-review",
+      "category": "PR & Issues",
+      "status": "active",
+      "verified_at": "2026-06-08",
+      "install": "gh extension install agynio/gh-pr-review",
+      "detail": "https://sjh9714.github.io/gh-extension-atlas/extensions/agynio-gh-pr-review.html"
+    },
+    {
+      "repo": "fchimpan/gh-workflow-stats",
+      "name": "workflow-stats",
+      "category": "Actions/CI",
+      "status": "active",
+      "verified_at": "2026-06-08",
+      "install": "gh extension install fchimpan/gh-workflow-stats",
+      "detail": "https://sjh9714.github.io/gh-extension-atlas/extensions/fchimpan-gh-workflow-stats.html"
+    }
+  ],
+  "generated_assets": {
+    "catalog": "https://sjh9714.github.io/gh-extension-atlas/",
+    "chooser": "https://sjh9714.github.io/gh-extension-atlas/chooser.html",
+    "awesome_overview": "https://sjh9714.github.io/gh-extension-atlas/awesome-github-cli-extensions.html",
+    "health": "https://sjh9714.github.io/gh-extension-atlas/health.md",
+    "health_json": "https://sjh9714.github.io/gh-extension-atlas/api/health.json",
+    "api_manifest": "https://sjh9714.github.io/gh-extension-atlas/api/index.json",
+    "llms": "https://sjh9714.github.io/gh-extension-atlas/llms.txt",
+    "llms_full": "https://sjh9714.github.io/gh-extension-atlas/llms-full.txt"
+  },
+  "guardrails": [
+    "Archived repositories are excluded.",
+    "Top Picks are manually curated and not promoted automatically from star count.",
+    "Metadata is a reviewed snapshot, not a live ranking.",
+    "Install bundles are plain text and should be inspected before use."
+  ]
+}

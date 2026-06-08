@@ -15,6 +15,7 @@ The API is a reviewed snapshot, not a live ranking. Fields such as `stars`, `las
 | Endpoint | Format | Use this when... |
 | --- | --- | --- |
 | [`/api/index.json`](https://sjh9714.github.io/gh-extension-atlas/api/index.json) | JSON object | You want a manifest of all generated endpoints, counts, categories, and starter packs. |
+| [`/api/health.json`](https://sjh9714.github.io/gh-extension-atlas/api/health.json) | JSON object | You want catalog counts, freshness, category health, generated asset links, and guardrails. |
 | [`/api/extensions.json`](https://sjh9714.github.io/gh-extension-atlas/api/extensions.json) | JSON array | You want the complete reviewed extension catalog. |
 | [`/api/extensions.schema.json`](https://sjh9714.github.io/gh-extension-atlas/api/extensions.schema.json) | JSON Schema | You want the public data contract for catalog entries. |
 | [`/api/top-picks.json`](https://sjh9714.github.io/gh-extension-atlas/api/top-picks.json) | JSON array | You want the first-pass recommendations from the README Top Picks table. |
@@ -72,6 +73,13 @@ Print starter pack install bundles:
 ```sh
 curl -fsSL https://sjh9714.github.io/gh-extension-atlas/api/index.json \
   | jq -r '.starter_packs[] | [.name, .install_commands] | @tsv'
+```
+
+Print the current health snapshot:
+
+```sh
+curl -fsSL https://sjh9714.github.io/gh-extension-atlas/api/health.json \
+  | jq '.counts, .freshness'
 ```
 
 ## Catalog Schema

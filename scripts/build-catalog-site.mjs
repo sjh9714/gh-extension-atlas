@@ -440,9 +440,11 @@ const extensionPageFiles = stableEntries(entries).map((entry) => ({
 }));
 const endpointFiles = [
   { path: "docs/api/index.json", content: renderJson(renderApiIndex(entries)) },
+  { path: "docs/api/health.json", content: renderJson(renderHealthSnapshot(entries)) },
   { path: "docs/api/extensions.json", content: renderJson(stableEntries(entries)) },
   { path: "docs/api/extensions.schema.json", content: renderJson(schema) },
   { path: "docs/api/top-picks.json", content: renderJson(getTopPickEntries(entries)) },
+  { path: "docs/health.md", content: renderHealthMarkdown(entries) },
   { path: "docs/llms.txt", content: renderLlmsTxt(entries) },
   { path: "docs/llms-full.txt", content: renderLlmsFullTxt(entries) },
   { path: "docs/install/all.txt", content: renderInstallCommands(stableEntries(entries)) },
@@ -3543,6 +3545,7 @@ function renderApiIndex(items) {
       stale: items.filter((entry) => entry.status === "stale").length,
     },
     endpoints: {
+      health: `${siteUrl}api/health.json`,
       catalog: `${siteUrl}api/extensions.json`,
       schema: `${siteUrl}api/extensions.schema.json`,
       top_picks: `${siteUrl}api/top-picks.json`,
@@ -3579,6 +3582,128 @@ function renderApiIndex(items) {
   };
 }
 
+function renderHealthSnapshot(items) {
+  const generatedAt = latestVerifiedAt(items);
+  const sortedItems = stableEntries(items);
+  const statusCounts = Object.fromEntries(["active", "watch", "stale"].map((status) => [status, items.filter((entry) => entry.status === status).length]));
+  const categorySummaries = categories.map((category) => {
+    const categoryItems = items.filter((entry) => entry.category === category);
+    return {
+      name: category,
+      slug: categorySlug(category),
+      count: categoryItems.length,
+      active: categoryItems.filter((entry) => entry.status === "active").length,
+      watch: categoryItems.filter((entry) => entry.status === "watch").length,
+      stale: categoryItems.filter((entry) => entry.status === "stale").length,
+      page: `${siteUrl}${categoryPagePath(category)}`,
+    };
+  });
+  const verifiedDates = sortedItems.map((entry) => entry.verified_at).filter(Boolean).sort();
+  const pushedDates = sortedItems.map((entry) => entry.last_pushed_at).filter(Boolean).sort();
+
+  return {
+    name: packageJson.name,
+    version: packageJson.version,
+    generated_at: generatedAt,
+    source: "https://github.com/sjh9714/gh-extension-atlas",
+    homepage: siteUrl,
+    counts: {
+      extensions: items.length,
+      active: statusCounts.active,
+      watch: statusCounts.watch,
+      stale: statusCounts.stale,
+      categories: categories.length,
+      top_picks: getTopPickEntries(items).length,
+      starter_packs: starterPacks.length,
+      workflow_guides: Object.keys(workflowGuides).length,
+      extension_pages: sortedItems.length,
+    },
+    freshness: {
+      latest_verified_at: verifiedDates.at(-1),
+      oldest_verified_at: verifiedDates[0],
+      latest_last_pushed_at: pushedDates.at(-1),
+      oldest_last_pushed_at: pushedDates[0],
+    },
+    status_counts: statusCounts,
+    categories: categorySummaries,
+    top_picks: getTopPickEntries(items).map((entry) => ({
+      repo: entry.repo,
+      name: entry.name,
+      category: entry.category,
+      status: entry.status,
+      verified_at: entry.verified_at,
+      install: entry.install,
+      detail: `${siteUrl}${extensionPagePath(entry)}`,
+    })),
+    generated_assets: {
+      catalog: siteUrl,
+      chooser: `${siteUrl}chooser.html`,
+      awesome_overview: `${siteUrl}awesome-github-cli-extensions.html`,
+      health: `${siteUrl}health.md`,
+      health_json: `${siteUrl}api/health.json`,
+      api_manifest: `${siteUrl}api/index.json`,
+      llms: `${siteUrl}llms.txt`,
+      llms_full: `${siteUrl}llms-full.txt`,
+    },
+    guardrails: [
+      "Archived repositories are excluded.",
+      "Top Picks are manually curated and not promoted automatically from star count.",
+      "Metadata is a reviewed snapshot, not a live ranking.",
+      "Install bundles are plain text and should be inspected before use.",
+    ],
+  };
+}
+
+function renderHealthMarkdown(items) {
+  const health = renderHealthSnapshot(items);
+
+  return `# Atlas Health Snapshot
+
+GitHub CLI Extension Atlas is a reviewed snapshot, not a live ranking. This page summarizes the current generated catalog state.
+
+## Counts
+
+| Signal | Value |
+| --- | ---: |
+| Extensions | ${health.counts.extensions} |
+| Active | ${health.counts.active} |
+| Watch | ${health.counts.watch} |
+| Stale | ${health.counts.stale} |
+| Categories | ${health.counts.categories} |
+| Top Picks | ${health.counts.top_picks} |
+| Starter packs | ${health.counts.starter_packs} |
+| Workflow guides | ${health.counts.workflow_guides} |
+| Generated extension pages | ${health.counts.extension_pages} |
+
+## Freshness
+
+| Signal | Value |
+| --- | --- |
+| Latest verified date | ${health.freshness.latest_verified_at} |
+| Oldest verified date | ${health.freshness.oldest_verified_at} |
+| Latest upstream push snapshot | ${health.freshness.latest_last_pushed_at} |
+| Oldest upstream push snapshot | ${health.freshness.oldest_last_pushed_at} |
+
+## Category Health
+
+| Category | Count | Active | Watch | Stale |
+| --- | ---: | ---: | ---: | ---: |
+${health.categories.map((category) => `| [${category.name}](${category.page}) | ${category.count} | ${category.active} | ${category.watch} | ${category.stale} |`).join("\n")}
+
+## Guardrails
+
+${health.guardrails.map((guardrail) => `- ${guardrail}`).join("\n")}
+
+## Machine-Readable Snapshot
+
+The same health snapshot is published as JSON:
+
+\`\`\`sh
+curl -fsSL ${siteUrl}api/health.json
+\`\`\`
+`;
+}
+
 function renderLlmsTxt(items) {
   const generatedAt = latestVerifiedAt(items);
 
@@ -3604,6 +3729,7 @@ GitHub CLI Extension Atlas helps users choose a useful \`gh\` extension faster w
 - Workflow chooser: ${siteUrl}chooser.html
 - Searchable catalog: ${siteUrl}
 - Awesome overview: ${siteUrl}awesome-github-cli-extensions.html
+- Health snapshot: ${siteUrl}health.md
 - API reference: ${siteUrl}api-reference.md
 - Data recipes: ${siteUrl}data-recipes.md
 - Starter packs: ${siteUrl}starter-packs.md
@@ -3617,6 +3743,7 @@ ${Object.values(workflowGuides)
 ## Public Data
 
 - Full catalog JSON: ${siteUrl}api/extensions.json
+- Catalog health JSON: ${siteUrl}api/health.json
 - Catalog schema: ${siteUrl}api/extensions.schema.json
 - Top Picks JSON: ${siteUrl}api/top-picks.json
 - All install commands: ${siteUrl}install/all.txt
@@ -3661,12 +3788,14 @@ This is not an official GitHub project, complete directory, endorsement list, or
 - Workflow chooser: ${siteUrl}chooser.html
 - Searchable catalog: ${siteUrl}
 - Awesome overview: ${siteUrl}awesome-github-cli-extensions.html
+- Health snapshot: ${siteUrl}health.md
 - API reference: ${siteUrl}api-reference.md
 - Data recipes: ${siteUrl}data-recipes.md
 - Starter packs: ${siteUrl}starter-packs.md
 - Full catalog JSON: ${siteUrl}api/extensions.json
 - Catalog schema: ${siteUrl}api/extensions.schema.json
 - API manifest: ${siteUrl}api/index.json
+- Catalog health JSON: ${siteUrl}api/health.json
 
 ## Top Picks
 
@@ -3689,6 +3818,7 @@ ${Object.entries(workflowGuides)
 ## Public API And Plain Text Endpoints
 
 - API manifest: ${siteUrl}api/index.json
+- Catalog health JSON: ${siteUrl}api/health.json
 - Full catalog JSON: ${siteUrl}api/extensions.json
 - Catalog JSON Schema: ${siteUrl}api/extensions.schema.json
 - Top Picks JSON: ${siteUrl}api/top-picks.json
