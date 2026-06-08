@@ -7,9 +7,12 @@ This playbook keeps the atlas useful after launch. The bias is toward trust: fac
 1. Run `git pull --ff-only`.
 2. Run `npm test`.
 3. Run `npm run summary:weekly`.
-4. Check the open issues for extension suggestions or metadata fixes.
-5. Re-check Top Picks that changed recently or received correction requests.
-6. Commit any accepted metadata, README, or comparison-guide updates.
+4. Run `npm run metadata:audit` and review live metadata drift.
+5. Check the open issues for extension suggestions or metadata fixes.
+6. Re-check Top Picks that changed recently or received correction requests.
+7. Commit any accepted metadata, README, or comparison-guide updates.
+
+Use [`metadata-refresh.md`](metadata-refresh.md) for the safe write path when the audit should update mechanical fields.
 
 ## Extension Status
 

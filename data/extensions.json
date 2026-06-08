@@ -12,7 +12,7 @@
     "last_pushed_at": "2025-12-15T11:53:05Z",
     "archived": false,
     "official": true,
-    "verified_at": "2026-05-31",
+    "verified_at": "2026-06-08",
     "status": "active"
   },
   {
@@ -23,12 +23,12 @@
     "install": "gh extension install advanced-security/gh-sbom",
     "best_for": "Teams that need SBOM output during release or compliance work.",
     "avoid_if": "Your SBOM workflow is already handled by another build step.",
-    "stars": 205,
+    "stars": 206,
     "license": "MIT",
     "last_pushed_at": "2025-05-30T19:40:06Z",
     "archived": false,
     "official": true,
-    "verified_at": "2026-05-31",
+    "verified_at": "2026-06-08",
     "status": "watch"
   },
   {
@@ -39,12 +39,12 @@
     "install": "gh extension install agynio/gh-pr-review",
     "best_for": "Reviewers who want inline PR review workflows in the terminal.",
     "avoid_if": "Your team reviews exclusively in the GitHub web UI.",
-    "stars": 155,
+    "stars": 159,
     "license": "MIT",
     "last_pushed_at": "2026-04-13T13:28:48Z",
     "archived": false,
     "official": false,
-    "verified_at": "2026-05-31",
+    "verified_at": "2026-06-08",
     "status": "active"
   },
   {
@@ -60,7 +60,7 @@
     "last_pushed_at": "2025-01-21T15:07:15Z",
     "archived": false,
     "official": false,
-    "verified_at": "2026-05-31",
+    "verified_at": "2026-06-08",
     "status": "watch"
   },
   {
@@ -71,12 +71,12 @@
     "install": "gh extension install babarot/gh-infra",
     "best_for": "Teams that want repository and organization settings as code.",
     "avoid_if": "You only manage one or two repositories manually.",
-    "stars": 116,
+    "stars": 120,
     "license": "MIT",
     "last_pushed_at": "2026-05-20T05:58:25Z",
     "archived": false,
     "official": false,
-    "verified_at": "2026-05-31",
+    "verified_at": "2026-06-08",
     "status": "active"
   },
   {
@@ -87,12 +87,12 @@
     "install": "gh extension install basecamp/gh-signoff",
     "best_for": "Developers who want a repeatable pre-merge local signoff flow.",
     "avoid_if": "Your project has no local check commands.",
-    "stars": 1075,
+    "stars": 1076,
     "license": "MIT",
     "last_pushed_at": "2025-11-05T22:59:53Z",
     "archived": false,
     "official": false,
-    "verified_at": "2026-05-31",
+    "verified_at": "2026-06-08",
     "status": "active"
   },
   {
@@ -108,7 +108,7 @@
     "last_pushed_at": "2026-02-22T08:37:37Z",
     "archived": false,
     "official": false,
-    "verified_at": "2026-05-31",
+    "verified_at": "2026-06-08",
     "status": "active"
   },
   {
@@ -124,7 +124,7 @@
     "last_pushed_at": "2024-11-27T21:44:20Z",
     "archived": false,
     "official": false,
-    "verified_at": "2026-05-31",
+    "verified_at": "2026-06-08",
     "status": "watch"
   },
   {
@@ -140,7 +140,7 @@
     "last_pushed_at": "2025-10-21T16:21:44Z",
     "archived": false,
     "official": true,
-    "verified_at": "2026-05-31",
+    "verified_at": "2026-06-08",
     "status": "active"
   },
   {
@@ -156,7 +156,7 @@
     "last_pushed_at": "2022-12-26T16:02:05Z",
     "archived": false,
     "official": false,
-    "verified_at": "2026-05-31",
+    "verified_at": "2026-06-08",
     "status": "stale"
   },
   {
@@ -172,7 +172,7 @@
     "last_pushed_at": "2025-10-23T19:11:10Z",
     "archived": false,
     "official": false,
-    "verified_at": "2026-05-31",
+    "verified_at": "2026-06-08",
     "status": "active"
   },
   {
@@ -183,12 +183,12 @@
     "install": "gh extension install dlvhdr/gh-dash",
     "best_for": "Maintainers who live in PR, issue, and notification queues.",
     "avoid_if": "You prefer one-off commands over a persistent TUI.",
-    "stars": 11715,
+    "stars": 11847,
     "license": "MIT",
-    "last_pushed_at": "2026-05-28T07:50:52Z",
+    "last_pushed_at": "2026-06-07T09:06:35Z",
     "archived": false,
     "official": false,
-    "verified_at": "2026-06-05",
+    "verified_at": "2026-06-08",
     "status": "active"
   },
   {
@@ -220,7 +220,7 @@
     "last_pushed_at": "2026-04-16T09:16:50Z",
     "archived": false,
     "official": false,
-    "verified_at": "2026-05-31",
+    "verified_at": "2026-06-08",
     "status": "active"
   },
   {
@@ -236,7 +236,7 @@
     "last_pushed_at": "2025-12-20T13:01:38Z",
     "archived": false,
     "official": false,
-    "verified_at": "2026-05-31",
+    "verified_at": "2026-06-08",
     "status": "active"
   },
   {
@@ -252,7 +252,7 @@
     "last_pushed_at": "2026-03-06T06:14:39Z",
     "archived": false,
     "official": false,
-    "verified_at": "2026-05-31",
+    "verified_at": "2026-06-08",
     "status": "active"
   },
   {
@@ -268,7 +268,7 @@
     "last_pushed_at": "2026-03-23T06:34:25Z",
     "archived": false,
     "official": false,
-    "verified_at": "2026-05-31",
+    "verified_at": "2026-06-08",
     "status": "active"
   },
   {
@@ -279,12 +279,12 @@
     "install": "gh extension install gennaro-tedesco/gh-f",
     "best_for": "Users who want fast fuzzy GitHub navigation.",
     "avoid_if": "You do not use fzf-style terminal pickers.",
-    "stars": 385,
+    "stars": 386,
     "license": "Unlicense",
     "last_pushed_at": "2025-09-23T10:24:09Z",
     "archived": false,
     "official": false,
-    "verified_at": "2026-05-31",
+    "verified_at": "2026-06-08",
     "status": "active"
   },
   {
@@ -295,12 +295,12 @@
     "install": "gh extension install gennaro-tedesco/gh-i",
     "best_for": "Maintainers searching issues without opening the browser.",
     "avoid_if": "You need project-management features beyond search.",
-    "stars": 71,
+    "stars": 72,
     "license": "Apache-2.0",
     "last_pushed_at": "2025-03-01T01:29:30Z",
     "archived": false,
     "official": false,
-    "verified_at": "2026-05-31",
+    "verified_at": "2026-06-08",
     "status": "watch"
   },
   {
@@ -311,12 +311,12 @@
     "install": "gh extension install gennaro-tedesco/gh-s",
     "best_for": "Finding repositories quickly from a terminal workflow.",
     "avoid_if": "You need advanced code search rather than repository search.",
-    "stars": 403,
+    "stars": 404,
     "license": "Apache-2.0",
     "last_pushed_at": "2025-08-20T11:48:41Z",
     "archived": false,
     "official": false,
-    "verified_at": "2026-05-31",
+    "verified_at": "2026-06-08",
     "status": "active"
   },
   {
@@ -327,12 +327,12 @@
     "install": "gh extension install gizmo385/gh-lazy",
     "best_for": "Users who want a compact TUI for GitHub resources.",
     "avoid_if": "You prefer scriptable command output.",
-    "stars": 32,
+    "stars": 33,
     "license": "MIT",
     "last_pushed_at": "2026-05-03T09:03:29Z",
     "archived": false,
     "official": false,
-    "verified_at": "2026-05-31",
+    "verified_at": "2026-06-08",
     "status": "active"
   },
   {
@@ -343,12 +343,12 @@
     "install": "gh extension install github/gh-actions-importer",
     "best_for": "Enterprise teams migrating from other CI systems.",
     "avoid_if": "Your project is already on GitHub Actions.",
-    "stars": 1212,
+    "stars": 1213,
     "license": "MIT",
     "last_pushed_at": "2025-11-11T17:17:13Z",
     "archived": false,
     "official": true,
-    "verified_at": "2026-05-31",
+    "verified_at": "2026-06-08",
     "status": "active"
   },
   {
@@ -359,12 +359,12 @@
     "install": "gh extension install github/gh-aw",
     "best_for": "Developers experimenting with GitHub-native agent workflows.",
     "avoid_if": "You are not using agentic automation yet.",
-    "stars": 4544,
+    "stars": 4587,
     "license": "MIT",
-    "last_pushed_at": "2026-05-31T04:41:57Z",
+    "last_pushed_at": "2026-06-08T11:02:52Z",
     "archived": false,
     "official": true,
-    "verified_at": "2026-05-31",
+    "verified_at": "2026-06-08",
     "status": "active"
   },
   {
@@ -375,12 +375,12 @@
     "install": "gh extension install github/gh-classroom",
     "best_for": "Educators using GitHub Classroom at scale.",
     "avoid_if": "You do not use GitHub Classroom.",
-    "stars": 116,
+    "stars": 117,
     "license": "MIT",
     "last_pushed_at": "2026-05-19T19:50:20Z",
     "archived": false,
     "official": true,
-    "verified_at": "2026-05-31",
+    "verified_at": "2026-06-08",
     "status": "active"
   },
   {
@@ -391,12 +391,12 @@
     "install": "gh extension install github/gh-codeql",
     "best_for": "Security engineers running CodeQL workflows.",
     "avoid_if": "You do not use CodeQL.",
-    "stars": 38,
+    "stars": 39,
     "license": "MIT",
     "last_pushed_at": "2025-02-14T05:45:55Z",
     "archived": false,
     "official": true,
-    "verified_at": "2026-05-31",
+    "verified_at": "2026-06-08",
     "status": "watch"
   },
   {
@@ -407,12 +407,12 @@
     "install": "gh extension install github/gh-gei",
     "best_for": "Enterprise teams migrating repositories to GitHub Enterprise Cloud.",
     "avoid_if": "You are not running GitHub migration projects.",
-    "stars": 453,
+    "stars": 455,
     "license": "MIT",
-    "last_pushed_at": "2026-05-29T23:10:19Z",
+    "last_pushed_at": "2026-06-03T21:11:14Z",
     "archived": false,
     "official": true,
-    "verified_at": "2026-05-31",
+    "verified_at": "2026-06-08",
     "status": "active"
   },
   {
@@ -423,12 +423,12 @@
     "install": "gh extension install github/gh-models",
     "best_for": "Developers testing prompts and models from the terminal.",
     "avoid_if": "You do not use GitHub Models.",
-    "stars": 199,
+    "stars": 200,
     "license": "MIT",
-    "last_pushed_at": "2026-05-19T19:54:32Z",
+    "last_pushed_at": "2026-06-04T21:52:35Z",
     "archived": false,
     "official": true,
-    "verified_at": "2026-05-31",
+    "verified_at": "2026-06-08",
     "status": "active"
   },
   {
@@ -439,12 +439,12 @@
     "install": "gh extension install github/gh-skyline",
     "best_for": "Profile visualizations, demos, and community events.",
     "avoid_if": "You need an operational productivity tool.",
-    "stars": 1280,
+    "stars": 1284,
     "license": "MIT",
     "last_pushed_at": "2026-05-28T20:19:35Z",
     "archived": false,
     "official": true,
-    "verified_at": "2026-05-31",
+    "verified_at": "2026-06-08",
     "status": "active"
   },
   {
@@ -455,12 +455,12 @@
     "install": "gh extension install github/gh-stack",
     "best_for": "Teams that split large changes into dependent PRs.",
     "avoid_if": "Your team avoids stacked changes.",
-    "stars": 432,
+    "stars": 457,
     "license": "MIT",
-    "last_pushed_at": "2026-05-29T16:25:23Z",
+    "last_pushed_at": "2026-06-04T16:38:41Z",
     "archived": false,
     "official": true,
-    "verified_at": "2026-05-31",
+    "verified_at": "2026-06-08",
     "status": "active"
   },
   {
@@ -476,7 +476,7 @@
     "last_pushed_at": "2025-04-16T23:34:08Z",
     "archived": false,
     "official": true,
-    "verified_at": "2026-05-31",
+    "verified_at": "2026-06-08",
     "status": "watch"
   },
   {
@@ -492,7 +492,7 @@
     "last_pushed_at": "2025-04-16T21:32:20Z",
     "archived": false,
     "official": true,
-    "verified_at": "2026-05-31",
+    "verified_at": "2026-06-08",
     "status": "watch"
   },
   {
@@ -508,7 +508,7 @@
     "last_pushed_at": "2026-04-30T20:55:05Z",
     "archived": false,
     "official": false,
-    "verified_at": "2026-05-31",
+    "verified_at": "2026-06-08",
     "status": "active"
   },
   {
@@ -521,10 +521,10 @@
     "avoid_if": "You only need individual PR details.",
     "stars": 62,
     "license": "Apache-2.0",
-    "last_pushed_at": "2026-05-29T10:43:17Z",
+    "last_pushed_at": "2026-06-04T23:02:26Z",
     "archived": false,
     "official": false,
-    "verified_at": "2026-05-31",
+    "verified_at": "2026-06-08",
     "status": "active"
   },
   {
@@ -535,12 +535,12 @@
     "install": "gh extension install InditexTech/gh-sherpa",
     "best_for": "Teams that connect issue tracking to branch and PR creation.",
     "avoid_if": "You do not use structured issue-based workflows.",
-    "stars": 75,
+    "stars": 76,
     "license": "Apache-2.0",
     "last_pushed_at": "2026-05-28T08:25:01Z",
     "archived": false,
     "official": false,
-    "verified_at": "2026-05-31",
+    "verified_at": "2026-06-08",
     "status": "active"
   },
   {
@@ -553,10 +553,10 @@
     "avoid_if": "You rarely receive dependency update PRs.",
     "stars": 29,
     "license": "MIT",
-    "last_pushed_at": "2026-05-26T05:49:30Z",
+    "last_pushed_at": "2026-06-08T09:07:32Z",
     "archived": false,
     "official": false,
-    "verified_at": "2026-05-31",
+    "verified_at": "2026-06-08",
     "status": "active"
   },
   {
@@ -569,10 +569,10 @@
     "avoid_if": "Your release tool already handles versioning.",
     "stars": 62,
     "license": "MIT",
-    "last_pushed_at": "2026-05-30T04:24:43Z",
+    "last_pushed_at": "2026-06-07T06:07:32Z",
     "archived": false,
     "official": false,
-    "verified_at": "2026-05-31",
+    "verified_at": "2026-06-08",
     "status": "active"
   },
   {
@@ -588,7 +588,7 @@
     "last_pushed_at": "2024-09-03T14:14:49Z",
     "archived": false,
     "official": false,
-    "verified_at": "2026-05-31",
+    "verified_at": "2026-06-08",
     "status": "watch"
   },
   {
@@ -604,7 +604,7 @@
     "last_pushed_at": "2025-10-22T12:00:08Z",
     "archived": false,
     "official": false,
-    "verified_at": "2026-05-31",
+    "verified_at": "2026-06-08",
     "status": "active"
   },
   {
@@ -620,7 +620,7 @@
     "last_pushed_at": "2025-12-17T00:24:02Z",
     "archived": false,
     "official": false,
-    "verified_at": "2026-05-31",
+    "verified_at": "2026-06-08",
     "status": "active"
   },
   {
@@ -636,7 +636,7 @@
     "last_pushed_at": "2026-01-04T11:26:37Z",
     "archived": false,
     "official": false,
-    "verified_at": "2026-05-31",
+    "verified_at": "2026-06-08",
     "status": "active"
   },
   {
@@ -652,7 +652,7 @@
     "last_pushed_at": "2026-04-07T02:43:35Z",
     "archived": false,
     "official": false,
-    "verified_at": "2026-05-31",
+    "verified_at": "2026-06-08",
     "status": "active"
   },
   {
@@ -663,12 +663,12 @@
     "install": "gh extension install kawarimidoll/gh-q",
     "best_for": "Users who organize local repositories with ghq.",
     "avoid_if": "You do not use ghq.",
-    "stars": 48,
+    "stars": 49,
     "license": "MIT",
     "last_pushed_at": "2026-01-02T08:40:19Z",
     "archived": false,
     "official": false,
-    "verified_at": "2026-05-31",
+    "verified_at": "2026-06-08",
     "status": "active"
   },
   {
@@ -684,7 +684,7 @@
     "last_pushed_at": "2023-06-19T05:59:30Z",
     "archived": false,
     "official": false,
-    "verified_at": "2026-05-31",
+    "verified_at": "2026-06-08",
     "status": "stale"
   },
   {
@@ -700,7 +700,7 @@
     "last_pushed_at": "2021-11-15T08:49:08Z",
     "archived": false,
     "official": false,
-    "verified_at": "2026-05-31",
+    "verified_at": "2026-06-08",
     "status": "stale"
   },
   {
@@ -713,10 +713,10 @@
     "avoid_if": "You need local search inside a checked-out repository.",
     "stars": 68,
     "license": "Unlicense",
-    "last_pushed_at": "2026-05-25T22:14:09Z",
+    "last_pushed_at": "2026-06-02T04:58:25Z",
     "archived": false,
     "official": false,
-    "verified_at": "2026-05-31",
+    "verified_at": "2026-06-08",
     "status": "active"
   },
   {
@@ -732,7 +732,7 @@
     "last_pushed_at": "2025-10-29T21:27:05Z",
     "archived": false,
     "official": false,
-    "verified_at": "2026-05-31",
+    "verified_at": "2026-06-08",
     "status": "active"
   },
   {
@@ -748,7 +748,7 @@
     "last_pushed_at": "2026-03-25T12:34:40Z",
     "archived": false,
     "official": false,
-    "verified_at": "2026-05-31",
+    "verified_at": "2026-06-08",
     "status": "active"
   },
   {
@@ -764,7 +764,7 @@
     "last_pushed_at": "2024-05-31T20:06:44Z",
     "archived": false,
     "official": false,
-    "verified_at": "2026-05-31",
+    "verified_at": "2026-06-08",
     "status": "stale"
   },
   {
@@ -777,10 +777,10 @@
     "avoid_if": "You already manage notifications through email or mobile.",
     "stars": 344,
     "license": "Unlicense",
-    "last_pushed_at": "2026-04-30T15:51:33Z",
+    "last_pushed_at": "2026-06-05T14:21:26Z",
     "archived": false,
     "official": false,
-    "verified_at": "2026-05-31",
+    "verified_at": "2026-06-08",
     "status": "active"
   },
   {
@@ -791,12 +791,12 @@
     "install": "gh extension install mislav/gh-branch",
     "best_for": "Developers with many local branches.",
     "avoid_if": "You want only automated cleanup rather than manual selection.",
-    "stars": 273,
+    "stars": 274,
     "license": "Unlicense",
     "last_pushed_at": "2024-07-16T05:36:27Z",
     "archived": false,
     "official": false,
-    "verified_at": "2026-05-31",
+    "verified_at": "2026-06-08",
     "status": "watch"
   },
   {
@@ -812,7 +812,7 @@
     "last_pushed_at": "2026-01-03T18:06:52Z",
     "archived": false,
     "official": false,
-    "verified_at": "2026-05-31",
+    "verified_at": "2026-06-08",
     "status": "active"
   },
   {
@@ -828,7 +828,7 @@
     "last_pushed_at": "2021-11-08T18:00:37Z",
     "archived": false,
     "official": false,
-    "verified_at": "2026-05-31",
+    "verified_at": "2026-06-08",
     "status": "stale"
   },
   {
@@ -844,7 +844,7 @@
     "last_pushed_at": "2023-07-10T15:44:57Z",
     "archived": false,
     "official": false,
-    "verified_at": "2026-05-31",
+    "verified_at": "2026-06-08",
     "status": "stale"
   },
   {
@@ -855,12 +855,12 @@
     "install": "gh extension install mona-actions/gh-repo-stats",
     "best_for": "Migration specialists gathering repository inventory data.",
     "avoid_if": "You do not work on repository migration or audit projects.",
-    "stars": 386,
+    "stars": 389,
     "license": "MIT",
     "last_pushed_at": "2026-03-13T20:17:48Z",
     "archived": false,
     "official": false,
-    "verified_at": "2026-05-31",
+    "verified_at": "2026-06-08",
     "status": "active"
   },
   {
@@ -873,10 +873,10 @@
     "avoid_if": "Your workflows depend heavily on GitHub-hosted runner-only services.",
     "stars": 103,
     "license": "MIT",
-    "last_pushed_at": "2026-05-01T03:19:29Z",
+    "last_pushed_at": "2026-06-01T03:23:24Z",
     "archived": false,
     "official": false,
-    "verified_at": "2026-05-31",
+    "verified_at": "2026-06-08",
     "status": "active"
   },
   {
@@ -889,10 +889,10 @@
     "avoid_if": "You only need to view notifications occasionally.",
     "stars": 31,
     "license": "MIT",
-    "last_pushed_at": "2026-05-31T00:25:10Z",
+    "last_pushed_at": "2026-06-08T00:28:31Z",
     "archived": false,
     "official": false,
-    "verified_at": "2026-05-31",
+    "verified_at": "2026-06-08",
     "status": "active"
   },
   {
@@ -903,12 +903,12 @@
     "install": "gh extension install redraw/gh-install",
     "best_for": "Developers who often install tools from GitHub releases.",
     "avoid_if": "You already use a package manager for all release binaries.",
-    "stars": 221,
+    "stars": 222,
     "license": "NOASSERTION",
     "last_pushed_at": "2025-12-09T11:53:19Z",
     "archived": false,
     "official": false,
-    "verified_at": "2026-05-31",
+    "verified_at": "2026-06-08",
     "status": "active"
   },
   {
@@ -924,7 +924,7 @@
     "last_pushed_at": "2023-05-15T04:12:00Z",
     "archived": false,
     "official": false,
-    "verified_at": "2026-05-31",
+    "verified_at": "2026-06-08",
     "status": "stale"
   },
   {
@@ -940,7 +940,7 @@
     "last_pushed_at": "2023-12-11T12:03:05Z",
     "archived": false,
     "official": false,
-    "verified_at": "2026-05-31",
+    "verified_at": "2026-06-08",
     "status": "stale"
   },
   {
@@ -956,7 +956,7 @@
     "last_pushed_at": "2022-03-28T07:41:27Z",
     "archived": false,
     "official": false,
-    "verified_at": "2026-05-31",
+    "verified_at": "2026-06-08",
     "status": "stale"
   },
   {
@@ -967,12 +967,12 @@
     "install": "gh extension install seachicken/gh-poi",
     "best_for": "Developers who want a trustworthy branch cleanup default.",
     "avoid_if": "You want to manually inspect every branch before deletion.",
-    "stars": 965,
+    "stars": 966,
     "license": "MIT",
-    "last_pushed_at": "2026-05-03T00:04:36Z",
+    "last_pushed_at": "2026-06-05T06:23:08Z",
     "archived": false,
     "official": false,
-    "verified_at": "2026-05-31",
+    "verified_at": "2026-06-08",
     "status": "active"
   },
   {
@@ -983,12 +983,12 @@
     "install": "gh extension install sgoedecke/gh-standup",
     "best_for": "Developers who prepare regular written standup updates.",
     "avoid_if": "You cannot send repository activity to an AI provider.",
-    "stars": 103,
+    "stars": 108,
     "license": "MIT",
     "last_pushed_at": "2026-04-23T03:04:27Z",
     "archived": false,
     "official": false,
-    "verified_at": "2026-05-31",
+    "verified_at": "2026-06-08",
     "status": "active"
   },
   {
@@ -999,12 +999,12 @@
     "install": "gh extension install shuymn/gh-mcp",
     "best_for": "Users connecting AI tools to GitHub through MCP.",
     "avoid_if": "You do not use MCP-compatible clients.",
-    "stars": 30,
+    "stars": 31,
     "license": "MIT",
-    "last_pushed_at": "2026-05-30T23:28:14Z",
+    "last_pushed_at": "2026-06-05T17:03:51Z",
     "archived": false,
     "official": false,
-    "verified_at": "2026-05-31",
+    "verified_at": "2026-06-08",
     "status": "active"
   },
   {
@@ -1017,10 +1017,10 @@
     "avoid_if": "You only need the simplest browser-based preview.",
     "stars": 94,
     "license": "MIT",
-    "last_pushed_at": "2026-05-24T16:57:28Z",
+    "last_pushed_at": "2026-06-01T17:11:02Z",
     "archived": false,
     "official": false,
-    "verified_at": "2026-05-31",
+    "verified_at": "2026-06-08",
     "status": "active"
   },
   {
@@ -1036,7 +1036,7 @@
     "last_pushed_at": "2026-04-20T07:14:34Z",
     "archived": false,
     "official": false,
-    "verified_at": "2026-05-31",
+    "verified_at": "2026-06-08",
     "status": "active"
   },
   {
@@ -1047,12 +1047,12 @@
     "install": "gh extension install valeriobelli/gh-milestone",
     "best_for": "Maintainers who use milestones for release planning.",
     "avoid_if": "Your project does not use GitHub milestones.",
-    "stars": 78,
+    "stars": 79,
     "license": "MIT",
     "last_pushed_at": "2026-02-15T11:10:07Z",
     "archived": false,
     "official": false,
-    "verified_at": "2026-05-31",
+    "verified_at": "2026-06-08",
     "status": "active"
   },
   {
@@ -1068,7 +1068,7 @@
     "last_pushed_at": "2023-04-03T02:51:38Z",
     "archived": false,
     "official": false,
-    "verified_at": "2026-05-31",
+    "verified_at": "2026-06-08",
     "status": "stale"
   },
   {
@@ -1079,12 +1079,12 @@
     "install": "gh extension install yusukebe/gh-markdown-preview",
     "best_for": "README, issue template, and documentation review.",
     "avoid_if": "You need fully offline preview support.",
-    "stars": 841,
+    "stars": 846,
     "license": "MIT",
     "last_pushed_at": "2026-05-21T07:33:02Z",
     "archived": false,
     "official": false,
-    "verified_at": "2026-05-31",
+    "verified_at": "2026-06-08",
     "status": "active"
   }
 ]

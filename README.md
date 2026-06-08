@@ -33,6 +33,7 @@ If `gh extension search` gives you too many options, start here.
 - [AI/Agents](#aiagents)
 - [Data](#data)
 - [Data Recipes](#data-recipes)
+- [Metadata Refresh](#metadata-refresh)
 - [For Extension Maintainers](#for-extension-maintainers)
 
 ## Quick Start
@@ -297,6 +298,14 @@ For example:
 
 ```sh
 npm run catalog:query -- --category "Actions/CI" --status active
+```
+
+## Metadata Refresh
+
+Use [`docs/metadata-refresh.md`](docs/metadata-refresh.md) to audit live GitHub metadata and refresh mechanical fields such as stars, license, last pushed date, and verification date.
+
+```sh
+npm run metadata:audit
 ```
 
 ## Contributing
