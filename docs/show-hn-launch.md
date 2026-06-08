@@ -67,6 +67,12 @@ This URL opens the audit page with a sample result already loaded, so first-time
 
 Post this only if a short explanation feels necessary after submission. Keep it factual and do not mention stars.
 
+To print the prepared comment:
+
+```sh
+npm run launch:show-hn:first-comment
+```
+
 ```text
 I built this because `gh extension search` gives many options, but it can still be hard to decide what is maintained, what fits a workflow, and what overlaps with something already installed.
 

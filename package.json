@@ -22,6 +22,7 @@
     "launch:show-hn:record-share": "node scripts/show-hn-record-share.mjs",
     "launch:show-hn:monitor": "node scripts/show-hn-monitor.mjs",
     "launch:show-hn:review-24h": "node scripts/show-hn-24h-review.mjs",
+    "launch:show-hn:first-comment": "node scripts/show-hn-first-comment.mjs",
     "site:build": "node scripts/build-catalog-site.mjs",
     "site:check": "node scripts/build-catalog-site.mjs --check",
     "summary:weekly": "node scripts/weekly-summary.mjs",

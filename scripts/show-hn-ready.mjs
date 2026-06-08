@@ -27,6 +27,8 @@ function main() {
 
   console.log("");
   console.log("Ready: open the HN submitlink printed by preflight and submit manually.");
+  console.log("After submission, run `npm run launch:show-hn:first-comment` if you want the optional factual first comment.");
+  console.log("Then run `npm run launch:show-hn:record-share -- --story STORY_URL`.");
 }
 
 main();
