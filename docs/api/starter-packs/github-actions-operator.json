@@ -1,0 +1,43 @@
+{
+  "name": "GitHub Actions Operator",
+  "slug": "github-actions-operator",
+  "summary": "Interactive workflow inspection plus CI health and migration helpers.",
+  "repos": [
+    "dlvhdr/gh-enhance",
+    "fchimpan/gh-workflow-stats",
+    "github/gh-actions-importer"
+  ],
+  "install_commands_url": "https://sjh9714.github.io/gh-extension-atlas/install/starter-packs/github-actions-operator.txt",
+  "entries": [
+    {
+      "repo": "dlvhdr/gh-enhance",
+      "name": "enhance",
+      "category": "Actions/CI",
+      "status": "active",
+      "summary": "A fast terminal UI for inspecting and managing GitHub Actions.",
+      "best_for": "Developers who want an interactive terminal UI for GitHub Actions workflows.",
+      "install": "gh extension install dlvhdr/gh-enhance",
+      "detail": "https://sjh9714.github.io/gh-extension-atlas/extensions/dlvhdr-gh-enhance.html"
+    },
+    {
+      "repo": "fchimpan/gh-workflow-stats",
+      "name": "workflow-stats",
+      "category": "Actions/CI",
+      "status": "active",
+      "summary": "Calculate workflow and job success rate and execution time.",
+      "best_for": "CI owners investigating slow or flaky workflows.",
+      "install": "gh extension install fchimpan/gh-workflow-stats",
+      "detail": "https://sjh9714.github.io/gh-extension-atlas/extensions/fchimpan-gh-workflow-stats.html"
+    },
+    {
+      "repo": "github/gh-actions-importer",
+      "name": "actions-importer",
+      "category": "Actions/CI",
+      "status": "active",
+      "summary": "Plan and automate migrations into GitHub Actions.",
+      "best_for": "Enterprise teams migrating from other CI systems.",
+      "install": "gh extension install github/gh-actions-importer",
+      "detail": "https://sjh9714.github.io/gh-extension-atlas/extensions/github-gh-actions-importer.html"
+    }
+  ]
+}

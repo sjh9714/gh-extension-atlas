@@ -1,0 +1,43 @@
+{
+  "name": "PR Review And Issue Triage",
+  "slug": "pr-review-and-issue-triage",
+  "summary": "Inline PR review, stacked PRs, and dependency update queues.",
+  "repos": [
+    "agynio/gh-pr-review",
+    "github/gh-stack",
+    "einride/gh-dependabot"
+  ],
+  "install_commands_url": "https://sjh9714.github.io/gh-extension-atlas/install/starter-packs/pr-review-and-issue-triage.txt",
+  "entries": [
+    {
+      "repo": "agynio/gh-pr-review",
+      "name": "pr-review",
+      "category": "PR & Issues",
+      "status": "active",
+      "summary": "View, navigate, reply to, and resolve PR review threads.",
+      "best_for": "Reviewers who want inline PR review workflows in the terminal.",
+      "install": "gh extension install agynio/gh-pr-review",
+      "detail": "https://sjh9714.github.io/gh-extension-atlas/extensions/agynio-gh-pr-review.html"
+    },
+    {
+      "repo": "github/gh-stack",
+      "name": "stack",
+      "category": "PR & Issues",
+      "status": "active",
+      "summary": "Manage stacked pull requests on GitHub.",
+      "best_for": "Teams that split large changes into dependent PRs.",
+      "install": "gh extension install github/gh-stack",
+      "detail": "https://sjh9714.github.io/gh-extension-atlas/extensions/github-gh-stack.html"
+    },
+    {
+      "repo": "einride/gh-dependabot",
+      "name": "dependabot",
+      "category": "PR & Issues",
+      "status": "active",
+      "summary": "Review Dependabot pull requests from GitHub CLI.",
+      "best_for": "Teams that process many dependency update pull requests.",
+      "install": "gh extension install einride/gh-dependabot",
+      "detail": "https://sjh9714.github.io/gh-extension-atlas/extensions/einride-gh-dependabot.html"
+    }
+  ]
+}

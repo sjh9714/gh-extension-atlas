@@ -18,6 +18,7 @@
     "catalog": "https://sjh9714.github.io/gh-extension-atlas/api/extensions.json",
     "schema": "https://sjh9714.github.io/gh-extension-atlas/api/extensions.schema.json",
     "top_picks": "https://sjh9714.github.io/gh-extension-atlas/api/top-picks.json",
+    "starter_packs": "https://sjh9714.github.io/gh-extension-atlas/api/starter-packs.json",
     "chooser": "https://sjh9714.github.io/gh-extension-atlas/chooser.html",
     "llms": "https://sjh9714.github.io/gh-extension-atlas/llms.txt",
     "llms_full": "https://sjh9714.github.io/gh-extension-atlas/llms-full.txt",
@@ -109,6 +110,7 @@
         "agynio/gh-pr-review",
         "meiji163/gh-notify"
       ],
+      "json": "https://sjh9714.github.io/gh-extension-atlas/api/starter-packs/daily-maintainer-triage.json",
       "install_commands": "https://sjh9714.github.io/gh-extension-atlas/install/starter-packs/daily-maintainer-triage.txt"
     },
     {
@@ -120,6 +122,7 @@
         "github/gh-stack",
         "einride/gh-dependabot"
       ],
+      "json": "https://sjh9714.github.io/gh-extension-atlas/api/starter-packs/pr-review-and-issue-triage.json",
       "install_commands": "https://sjh9714.github.io/gh-extension-atlas/install/starter-packs/pr-review-and-issue-triage.txt"
     },
     {
@@ -131,6 +134,7 @@
         "fchimpan/gh-workflow-stats",
         "github/gh-actions-importer"
       ],
+      "json": "https://sjh9714.github.io/gh-extension-atlas/api/starter-packs/github-actions-operator.json",
       "install_commands": "https://sjh9714.github.io/gh-extension-atlas/install/starter-packs/github-actions-operator.txt"
     },
     {
@@ -142,6 +146,7 @@
         "github/gh-models",
         "shuymn/gh-mcp"
       ],
+      "json": "https://sjh9714.github.io/gh-extension-atlas/api/starter-packs/ai-and-agents.json",
       "install_commands": "https://sjh9714.github.io/gh-extension-atlas/install/starter-packs/ai-and-agents.txt"
     },
     {
@@ -153,6 +158,7 @@
         "mislav/gh-branch",
         "redraw/gh-install"
       ],
+      "json": "https://sjh9714.github.io/gh-extension-atlas/api/starter-packs/local-repository-cleanup.json",
       "install_commands": "https://sjh9714.github.io/gh-extension-atlas/install/starter-packs/local-repository-cleanup.txt"
     },
     {
@@ -163,6 +169,7 @@
         "yusukebe/gh-markdown-preview",
         "thiagokokada/gh-gfm-preview"
       ],
+      "json": "https://sjh9714.github.io/gh-extension-atlas/api/starter-packs/documentation-review.json",
       "install_commands": "https://sjh9714.github.io/gh-extension-atlas/install/starter-packs/documentation-review.txt"
     },
     {
@@ -174,6 +181,7 @@
         "k1LoW/gh-grep",
         "LangLangBart/gh-find-code"
       ],
+      "json": "https://sjh9714.github.io/gh-extension-atlas/api/starter-packs/search-and-discovery.json",
       "install_commands": "https://sjh9714.github.io/gh-extension-atlas/install/starter-packs/search-and-discovery.txt"
     },
     {
@@ -185,6 +193,7 @@
         "Link-/gh-token",
         "github/gh-gei"
       ],
+      "json": "https://sjh9714.github.io/gh-extension-atlas/api/starter-packs/security-and-admin.json",
       "install_commands": "https://sjh9714.github.io/gh-extension-atlas/install/starter-packs/security-and-admin.txt"
     }
   ]

@@ -1,0 +1,43 @@
+{
+  "name": "Daily Maintainer Triage",
+  "slug": "daily-maintainer-triage",
+  "summary": "PRs, issues, review threads, and notifications from the terminal.",
+  "repos": [
+    "dlvhdr/gh-dash",
+    "agynio/gh-pr-review",
+    "meiji163/gh-notify"
+  ],
+  "install_commands_url": "https://sjh9714.github.io/gh-extension-atlas/install/starter-packs/daily-maintainer-triage.txt",
+  "entries": [
+    {
+      "repo": "dlvhdr/gh-dash",
+      "name": "dash",
+      "category": "Dashboard/TUI",
+      "status": "active",
+      "summary": "A rich terminal dashboard for pull requests, issues, and notifications.",
+      "best_for": "Maintainers who live in PR, issue, and notification queues.",
+      "install": "gh extension install dlvhdr/gh-dash",
+      "detail": "https://sjh9714.github.io/gh-extension-atlas/extensions/dlvhdr-gh-dash.html"
+    },
+    {
+      "repo": "agynio/gh-pr-review",
+      "name": "pr-review",
+      "category": "PR & Issues",
+      "status": "active",
+      "summary": "View, navigate, reply to, and resolve PR review threads.",
+      "best_for": "Reviewers who want inline PR review workflows in the terminal.",
+      "install": "gh extension install agynio/gh-pr-review",
+      "detail": "https://sjh9714.github.io/gh-extension-atlas/extensions/agynio-gh-pr-review.html"
+    },
+    {
+      "repo": "meiji163/gh-notify",
+      "name": "notify",
+      "category": "Notifications",
+      "status": "active",
+      "summary": "Display GitHub notifications in the terminal.",
+      "best_for": "Developers who want notification awareness without the browser.",
+      "install": "gh extension install meiji163/gh-notify",
+      "detail": "https://sjh9714.github.io/gh-extension-atlas/extensions/meiji163-gh-notify.html"
+    }
+  ]
+}

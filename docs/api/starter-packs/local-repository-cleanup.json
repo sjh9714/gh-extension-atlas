@@ -1,0 +1,43 @@
+{
+  "name": "Local Repository Cleanup",
+  "slug": "local-repository-cleanup",
+  "summary": "Safer branch cleanup, fuzzy branch switching, and release binary installs.",
+  "repos": [
+    "seachicken/gh-poi",
+    "mislav/gh-branch",
+    "redraw/gh-install"
+  ],
+  "install_commands_url": "https://sjh9714.github.io/gh-extension-atlas/install/starter-packs/local-repository-cleanup.txt",
+  "entries": [
+    {
+      "repo": "seachicken/gh-poi",
+      "name": "poi",
+      "category": "Repo & Branch",
+      "status": "active",
+      "summary": "Safely clean up local branches.",
+      "best_for": "Developers who want a trustworthy branch cleanup default.",
+      "install": "gh extension install seachicken/gh-poi",
+      "detail": "https://sjh9714.github.io/gh-extension-atlas/extensions/seachicken-gh-poi.html"
+    },
+    {
+      "repo": "mislav/gh-branch",
+      "name": "branch",
+      "category": "Repo & Branch",
+      "status": "watch",
+      "summary": "Fuzzy find, switch between, and delete branches.",
+      "best_for": "Developers with many local branches.",
+      "install": "gh extension install mislav/gh-branch",
+      "detail": "https://sjh9714.github.io/gh-extension-atlas/extensions/mislav-gh-branch.html"
+    },
+    {
+      "repo": "redraw/gh-install",
+      "name": "install",
+      "category": "Repo & Branch",
+      "status": "active",
+      "summary": "Install GitHub release binaries interactively.",
+      "best_for": "Developers who often install tools from GitHub releases.",
+      "install": "gh extension install redraw/gh-install",
+      "detail": "https://sjh9714.github.io/gh-extension-atlas/extensions/redraw-gh-install.html"
+    }
+  ]
+}

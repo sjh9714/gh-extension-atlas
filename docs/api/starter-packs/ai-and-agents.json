@@ -1,0 +1,43 @@
+{
+  "name": "AI And Agents",
+  "slug": "ai-and-agents",
+  "summary": "GitHub agent workflows, Models, standup summaries, and MCP setup.",
+  "repos": [
+    "github/gh-aw",
+    "github/gh-models",
+    "shuymn/gh-mcp"
+  ],
+  "install_commands_url": "https://sjh9714.github.io/gh-extension-atlas/install/starter-packs/ai-and-agents.txt",
+  "entries": [
+    {
+      "repo": "github/gh-aw",
+      "name": "aw",
+      "category": "AI/Agents",
+      "status": "active",
+      "summary": "Run GitHub agentic workflows from the CLI.",
+      "best_for": "Developers experimenting with GitHub-native agent workflows.",
+      "install": "gh extension install github/gh-aw",
+      "detail": "https://sjh9714.github.io/gh-extension-atlas/extensions/github-gh-aw.html"
+    },
+    {
+      "repo": "github/gh-models",
+      "name": "models",
+      "category": "AI/Agents",
+      "status": "active",
+      "summary": "Use GitHub Models from GitHub CLI.",
+      "best_for": "Developers testing prompts and models from the terminal.",
+      "install": "gh extension install github/gh-models",
+      "detail": "https://sjh9714.github.io/gh-extension-atlas/extensions/github-gh-models.html"
+    },
+    {
+      "repo": "shuymn/gh-mcp",
+      "name": "mcp",
+      "category": "AI/Agents",
+      "status": "active",
+      "summary": "Run GitHub MCP Server using existing GitHub CLI authentication.",
+      "best_for": "Users connecting AI tools to GitHub through MCP.",
+      "install": "gh extension install shuymn/gh-mcp",
+      "detail": "https://sjh9714.github.io/gh-extension-atlas/extensions/shuymn-gh-mcp.html"
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "name": "Documentation Review",
+  "slug": "documentation-review",
+  "summary": "GitHub-flavored Markdown preview before publishing README or docs changes.",
+  "repos": [
+    "yusukebe/gh-markdown-preview",
+    "thiagokokada/gh-gfm-preview"
+  ],
+  "install_commands_url": "https://sjh9714.github.io/gh-extension-atlas/install/starter-packs/documentation-review.txt",
+  "entries": [
+    {
+      "repo": "yusukebe/gh-markdown-preview",
+      "name": "markdown-preview",
+      "category": "Dashboard/TUI",
+      "status": "active",
+      "summary": "Preview Markdown as it appears on GitHub.",
+      "best_for": "README, issue template, and documentation review.",
+      "install": "gh extension install yusukebe/gh-markdown-preview",
+      "detail": "https://sjh9714.github.io/gh-extension-atlas/extensions/yusukebe-gh-markdown-preview.html"
+    },
+    {
+      "repo": "thiagokokada/gh-gfm-preview",
+      "name": "gfm-preview",
+      "category": "Dashboard/TUI",
+      "status": "active",
+      "summary": "Preview GitHub-flavored Markdown, including offline workflows.",
+      "best_for": "Writers who need Markdown preview without relying on GitHub web UI.",
+      "install": "gh extension install thiagokokada/gh-gfm-preview",
+      "detail": "https://sjh9714.github.io/gh-extension-atlas/extensions/thiagokokada-gh-gfm-preview.html"
+    }
+  ]
+}

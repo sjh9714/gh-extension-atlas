@@ -20,6 +20,8 @@ The API is a reviewed snapshot, not a live ranking. Fields such as `stars`, `las
 | [`/api/extensions.schema.json`](https://sjh9714.github.io/gh-extension-atlas/api/extensions.schema.json) | JSON Schema | You want the public data contract for catalog entries. |
 | [`/api/top-picks.json`](https://sjh9714.github.io/gh-extension-atlas/api/top-picks.json) | JSON array | You want the first-pass recommendations from the README Top Picks table. |
 | `/api/categories/{slug}.json` | JSON array | You want entries from one category, such as `actions-ci` or `dashboard-tui`. |
+| [`/api/starter-packs.json`](https://sjh9714.github.io/gh-extension-atlas/api/starter-packs.json) | JSON array | You want all workflow starter packs with entries and install commands. |
+| `/api/starter-packs/{slug}.json` | JSON object | You want one workflow starter pack as structured data. |
 | [`/llms.txt`](https://sjh9714.github.io/gh-extension-atlas/llms.txt) | Plain text | You want a concise plain-text map for AI coding tools and documentation indexers. |
 | [`/llms-full.txt`](https://sjh9714.github.io/gh-extension-atlas/llms-full.txt) | Plain text | You want workflow, API, starter pack, and catalog context in one plain-text file. |
 | [`/install/all.txt`](https://sjh9714.github.io/gh-extension-atlas/install/all.txt) | Plain text | You want every reviewed install command in one file. |
@@ -73,6 +75,13 @@ Print starter pack install bundles:
 ```sh
 curl -fsSL https://sjh9714.github.io/gh-extension-atlas/api/index.json \
   | jq -r '.starter_packs[] | [.name, .install_commands] | @tsv'
+```
+
+Print starter pack JSON endpoints:
+
+```sh
+curl -fsSL https://sjh9714.github.io/gh-extension-atlas/api/index.json \
+  | jq -r '.starter_packs[] | [.name, .json] | @tsv'
 ```
 
 Print the current health snapshot:
@@ -143,6 +152,7 @@ Review a starter pack:
 
 ```sh
 curl -fsSL https://sjh9714.github.io/gh-extension-atlas/install/starter-packs/github-actions-operator.txt
+curl -fsSL https://sjh9714.github.io/gh-extension-atlas/api/starter-packs/github-actions-operator.json
 ```
 
 ## Safety Notes

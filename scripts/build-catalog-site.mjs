@@ -444,6 +444,7 @@ const endpointFiles = [
   { path: "docs/api/extensions.json", content: renderJson(stableEntries(entries)) },
   { path: "docs/api/extensions.schema.json", content: renderJson(schema) },
   { path: "docs/api/top-picks.json", content: renderJson(getTopPickEntries(entries)) },
+  { path: "docs/api/starter-packs.json", content: renderJson(renderStarterPackIndex(entries)) },
   { path: "docs/health.md", content: renderHealthMarkdown(entries) },
   { path: "docs/llms.txt", content: renderLlmsTxt(entries) },
   { path: "docs/llms-full.txt", content: renderLlmsFullTxt(entries) },
@@ -452,6 +453,10 @@ const endpointFiles = [
   ...starterPacks.map((pack) => ({
     path: `docs/install/starter-packs/${starterPackSlug(pack)}.txt`,
     content: renderInstallCommands(getStarterPackEntries(pack, entries)),
+  })),
+  ...starterPacks.map((pack) => ({
+    path: `docs/api/starter-packs/${starterPackSlug(pack)}.json`,
+    content: renderJson(renderStarterPack(pack, entries)),
   })),
   ...categories.flatMap((category) => {
     const categoryEntries = entries.filter((entry) => entry.category === category).sort(categorySort);
@@ -3549,6 +3554,7 @@ function renderApiIndex(items) {
       catalog: `${siteUrl}api/extensions.json`,
       schema: `${siteUrl}api/extensions.schema.json`,
       top_picks: `${siteUrl}api/top-picks.json`,
+      starter_packs: `${siteUrl}api/starter-packs.json`,
       chooser: `${siteUrl}chooser.html`,
       llms: `${siteUrl}llms.txt`,
       llms_full: `${siteUrl}llms-full.txt`,
@@ -3576,9 +3582,37 @@ function renderApiIndex(items) {
         slug,
         summary: pack.summary,
         repos: pack.repos,
+        json: `${siteUrl}api/starter-packs/${slug}.json`,
         install_commands: `${siteUrl}install/starter-packs/${slug}.txt`,
       };
     }),
+  };
+}
+
+function renderStarterPackIndex(items) {
+  return starterPacks.map((pack) => renderStarterPack(pack, items));
+}
+
+function renderStarterPack(pack, items) {
+  const slug = starterPackSlug(pack);
+  const packEntries = getStarterPackEntries(pack, items);
+
+  return {
+    name: pack.name,
+    slug,
+    summary: pack.summary,
+    repos: pack.repos,
+    install_commands_url: `${siteUrl}install/starter-packs/${slug}.txt`,
+    entries: packEntries.map((entry) => ({
+      repo: entry.repo,
+      name: entry.name,
+      category: entry.category,
+      status: entry.status,
+      summary: entry.summary,
+      best_for: entry.best_for,
+      install: entry.install,
+      detail: `${siteUrl}${extensionPagePath(entry)}`,
+    })),
   };
 }
 
@@ -3746,6 +3780,7 @@ ${Object.values(workflowGuides)
 - Catalog health JSON: ${siteUrl}api/health.json
 - Catalog schema: ${siteUrl}api/extensions.schema.json
 - Top Picks JSON: ${siteUrl}api/top-picks.json
+- Starter packs JSON: ${siteUrl}api/starter-packs.json
 - All install commands: ${siteUrl}install/all.txt
 - Top Picks install commands: ${siteUrl}install/top-picks.txt
 
@@ -3822,6 +3857,7 @@ ${Object.entries(workflowGuides)
 - Full catalog JSON: ${siteUrl}api/extensions.json
 - Catalog JSON Schema: ${siteUrl}api/extensions.schema.json
 - Top Picks JSON: ${siteUrl}api/top-picks.json
+- Starter packs JSON: ${siteUrl}api/starter-packs.json
 - All install commands: ${siteUrl}install/all.txt
 - Top Picks install commands: ${siteUrl}install/top-picks.txt
 - LLM summary: ${siteUrl}llms.txt

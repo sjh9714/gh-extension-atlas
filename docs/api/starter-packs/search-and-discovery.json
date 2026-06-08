@@ -1,0 +1,43 @@
+{
+  "name": "Search And Discovery",
+  "slug": "search-and-discovery",
+  "summary": "Repository discovery, API-backed grep, and interactive code search.",
+  "repos": [
+    "gennaro-tedesco/gh-s",
+    "k1LoW/gh-grep",
+    "LangLangBart/gh-find-code"
+  ],
+  "install_commands_url": "https://sjh9714.github.io/gh-extension-atlas/install/starter-packs/search-and-discovery.txt",
+  "entries": [
+    {
+      "repo": "gennaro-tedesco/gh-s",
+      "name": "s",
+      "category": "Search",
+      "status": "active",
+      "summary": "Interactively search GitHub repositories.",
+      "best_for": "Finding repositories quickly from a terminal workflow.",
+      "install": "gh extension install gennaro-tedesco/gh-s",
+      "detail": "https://sjh9714.github.io/gh-extension-atlas/extensions/gennaro-tedesco-gh-s.html"
+    },
+    {
+      "repo": "k1LoW/gh-grep",
+      "name": "grep",
+      "category": "Search",
+      "status": "active",
+      "summary": "Print matching lines from repositories through the GitHub API.",
+      "best_for": "Searching repository content without cloning.",
+      "install": "gh extension install k1LoW/gh-grep",
+      "detail": "https://sjh9714.github.io/gh-extension-atlas/extensions/k1low-gh-grep.html"
+    },
+    {
+      "repo": "LangLangBart/gh-find-code",
+      "name": "find-code",
+      "category": "Search",
+      "status": "active",
+      "summary": "Search GitHub code with fzf.",
+      "best_for": "Developers who want interactive code search from the terminal.",
+      "install": "gh extension install LangLangBart/gh-find-code",
+      "detail": "https://sjh9714.github.io/gh-extension-atlas/extensions/langlangbart-gh-find-code.html"
+    }
+  ]
+}

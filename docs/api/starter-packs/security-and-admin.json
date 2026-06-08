@@ -1,0 +1,43 @@
+{
+  "name": "Security And Admin",
+  "slug": "security-and-admin",
+  "summary": "SBOM generation, GitHub App tokens, and enterprise migration workflows.",
+  "repos": [
+    "advanced-security/gh-sbom",
+    "Link-/gh-token",
+    "github/gh-gei"
+  ],
+  "install_commands_url": "https://sjh9714.github.io/gh-extension-atlas/install/starter-packs/security-and-admin.txt",
+  "entries": [
+    {
+      "repo": "advanced-security/gh-sbom",
+      "name": "sbom",
+      "category": "Security/Admin",
+      "status": "watch",
+      "summary": "Generate software bills of materials with GitHub CLI.",
+      "best_for": "Teams that need SBOM output during release or compliance work.",
+      "install": "gh extension install advanced-security/gh-sbom",
+      "detail": "https://sjh9714.github.io/gh-extension-atlas/extensions/advanced-security-gh-sbom.html"
+    },
+    {
+      "repo": "Link-/gh-token",
+      "name": "token",
+      "category": "Security/Admin",
+      "status": "active",
+      "summary": "Create installation access tokens for GitHub Apps.",
+      "best_for": "Developers working with GitHub App authentication.",
+      "install": "gh extension install Link-/gh-token",
+      "detail": "https://sjh9714.github.io/gh-extension-atlas/extensions/link-gh-token.html"
+    },
+    {
+      "repo": "github/gh-gei",
+      "name": "gei",
+      "category": "Security/Admin",
+      "status": "active",
+      "summary": "Support GitHub Enterprise Importer migration workflows.",
+      "best_for": "Enterprise teams migrating repositories to GitHub Enterprise Cloud.",
+      "install": "gh extension install github/gh-gei",
+      "detail": "https://sjh9714.github.io/gh-extension-atlas/extensions/github-gh-gei.html"
+    }
+  ]
+}

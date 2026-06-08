@@ -375,6 +375,7 @@ Published Pages endpoints:
 | [Catalog JSON Schema][api-schema]             | You want the public data contract for catalog entries.   |
 | [Public API Reference][api-reference]         | You want endpoint docs, schema notes, and curl examples. |
 | [Top Picks JSON][api-top-picks]               | You want only the first-pass recommendations.            |
+| [Starter pack JSON][api-starter-packs]        | You want workflow bundles as machine-readable JSON.      |
 | [LLM context][llms]                           | You want a concise plain-text map of the atlas.          |
 | [Full LLM context][llms-full]                 | You want plain-text workflow, API, and catalog context.  |
 | [All install commands][install-all]           | You want a plain-text command bundle for every entry.    |
@@ -387,6 +388,7 @@ Published Pages endpoints:
 [api-schema]: https://sjh9714.github.io/gh-extension-atlas/api/extensions.schema.json
 [api-reference]: docs/api-reference.md
 [api-top-picks]: https://sjh9714.github.io/gh-extension-atlas/api/top-picks.json
+[api-starter-packs]: https://sjh9714.github.io/gh-extension-atlas/api/starter-packs.json
 [llms]: https://sjh9714.github.io/gh-extension-atlas/llms.txt
 [llms-full]: https://sjh9714.github.io/gh-extension-atlas/llms-full.txt
 [install-all]: https://sjh9714.github.io/gh-extension-atlas/install/all.txt
