@@ -5100,7 +5100,7 @@ function renderAuditPage(items) {
       <div class="button-row">
         <button class="primary" type="button" id="run-audit">Run audit</button>
         <button type="button" id="copy-command">Copy command</button>
-        <button type="button" id="load-sample">Load sample</button>
+        <button type="button" id="load-sample">Try sample audit</button>
         <button type="button" id="copy-missing">Copy missing Top Picks installs</button>
         <button type="button" id="clear-input">Clear</button>
         <a class="button-link" href="api/extensions.json">Open catalog JSON</a>
@@ -5109,7 +5109,7 @@ function renderAuditPage(items) {
 
     <section class="result-panel" id="results" aria-live="polite">
       <h2>Audit Results</h2>
-      <p class="muted">Run an audit to see reviewed installs, unlisted installs, missing Top Picks, and workflow coverage.</p>
+      <p class="muted">Run an audit or try the sample to see reviewed installs, unlisted installs, missing Top Picks, and workflow coverage.</p>
     </section>
   </main>
 
@@ -5145,7 +5145,7 @@ function renderAuditPage(items) {
     document.getElementById("clear-input").addEventListener("click", () => {
       textarea.value = "";
       lastMissingTopPickInstalls = "";
-      results.innerHTML = '<h2>Audit Results</h2><p class="muted">Run an audit to see reviewed installs, unlisted installs, missing Top Picks, and workflow coverage.</p>';
+      results.innerHTML = '<h2>Audit Results</h2><p class="muted">Run an audit or try the sample to see reviewed installs, unlisted installs, missing Top Picks, and workflow coverage.</p>';
     });
 
     document.getElementById("copy-missing").addEventListener("click", async () => {
