@@ -76,7 +76,7 @@ Use the [starter packs](docs/starter-packs.md) when you want a small install seq
 | Local repository cleanup  | `gh-poi`, `gh-branch`, `gh-install`                      |
 | Documentation review      | `gh-markdown-preview`, `gh-gfm-preview`                  |
 | Security and admin        | `gh-sbom`, `gh-token`, `gh-gei`                          |
-| Search and discovery      | `gh-s`, `gh-grep`, `gh-user-stars`                       |
+| Search and discovery      | `gh-s`, `gh-grep`, `gh-find-code`                        |
 | AI and agents             | `gh-aw`, `gh-models`, `gh-mcp`                           |
 
 ## Who should use this
@@ -156,10 +156,12 @@ These are the first extensions to evaluate if you want broad value fast.
 | [GitHub Actions CLI extension guide][guide-actions]                   | You want to choose an Actions TUI, local runner, migration, or workflow health extension. |
 | [Git branch cleanup CLI extension guide][guide-branches]              | You want safer branch cleanup, branch switching, or worktree helpers.                     |
 | [GitHub notification triage CLI extension guide][guide-notifications] | You want terminal notification display, filtering, cleanup, or broader triage.            |
+| [GitHub repository search CLI extension guide][guide-search]          | You want repository search, code search, starred-repository search, or clone helpers.     |
 
 [guide-actions]: https://sjh9714.github.io/gh-extension-atlas/guides/github-actions-extensions.html
 [guide-branches]: https://sjh9714.github.io/gh-extension-atlas/guides/branch-cleanup-extensions.html
 [guide-notifications]: https://sjh9714.github.io/gh-extension-atlas/guides/notification-triage-extensions.html
+[guide-search]: https://sjh9714.github.io/gh-extension-atlas/guides/repository-search-extensions.html
 
 ## Catalog Browser
 

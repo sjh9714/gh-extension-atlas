@@ -36,6 +36,12 @@ const workflowGuides = {
     sourcePath: "guides/notification-triage-extensions.md",
     summary: "Choose a terminal notification viewer, rules helper, cleanup tool, or broader triage dashboard.",
   },
+  "Search": {
+    title: "GitHub Repository Search CLI Extension Guide",
+    path: "guides/repository-search-extensions.html",
+    sourcePath: "guides/repository-search-extensions.md",
+    summary: "Choose a repository search, code search, starred-repository, or local clone helper.",
+  },
 };
 const actionsGuideRows = [
   {
@@ -133,6 +139,43 @@ const notificationGuideRows = [
     why: "Best when notifications belong beside PR and issue queues in a TUI.",
   },
 ];
+const searchGuideRows = [
+  {
+    need: "Search repositories interactively",
+    repo: "gennaro-tedesco/gh-s",
+    why: "The best first stop when repository discovery is the main job.",
+  },
+  {
+    need: "Search repository content without cloning",
+    repo: "k1LoW/gh-grep",
+    why: "Good when you want API-backed content search from the terminal.",
+  },
+  {
+    need: "Search GitHub code with fzf",
+    repo: "LangLangBart/gh-find-code",
+    why: "Useful when interactive code search matters more than repository search.",
+  },
+  {
+    need: "Search your starred repositories",
+    repo: "Link-/gh-stars",
+    why: "A focused active option for treating stars as a personal knowledge base.",
+  },
+  {
+    need: "Browse a large starred-repository collection",
+    repo: "korosuke613/gh-user-stars",
+    why: "Useful for personal star libraries, but verify compatibility because it is stale.",
+  },
+  {
+    need: "Search and clone into a local repo workspace",
+    repo: "kawarimidoll/gh-q",
+    why: "Best when discovery should lead directly into local repository organization.",
+  },
+  {
+    need: "Explore a repository before cloning it",
+    repo: "samcoe/gh-repo-explore",
+    why: "A narrow explorer workflow, but verify compatibility because it is stale.",
+  },
+];
 const topPickRepos = [
   "dlvhdr/gh-dash",
   "github/gh-aw",
@@ -160,6 +203,11 @@ const starterPacks = [
     name: "Local Repository Cleanup",
     summary: "Safer branch cleanup, fuzzy branch switching, and release binary installs.",
     repos: ["seachicken/gh-poi", "mislav/gh-branch", "redraw/gh-install"],
+  },
+  {
+    name: "Search And Discovery",
+    summary: "Repository discovery, API-backed grep, and interactive code search.",
+    repos: ["gennaro-tedesco/gh-s", "k1LoW/gh-grep", "LangLangBart/gh-find-code"],
   },
   {
     name: "Security And Admin",
@@ -1617,6 +1665,24 @@ function renderWorkflowGuidePage(category, guide, items) {
     secondSectionTitle = "Triage Fit";
     secondSectionCopy = "Use a notification-only tool when visibility is enough. Use a broader dashboard when notifications are just one part of a daily PR and issue review queue.";
     freshnessCopy = "The atlas is a reviewed snapshot, not a live ranking. Recheck upstream repositories before adopting a notification tool, especially when the extension can mark items read, process unread queues, or request notification-related scopes.";
+  } else if (category === "Search") {
+    guideRows = searchGuideRows;
+    starterPackName = "Search And Discovery";
+    guideLead = "Choose a repository search, code search, starred-repository, or local clone helper without bouncing between browser tabs.";
+    startHereCopy = "Use the table as a quick chooser. The goal is not to replace GitHub search; it is to pick the first terminal workflow for the thing you are trying to find.";
+    firstCards = [
+      ["gennaro-tedesco/gh-s", "Interactive repository search"],
+      ["k1LoW/gh-grep", "API-backed repository grep"],
+      ["LangLangBart/gh-find-code", "Interactive code search"],
+    ];
+    secondCards = [
+      ["Link-/gh-stars", "Starred repository search"],
+      ["kawarimidoll/gh-q", "Search plus local cloning"],
+      ["gennaro-tedesco/gh-f", "Compact fuzzy GitHub workflow"],
+    ];
+    secondSectionTitle = "Search Fit";
+    secondSectionCopy = "Use repository search when you need a project, code search when you need a line, and starred-repository search when you are mining your own saved tools.";
+    freshnessCopy = "The atlas is a reviewed snapshot, not a live ranking. Recheck upstream repositories before adopting a search extension, especially when it depends on fzf, ghq, GitHub API rate limits, or older search endpoints.";
   }
 
   const starterPack = starterPacks.find((pack) => pack.name === starterPackName);

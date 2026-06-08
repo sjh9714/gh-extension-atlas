@@ -1,0 +1,394 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GitHub Repository Search CLI Extension Guide | GitHub CLI Extension Atlas</title>
+  <meta name="description" content="Choose a repository search, code search, starred-repository, or local clone helper.">
+  <meta property="og:title" content="GitHub Repository Search CLI Extension Guide">
+  <meta property="og:description" content="Choose a repository search, code search, starred-repository, or local clone helper.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://sjh9714.github.io/gh-extension-atlas/guides/repository-search-extensions.html">
+  <meta property="og:image" content="https://sjh9714.github.io/gh-extension-atlas/social-card.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="GitHub Repository Search CLI Extension Guide">
+  <meta name="twitter:description" content="Choose a repository search, code search, starred-repository, or local clone helper.">
+  <meta name="twitter:image" content="https://sjh9714.github.io/gh-extension-atlas/social-card.png">
+  <link rel="canonical" href="https://sjh9714.github.io/gh-extension-atlas/guides/repository-search-extensions.html">
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f7f8fa;
+      --panel: #ffffff;
+      --text: #1f2328;
+      --muted: #656d76;
+      --border: #d0d7de;
+      --accent: #0969da;
+      --accent-soft: #ddf4ff;
+      --good: #1a7f37;
+      --warn: #9a6700;
+      --stale: #8250df;
+      --shadow: 0 1px 2px rgba(31, 35, 40, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font: 15px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    header {
+      background: var(--panel);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .wrap {
+      width: min(1080px, calc(100vw - 32px));
+      margin: 0 auto;
+    }
+
+    .header-inner {
+      display: grid;
+      gap: 13px;
+      padding: 30px 0 24px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(30px, 4vw, 44px);
+      line-height: 1.1;
+      letter-spacing: 0;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 20px;
+      line-height: 1.25;
+      letter-spacing: 0;
+    }
+
+    p {
+      margin: 0;
+    }
+
+    .lead {
+      max-width: 800px;
+      color: var(--muted);
+      font-size: 17px;
+    }
+
+    .meta,
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 3px 10px;
+      background: var(--panel);
+      color: var(--muted);
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    main {
+      display: grid;
+      gap: 14px;
+      padding: 20px 0 42px;
+    }
+
+    .panel,
+    .table-wrap {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+    }
+
+    .panel {
+      display: grid;
+      gap: 11px;
+      padding: 16px;
+    }
+
+    .panel p,
+    .muted {
+      color: var(--muted);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .tool-card {
+      display: grid;
+      gap: 7px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px;
+      background: var(--panel);
+    }
+
+    .table-wrap {
+      overflow: auto;
+    }
+
+    table {
+      width: 100%;
+      min-width: 900px;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      padding: 11px 12px;
+      border-bottom: 1px solid var(--border);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: #f6f8fa;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    tr:last-child td {
+      border-bottom: 0;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    code {
+      font: 13px/1.45 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+
+    pre {
+      margin: 0;
+      overflow: auto;
+      border-radius: 6px;
+      padding: 10px;
+      background: #f6f8fa;
+    }
+
+    .repo {
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      min-height: 24px;
+      border-radius: 999px;
+      padding: 2px 9px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .status.active {
+      background: #dafbe1;
+      color: var(--good);
+    }
+
+    .status.watch {
+      background: #fff8c5;
+      color: var(--warn);
+    }
+
+    .status.stale {
+      background: #fbefff;
+      color: var(--stale);
+    }
+
+    @media (max-width: 760px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap header-inner">
+      <h1>GitHub Repository Search CLI Extension Guide</h1>
+      <p class="lead">Choose a repository search, code search, starred-repository, or local clone helper without bouncing between browser tabs.</p>
+      <div class="meta">
+        <span class="pill">9 Search extensions</span>
+        <span class="pill">7 active</span>
+        <span class="pill">Reviewed 2026-06-08</span>
+      </div>
+      <div class="actions">
+        <a href="../">Searchable catalog</a>
+        <a href="../categories/search.html">Search category</a>
+        <a href="../api/categories/search.json">Category JSON</a>
+        <a href="../guides/repository-search-extensions.md">Markdown source</a>
+        <a href="https://github.com/sjh9714/gh-extension-atlas#readme">README</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="panel">
+      <h2>Start Here</h2>
+      <p class="muted">Use the table as a quick chooser. The goal is not to replace GitHub search; it is to pick the first terminal workflow for the thing you are trying to find.</p>
+    </section>
+
+    <section class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>If you need to...</th>
+            <th>Start with</th>
+            <th>Why</th>
+            <th>Status</th>
+            <th>Install</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Search repositories interactively</td>
+            <td><a class="repo" href="https://github.com/gennaro-tedesco/gh-s">s</a><br><span class="muted">Interactively search GitHub repositories.</span></td>
+            <td>The best first stop when repository discovery is the main job.</td>
+            <td><span class="status active">active</span></td>
+            <td><code>gh extension install gennaro-tedesco/gh-s</code></td>
+          </tr>
+          <tr>
+            <td>Search repository content without cloning</td>
+            <td><a class="repo" href="https://github.com/k1LoW/gh-grep">grep</a><br><span class="muted">Print matching lines from repositories through the GitHub API.</span></td>
+            <td>Good when you want API-backed content search from the terminal.</td>
+            <td><span class="status active">active</span></td>
+            <td><code>gh extension install k1LoW/gh-grep</code></td>
+          </tr>
+          <tr>
+            <td>Search GitHub code with fzf</td>
+            <td><a class="repo" href="https://github.com/LangLangBart/gh-find-code">find-code</a><br><span class="muted">Search GitHub code with fzf.</span></td>
+            <td>Useful when interactive code search matters more than repository search.</td>
+            <td><span class="status active">active</span></td>
+            <td><code>gh extension install LangLangBart/gh-find-code</code></td>
+          </tr>
+          <tr>
+            <td>Search your starred repositories</td>
+            <td><a class="repo" href="https://github.com/Link-/gh-stars">stars</a><br><span class="muted">Search starred repositories from GitHub CLI.</span></td>
+            <td>A focused active option for treating stars as a personal knowledge base.</td>
+            <td><span class="status active">active</span></td>
+            <td><code>gh extension install Link-/gh-stars</code></td>
+          </tr>
+          <tr>
+            <td>Browse a large starred-repository collection</td>
+            <td><a class="repo" href="https://github.com/korosuke613/gh-user-stars">user-stars</a><br><span class="muted">Interactively browse and search starred repositories.</span></td>
+            <td>Useful for personal star libraries, but verify compatibility because it is stale.</td>
+            <td><span class="status stale">stale</span></td>
+            <td><code>gh extension install korosuke613/gh-user-stars</code></td>
+          </tr>
+          <tr>
+            <td>Search and clone into a local repo workspace</td>
+            <td><a class="repo" href="https://github.com/kawarimidoll/gh-q">q</a><br><span class="muted">Clone GitHub repositories using fzf and ghq.</span></td>
+            <td>Best when discovery should lead directly into local repository organization.</td>
+            <td><span class="status active">active</span></td>
+            <td><code>gh extension install kawarimidoll/gh-q</code></td>
+          </tr>
+          <tr>
+            <td>Explore a repository before cloning it</td>
+            <td><a class="repo" href="https://github.com/samcoe/gh-repo-explore">repo-explore</a><br><span class="muted">Interactively explore a repository without cloning it.</span></td>
+            <td>A narrow explorer workflow, but verify compatibility because it is stale.</td>
+            <td><span class="status stale">stale</span></td>
+            <td><code>gh extension install samcoe/gh-repo-explore</code></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="panel">
+      <h2>First Picks</h2>
+      <div class="grid">
+        <article class="tool-card">
+          <strong><a href="https://github.com/gennaro-tedesco/gh-s">s</a></strong>
+          <span class="muted">Interactive repository search</span>
+          <span>Finding repositories quickly from a terminal workflow.</span>
+          <code>gh extension install gennaro-tedesco/gh-s</code>
+        </article>
+        <article class="tool-card">
+          <strong><a href="https://github.com/k1LoW/gh-grep">grep</a></strong>
+          <span class="muted">API-backed repository grep</span>
+          <span>Searching repository content without cloning.</span>
+          <code>gh extension install k1LoW/gh-grep</code>
+        </article>
+        <article class="tool-card">
+          <strong><a href="https://github.com/LangLangBart/gh-find-code">find-code</a></strong>
+          <span class="muted">Interactive code search</span>
+          <span>Developers who want interactive code search from the terminal.</span>
+          <code>gh extension install LangLangBart/gh-find-code</code>
+        </article>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Search Fit</h2>
+      <p class="muted">Use repository search when you need a project, code search when you need a line, and starred-repository search when you are mining your own saved tools.</p>
+      <div class="grid">
+        <article class="tool-card">
+          <strong><a href="https://github.com/Link-/gh-stars">stars</a></strong>
+          <span class="muted">Starred repository search</span>
+          <span>Users who treat GitHub stars as a personal knowledge base.</span>
+          <code>gh extension install Link-/gh-stars</code>
+        </article>
+        <article class="tool-card">
+          <strong><a href="https://github.com/kawarimidoll/gh-q">q</a></strong>
+          <span class="muted">Search plus local cloning</span>
+          <span>Users who organize local repositories with ghq.</span>
+          <code>gh extension install kawarimidoll/gh-q</code>
+        </article>
+        <article class="tool-card">
+          <strong><a href="https://github.com/gennaro-tedesco/gh-f">f</a></strong>
+          <span class="muted">Compact fuzzy GitHub workflow</span>
+          <span>Users who want fast fuzzy GitHub navigation.</span>
+          <code>gh extension install gennaro-tedesco/gh-f</code>
+        </article>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Starter Pack</h2>
+      <p class="muted">Review the commands before installing. Do not pipe install bundles directly into a shell.</p>
+      <pre><code>gh extension install gennaro-tedesco/gh-s
+gh extension install k1LoW/gh-grep
+gh extension install LangLangBart/gh-find-code</code></pre>
+      <div class="actions">
+        <a href="../install/starter-packs/search-and-discovery.txt">Starter pack TXT</a>
+        <a href="https://sjh9714.github.io/gh-extension-atlas/categories/search.html">Search page</a>
+        <a href="https://sjh9714.github.io/gh-extension-atlas/?category=Search">Open filtered catalog</a>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Freshness Notes</h2>
+      <p class="muted">The atlas is a reviewed snapshot, not a live ranking. Recheck upstream repositories before adopting a search extension, especially when it depends on fzf, ghq, GitHub API rate limits, or older search endpoints.</p>
+    </section>
+  </main>
+</body>
+</html>

@@ -8,7 +8,7 @@
     "extensions": 68,
     "top_picks": 10,
     "categories": 8,
-    "starter_packs": 4,
+    "starter_packs": 5,
     "active": 49,
     "watch": 9,
     "stale": 10
@@ -127,6 +127,17 @@
         "redraw/gh-install"
       ],
       "install_commands": "https://sjh9714.github.io/gh-extension-atlas/install/starter-packs/local-repository-cleanup.txt"
+    },
+    {
+      "name": "Search And Discovery",
+      "slug": "search-and-discovery",
+      "summary": "Repository discovery, API-backed grep, and interactive code search.",
+      "repos": [
+        "gennaro-tedesco/gh-s",
+        "k1LoW/gh-grep",
+        "LangLangBart/gh-find-code"
+      ],
+      "install_commands": "https://sjh9714.github.io/gh-extension-atlas/install/starter-packs/search-and-discovery.txt"
     },
     {
       "name": "Security And Admin",

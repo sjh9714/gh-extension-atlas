@@ -1,0 +1,3 @@
+gh extension install gennaro-tedesco/gh-s
+gh extension install k1LoW/gh-grep
+gh extension install LangLangBart/gh-find-code

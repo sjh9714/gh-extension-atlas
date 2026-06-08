@@ -70,10 +70,10 @@ Best when you want faster repository, code, or starred-repository discovery from
 ```sh
 gh extension install gennaro-tedesco/gh-s
 gh extension install k1LoW/gh-grep
-gh extension install korosuke613/gh-user-stars
+gh extension install LangLangBart/gh-find-code
 ```
 
-Use `gh-s` first for interactive repository search. Add `gh-grep` when repository content search matters. Treat `gh-user-stars` as a focused starred-repository browser and check compatibility before depending on it.
+Use `gh-s` first for interactive repository search. Add `gh-grep` when repository content search matters. Add `gh-find-code` when you want interactive code search with fzf-style selection.
 
 ## AI And Agents
 
