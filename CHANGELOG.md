@@ -1,5 +1,18 @@
 # Changelog
 
+## v0.2.9
+
+This patch release adds a generated Documentation Review starter pack for README and docs preview workflows.
+
+### Added
+
+- Documentation Review starter pack TXT bundle.
+
+### Improved
+
+- Public API manifest now includes the Documentation Review starter pack.
+- API reference starter pack slug list now matches the generated manifest.
+
 ## v0.2.8
 
 This patch release adds an AI and agent workflow guide for GitHub CLI extensions.
