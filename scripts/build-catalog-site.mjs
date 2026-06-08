@@ -607,7 +607,7 @@ function validateAuditPage(files) {
     return ["docs/audit.html must be generated."];
   }
 
-  const requiredIds = ["catalog-data", "top-pick-data", "workflow-data", "extension-list", "run-audit", "copy-command", "load-sample", "copy-missing", "clear-input", "results"];
+  const requiredIds = ["catalog-data", "top-pick-data", "workflow-data", "extension-list", "run-audit", "copy-command", "load-sample", "copy-missing", "copy-summary", "clear-input", "results"];
 
   for (const id of requiredIds) {
     if (!file.content.includes(`id="${id}"`)) {
@@ -4981,6 +4981,15 @@ function renderAuditPage(items) {
       color: var(--muted);
     }
 
+    .next-list {
+      margin: 0;
+      padding-left: 20px;
+    }
+
+    .next-list li {
+      margin: 4px 0;
+    }
+
     .table-wrap {
       overflow: auto;
       border: 1px solid var(--border);
@@ -5102,6 +5111,7 @@ function renderAuditPage(items) {
         <button type="button" id="copy-command">Copy command</button>
         <button type="button" id="load-sample">Try sample audit</button>
         <button type="button" id="copy-missing">Copy missing Top Picks installs</button>
+        <button type="button" id="copy-summary">Copy audit summary</button>
         <button type="button" id="clear-input">Clear</button>
         <a class="button-link" href="api/extensions.json">Open catalog JSON</a>
       </div>
@@ -5121,9 +5131,11 @@ function renderAuditPage(items) {
     const topPickRepos = JSON.parse(document.getElementById("top-pick-data").textContent);
     const workflows = JSON.parse(document.getElementById("workflow-data").textContent);
     const entriesByRepo = new Map(catalog.map((entry) => [entry.repo.toLowerCase(), entry]));
+    const issueChooserUrl = "${repoIssueChooserUrl}";
     const textarea = document.getElementById("extension-list");
     const results = document.getElementById("results");
     let lastMissingTopPickInstalls = "";
+    let lastAuditSummary = "";
 
     document.getElementById("run-audit").addEventListener("click", () => {
       renderAudit(buildAudit(parseExtensionList(textarea.value)));
@@ -5145,6 +5157,7 @@ function renderAuditPage(items) {
     document.getElementById("clear-input").addEventListener("click", () => {
       textarea.value = "";
       lastMissingTopPickInstalls = "";
+      lastAuditSummary = "";
       results.innerHTML = '<h2>Audit Results</h2><p class="muted">Run an audit or try the sample to see reviewed installs, unlisted installs, missing Top Picks, and workflow coverage.</p>';
     });
 
@@ -5156,6 +5169,16 @@ function renderAuditPage(items) {
         return;
       }
       await copyText(lastMissingTopPickInstalls);
+    });
+
+    document.getElementById("copy-summary").addEventListener("click", async () => {
+      if (!lastAuditSummary) {
+        renderAudit(buildAudit(parseExtensionList(textarea.value)));
+      }
+      if (!lastAuditSummary) {
+        return;
+      }
+      await copyText(lastAuditSummary);
     });
 
     async function copyText(text) {
@@ -5216,10 +5239,12 @@ function renderAuditPage(items) {
       const workflowCoverage = workflows.map((workflow) => {
         const installedRepos = workflow.repos.filter((repo) => installedSet.has(repo.toLowerCase()));
         const missingRepos = workflow.repos.filter((repo) => !installedSet.has(repo.toLowerCase()));
+        const missingEntries = missingRepos.map((repo) => entriesByRepo.get(repo.toLowerCase())).filter(Boolean);
         return {
           label: workflow.label,
           coverage: installedRepos.length + "/" + workflow.repos.length,
           missing: missingRepos,
+          missingEntries,
         };
       });
 
@@ -5228,6 +5253,7 @@ function renderAuditPage(items) {
 
     function renderAudit(audit) {
       lastMissingTopPickInstalls = audit.missingTopPicks.map((entry) => entry.install).join("\\n");
+      lastAuditSummary = buildAuditSummary(audit);
       const summary = [
         ["Installed parsed", audit.installed.length],
         ["Reviewed by atlas", audit.reviewed.length],
@@ -5236,11 +5262,70 @@ function renderAuditPage(items) {
       ].map(([label, value]) => '<div class="summary-card"><strong>' + value + '</strong><span>' + escapeHtml(label) + '</span></div>').join("");
 
       results.innerHTML = '<h2>Audit Results</h2><div class="summary-grid">' + summary + '</div>'
+        + renderNextActions(audit)
         + renderReviewedTable(audit.reviewed)
         + renderUnlistedTable(audit.unlisted)
         + renderMissingTopPicks(audit.missingTopPicks)
         + renderWorkflowCoverage(audit.workflowCoverage)
         + '<p class="muted">Review upstream READMEs before installing extensions that can affect branches, CI, releases, security, or repository state.</p>';
+    }
+
+    function renderNextActions(audit) {
+      const actions = [];
+      if (!audit.installed.length) {
+        actions.push('Paste real <code>gh extension list</code> output or use <strong>Try sample audit</strong> to see the report shape.');
+      } else {
+        actions.push('Review matched installs first: <strong>' + audit.reviewed.length + '</strong> of <strong>' + audit.installed.length + '</strong> pasted extensions are already in the atlas.');
+      }
+      if (audit.unlisted.length) {
+        actions.push('Check unlisted installs before relying on them. If one is broadly useful, <a href="' + escapeAttribute(issueChooserUrl) + '">open a candidate review issue</a>.');
+      }
+      if (audit.missingTopPicks.length) {
+        actions.push('Use <strong>Copy missing Top Picks installs</strong> as a review queue, not a blind install list.');
+      }
+      const uncovered = audit.workflowCoverage.filter((workflow) => workflow.coverage.startsWith("0/")).slice(0, 3);
+      for (const workflow of uncovered) {
+        const firstMissing = workflow.missingEntries[0];
+        if (firstMissing) {
+          actions.push('No pasted extension covers <strong>' + escapeHtml(workflow.label) + '</strong>. First reviewed option: <code>' + escapeHtml(firstMissing.install) + '</code>.');
+        }
+      }
+      if (!audit.unlisted.length && !audit.missingTopPicks.length && !uncovered.length && audit.installed.length) {
+        actions.push('No immediate gap found. Keep the list small and re-run after installing or removing extensions.');
+      }
+      return '<section><h2>Next Actions</h2><ul class="next-list">' + actions.map((action) => '<li>' + action + '</li>').join("") + '</ul><p class="muted">Use <strong>Copy audit summary</strong> to share this result in an issue or personal notes.</p></section>';
+    }
+
+    function buildAuditSummary(audit) {
+      const lines = [
+        "GitHub CLI extension audit",
+        "",
+        "Installed parsed: " + audit.installed.length,
+        "Reviewed by atlas: " + audit.reviewed.length,
+        "Unlisted: " + audit.unlisted.length,
+        "Missing Top Picks: " + audit.missingTopPicks.length,
+      ];
+      const uncovered = audit.workflowCoverage.filter((workflow) => workflow.coverage.startsWith("0/"));
+      if (uncovered.length) {
+        lines.push("", "Workflow gaps:");
+        for (const workflow of uncovered) {
+          const firstMissing = workflow.missingEntries[0];
+          lines.push("- " + workflow.label + (firstMissing ? ": " + firstMissing.install : ""));
+        }
+      }
+      if (audit.unlisted.length) {
+        lines.push("", "Unlisted installs:");
+        for (const item of audit.unlisted) {
+          lines.push("- " + item.repo + (item.version ? " " + item.version : ""));
+        }
+      }
+      if (audit.missingTopPicks.length) {
+        lines.push("", "Missing Top Picks:");
+        for (const entry of audit.missingTopPicks) {
+          lines.push("- " + entry.install);
+        }
+      }
+      return lines.join("\\n");
     }
 
     function renderReviewedTable(items) {

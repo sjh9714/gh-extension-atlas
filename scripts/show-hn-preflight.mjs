@@ -58,7 +58,7 @@ async function checkAuditPage() {
   }
 
   const html = await response.text();
-  for (const marker of ["Audit Your GitHub CLI Extensions", "Try sample audit", "Copy command", "GitHub repo"]) {
+  for (const marker of ["Audit Your GitHub CLI Extensions", "Try sample audit", "Copy command", "Copy audit summary", "Next Actions", "GitHub repo"]) {
     if (!html.includes(marker)) {
       fail(`Audit page is missing marker: ${marker}`);
     }
