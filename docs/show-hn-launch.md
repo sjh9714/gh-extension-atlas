@@ -47,6 +47,7 @@ I am mainly looking for factual corrections, missing useful extensions, and cate
 - Run `npm run launch:show-hn:preflight`.
 - `gh-notify` has no negative reply or correction request.
 - Issue `#7` is updated with the 24-hour review.
+- Preflight confirms issue `#7` includes the second-wave 24-hour review, `gh-notify` status, and a no-negative-signal decision.
 - Latest `Validate` workflow is green.
 - Public audit page loads and shows `Try sample audit`.
 - Repository stars/watchers/forks are recorded.

@@ -146,7 +146,7 @@ function checkRepoMetrics() {
 }
 
 function checkTrackerIssues() {
-  const issue7 = readGhJson(["issue", "view", "7", "--repo", repo, "--json", "state,url"]);
+  const issue7 = readGhJson(["issue", "view", "7", "--repo", repo, "--json", "state,url,body,comments"]);
   const issue8 = readGhJson(["issue", "view", "8", "--repo", repo, "--json", "state,url"]);
 
   if (issue7.state !== "OPEN") {
@@ -159,6 +159,24 @@ function checkTrackerIssues() {
 
   console.log(`Tracker #7: ${issue7.url}`);
   console.log(`Tracker #8: ${issue8.url}`);
+  checkSecondWaveReview(issue7);
+}
+
+function checkSecondWaveReview(issue7) {
+  const commentText = Array.isArray(issue7.comments)
+    ? issue7.comments.map((comment) => comment.body || "").join("\n")
+    : "";
+  const reviewText = `${issue7.body || ""}\n${commentText}`.toLowerCase();
+  const hasReviewHeading = reviewText.includes("24h review") || reviewText.includes("24-hour review");
+  const mentionsGhNotify = reviewText.includes("gh-notify");
+  const hasDecision = reviewText.includes("show hn") || reviewText.includes("no negative signal") || reviewText.includes("no pending correction");
+
+  if (!hasReviewHeading || !mentionsGhNotify || !hasDecision) {
+    fail("Issue #7 is missing a second-wave 24h review with gh-notify status and a clear Show HN/no-negative-signal decision.");
+    return;
+  }
+
+  console.log("Second-wave review: recorded in issue #7");
 }
 
 function checkGhNotify() {
