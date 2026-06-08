@@ -32,6 +32,7 @@ The API is a reviewed snapshot, not a live ranking. Fields such as `stars`, `las
 | [`/agent-guide.md`](https://sjh9714.github.io/gh-extension-atlas/agent-guide.md) | Markdown | You want prompt and JSON recipes for AI coding assistants. |
 | [`/llms.txt`](https://sjh9714.github.io/gh-extension-atlas/llms.txt) | Plain text | You want a concise plain-text map for AI coding tools and documentation indexers. |
 | [`/llms-full.txt`](https://sjh9714.github.io/gh-extension-atlas/llms-full.txt) | Plain text | You want workflow, API, starter pack, and catalog context in one plain-text file. |
+| [`/install/`](https://sjh9714.github.io/gh-extension-atlas/install/) | HTML | You want a browser-friendly index of install bundles by Top Picks, workflow, and category. |
 | [`/install/all.txt`](https://sjh9714.github.io/gh-extension-atlas/install/all.txt) | Plain text | You want every reviewed install command in one file. |
 | [`/install/top-picks.txt`](https://sjh9714.github.io/gh-extension-atlas/install/top-picks.txt) | Plain text | You want install commands for the Top Picks only. |
 | `/install/categories/{slug}.txt` | Plain text | You want install commands for one category. |

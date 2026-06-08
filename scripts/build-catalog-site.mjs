@@ -485,6 +485,7 @@ const generatedFiles = [
   { path: "docs/index.html", content: renderCatalog(entries) },
   { path: "docs/chooser.html", content: renderChooserPage(entries) },
   { path: "docs/recommendations.html", content: renderRecommendationsPage(entries) },
+  { path: "docs/install/index.html", content: renderInstallBundlesPage(entries) },
   { path: "docs/awesome-github-cli-extensions.html", content: renderAwesomeLandingPage(entries) },
   { path: "docs/awesome-github-cli-extensions.md", content: renderAwesomeMarkdown(entries) },
   { path: "docs/robots.txt", content: renderRobotsTxt() },
@@ -593,6 +594,7 @@ function requiresStructuredData(filePath) {
     "docs/index.html",
     "docs/chooser.html",
     "docs/recommendations.html",
+    "docs/install/index.html",
     "docs/awesome-github-cli-extensions.html",
   ].includes(filePath) || filePath.startsWith("docs/extensions/");
 }
@@ -774,6 +776,60 @@ function chooserPageJsonLd(items, choices, pageUrl) {
           name: choice.title,
           description: choice.question,
           url: `${pageUrl}#${categorySlug(choice.title)}`,
+        })),
+      },
+    },
+    {
+      "@context": "https://schema.org",
+      "@id": `${siteUrl}#dataset`,
+      ...atlasDatasetJsonLd(items),
+    },
+  ];
+}
+
+function installBundlesPageJsonLd(items, pageUrl) {
+  const bundleItems = [
+    {
+      name: "All install commands",
+      description: "Every reviewed GitHub CLI extension install command in one plain-text bundle.",
+      url: `${siteUrl}install/all.txt`,
+    },
+    {
+      name: "Top Picks install commands",
+      description: "Install commands for the manually curated Top Picks shortlist.",
+      url: `${siteUrl}install/top-picks.txt`,
+    },
+    ...starterPacks.map((pack) => ({
+      name: pack.name,
+      description: pack.summary,
+      url: `${siteUrl}install/starter-packs/${starterPackSlug(pack)}.txt`,
+    })),
+    ...categories.map((category) => ({
+      name: `${category} install commands`,
+      description: `Install commands for the ${category} category.`,
+      url: `${siteUrl}install/categories/${categorySlug(category)}.txt`,
+    })),
+  ];
+
+  return [
+    {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      name: "GitHub CLI Extension Install Bundles",
+      description:
+        "Copyable, review-first install command bundles for GitHub CLI extensions by Top Picks, workflow, and category.",
+      url: pageUrl,
+      image: socialImageUrl,
+      mainEntity: {
+        "@type": "ItemList",
+        name: "GitHub CLI extension install bundles",
+        numberOfItems: bundleItems.length,
+        itemListElement: bundleItems.map((item, index) => ({
+          "@type": "ListItem",
+          position: index + 1,
+          name: item.name,
+          description: item.description,
+          url: item.url,
         })),
       },
     },
@@ -1310,7 +1366,7 @@ function renderCatalog(items) {
         <span class="pill"><a href="cheatsheet.md">Cheatsheet</a></span>
         <span class="pill"><a href="recommendations.html">Recommendations</a></span>
         <span class="pill"><a href="agent-guide.md">Agent guide</a></span>
-        <span class="pill">Install bundle: <a href="install/all.txt">all.txt</a></span>
+        <span class="pill"><a href="install/">Install bundles</a></span>
         <span class="pill"><a href="chooser.html">Chooser</a></span>
         <span class="pill"><a href="awesome-github-cli-extensions.html">Awesome overview</a></span>
         <span class="pill"><a href="https://github.com/sjh9714/gh-extension-atlas/blob/main/docs/starter-packs.md">Starter Packs</a></span>
@@ -3342,6 +3398,304 @@ function renderRecommendationCard(entry, index) {
         </article>`;
 }
 
+function renderInstallBundlesPage(items) {
+  const generatedAt = latestVerifiedAt(items);
+  const pageUrl = `${siteUrl}install/`;
+  const topPickEntries = getTopPickEntries(items);
+  const categoryBundles = categories.map((category) => {
+    const categoryEntries = items.filter((entry) => entry.category === category).sort(categorySort);
+    const slug = categorySlug(category);
+
+    return {
+      title: category,
+      summary: `${categoryEntries.length} extensions, ${categoryEntries.filter((entry) => entry.status === "active").length} active.`,
+      path: `categories/${slug}.txt`,
+      url: `${siteUrl}install/categories/${slug}.txt`,
+      entries: categoryEntries,
+    };
+  });
+  const starterPackBundles = starterPacks.map((pack) => {
+    const slug = starterPackSlug(pack);
+    return {
+      title: pack.name,
+      summary: pack.summary,
+      path: `starter-packs/${slug}.txt`,
+      url: `${siteUrl}install/starter-packs/${slug}.txt`,
+      entries: getStarterPackEntries(pack, items),
+    };
+  });
+
+  return `<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GitHub CLI Extension Install Bundles | GitHub CLI Extension Atlas</title>
+  <meta name="description" content="Review-first install command bundles for GitHub CLI extensions by Top Picks, workflow starter pack, and category.">
+  <meta property="og:title" content="GitHub CLI Extension Install Bundles">
+  <meta property="og:description" content="Copyable GitHub CLI extension install bundles for Top Picks, starter packs, categories, and the full reviewed catalog.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="${pageUrl}">
+  <meta property="og:image" content="${socialImageUrl}">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="GitHub CLI Extension Install Bundles">
+  <meta name="twitter:description" content="Review GitHub CLI extension install commands before installing anything.">
+  <meta name="twitter:image" content="${socialImageUrl}">
+  <link rel="canonical" href="${pageUrl}">
+  ${renderJsonLd(installBundlesPageJsonLd(items, pageUrl))}
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f7f8fa;
+      --panel: #ffffff;
+      --text: #1f2328;
+      --muted: #656d76;
+      --border: #d0d7de;
+      --accent: #0969da;
+      --accent-soft: #ddf4ff;
+      --shadow: 0 1px 2px rgba(31, 35, 40, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font: 15px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    header {
+      background: var(--panel);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .wrap {
+      width: min(1120px, calc(100vw - 32px));
+      margin: 0 auto;
+    }
+
+    .header-inner {
+      display: grid;
+      gap: 14px;
+      padding: 30px 0 24px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 40px;
+      line-height: 1.08;
+      letter-spacing: 0;
+    }
+
+    h2,
+    h3,
+    p {
+      margin: 0;
+    }
+
+    h2 {
+      font-size: 20px;
+      line-height: 1.25;
+      letter-spacing: 0;
+    }
+
+    .lead {
+      max-width: 820px;
+      color: var(--muted);
+      font-size: 18px;
+    }
+
+    .meta,
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 3px 10px;
+      background: var(--panel);
+      color: var(--muted);
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    main {
+      display: grid;
+      gap: 18px;
+      padding: 20px 0 42px;
+    }
+
+    section {
+      display: grid;
+      gap: 12px;
+    }
+
+    .bundle-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .bundle {
+      display: grid;
+      gap: 10px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 15px;
+      background: var(--panel);
+      box-shadow: var(--shadow);
+    }
+
+    .bundle-top {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      justify-content: space-between;
+    }
+
+    .muted,
+    .bundle p {
+      color: var(--muted);
+    }
+
+    pre {
+      margin: 0;
+      overflow: auto;
+      border-radius: 6px;
+      padding: 10px;
+      background: #f6f8fa;
+    }
+
+    code {
+      font: 13px/1.45 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      overflow-wrap: anywhere;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .safety {
+      border-left: 4px solid var(--accent);
+      padding: 12px 14px;
+      background: var(--accent-soft);
+      color: var(--text);
+    }
+
+    @media (max-width: 760px) {
+      .bundle-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .wrap {
+        width: min(100vw - 20px, 1120px);
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap header-inner">
+      <h1>GitHub CLI Extension Install Bundles</h1>
+      <p class="lead">Review small install command bundles before installing GitHub CLI extensions for a workflow, category, or the full catalog.</p>
+      <div class="meta">
+        <span class="pill">${items.length} curated extensions</span>
+        <span class="pill">${topPickEntries.length} Top Picks</span>
+        <span class="pill">${starterPacks.length} starter packs</span>
+        <span class="pill">${categories.length} categories</span>
+        <span class="pill">Reviewed ${escapeHtml(generatedAt)}</span>
+      </div>
+      <div class="actions">
+        <a href="../">Searchable catalog</a>
+        <a href="../chooser.html">Chooser</a>
+        <a href="../recommendations.html">Recommendations</a>
+        <a href="../api/index.json">API manifest</a>
+        <a href="${repoReadmeUrl}">README</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <p class="safety">Review bundle contents before installing. Do not pipe these remote files directly into a shell.</p>
+
+    <section>
+      <h2>General Bundles</h2>
+      <div class="bundle-grid">
+        ${renderInstallBundleCard({
+          title: "All install commands",
+          summary: `Every reviewed install command in the ${items.length}-extension catalog.`,
+          path: "all.txt",
+          url: `${siteUrl}install/all.txt`,
+          entries: stableEntries(items),
+        })}
+        ${renderInstallBundleCard({
+          title: "Top Picks",
+          summary: "The shortest manually curated first-pass shortlist.",
+          path: "top-picks.txt",
+          url: `${siteUrl}install/top-picks.txt`,
+          entries: topPickEntries,
+        })}
+      </div>
+    </section>
+
+    <section>
+      <h2>Workflow Starter Packs</h2>
+      <div class="bundle-grid">
+        ${starterPackBundles.map(renderInstallBundleCard).join("\n        ")}
+      </div>
+    </section>
+
+    <section>
+      <h2>Category Bundles</h2>
+      <div class="bundle-grid">
+        ${categoryBundles.map(renderInstallBundleCard).join("\n        ")}
+      </div>
+    </section>
+  </main>
+</body>
+</html>
+`;
+}
+
+function renderInstallBundleCard(bundle) {
+  const previewCommands = bundle.entries
+    .slice(0, 4)
+    .map((entry) => entry.install)
+    .join("\n");
+  const more = bundle.entries.length > 4 ? `\n# ... ${bundle.entries.length - 4} more in ${bundle.path}` : "";
+
+  return `<article class="bundle" id="${escapeAttribute(categorySlug(bundle.title))}">
+          <div class="bundle-top">
+            <h3>${escapeHtml(bundle.title)}</h3>
+            <span class="pill">${bundle.entries.length} commands</span>
+          </div>
+          <p>${escapeHtml(bundle.summary)}</p>
+          <pre><code>curl -fsSL ${escapeHtml(bundle.url)}</code></pre>
+          <pre><code>${escapeHtml(previewCommands + more)}</code></pre>
+          <div class="actions">
+            <a href="${escapeAttribute(bundle.path)}">Open TXT</a>
+            <a href="${escapeAttribute(bundle.url)}">Absolute URL</a>
+          </div>
+        </article>`;
+}
+
 function renderRecommendationMarkdownSection(recommendation, items) {
   const recommendationEntries = getRecommendationEntries(recommendation, items);
 
@@ -4136,6 +4490,12 @@ function renderSitemapXml(items) {
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>`;
+  const installBundlesUrl = `  <url>
+    <loc>${siteUrl}install/</loc>
+    <lastmod>${escapeHtml(lastmod)}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>`;
   const agentGuideUrl = `  <url>
     <loc>${siteUrl}agent-guide.md</loc>
     <lastmod>${escapeHtml(lastmod)}</lastmod>
@@ -4181,6 +4541,7 @@ ${awesomeMarkdownUrl}
 ${cheatsheetUrl}
 ${recommendationsUrl}
 ${recommendationsMarkdownUrl}
+${installBundlesUrl}
 ${agentGuideUrl}
 ${categoryUrls}
 ${guideUrls}
@@ -4354,6 +4715,7 @@ function renderApiIndex(items) {
       llms: `${siteUrl}llms.txt`,
       llms_full: `${siteUrl}llms-full.txt`,
       extension_page_template: `${siteUrl}extensions/{owner-repo}.html`,
+      install_bundles: `${siteUrl}install/`,
       all_install_commands: `${siteUrl}install/all.txt`,
       top_pick_install_commands: `${siteUrl}install/top-picks.txt`,
     },

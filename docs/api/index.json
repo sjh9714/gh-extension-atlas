@@ -33,6 +33,7 @@
     "llms": "https://sjh9714.github.io/gh-extension-atlas/llms.txt",
     "llms_full": "https://sjh9714.github.io/gh-extension-atlas/llms-full.txt",
     "extension_page_template": "https://sjh9714.github.io/gh-extension-atlas/extensions/{owner-repo}.html",
+    "install_bundles": "https://sjh9714.github.io/gh-extension-atlas/install/",
     "all_install_commands": "https://sjh9714.github.io/gh-extension-atlas/install/all.txt",
     "top_pick_install_commands": "https://sjh9714.github.io/gh-extension-atlas/install/top-picks.txt"
   },

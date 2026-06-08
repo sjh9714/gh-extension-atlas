@@ -58,6 +58,8 @@ Want a copy-paste quick reference? Open the [GitHub CLI Extension Cheatsheet][ch
 
 Want workflow-first picks with install commands and avoid-if notes? Open [Workflow Recommendations][workflow-recommendations].
 
+Want to inspect install bundles by workflow or category? Open the [Install Bundle Index][install-index].
+
 | Workflow                  | Read first                                   | Inspect starter pack                                                                                                                  |
 | ------------------------- | -------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
 | Daily maintainer triage   | [Terminal dashboard guide][guide-dashboards] | [`daily-maintainer-triage.txt`](https://sjh9714.github.io/gh-extension-atlas/install/starter-packs/daily-maintainer-triage.txt)       |
@@ -418,6 +420,7 @@ Published Pages endpoints:
 | [Starter pack JSON][api-starter-packs]                        | You want workflow bundles as machine-readable JSON.                |
 | [LLM context][llms]                                           | You want a concise plain-text map of the atlas.                    |
 | [Full LLM context][llms-full]                                 | You want plain-text workflow, API, and catalog context.            |
+| [Install Bundle Index][install-index]                         | You want a browser-friendly index of install command bundles.      |
 | [All install commands][install-all]                           | You want a plain-text command bundle for every entry.              |
 | [Top Picks install commands][install-top]                     | You want a plain-text install bundle for Top Picks.                |
 | [Starter pack install bundles][install-packs]                 | You want workflow-specific plain-text install bundles.             |
@@ -435,6 +438,7 @@ Published Pages endpoints:
 [workflow-recommendations]: https://sjh9714.github.io/gh-extension-atlas/recommendations.html
 [llms]: https://sjh9714.github.io/gh-extension-atlas/llms.txt
 [llms-full]: https://sjh9714.github.io/gh-extension-atlas/llms-full.txt
+[install-index]: https://sjh9714.github.io/gh-extension-atlas/install/
 [install-all]: https://sjh9714.github.io/gh-extension-atlas/install/all.txt
 [install-top]: https://sjh9714.github.io/gh-extension-atlas/install/top-picks.txt
 [install-packs]: https://sjh9714.github.io/gh-extension-atlas/install/starter-packs/daily-maintainer-triage.txt
