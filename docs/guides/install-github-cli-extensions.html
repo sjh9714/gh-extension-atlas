@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Install GitHub CLI Extensions Safely | GitHub CLI Extension Atlas</title>
+  <meta name="description" content="How to install, list, update, pin, audit, and remove GitHub CLI extensions safely.">
+  <meta property="og:title" content="Install GitHub CLI Extensions Safely">
+  <meta property="og:description" content="A practical setup guide for GitHub CLI extensions with install, update, audit, and removal commands.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://sjh9714.github.io/gh-extension-atlas/guides/install-github-cli-extensions.html">
+  <meta property="og:image" content="https://sjh9714.github.io/gh-extension-atlas/social-card.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Install GitHub CLI Extensions Safely">
+  <meta name="twitter:description" content="Install, update, audit, and remove GitHub CLI extensions without treating every search result as equally safe.">
+  <meta name="twitter:image" content="https://sjh9714.github.io/gh-extension-atlas/social-card.png">
+  <link rel="canonical" href="https://sjh9714.github.io/gh-extension-atlas/guides/install-github-cli-extensions.html">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Install GitHub CLI Extensions Safely",
+  "description": "How to install, list, update, pin, audit, and remove GitHub CLI extensions safely.",
+  "url": "https://sjh9714.github.io/gh-extension-atlas/guides/install-github-cli-extensions.html",
+  "dateModified": "2026-06-09",
+  "isAccessibleForFree": true
+}
+  </script>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f7f8fa;
+      --panel: #ffffff;
+      --text: #1f2328;
+      --muted: #656d76;
+      --border: #d0d7de;
+      --accent: #0969da;
+      --accent-soft: #ddf4ff;
+      --shadow: 0 1px 2px rgba(31, 35, 40, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font: 15px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    header {
+      background: var(--panel);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .wrap {
+      width: min(980px, calc(100vw - 32px));
+      margin: 0 auto;
+    }
+
+    .header-inner {
+      display: grid;
+      gap: 13px;
+      padding: 32px 0 24px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 40px;
+      line-height: 1.1;
+      letter-spacing: 0;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 20px;
+      line-height: 1.25;
+      letter-spacing: 0;
+    }
+
+    p {
+      margin: 0;
+    }
+
+    .lead {
+      max-width: 780px;
+      color: var(--muted);
+      font-size: 17px;
+    }
+
+    .actions,
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 3px 10px;
+      background: var(--panel);
+      color: var(--muted);
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    main {
+      display: grid;
+      gap: 14px;
+      padding: 20px 0 42px;
+    }
+
+    .panel {
+      display: grid;
+      gap: 11px;
+      padding: 16px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .callout {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px;
+      background: var(--accent-soft);
+    }
+
+    .muted,
+    .panel p {
+      color: var(--muted);
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    code {
+      font: 13px/1.45 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+
+    pre {
+      margin: 0;
+      overflow: auto;
+      border-radius: 6px;
+      padding: 10px;
+      background: #f6f8fa;
+    }
+
+    ul {
+      margin: 0;
+      padding-left: 20px;
+    }
+
+    @media (max-width: 760px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      h1 {
+        font-size: 32px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap header-inner">
+      <h1>Install GitHub CLI Extensions Safely</h1>
+      <p class="lead">A practical setup guide for installing, listing, updating, auditing, pinning, and removing GitHub CLI extensions.</p>
+      <div class="meta">
+        <span class="pill">Install one extension at a time</span>
+        <span class="pill">Audit with the atlas</span>
+        <span class="pill">Review upstream first</span>
+      </div>
+      <div class="actions">
+        <a href="choose-github-cli-extension.html">Decision tree</a>
+        <a href="../audit.html">Installed extension audit</a>
+        <a href="../install/">Install bundles</a>
+        <a href="install-github-cli-extensions.md">Markdown source</a>
+        <a href="https://github.com/sjh9714/gh-extension-atlas#readme">README</a>
+        <a href="https://github.com/sjh9714/gh-extension-atlas">Star on GitHub</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="callout">
+      GitHub CLI extensions are not verified, signed, or endorsed by GitHub. When you install or upgrade an extension, you are trusting its publisher.
+    </section>
+
+    <section class="panel">
+      <h2>Before You Install</h2>
+      <ul>
+        <li>Check that the repository is not archived.</li>
+        <li>Read the README and confirm what the extension does.</li>
+        <li>Make sure the install command uses the expected <code>OWNER/REPO</code> path.</li>
+        <li>Review maintenance status before using an extension for repeated work.</li>
+      </ul>
+    </section>
+
+    <section class="grid">
+      <div class="panel">
+        <h2>Install</h2>
+        <pre><code>gh extension install dlvhdr/gh-dash</code></pre>
+        <p>Use <code>OWNER/REPO</code> format for GitHub-hosted extensions.</p>
+      </div>
+      <div class="panel">
+        <h2>List</h2>
+        <pre><code>gh extension list</code></pre>
+        <p>Use this output with the atlas audit page to see reviewed and missing tools.</p>
+      </div>
+      <div class="panel">
+        <h2>Dry-Run Updates</h2>
+        <pre><code>gh extension upgrade --all --dry-run</code></pre>
+        <p>Check what would update before upgrading everything.</p>
+      </div>
+      <div class="panel">
+        <h2>Remove</h2>
+        <pre><code>gh extension remove gh-dash
+gh extension list</code></pre>
+        <p>Remove tools that you tried once and no longer use.</p>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Audit Installed Extensions</h2>
+      <p>Paste <code>gh extension list</code> output into the browser audit page, or run the local audit script from a clone of the atlas.</p>
+      <pre><code>gh extension list | npm --silent run catalog:audit-installed -- --stdin</code></pre>
+      <div class="actions">
+        <a href="../audit.html">Open browser audit</a>
+        <a href="audit-installed-gh-extensions.md">Read the audit guide</a>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Pin A Version</h2>
+      <pre><code>gh extension install OWNER/REPO --pin v1.2.3</code></pre>
+      <p>Pinned installs are useful for reproducible team setup, but you still need to decide when to upgrade.</p>
+    </section>
+
+    <section class="panel">
+      <h2>Pick A First Extension</h2>
+      <p>If you do not know which extension to install, start with the decision tree or inspect workflow bundles before copying commands.</p>
+      <pre><code>curl -fsSL https://sjh9714.github.io/gh-extension-atlas/install/starter-packs/github-actions-operator.txt</code></pre>
+      <div class="actions">
+        <a href="choose-github-cli-extension.html">Open decision tree</a>
+        <a href="../install/">Inspect install bundles</a>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
