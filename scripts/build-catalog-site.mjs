@@ -443,6 +443,8 @@ const endpointFiles = [
   { path: "docs/api/extensions.json", content: renderJson(stableEntries(entries)) },
   { path: "docs/api/extensions.schema.json", content: renderJson(schema) },
   { path: "docs/api/top-picks.json", content: renderJson(getTopPickEntries(entries)) },
+  { path: "docs/llms.txt", content: renderLlmsTxt(entries) },
+  { path: "docs/llms-full.txt", content: renderLlmsFullTxt(entries) },
   { path: "docs/install/all.txt", content: renderInstallCommands(stableEntries(entries)) },
   { path: "docs/install/top-picks.txt", content: renderInstallCommands(getTopPickEntries(entries)) },
   ...starterPacks.map((pack) => ({
@@ -3545,6 +3547,8 @@ function renderApiIndex(items) {
       schema: `${siteUrl}api/extensions.schema.json`,
       top_picks: `${siteUrl}api/top-picks.json`,
       chooser: `${siteUrl}chooser.html`,
+      llms: `${siteUrl}llms.txt`,
+      llms_full: `${siteUrl}llms-full.txt`,
       extension_page_template: `${siteUrl}extensions/{owner-repo}.html`,
       all_install_commands: `${siteUrl}install/all.txt`,
       top_pick_install_commands: `${siteUrl}install/top-picks.txt`,
@@ -3573,6 +3577,132 @@ function renderApiIndex(items) {
       };
     }),
   };
+}
+
+function renderLlmsTxt(items) {
+  const generatedAt = latestVerifiedAt(items);
+
+  return `# GitHub CLI Extension Atlas
+
+> Curated field guide to GitHub CLI extensions: what to install, when to use them, and which ones are maintained.
+
+- Repository: https://github.com/sjh9714/gh-extension-atlas
+- Website: ${siteUrl}
+- Searchable catalog: ${siteUrl}
+- Workflow chooser: ${siteUrl}chooser.html
+- Awesome overview: ${siteUrl}awesome-github-cli-extensions.html
+- API manifest: ${siteUrl}api/index.json
+- Full LLM context: ${siteUrl}llms-full.txt
+- Reviewed snapshot: ${generatedAt}
+
+## What This Is
+
+GitHub CLI Extension Atlas helps users choose a useful \`gh\` extension faster when \`gh extension search\` returns too many overlapping options. It is a curated snapshot, not an official GitHub project, exhaustive directory, or live ranking.
+
+## Core Pages
+
+- Workflow chooser: ${siteUrl}chooser.html
+- Searchable catalog: ${siteUrl}
+- Awesome overview: ${siteUrl}awesome-github-cli-extensions.html
+- API reference: ${siteUrl}api-reference.md
+- Data recipes: ${siteUrl}data-recipes.md
+- Starter packs: ${siteUrl}starter-packs.md
+
+## Workflow Guides
+
+${Object.values(workflowGuides)
+  .map((guide) => `- ${guide.title}: ${siteUrl}${guide.path}`)
+  .join("\n")}
+
+## Public Data
+
+- Full catalog JSON: ${siteUrl}api/extensions.json
+- Catalog schema: ${siteUrl}api/extensions.schema.json
+- Top Picks JSON: ${siteUrl}api/top-picks.json
+- All install commands: ${siteUrl}install/all.txt
+- Top Picks install commands: ${siteUrl}install/top-picks.txt
+
+## Categories
+
+${categories
+  .map((category) => {
+    const categoryItems = items.filter((entry) => entry.category === category);
+    return `- ${category}: ${categoryItems.length} extensions, ${categoryItems.filter((entry) => entry.status === "active").length} active - ${siteUrl}${categoryPagePath(category)}`;
+  })
+  .join("\n")}
+`;
+}
+
+function renderLlmsFullTxt(items) {
+  const generatedAt = latestVerifiedAt(items);
+  const sortedItems = stableEntries(items);
+  const activeCount = items.filter((entry) => entry.status === "active").length;
+  const watchCount = items.filter((entry) => entry.status === "watch").length;
+  const staleCount = items.filter((entry) => entry.status === "stale").length;
+
+  return `# GitHub CLI Extension Atlas
+
+> Curated field guide to GitHub CLI extensions: what to install, when to use them, and which ones are maintained.
+
+Repository: https://github.com/sjh9714/gh-extension-atlas
+Website: ${siteUrl}
+Reviewed snapshot: ${generatedAt}
+Catalog size: ${items.length} extensions
+Status counts: ${activeCount} active, ${watchCount} watch, ${staleCount} stale
+
+## Purpose
+
+Use this atlas when \`gh extension search\` gives too many options and you need a faster first choice. The project combines human curation, comparison guides, starter packs, generated extension detail pages, and a small public JSON catalog.
+
+This is not an official GitHub project, complete directory, endorsement list, or live ranking. Recheck upstream repositories before adopting a tool for security, compliance, CI, release, or production workflows.
+
+## Primary Entry Points
+
+- Workflow chooser: ${siteUrl}chooser.html
+- Searchable catalog: ${siteUrl}
+- Awesome overview: ${siteUrl}awesome-github-cli-extensions.html
+- API reference: ${siteUrl}api-reference.md
+- Data recipes: ${siteUrl}data-recipes.md
+- Starter packs: ${siteUrl}starter-packs.md
+- Full catalog JSON: ${siteUrl}api/extensions.json
+- Catalog schema: ${siteUrl}api/extensions.schema.json
+- API manifest: ${siteUrl}api/index.json
+
+## Top Picks
+
+${getTopPickEntries(items)
+  .map((entry) => `- ${entry.name} (${entry.repo}) - ${entry.best_for} Install: \`${entry.install}\`. Detail: ${siteUrl}${extensionPagePath(entry)}`)
+  .join("\n")}
+
+## Starter Packs
+
+${starterPacks
+  .map((pack) => `- ${pack.name}: ${pack.summary} Install bundle: ${siteUrl}install/starter-packs/${starterPackSlug(pack)}.txt Repos: ${pack.repos.join(", ")}`)
+  .join("\n")}
+
+## Workflow Guides
+
+${Object.entries(workflowGuides)
+  .map(([category, guide]) => `- ${category}: ${guide.summary} Guide: ${siteUrl}${guide.path} Category page: ${siteUrl}${categoryPagePath(category)} Category JSON: ${siteUrl}api/categories/${categorySlug(category)}.json`)
+  .join("\n")}
+
+## Public API And Plain Text Endpoints
+
+- API manifest: ${siteUrl}api/index.json
+- Full catalog JSON: ${siteUrl}api/extensions.json
+- Catalog JSON Schema: ${siteUrl}api/extensions.schema.json
+- Top Picks JSON: ${siteUrl}api/top-picks.json
+- All install commands: ${siteUrl}install/all.txt
+- Top Picks install commands: ${siteUrl}install/top-picks.txt
+- LLM summary: ${siteUrl}llms.txt
+- LLM full context: ${siteUrl}llms-full.txt
+
+## Catalog Entries
+
+${sortedItems
+  .map((entry) => `- ${entry.repo} - category: ${entry.category}; status: ${entry.status}; stars snapshot: ${entry.stars}; license: ${entry.license}; verified_at: ${entry.verified_at}; install: \`${entry.install}\`; summary: ${entry.summary}; best_for: ${entry.best_for}; avoid_if: ${entry.avoid_if}; detail: ${siteUrl}${extensionPagePath(entry)}`)
+  .join("\n")}
+`;
 }
 
 function renderJson(value) {

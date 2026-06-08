@@ -1,0 +1,55 @@
+# GitHub CLI Extension Atlas
+
+> Curated field guide to GitHub CLI extensions: what to install, when to use them, and which ones are maintained.
+
+- Repository: https://github.com/sjh9714/gh-extension-atlas
+- Website: https://sjh9714.github.io/gh-extension-atlas/
+- Searchable catalog: https://sjh9714.github.io/gh-extension-atlas/
+- Workflow chooser: https://sjh9714.github.io/gh-extension-atlas/chooser.html
+- Awesome overview: https://sjh9714.github.io/gh-extension-atlas/awesome-github-cli-extensions.html
+- API manifest: https://sjh9714.github.io/gh-extension-atlas/api/index.json
+- Full LLM context: https://sjh9714.github.io/gh-extension-atlas/llms-full.txt
+- Reviewed snapshot: 2026-06-08
+
+## What This Is
+
+GitHub CLI Extension Atlas helps users choose a useful `gh` extension faster when `gh extension search` returns too many overlapping options. It is a curated snapshot, not an official GitHub project, exhaustive directory, or live ranking.
+
+## Core Pages
+
+- Workflow chooser: https://sjh9714.github.io/gh-extension-atlas/chooser.html
+- Searchable catalog: https://sjh9714.github.io/gh-extension-atlas/
+- Awesome overview: https://sjh9714.github.io/gh-extension-atlas/awesome-github-cli-extensions.html
+- API reference: https://sjh9714.github.io/gh-extension-atlas/api-reference.md
+- Data recipes: https://sjh9714.github.io/gh-extension-atlas/data-recipes.md
+- Starter packs: https://sjh9714.github.io/gh-extension-atlas/starter-packs.md
+
+## Workflow Guides
+
+- GitHub Terminal Dashboard CLI Extension Guide: https://sjh9714.github.io/gh-extension-atlas/guides/terminal-dashboard-extensions.html
+- GitHub Actions CLI extension guide: https://sjh9714.github.io/gh-extension-atlas/guides/github-actions-extensions.html
+- GitHub AI And Agent CLI Extension Guide: https://sjh9714.github.io/gh-extension-atlas/guides/ai-agent-extensions.html
+- Git Branch Cleanup CLI Extension Guide: https://sjh9714.github.io/gh-extension-atlas/guides/branch-cleanup-extensions.html
+- GitHub Notification Triage CLI Extension Guide: https://sjh9714.github.io/gh-extension-atlas/guides/notification-triage-extensions.html
+- GitHub PR And Issue Triage CLI Extension Guide: https://sjh9714.github.io/gh-extension-atlas/guides/pr-issue-triage-extensions.html
+- GitHub Repository Search CLI Extension Guide: https://sjh9714.github.io/gh-extension-atlas/guides/repository-search-extensions.html
+- GitHub Security And Admin CLI Extension Guide: https://sjh9714.github.io/gh-extension-atlas/guides/security-admin-extensions.html
+
+## Public Data
+
+- Full catalog JSON: https://sjh9714.github.io/gh-extension-atlas/api/extensions.json
+- Catalog schema: https://sjh9714.github.io/gh-extension-atlas/api/extensions.schema.json
+- Top Picks JSON: https://sjh9714.github.io/gh-extension-atlas/api/top-picks.json
+- All install commands: https://sjh9714.github.io/gh-extension-atlas/install/all.txt
+- Top Picks install commands: https://sjh9714.github.io/gh-extension-atlas/install/top-picks.txt
+
+## Categories
+
+- Actions/CI: 7 extensions, 6 active - https://sjh9714.github.io/gh-extension-atlas/categories/actions-ci.html
+- AI/Agents: 4 extensions, 4 active - https://sjh9714.github.io/gh-extension-atlas/categories/ai-agents.html
+- Dashboard/TUI: 8 extensions, 7 active - https://sjh9714.github.io/gh-extension-atlas/categories/dashboard-tui.html
+- Notifications: 4 extensions, 4 active - https://sjh9714.github.io/gh-extension-atlas/categories/notifications.html
+- PR & Issues: 11 extensions, 8 active - https://sjh9714.github.io/gh-extension-atlas/categories/pr-issues.html
+- Repo & Branch: 11 extensions, 5 active - https://sjh9714.github.io/gh-extension-atlas/categories/repo-branch.html
+- Search: 9 extensions, 7 active - https://sjh9714.github.io/gh-extension-atlas/categories/search.html
+- Security/Admin: 14 extensions, 8 active - https://sjh9714.github.io/gh-extension-atlas/categories/security-admin.html
