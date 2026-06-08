@@ -1,5 +1,14 @@
 # Changelog
 
+## v0.2.11
+
+This patch release adds a Start Here router near the top of the README.
+
+### Improved
+
+- README now routes common workflows directly to the matching workflow guide and starter pack.
+- README now shows an example `curl -fsSL` starter pack inspection command before the longer catalog sections.
+
 ## v0.2.10
 
 This patch release makes workflow guide starter packs easier to find and inspect.
