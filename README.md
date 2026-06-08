@@ -55,6 +55,7 @@ Then open the [sample audit][audit-demo], choose **Paste from clipboard** or pas
 - [Metadata Refresh](#metadata-refresh)
 - [FAQ](#faq)
 - [Feedback](#feedback)
+- [Support](#support)
 - [For Extension Maintainers](#for-extension-maintainers)
 
 ## Start Here
@@ -563,6 +564,12 @@ Use issues when the change is specific:
 Use the [feedback discussion](https://github.com/sjh9714/gh-extension-atlas/discussions/5) for questions, rough ideas, and lightweight feedback that is not yet a concrete issue.
 
 Security-relevant catalog corrections, unsafe install guidance, or sensitive report handling notes are covered in [`SECURITY.md`](SECURITY.md).
+
+## Support
+
+If this atlas helped you audit installed extensions or choose a safer first option, starring the repository helps other GitHub CLI users find it later.
+
+Corrections, missing-extension suggestions, and clearer comparison notes are still the most useful form of support.
 
 ## For Extension Maintainers
 
