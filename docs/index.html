@@ -196,6 +196,70 @@
       font-size: 13px;
     }
 
+    .packs {
+      margin-top: 14px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .section-heading {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: baseline;
+      justify-content: space-between;
+    }
+
+    .section-heading h2 {
+      margin: 0;
+      font-size: 18px;
+      line-height: 1.3;
+      letter-spacing: 0;
+    }
+
+    .section-heading p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .pack-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .pack-card {
+      display: grid;
+      gap: 9px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px;
+      background: var(--panel);
+      box-shadow: var(--shadow);
+    }
+
+    .pack-card h3 {
+      margin: 0;
+      font-size: 15px;
+      line-height: 1.3;
+      letter-spacing: 0;
+    }
+
+    .pack-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .pack-card pre {
+      margin: 0;
+      overflow: auto;
+      border-radius: 6px;
+      padding: 8px;
+      background: #f6f8fa;
+    }
+
     .table-wrap {
       margin-top: 14px;
       overflow: auto;
@@ -317,6 +381,10 @@
       .filters {
         grid-template-columns: 1fr 1fr;
       }
+
+      .pack-grid {
+        grid-template-columns: 1fr 1fr;
+      }
     }
 
     @media (max-width: 560px) {
@@ -325,6 +393,10 @@
       }
 
       .filters {
+        grid-template-columns: 1fr;
+      }
+
+      .pack-grid {
         grid-template-columns: 1fr;
       }
     }
@@ -416,6 +488,54 @@
       <div class="summary" id="summary"></div>
     </section>
 
+    <section class="packs" aria-label="Starter packs">
+      <div class="section-heading">
+        <div>
+          <h2>Starter Packs</h2>
+          <p>Copy a small install sequence for a common GitHub CLI workflow.</p>
+        </div>
+        <a href="https://github.com/sjh9714/gh-extension-atlas/blob/main/docs/starter-packs.md">Full starter pack guide</a>
+      </div>
+      <div class="pack-grid">
+        <article class="pack-card">
+          <h3>Daily Maintainer Triage</h3>
+          <p>PRs, issues, review threads, and notifications from the terminal.</p>
+          <p><code>dlvhdr/gh-dash</code>, <code>agynio/gh-pr-review</code>, <code>meiji163/gh-notify</code></p>
+          <pre><code>gh extension install dlvhdr/gh-dash
+gh extension install agynio/gh-pr-review
+gh extension install meiji163/gh-notify</code></pre>
+          <button type="button" data-pack-install="gh extension install dlvhdr/gh-dash&#10;gh extension install agynio/gh-pr-review&#10;gh extension install meiji163/gh-notify">Copy commands</button>
+        </article>
+        <article class="pack-card">
+          <h3>GitHub Actions Operator</h3>
+          <p>Interactive workflow inspection plus CI health and migration helpers.</p>
+          <p><code>dlvhdr/gh-enhance</code>, <code>fchimpan/gh-workflow-stats</code>, <code>github/gh-actions-importer</code></p>
+          <pre><code>gh extension install dlvhdr/gh-enhance
+gh extension install fchimpan/gh-workflow-stats
+gh extension install github/gh-actions-importer</code></pre>
+          <button type="button" data-pack-install="gh extension install dlvhdr/gh-enhance&#10;gh extension install fchimpan/gh-workflow-stats&#10;gh extension install github/gh-actions-importer">Copy commands</button>
+        </article>
+        <article class="pack-card">
+          <h3>Local Repository Cleanup</h3>
+          <p>Safer branch cleanup, fuzzy branch switching, and release binary installs.</p>
+          <p><code>seachicken/gh-poi</code>, <code>mislav/gh-branch</code>, <code>redraw/gh-install</code></p>
+          <pre><code>gh extension install seachicken/gh-poi
+gh extension install mislav/gh-branch
+gh extension install redraw/gh-install</code></pre>
+          <button type="button" data-pack-install="gh extension install seachicken/gh-poi&#10;gh extension install mislav/gh-branch&#10;gh extension install redraw/gh-install">Copy commands</button>
+        </article>
+        <article class="pack-card">
+          <h3>Security And Admin</h3>
+          <p>SBOM generation, GitHub App tokens, and enterprise migration workflows.</p>
+          <p><code>advanced-security/gh-sbom</code>, <code>Link-/gh-token</code>, <code>github/gh-gei</code></p>
+          <pre><code>gh extension install advanced-security/gh-sbom
+gh extension install Link-/gh-token
+gh extension install github/gh-gei</code></pre>
+          <button type="button" data-pack-install="gh extension install advanced-security/gh-sbom&#10;gh extension install Link-/gh-token&#10;gh extension install github/gh-gei">Copy commands</button>
+        </article>
+      </div>
+    </section>
+
     <section class="table-wrap" aria-live="polite">
       <table>
         <thead>
@@ -496,6 +616,13 @@
 
       await copyText(button.dataset.install);
       showFeedback("Copied install command.");
+    });
+
+    document.querySelectorAll("[data-pack-install]").forEach((button) => {
+      button.addEventListener("click", async () => {
+        await copyText(button.dataset.packInstall);
+        showFeedback("Copied starter pack commands.");
+      });
     });
 
     render({ replace: true });

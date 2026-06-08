@@ -16,6 +16,28 @@ const topPickRepos = [
   "agynio/gh-pr-review",
   "fchimpan/gh-workflow-stats",
 ];
+const starterPacks = [
+  {
+    name: "Daily Maintainer Triage",
+    summary: "PRs, issues, review threads, and notifications from the terminal.",
+    repos: ["dlvhdr/gh-dash", "agynio/gh-pr-review", "meiji163/gh-notify"],
+  },
+  {
+    name: "GitHub Actions Operator",
+    summary: "Interactive workflow inspection plus CI health and migration helpers.",
+    repos: ["dlvhdr/gh-enhance", "fchimpan/gh-workflow-stats", "github/gh-actions-importer"],
+  },
+  {
+    name: "Local Repository Cleanup",
+    summary: "Safer branch cleanup, fuzzy branch switching, and release binary installs.",
+    repos: ["seachicken/gh-poi", "mislav/gh-branch", "redraw/gh-install"],
+  },
+  {
+    name: "Security And Admin",
+    summary: "SBOM generation, GitHub App tokens, and enterprise migration workflows.",
+    repos: ["advanced-security/gh-sbom", "Link-/gh-token", "github/gh-gei"],
+  },
+];
 
 const entries = JSON.parse(fs.readFileSync(dataPath, "utf8"));
 const generatedFiles = [
@@ -253,6 +275,70 @@ function renderCatalog(items) {
       font-size: 13px;
     }
 
+    .packs {
+      margin-top: 14px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .section-heading {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: baseline;
+      justify-content: space-between;
+    }
+
+    .section-heading h2 {
+      margin: 0;
+      font-size: 18px;
+      line-height: 1.3;
+      letter-spacing: 0;
+    }
+
+    .section-heading p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .pack-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .pack-card {
+      display: grid;
+      gap: 9px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px;
+      background: var(--panel);
+      box-shadow: var(--shadow);
+    }
+
+    .pack-card h3 {
+      margin: 0;
+      font-size: 15px;
+      line-height: 1.3;
+      letter-spacing: 0;
+    }
+
+    .pack-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .pack-card pre {
+      margin: 0;
+      overflow: auto;
+      border-radius: 6px;
+      padding: 8px;
+      background: #f6f8fa;
+    }
+
     .table-wrap {
       margin-top: 14px;
       overflow: auto;
@@ -374,6 +460,10 @@ function renderCatalog(items) {
       .filters {
         grid-template-columns: 1fr 1fr;
       }
+
+      .pack-grid {
+        grid-template-columns: 1fr 1fr;
+      }
     }
 
     @media (max-width: 560px) {
@@ -382,6 +472,10 @@ function renderCatalog(items) {
       }
 
       .filters {
+        grid-template-columns: 1fr;
+      }
+
+      .pack-grid {
         grid-template-columns: 1fr;
       }
     }
@@ -464,6 +558,19 @@ function renderCatalog(items) {
       <div class="summary" id="summary"></div>
     </section>
 
+    <section class="packs" aria-label="Starter packs">
+      <div class="section-heading">
+        <div>
+          <h2>Starter Packs</h2>
+          <p>Copy a small install sequence for a common GitHub CLI workflow.</p>
+        </div>
+        <a href="https://github.com/sjh9714/gh-extension-atlas/blob/main/docs/starter-packs.md">Full starter pack guide</a>
+      </div>
+      <div class="pack-grid">
+        ${starterPacks.map(renderPackCard).join("\n        ")}
+      </div>
+    </section>
+
     <section class="table-wrap" aria-live="polite">
       <table>
         <thead>
@@ -544,6 +651,13 @@ function renderCatalog(items) {
 
       await copyText(button.dataset.install);
       showFeedback("Copied install command.");
+    });
+
+    document.querySelectorAll("[data-pack-install]").forEach((button) => {
+      button.addEventListener("click", async () => {
+        await copyText(button.dataset.packInstall);
+        showFeedback("Copied starter pack commands.");
+      });
     });
 
     render({ replace: true });
@@ -759,6 +873,19 @@ Allow: /
 
 Sitemap: ${siteUrl}sitemap.xml
 `;
+}
+
+function renderPackCard(pack) {
+  const commands = pack.repos.map((repo) => `gh extension install ${repo}`).join("\n");
+  const repos = pack.repos.map((repo) => `<code>${escapeHtml(repo)}</code>`).join(", ");
+
+  return `<article class="pack-card">
+          <h3>${escapeHtml(pack.name)}</h3>
+          <p>${escapeHtml(pack.summary)}</p>
+          <p>${repos}</p>
+          <pre><code>${escapeHtml(commands)}</code></pre>
+          <button type="button" data-pack-install="${escapeAttribute(commands).replaceAll("\n", "&#10;")}">Copy commands</button>
+        </article>`;
 }
 
 function renderSitemapXml(items) {
