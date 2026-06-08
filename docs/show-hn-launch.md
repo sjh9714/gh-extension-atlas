@@ -9,6 +9,16 @@ Current guardrail:
 - If a maintainer requests a correction, fix and validate before submitting.
 - Do not ask for stars, upvotes, reposts, or endorsements.
 
+## Second-Wave Review
+
+After `2026-06-10 00:10 KST`, generate the issue `#7` review:
+
+```sh
+npm run launch:show-hn:review
+```
+
+Paste the output into issue `#7` before running the final preflight. If the review says to hold, do not submit to Show HN.
+
 ## Submission
 
 Use a link submission, not a text-only post.
@@ -47,6 +57,7 @@ I am mainly looking for factual corrections, missing useful extensions, and cate
 ## Pre-Submit Checklist
 
 - Run `npm run launch:show-hn:preflight`.
+- Run `npm run launch:show-hn:review` and paste the completed review into issue `#7`.
 - `gh-notify` has no negative reply or correction request.
 - Issue `#7` is updated with the 24-hour review.
 - Preflight confirms issue `#7` includes the second-wave 24-hour review, `gh-notify` status, and a no-negative-signal decision.

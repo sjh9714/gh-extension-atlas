@@ -16,6 +16,7 @@
     "catalog:audit-installed:check": "node scripts/audit-installed.mjs --demo > /dev/null && node scripts/audit-installed.mjs --demo --format json > /dev/null && node scripts/audit-installed.mjs --demo --format install > /dev/null",
     "metadata:audit": "node scripts/audit-metadata.mjs",
     "launch:show-hn:preflight": "node scripts/show-hn-preflight.mjs",
+    "launch:show-hn:review": "node scripts/show-hn-review.mjs",
     "launch:show-hn:monitor": "node scripts/show-hn-monitor.mjs",
     "site:build": "node scripts/build-catalog-site.mjs",
     "site:check": "node scripts/build-catalog-site.mjs --check",
