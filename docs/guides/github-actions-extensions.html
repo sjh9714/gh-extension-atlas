@@ -258,6 +258,20 @@
       <p class="muted">Use the table as a quick chooser. The goal is not to rank every Actions extension; it is to pick the first useful tool for the specific CI problem in front of you.</p>
     </section>
 
+    <section class="panel">
+      <h2>Starter Pack</h2>
+      <p class="muted">Inspect the workflow-specific install bundle, then install only the extensions that match your workflow. Do not pipe install bundles directly into a shell.</p>
+      <pre><code>curl -fsSL https://sjh9714.github.io/gh-extension-atlas/install/starter-packs/github-actions-operator.txt</code></pre>
+      <pre><code>gh extension install dlvhdr/gh-enhance
+gh extension install fchimpan/gh-workflow-stats
+gh extension install github/gh-actions-importer</code></pre>
+      <div class="actions">
+        <a href="../install/starter-packs/github-actions-operator.txt">Starter pack TXT</a>
+        <a href="https://sjh9714.github.io/gh-extension-atlas/categories/actions-ci.html">Actions/CI page</a>
+        <a href="https://sjh9714.github.io/gh-extension-atlas/?category=Actions%2FCI">Open filtered catalog</a>
+      </div>
+    </section>
+
     <section class="table-wrap">
       <table>
         <thead>
@@ -369,19 +383,6 @@
           <span>Teams trying to reduce GitHub Actions runner cost.</span>
           <code>gh extension install fchimpan/gh-slimify</code>
         </article>
-      </div>
-    </section>
-
-    <section class="panel">
-      <h2>Starter Pack</h2>
-      <p class="muted">Review the commands before installing. Do not pipe install bundles directly into a shell.</p>
-      <pre><code>gh extension install dlvhdr/gh-enhance
-gh extension install fchimpan/gh-workflow-stats
-gh extension install github/gh-actions-importer</code></pre>
-      <div class="actions">
-        <a href="../install/starter-packs/github-actions-operator.txt">Starter pack TXT</a>
-        <a href="https://sjh9714.github.io/gh-extension-atlas/categories/actions-ci.html">Actions/CI page</a>
-        <a href="https://sjh9714.github.io/gh-extension-atlas/?category=Actions%2FCI">Open filtered catalog</a>
       </div>
     </section>
 

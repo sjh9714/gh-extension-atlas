@@ -1963,6 +1963,8 @@ function renderWorkflowGuidePage(category, guide, items) {
   }
 
   const starterPack = starterPacks.find((pack) => pack.name === starterPackName);
+  const starterPackPath = `install/starter-packs/${starterPackSlug(starterPack)}.txt`;
+  const starterPackUrl = `${siteUrl}${starterPackPath}`;
   const starterPackCommands = getStarterPackEntries(starterPack, entries)
     .map((entry) => entry.install)
     .join("\n");
@@ -2227,6 +2229,18 @@ function renderWorkflowGuidePage(category, guide, items) {
       <p class="muted">${escapeHtml(startHereCopy)}</p>
     </section>
 
+    <section class="panel">
+      <h2>Starter Pack</h2>
+      <p class="muted">Inspect the workflow-specific install bundle, then install only the extensions that match your workflow. Do not pipe install bundles directly into a shell.</p>
+      <pre><code>curl -fsSL ${escapeHtml(starterPackUrl)}</code></pre>
+      <pre><code>${escapeHtml(starterPackCommands)}</code></pre>
+      <div class="actions">
+        <a href="../${escapeAttribute(starterPackPath)}">Starter pack TXT</a>
+        <a href="${escapeAttribute(categoryUrl)}">${escapeHtml(category)} page</a>
+        <a href="${escapeAttribute(catalogUrl)}">Open filtered catalog</a>
+      </div>
+    </section>
+
     <section class="table-wrap">
       <table>
         <thead>
@@ -2256,17 +2270,6 @@ function renderWorkflowGuidePage(category, guide, items) {
       <p class="muted">${escapeHtml(secondSectionCopy)}</p>
       <div class="grid">
         ${secondCards.map(([repo, label]) => toolCard(repo, label)).join("\n        ")}
-      </div>
-    </section>
-
-    <section class="panel">
-      <h2>Starter Pack</h2>
-      <p class="muted">Review the commands before installing. Do not pipe install bundles directly into a shell.</p>
-      <pre><code>${escapeHtml(starterPackCommands)}</code></pre>
-      <div class="actions">
-        <a href="../install/starter-packs/${starterPackSlug(starterPack)}.txt">Starter pack TXT</a>
-        <a href="${escapeAttribute(categoryUrl)}">${escapeHtml(category)} page</a>
-        <a href="${escapeAttribute(catalogUrl)}">Open filtered catalog</a>
       </div>
     </section>
 
