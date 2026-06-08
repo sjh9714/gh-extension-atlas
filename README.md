@@ -47,6 +47,8 @@ gh extension install OWNER/REPO
 
 This list favors extensions that are installable, documented, not archived, and useful for repeated terminal workflows.
 
+Prefer browsing first? The catalog browser supports filters and bulk command copy, and starter packs provide small workflow-specific install sequences.
+
 ## Start Here
 
 If you only have a few minutes, start from the workflow that hurts right now.
@@ -147,7 +149,7 @@ These are the first extensions to evaluate if you want broad value fast.
 
 ## Catalog Browser
 
-Open the [searchable catalog browser](https://sjh9714.github.io/gh-extension-atlas/) to filter the same reviewed data by category, status, ownership, and search text.
+Open the [searchable catalog browser](https://sjh9714.github.io/gh-extension-atlas/) to filter the same reviewed data by category, status, ownership, and search text. You can copy one install command, a starter pack, or every install command shown by the current filters.
 
 Quick entry points:
 
