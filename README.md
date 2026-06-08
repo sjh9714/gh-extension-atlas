@@ -63,6 +63,8 @@ Want side-by-side workflow comparisons? Open [Compare Presets][compare-presets].
 
 Want to inspect install bundles by workflow or category? Open the [Install Bundle Index][install-index].
 
+Want to compare your installed extensions with the atlas? Open the [Installed Extension Audit][installed-audit].
+
 | Workflow                  | Read first                                   | Inspect starter pack                                                                                                                  |
 | ------------------------- | -------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
 | Daily maintainer triage   | [Terminal dashboard guide][guide-dashboards] | [`daily-maintainer-triage.txt`](https://sjh9714.github.io/gh-extension-atlas/install/starter-packs/daily-maintainer-triage.txt)       |
@@ -424,6 +426,7 @@ Published Pages endpoints:
 | [Catalog health snapshot][health]                             | You want counts, freshness, and guardrails.                        |
 | [Awesome Markdown overview][awesome-markdown]                 | You want a shareable markdown overview of the atlas.               |
 | [Cheatsheet][]                                                | You want a compact workflow and install-command reference.         |
+| [Installed Extension Audit][installed-audit]                  | You want to compare `gh extension list` output with the atlas.     |
 | [Compare Presets][compare-presets]                            | You want side-by-side comparisons for overlapping choices.         |
 | [Workflow Recommendations][workflow-recommendations]          | You want workflow-first picks with install commands.               |
 | [Agent guide][agent-guide]                                    | You want prompt and JSON recipes for AI coding assistants.         |
@@ -455,6 +458,7 @@ Published Pages endpoints:
 [api-top-picks]: https://sjh9714.github.io/gh-extension-atlas/api/top-picks.json
 [api-starter-packs]: https://sjh9714.github.io/gh-extension-atlas/api/starter-packs.json
 [compare-presets]: https://sjh9714.github.io/gh-extension-atlas/compare.html
+[installed-audit]: https://sjh9714.github.io/gh-extension-atlas/audit.html
 [workflow-recommendations]: https://sjh9714.github.io/gh-extension-atlas/recommendations.html
 [llms]: https://sjh9714.github.io/gh-extension-atlas/llms.txt
 [llms-full]: https://sjh9714.github.io/gh-extension-atlas/llms-full.txt

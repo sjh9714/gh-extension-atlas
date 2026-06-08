@@ -485,6 +485,7 @@ const endpointFiles = [
 const generatedFiles = [
   { path: "docs/index.html", content: renderCatalog(entries) },
   { path: "docs/chooser.html", content: renderChooserPage(entries) },
+  { path: "docs/audit.html", content: renderAuditPage(entries) },
   { path: "docs/compare.html", content: renderComparePage(entries) },
   { path: "docs/recommendations.html", content: renderRecommendationsPage(entries) },
   { path: "docs/install/index.html", content: renderInstallBundlesPage(entries) },
@@ -595,6 +596,7 @@ function requiresStructuredData(filePath) {
   return [
     "docs/index.html",
     "docs/chooser.html",
+    "docs/audit.html",
     "docs/compare.html",
     "docs/recommendations.html",
     "docs/install/index.html",
@@ -780,6 +782,32 @@ function chooserPageJsonLd(items, choices, pageUrl) {
           description: choice.question,
           url: `${pageUrl}#${categorySlug(choice.title)}`,
         })),
+      },
+    },
+    {
+      "@context": "https://schema.org",
+      "@id": `${siteUrl}#dataset`,
+      ...atlasDatasetJsonLd(items),
+    },
+  ];
+}
+
+function auditPageJsonLd(items, pageUrl) {
+  return [
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      name: "Installed GitHub CLI Extension Audit",
+      description:
+        "A client-side audit tool for comparing pasted gh extension list output with the reviewed GitHub CLI Extension Atlas catalog.",
+      url: pageUrl,
+      image: socialImageUrl,
+      applicationCategory: "DeveloperApplication",
+      operatingSystem: "Any",
+      offers: {
+        "@type": "Offer",
+        price: "0",
+        priceCurrency: "USD",
       },
     },
     {
@@ -1400,6 +1428,7 @@ function renderCatalog(items) {
         <span class="pill"><a href="cheatsheet.md">Cheatsheet</a></span>
         <span class="pill"><a href="compare.html">Compare</a></span>
         <span class="pill"><a href="recommendations.html">Recommendations</a></span>
+        <span class="pill"><a href="audit.html">Audit installed</a></span>
         <span class="pill"><a href="agent-guide.md">Agent guide</a></span>
         <span class="pill"><a href="install/">Install bundles</a></span>
         <span class="pill"><a href="chooser.html">Chooser</a></span>
@@ -3667,6 +3696,7 @@ function renderComparePage(items) {
       <div class="actions">
         <a href="./">Searchable catalog</a>
         <a href="chooser.html">Chooser</a>
+        <a href="audit.html">Audit installed</a>
         <a href="recommendations.html">Recommendations</a>
         <a href="install/">Install bundles</a>
         <a href="${repoReadmeUrl}">README</a>
@@ -4318,6 +4348,7 @@ function renderChooserPage(items) {
       <div class="actions">
         <a href="./">Searchable catalog</a>
         <a href="awesome-github-cli-extensions.html">Awesome overview</a>
+        <a href="audit.html">Audit installed</a>
         <a href="api/index.json">API manifest</a>
         <a href="faq.md">FAQ</a>
         <a href="cheatsheet.md">Cheatsheet</a>
@@ -4338,6 +4369,492 @@ function renderChooserPage(items) {
       ${choices.map((choice) => renderChooserChoice(choice)).join("\n      ")}
     </section>
   </main>
+</body>
+</html>
+`;
+}
+
+function renderAuditPage(items) {
+  const generatedAt = latestVerifiedAt(items);
+  const pageUrl = `${siteUrl}audit.html`;
+  const catalogJson = JSON.stringify(stableEntries(items)).replaceAll("<", "\\u003c");
+  const topPickJson = JSON.stringify(topPickRepos).replaceAll("<", "\\u003c");
+  const workflowJson = JSON.stringify(recommendations).replaceAll("<", "\\u003c");
+
+  return `<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Installed Extension Audit | GitHub CLI Extension Atlas</title>
+  <meta name="description" content="Paste gh extension list output and compare installed GitHub CLI extensions with the reviewed atlas catalog.">
+  <meta property="og:title" content="Installed GitHub CLI Extension Audit">
+  <meta property="og:description" content="Compare your installed GitHub CLI extensions with reviewed atlas entries, missing Top Picks, and workflow coverage.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="${pageUrl}">
+  <meta property="og:image" content="${socialImageUrl}">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Installed GitHub CLI Extension Audit">
+  <meta name="twitter:description" content="Paste gh extension list output and see what is reviewed, unlisted, or missing from Top Picks.">
+  <meta name="twitter:image" content="${socialImageUrl}">
+  <link rel="canonical" href="${pageUrl}">
+  ${renderJsonLd(auditPageJsonLd(items, pageUrl))}
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f7f8fa;
+      --panel: #ffffff;
+      --text: #1f2328;
+      --muted: #656d76;
+      --border: #d0d7de;
+      --accent: #0969da;
+      --accent-soft: #ddf4ff;
+      --good: #1a7f37;
+      --warn: #9a6700;
+      --stale: #8250df;
+      --shadow: 0 1px 2px rgba(31, 35, 40, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font: 15px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    header {
+      background: var(--panel);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .wrap {
+      width: min(1120px, calc(100vw - 32px));
+      margin: 0 auto;
+    }
+
+    .header-inner {
+      display: grid;
+      gap: 14px;
+      padding: 30px 0 24px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 40px;
+      line-height: 1.08;
+      letter-spacing: 0;
+    }
+
+    h2,
+    p {
+      margin: 0;
+    }
+
+    h2 {
+      font-size: 20px;
+      line-height: 1.25;
+      letter-spacing: 0;
+    }
+
+    .lead {
+      max-width: 820px;
+      color: var(--muted);
+      font-size: 18px;
+    }
+
+    .meta,
+    .actions,
+    .button-row,
+    .summary-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 3px 10px;
+      background: var(--panel);
+      color: var(--muted);
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    main {
+      display: grid;
+      gap: 14px;
+      padding: 20px 0 42px;
+    }
+
+    .panel,
+    .result-panel {
+      display: grid;
+      gap: 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+      background: var(--panel);
+      box-shadow: var(--shadow);
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 170px;
+      resize: vertical;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px;
+      color: var(--text);
+      background: #ffffff;
+      font: 13px/1.45 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+
+    button,
+    .button-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 34px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 6px 11px;
+      background: var(--panel);
+      color: var(--text);
+      font: inherit;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    button.primary {
+      border-color: var(--accent);
+      background: var(--accent);
+      color: #ffffff;
+    }
+
+    .summary-card {
+      min-width: 150px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px;
+      background: #f6f8fa;
+    }
+
+    .summary-card strong {
+      display: block;
+      font-size: 22px;
+      line-height: 1.1;
+    }
+
+    .summary-card span,
+    .muted {
+      color: var(--muted);
+    }
+
+    .table-wrap {
+      overflow: auto;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+    }
+
+    table {
+      width: 100%;
+      min-width: 780px;
+      border-collapse: collapse;
+      background: var(--panel);
+    }
+
+    th,
+    td {
+      border-bottom: 1px solid var(--border);
+      padding: 9px 10px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .status {
+      display: inline-flex;
+      min-height: 24px;
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .status.active {
+      background: #dafbe1;
+      color: var(--good);
+    }
+
+    .status.watch {
+      background: #fff8c5;
+      color: var(--warn);
+    }
+
+    .status.stale {
+      background: #fbefff;
+      color: var(--stale);
+    }
+
+    code,
+    pre {
+      font: 13px/1.45 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+
+    pre {
+      margin: 0;
+      overflow: auto;
+      border-radius: 6px;
+      padding: 10px;
+      background: #f6f8fa;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover,
+    button:hover,
+    .button-link:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 560px) {
+      .wrap {
+        width: min(100vw - 20px, 1120px);
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap header-inner">
+      <h1>Installed Extension Audit</h1>
+      <p class="lead">Paste <code>gh extension list</code> output and compare your installed GitHub CLI extensions with reviewed atlas entries, missing Top Picks, and workflow coverage.</p>
+      <div class="meta">
+        <span class="pill">${items.length} curated extensions</span>
+        <span class="pill">${topPickRepos.length} Top Picks</span>
+        <span class="pill">${recommendations.length} workflows</span>
+        <span class="pill">Reviewed ${escapeHtml(generatedAt)}</span>
+      </div>
+      <div class="actions">
+        <a href="./">Searchable catalog</a>
+        <a href="chooser.html">Chooser</a>
+        <a href="compare.html">Compare</a>
+        <a href="recommendations.html">Recommendations</a>
+        <a href="install/">Install bundles</a>
+        <a href="${repoReadmeUrl}">README</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="panel">
+      <h2>Paste Your Installed Extensions</h2>
+      <p class="muted">Run <code>gh extension list</code>, paste the output below, and audit locally in your browser. The pasted text is not sent anywhere.</p>
+      <textarea id="extension-list" spellcheck="false" placeholder="gh dash&#9;dlvhdr/gh-dash&#9;v4.8.0&#10;gh notify&#9;meiji163/gh-notify&#9;v2.0.0"></textarea>
+      <div class="button-row">
+        <button class="primary" type="button" id="run-audit">Run audit</button>
+        <button type="button" id="load-sample">Load sample</button>
+        <button type="button" id="copy-missing">Copy missing Top Picks installs</button>
+        <button type="button" id="clear-input">Clear</button>
+        <a class="button-link" href="api/extensions.json">Open catalog JSON</a>
+      </div>
+    </section>
+
+    <section class="result-panel" id="results" aria-live="polite">
+      <h2>Audit Results</h2>
+      <p class="muted">Run an audit to see reviewed installs, unlisted installs, missing Top Picks, and workflow coverage.</p>
+    </section>
+  </main>
+
+  <script type="application/json" id="catalog-data">${catalogJson}</script>
+  <script type="application/json" id="top-pick-data">${topPickJson}</script>
+  <script type="application/json" id="workflow-data">${workflowJson}</script>
+  <script>
+    const catalog = JSON.parse(document.getElementById("catalog-data").textContent);
+    const topPickRepos = JSON.parse(document.getElementById("top-pick-data").textContent);
+    const workflows = JSON.parse(document.getElementById("workflow-data").textContent);
+    const entriesByRepo = new Map(catalog.map((entry) => [entry.repo.toLowerCase(), entry]));
+    const textarea = document.getElementById("extension-list");
+    const results = document.getElementById("results");
+    let lastMissingTopPickInstalls = "";
+
+    document.getElementById("run-audit").addEventListener("click", () => {
+      renderAudit(buildAudit(parseExtensionList(textarea.value)));
+    });
+
+    document.getElementById("load-sample").addEventListener("click", () => {
+      textarea.value = [
+        "gh dash\\tdlvhdr/gh-dash\\tv4.8.0",
+        "gh s\\tgennaro-tedesco/gh-s\\tv0.7.0",
+        "gh unknown\\texample/gh-unknown\\tv1.0.0",
+      ].join("\\n");
+      renderAudit(buildAudit(parseExtensionList(textarea.value)));
+    });
+
+    document.getElementById("clear-input").addEventListener("click", () => {
+      textarea.value = "";
+      lastMissingTopPickInstalls = "";
+      results.innerHTML = '<h2>Audit Results</h2><p class="muted">Run an audit to see reviewed installs, unlisted installs, missing Top Picks, and workflow coverage.</p>';
+    });
+
+    document.getElementById("copy-missing").addEventListener("click", async () => {
+      if (!lastMissingTopPickInstalls) {
+        renderAudit(buildAudit(parseExtensionList(textarea.value)));
+      }
+      if (!lastMissingTopPickInstalls) {
+        return;
+      }
+      try {
+        await navigator.clipboard.writeText(lastMissingTopPickInstalls);
+      } catch {
+        const copyBox = document.createElement("textarea");
+        copyBox.value = lastMissingTopPickInstalls;
+        copyBox.setAttribute("readonly", "");
+        copyBox.style.position = "absolute";
+        copyBox.style.left = "-9999px";
+        document.body.append(copyBox);
+        copyBox.select();
+        document.execCommand("copy");
+        copyBox.remove();
+      }
+    });
+
+    function parseExtensionList(text) {
+      const seen = new Set();
+      const parsed = [];
+      for (const rawLine of text.split(/\\r?\\n/)) {
+        const line = rawLine.trim();
+        if (!line) {
+          continue;
+        }
+        const repoMatch = line.match(/([A-Za-z0-9_.-]+\\/[A-Za-z0-9_.-]+)/);
+        if (!repoMatch) {
+          continue;
+        }
+        const repo = repoMatch[1];
+        const key = repo.toLowerCase();
+        if (seen.has(key)) {
+          continue;
+        }
+        seen.add(key);
+        const versionMatch = line.match(/\\b(v?\\d+\\.\\d+(?:\\.\\d+)?[^\\s]*)\\b/);
+        parsed.push({ repo, version: versionMatch ? versionMatch[1] : "", raw: line });
+      }
+      return parsed.sort((a, b) => a.repo.localeCompare(b.repo));
+    }
+
+    function buildAudit(installed) {
+      const installedSet = new Set(installed.map((item) => item.repo.toLowerCase()));
+      const reviewed = [];
+      const unlisted = [];
+
+      for (const item of installed) {
+        const entry = entriesByRepo.get(item.repo.toLowerCase());
+        if (entry) {
+          reviewed.push({ ...entry, version: item.version });
+        } else {
+          unlisted.push(item);
+        }
+      }
+
+      const missingTopPicks = topPickRepos.map((repo) => entriesByRepo.get(repo.toLowerCase())).filter((entry) => entry && !installedSet.has(entry.repo.toLowerCase()));
+      const workflowCoverage = workflows.map((workflow) => {
+        const installedRepos = workflow.repos.filter((repo) => installedSet.has(repo.toLowerCase()));
+        const missingRepos = workflow.repos.filter((repo) => !installedSet.has(repo.toLowerCase()));
+        return {
+          label: workflow.label,
+          coverage: installedRepos.length + "/" + workflow.repos.length,
+          missing: missingRepos,
+        };
+      });
+
+      return { installed, reviewed, unlisted, missingTopPicks, workflowCoverage };
+    }
+
+    function renderAudit(audit) {
+      lastMissingTopPickInstalls = audit.missingTopPicks.map((entry) => entry.install).join("\\n");
+      const summary = [
+        ["Installed parsed", audit.installed.length],
+        ["Reviewed by atlas", audit.reviewed.length],
+        ["Unlisted", audit.unlisted.length],
+        ["Missing Top Picks", audit.missingTopPicks.length],
+      ].map(([label, value]) => '<div class="summary-card"><strong>' + value + '</strong><span>' + escapeHtml(label) + '</span></div>').join("");
+
+      results.innerHTML = '<h2>Audit Results</h2><div class="summary-grid">' + summary + '</div>'
+        + renderReviewedTable(audit.reviewed)
+        + renderUnlistedTable(audit.unlisted)
+        + renderMissingTopPicks(audit.missingTopPicks)
+        + renderWorkflowCoverage(audit.workflowCoverage)
+        + '<p class="muted">Review upstream READMEs before installing extensions that can affect branches, CI, releases, security, or repository state.</p>';
+    }
+
+    function renderReviewedTable(items) {
+      if (!items.length) {
+        return '<section><h2>Installed And Reviewed</h2><p class="muted">No pasted extensions matched the atlas catalog yet.</p></section>';
+      }
+      return '<section><h2>Installed And Reviewed</h2><div class="table-wrap"><table><thead><tr><th>Extension</th><th>Category</th><th>Status</th><th>Best for</th><th>Version</th></tr></thead><tbody>'
+        + items.map((entry) => '<tr><td><a href="' + escapeAttribute(extensionPagePath(entry.repo)) + '"><strong>' + escapeHtml(entry.repo) + '</strong></a><br><span class="muted">' + escapeHtml(entry.summary) + '</span></td><td>' + escapeHtml(entry.category) + '</td><td><span class="status ' + escapeAttribute(entry.status) + '">' + escapeHtml(entry.status) + '</span></td><td>' + escapeHtml(entry.best_for) + '</td><td>' + escapeHtml(entry.version || "unknown") + '</td></tr>').join("")
+        + '</tbody></table></div></section>';
+    }
+
+    function renderUnlistedTable(items) {
+      if (!items.length) {
+        return '<section><h2>Installed But Not In Atlas</h2><p class="muted">Every pasted extension is currently listed in the atlas.</p></section>';
+      }
+      return '<section><h2>Installed But Not In Atlas</h2><div class="table-wrap"><table><thead><tr><th>Repository</th><th>Version</th></tr></thead><tbody>'
+        + items.map((entry) => '<tr><td>' + escapeHtml(entry.repo) + '</td><td>' + escapeHtml(entry.version || "unknown") + '</td></tr>').join("")
+        + '</tbody></table></div></section>';
+    }
+
+    function renderMissingTopPicks(items) {
+      if (!items.length) {
+        return '<section><h2>Missing Top Picks</h2><p class="muted">All Top Picks appear in the pasted list.</p></section>';
+      }
+      return '<section><h2>Missing Top Picks</h2><pre><code>' + escapeHtml(lastMissingTopPickInstalls) + '</code></pre><div class="table-wrap"><table><thead><tr><th>Extension</th><th>Category</th><th>Best for</th><th>Install</th></tr></thead><tbody>'
+        + items.map((entry) => '<tr><td>' + escapeHtml(entry.repo) + '</td><td>' + escapeHtml(entry.category) + '</td><td>' + escapeHtml(entry.best_for) + '</td><td><code>' + escapeHtml(entry.install) + '</code></td></tr>').join("")
+        + '</tbody></table></div></section>';
+    }
+
+    function renderWorkflowCoverage(items) {
+      return '<section><h2>Workflow Coverage</h2><div class="table-wrap"><table><thead><tr><th>Workflow</th><th>Coverage</th><th>Missing recommended repos</th></tr></thead><tbody>'
+        + items.map((workflow) => '<tr><td>' + escapeHtml(workflow.label) + '</td><td>' + escapeHtml(workflow.coverage) + '</td><td>' + (workflow.missing.length ? workflow.missing.map((repo) => '<code>' + escapeHtml(repo) + '</code>').join(", ") : 'None') + '</td></tr>').join("")
+        + '</tbody></table></div></section>';
+    }
+
+    function extensionPagePath(repo) {
+      return "extensions/" + repo.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") + ".html";
+    }
+
+    function escapeHtml(value) {
+      return String(value).replace(/[&<>"']/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[char]));
+    }
+
+    function escapeAttribute(value) {
+      return escapeHtml(value);
+    }
+  </script>
 </body>
 </html>
 `;
@@ -4783,6 +5300,12 @@ function renderSitemapXml(items) {
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
   </url>`;
+  const auditUrl = `  <url>
+    <loc>${siteUrl}audit.html</loc>
+    <lastmod>${escapeHtml(lastmod)}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>`;
   const awesomeUrl = `  <url>
     <loc>${siteUrl}awesome-github-cli-extensions.html</loc>
     <lastmod>${escapeHtml(lastmod)}</lastmod>
@@ -4865,6 +5388,7 @@ function renderSitemapXml(items) {
     <priority>1.0</priority>
   </url>
 ${chooserUrl}
+${auditUrl}
 ${awesomeUrl}
 ${awesomeMarkdownUrl}
 ${cheatsheetUrl}
@@ -5037,6 +5561,7 @@ function renderApiIndex(items) {
       recommendations_schema: `${siteUrl}api/recommendations.schema.json`,
       starter_packs: `${siteUrl}api/starter-packs.json`,
       chooser: `${siteUrl}chooser.html`,
+      audit: `${siteUrl}audit.html`,
       compare: `${siteUrl}compare.html`,
       awesome_markdown: `${siteUrl}awesome-github-cli-extensions.md`,
       cheatsheet: `${siteUrl}cheatsheet.md`,
@@ -5241,6 +5766,7 @@ function renderHealthSnapshot(items) {
     generated_assets: {
       catalog: siteUrl,
       chooser: `${siteUrl}chooser.html`,
+      audit: `${siteUrl}audit.html`,
       awesome_overview: `${siteUrl}awesome-github-cli-extensions.html`,
       awesome_markdown: `${siteUrl}awesome-github-cli-extensions.md`,
       cheatsheet: `${siteUrl}cheatsheet.md`,

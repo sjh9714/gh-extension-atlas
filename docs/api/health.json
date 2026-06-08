@@ -1,6 +1,6 @@
 {
   "name": "gh-extension-atlas",
-  "version": "0.2.21",
+  "version": "0.2.22",
   "generated_at": "2026-06-08",
   "source": "https://github.com/sjh9714/gh-extension-atlas",
   "homepage": "https://sjh9714.github.io/gh-extension-atlas/",
@@ -196,6 +196,7 @@
   "generated_assets": {
     "catalog": "https://sjh9714.github.io/gh-extension-atlas/",
     "chooser": "https://sjh9714.github.io/gh-extension-atlas/chooser.html",
+    "audit": "https://sjh9714.github.io/gh-extension-atlas/audit.html",
     "awesome_overview": "https://sjh9714.github.io/gh-extension-atlas/awesome-github-cli-extensions.html",
     "awesome_markdown": "https://sjh9714.github.io/gh-extension-atlas/awesome-github-cli-extensions.md",
     "cheatsheet": "https://sjh9714.github.io/gh-extension-atlas/cheatsheet.md",

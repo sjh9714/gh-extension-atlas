@@ -98,6 +98,8 @@ npm --silent run catalog:compare -- gh-s gh-grep gh-find-code --format json
 
 Use `catalog:audit-installed` when you want to compare your current `gh extension list` output with the atlas.
 
+Prefer a browser tool? Open the [Installed Extension Audit](https://sjh9714.github.io/gh-extension-atlas/audit.html) page and paste `gh extension list` output there.
+
 Audit locally installed extensions:
 
 ```sh
