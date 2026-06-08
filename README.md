@@ -20,6 +20,7 @@ If `gh extension search` gives you too many options, start here.
 - [Top Picks](#top-picks)
 - [Find by Use Case](#find-by-use-case)
 - [Comparison Guides](#comparison-guides)
+- [Catalog Browser](#catalog-browser)
 - [Dashboard/TUI](#dashboardtui)
 - [PR & Issues](#pr--issues)
 - [Actions/CI](#actionsci)
@@ -125,6 +126,16 @@ These are the first extensions to evaluate if you want broad value fast.
 | [Notification extensions](docs/comparisons/notifications.md)        | Reducing notification noise from the terminal.                 |
 | [Markdown preview extensions](docs/comparisons/markdown-preview.md) | Previewing README and docs changes.                            |
 | [Actions and CI extensions](docs/comparisons/actions-ci.md)         | Understanding CI migration, local checks, and workflow health. |
+
+## Catalog Browser
+
+Use [`docs/index.html`](docs/index.html) as a static searchable catalog when the repo is served with GitHub Pages. It filters the same reviewed data by category, status, ownership, and search text.
+
+Regenerate it after catalog changes with:
+
+```sh
+npm run site:build
+```
 
 ## Dashboard/TUI
 
