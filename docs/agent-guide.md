@@ -120,6 +120,7 @@ Review upstream READMEs before adopting either in production workflows.
 - [Searchable catalog](https://sjh9714.github.io/gh-extension-atlas/)
 - [Workflow chooser](https://sjh9714.github.io/gh-extension-atlas/chooser.html)
 - [Cheatsheet](https://sjh9714.github.io/gh-extension-atlas/cheatsheet.md)
+- [Workflow recommendations](https://sjh9714.github.io/gh-extension-atlas/recommendations.md)
 - [Awesome GitHub CLI Extensions markdown overview](https://sjh9714.github.io/gh-extension-atlas/awesome-github-cli-extensions.md)
 - [Workflow recommendations JSON](https://sjh9714.github.io/gh-extension-atlas/api/recommendations.json)
 - [Workflow recommendations schema](https://sjh9714.github.io/gh-extension-atlas/api/recommendations.schema.json)

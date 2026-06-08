@@ -19,6 +19,7 @@ If this saves you a few trial installs, [star the repo](https://github.com/sjh97
 - [Start Here](#start-here)
 - [Pick in 30 Seconds](#pick-in-30-seconds)
 - [Cheatsheet](#cheatsheet)
+- [Workflow Recommendations](#workflow-recommendations)
 - [Quick Start](#quick-start)
 - [Starter Packs](#starter-packs)
 - [AI Coding Agents](#ai-coding-agents)
@@ -54,6 +55,8 @@ Not sure where to start? Open the [GitHub CLI Extension Chooser][chooser] first.
 Want a shareable overview first? Open the [Awesome GitHub CLI Extensions overview][awesome-overview] or [Markdown overview][awesome-markdown].
 
 Want a copy-paste quick reference? Open the [GitHub CLI Extension Cheatsheet][cheatsheet].
+
+Want workflow-first picks with install commands and avoid-if notes? Open [Workflow Recommendations][workflow-recommendations].
 
 | Workflow                  | Read first                                   | Inspect starter pack                                                                                                                  |
 | ------------------------- | -------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
@@ -92,6 +95,10 @@ If you only have a few minutes, start from the workflow that hurts right now.
 ## Cheatsheet
 
 Use the [GitHub CLI Extension Cheatsheet][cheatsheet] when you want one compact page with workflow picks, Top Picks install commands, starter-pack bundle links, and API shortcuts.
+
+## Workflow Recommendations
+
+Use [Workflow Recommendations][workflow-recommendations] when you know the job to solve and want a small starting set instead of browsing the full catalog.
 
 ## Quick Start
 
@@ -399,6 +406,7 @@ Published Pages endpoints:
 | [Catalog health snapshot][health]                             | You want counts, freshness, and guardrails.                        |
 | [Awesome Markdown overview][awesome-markdown]                 | You want a shareable markdown overview of the atlas.               |
 | [Cheatsheet][]                                                | You want a compact workflow and install-command reference.         |
+| [Workflow Recommendations][workflow-recommendations]          | You want workflow-first picks with install commands.               |
 | [Agent guide][agent-guide]                                    | You want prompt and JSON recipes for AI coding assistants.         |
 | [Full catalog JSON][api-extensions]                           | You want the complete reviewed catalog for automation.             |
 | [Catalog JSON Schema][api-schema]                             | You want the public data contract for catalog entries.             |
@@ -424,6 +432,7 @@ Published Pages endpoints:
 [api-reference]: docs/api-reference.md
 [api-top-picks]: https://sjh9714.github.io/gh-extension-atlas/api/top-picks.json
 [api-starter-packs]: https://sjh9714.github.io/gh-extension-atlas/api/starter-packs.json
+[workflow-recommendations]: https://sjh9714.github.io/gh-extension-atlas/recommendations.md
 [llms]: https://sjh9714.github.io/gh-extension-atlas/llms.txt
 [llms-full]: https://sjh9714.github.io/gh-extension-atlas/llms-full.txt
 [install-all]: https://sjh9714.github.io/gh-extension-atlas/install/all.txt

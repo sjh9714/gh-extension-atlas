@@ -8,6 +8,7 @@
 - Workflow chooser: https://sjh9714.github.io/gh-extension-atlas/chooser.html
 - Awesome overview: https://sjh9714.github.io/gh-extension-atlas/awesome-github-cli-extensions.html
 - Cheatsheet: https://sjh9714.github.io/gh-extension-atlas/cheatsheet.md
+- Workflow recommendations: https://sjh9714.github.io/gh-extension-atlas/recommendations.md
 - Agent guide: https://sjh9714.github.io/gh-extension-atlas/agent-guide.md
 - FAQ: https://sjh9714.github.io/gh-extension-atlas/faq.md
 - API manifest: https://sjh9714.github.io/gh-extension-atlas/api/index.json
@@ -24,6 +25,7 @@ GitHub CLI Extension Atlas helps users choose a useful `gh` extension faster whe
 - Searchable catalog: https://sjh9714.github.io/gh-extension-atlas/
 - Awesome overview: https://sjh9714.github.io/gh-extension-atlas/awesome-github-cli-extensions.html
 - Cheatsheet: https://sjh9714.github.io/gh-extension-atlas/cheatsheet.md
+- Workflow recommendations: https://sjh9714.github.io/gh-extension-atlas/recommendations.md
 - Agent guide: https://sjh9714.github.io/gh-extension-atlas/agent-guide.md
 - Health snapshot: https://sjh9714.github.io/gh-extension-atlas/health.md
 - FAQ: https://sjh9714.github.io/gh-extension-atlas/faq.md

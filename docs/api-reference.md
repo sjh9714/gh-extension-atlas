@@ -27,6 +27,7 @@ The API is a reviewed snapshot, not a live ranking. Fields such as `stars`, `las
 | `/api/starter-packs/{slug}.json` | JSON object | You want one workflow starter pack as structured data. |
 | [`/awesome-github-cli-extensions.md`](https://sjh9714.github.io/gh-extension-atlas/awesome-github-cli-extensions.md) | Markdown | You want a shareable markdown overview of Top Picks, workflow guides, and starter packs. |
 | [`/cheatsheet.md`](https://sjh9714.github.io/gh-extension-atlas/cheatsheet.md) | Markdown | You want a compact workflow and install-command quick reference. |
+| [`/recommendations.md`](https://sjh9714.github.io/gh-extension-atlas/recommendations.md) | Markdown | You want workflow-first picks with install commands and avoid-if notes. |
 | [`/agent-guide.md`](https://sjh9714.github.io/gh-extension-atlas/agent-guide.md) | Markdown | You want prompt and JSON recipes for AI coding assistants. |
 | [`/llms.txt`](https://sjh9714.github.io/gh-extension-atlas/llms.txt) | Plain text | You want a concise plain-text map for AI coding tools and documentation indexers. |
 | [`/llms-full.txt`](https://sjh9714.github.io/gh-extension-atlas/llms-full.txt) | Plain text | You want workflow, API, starter pack, and catalog context in one plain-text file. |
@@ -186,6 +187,7 @@ Open markdown overview pages:
 ```sh
 curl -fsSL https://sjh9714.github.io/gh-extension-atlas/awesome-github-cli-extensions.md
 curl -fsSL https://sjh9714.github.io/gh-extension-atlas/cheatsheet.md
+curl -fsSL https://sjh9714.github.io/gh-extension-atlas/recommendations.md
 curl -fsSL https://sjh9714.github.io/gh-extension-atlas/agent-guide.md
 ```
 

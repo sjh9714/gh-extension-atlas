@@ -64,6 +64,8 @@ npm --silent run catalog:recommend -- --workflow security --format json
 
 The recommendation helper is intentionally small. It points to a few reviewed starting options, then leaves the final install decision to you.
 
+The same workflow sets are published as a human-readable [Workflow Recommendations](recommendations.md) page and as JSON for automation.
+
 ## Use the Public API
 
 Inspect the endpoint manifest:

@@ -458,6 +458,7 @@ const endpointFiles = [
   { path: "docs/api/recommendations.schema.json", content: renderJson(recommendationsSchema) },
   { path: "docs/api/starter-packs.json", content: renderJson(renderStarterPackIndex(entries)) },
   { path: "docs/cheatsheet.md", content: renderCheatsheetMarkdown(entries) },
+  { path: "docs/recommendations.md", content: renderRecommendationsMarkdown(entries) },
   { path: "docs/health.md", content: renderHealthMarkdown(entries) },
   { path: "docs/llms.txt", content: renderLlmsTxt(entries) },
   { path: "docs/llms-full.txt", content: renderLlmsFullTxt(entries) },
@@ -1080,6 +1081,7 @@ function renderCatalog(items) {
         <span class="pill">API docs: <a href="api-reference.md">api-reference.md</a></span>
         <span class="pill"><a href="faq.md">FAQ</a></span>
         <span class="pill"><a href="cheatsheet.md">Cheatsheet</a></span>
+        <span class="pill"><a href="recommendations.md">Recommendations</a></span>
         <span class="pill"><a href="agent-guide.md">Agent guide</a></span>
         <span class="pill">Install bundle: <a href="install/all.txt">all.txt</a></span>
         <span class="pill"><a href="chooser.html">Chooser</a></span>
@@ -2776,6 +2778,67 @@ ${starterPacks
 `;
 }
 
+function renderRecommendationsMarkdown(items) {
+  const generatedAt = latestVerifiedAt(items);
+
+  return `# GitHub CLI Extension Workflow Recommendations
+
+Use this page when you know the workflow, but you do not want to compare the full catalog by hand.
+
+- Repository: ${repoUrl}
+- Searchable catalog: ${siteUrl}
+- Workflow chooser: ${siteUrl}chooser.html
+- Recommendations API: ${siteUrl}api/recommendations.json
+- Recommendations schema: ${siteUrl}api/recommendations.schema.json
+- Reviewed snapshot: ${generatedAt}
+
+These are small starting sets, not endorsements or complete rankings. Review upstream READMEs before adopting extensions for security, CI, release, compliance, or production workflows.
+
+${recommendations
+  .map((recommendation) => renderRecommendationMarkdownSection(recommendation, items))
+  .join("\n\n")}
+
+## Local Usage
+
+\`\`\`sh
+npm --silent run catalog:recommend -- --list
+npm --silent run catalog:recommend -- --workflow actions
+npm --silent run catalog:recommend -- --workflow notifications --format install
+\`\`\`
+
+## Public API Usage
+
+\`\`\`sh
+curl -fsSL ${siteUrl}api/recommendations.json \\
+  | jq -r '.[] | select(.id == "actions") | .entries[].install'
+\`\`\`
+
+## Guardrails
+
+- Install only the extensions that match your workflow.
+- Do not pipe remote install bundles directly into a shell.
+- Treat star counts and maintenance status as reviewed snapshots, not live guarantees.
+- Open a correction if a summary, category, install command, or maintenance label is wrong: ${repoIssueChooserUrl}
+`;
+}
+
+function renderRecommendationMarkdownSection(recommendation, items) {
+  const recommendationEntries = getRecommendationEntries(recommendation, items);
+
+  return `## ${recommendation.label}
+
+Aliases: ${recommendation.aliases.map((alias) => `\`${alias}\``).join(", ")}
+
+| Rank | Extension | Best fit | Avoid if | Status | Install | Detail |
+| --- | --- | --- | --- | --- | --- | --- |
+${recommendationEntries
+  .map(
+    (entry, index) =>
+      `| ${index + 1} | \`${entry.repo}\` | ${entry.best_for} | ${entry.avoid_if} | ${entry.status} | \`${entry.install}\` | [detail](${siteUrl}${extensionPagePath(entry)}) |`,
+  )
+  .join("\n")}`;
+}
+
 function renderChooserPage(items) {
   const generatedAt = latestVerifiedAt(items);
   const pageUrl = `${siteUrl}chooser.html`;
@@ -3540,6 +3603,12 @@ function renderSitemapXml(items) {
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>`;
+  const recommendationsUrl = `  <url>
+    <loc>${siteUrl}recommendations.md</loc>
+    <lastmod>${escapeHtml(lastmod)}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>`;
   const agentGuideUrl = `  <url>
     <loc>${siteUrl}agent-guide.md</loc>
     <lastmod>${escapeHtml(lastmod)}</lastmod>
@@ -3583,6 +3652,7 @@ ${chooserUrl}
 ${awesomeUrl}
 ${awesomeMarkdownUrl}
 ${cheatsheetUrl}
+${recommendationsUrl}
 ${agentGuideUrl}
 ${categoryUrls}
 ${guideUrls}
@@ -3749,6 +3819,7 @@ function renderApiIndex(items) {
       chooser: `${siteUrl}chooser.html`,
       awesome_markdown: `${siteUrl}awesome-github-cli-extensions.md`,
       cheatsheet: `${siteUrl}cheatsheet.md`,
+      workflow_recommendations: `${siteUrl}recommendations.md`,
       agent_guide: `${siteUrl}agent-guide.md`,
       faq: `${siteUrl}faq.md`,
       llms: `${siteUrl}llms.txt`,
@@ -3950,6 +4021,7 @@ function renderHealthSnapshot(items) {
       awesome_overview: `${siteUrl}awesome-github-cli-extensions.html`,
       awesome_markdown: `${siteUrl}awesome-github-cli-extensions.md`,
       cheatsheet: `${siteUrl}cheatsheet.md`,
+      workflow_recommendations: `${siteUrl}recommendations.md`,
       agent_guide: `${siteUrl}agent-guide.md`,
       faq: `${siteUrl}faq.md`,
       health: `${siteUrl}health.md`,
@@ -4108,6 +4180,7 @@ function renderLlmsTxt(items) {
 - Workflow chooser: ${siteUrl}chooser.html
 - Awesome overview: ${siteUrl}awesome-github-cli-extensions.html
 - Cheatsheet: ${siteUrl}cheatsheet.md
+- Workflow recommendations: ${siteUrl}recommendations.md
 - Agent guide: ${siteUrl}agent-guide.md
 - FAQ: ${siteUrl}faq.md
 - API manifest: ${siteUrl}api/index.json
@@ -4124,6 +4197,7 @@ GitHub CLI Extension Atlas helps users choose a useful \`gh\` extension faster w
 - Searchable catalog: ${siteUrl}
 - Awesome overview: ${siteUrl}awesome-github-cli-extensions.html
 - Cheatsheet: ${siteUrl}cheatsheet.md
+- Workflow recommendations: ${siteUrl}recommendations.md
 - Agent guide: ${siteUrl}agent-guide.md
 - Health snapshot: ${siteUrl}health.md
 - FAQ: ${siteUrl}faq.md
@@ -4190,6 +4264,7 @@ This is not an official GitHub project, complete directory, endorsement list, or
 - Searchable catalog: ${siteUrl}
 - Awesome overview: ${siteUrl}awesome-github-cli-extensions.html
 - Cheatsheet: ${siteUrl}cheatsheet.md
+- Workflow recommendations: ${siteUrl}recommendations.md
 - Agent guide: ${siteUrl}agent-guide.md
 - Health snapshot: ${siteUrl}health.md
 - FAQ: ${siteUrl}faq.md
