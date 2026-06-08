@@ -1,0 +1,4 @@
+gh extension install github/gh-aw
+gh extension install github/gh-models
+gh extension install sgoedecke/gh-standup
+gh extension install shuymn/gh-mcp

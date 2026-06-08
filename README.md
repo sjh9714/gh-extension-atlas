@@ -305,6 +305,20 @@ The curated catalog lives in [`data/extensions.json`](data/extensions.json). It 
 
 Metadata such as stars, last pushed date, and maintenance status is a reviewed snapshot, not a live ranking. Each entry includes a `verified_at` date.
 
+Published Pages endpoints:
+
+| Endpoint                                      | Use this when...                                        |
+| --------------------------------------------- | ------------------------------------------------------- |
+| [Full catalog JSON][api-extensions]           | You want the complete reviewed catalog for automation.  |
+| [Top Picks JSON][api-top-picks]               | You want only the first-pass recommendations.           |
+| [All install commands][install-all]           | You want a plain-text command bundle for every entry.   |
+| [Top Picks install commands][install-top]     | You want a plain-text install bundle for Top Picks.     |
+
+[api-extensions]: https://sjh9714.github.io/gh-extension-atlas/api/extensions.json
+[api-top-picks]: https://sjh9714.github.io/gh-extension-atlas/api/top-picks.json
+[install-all]: https://sjh9714.github.io/gh-extension-atlas/install/all.txt
+[install-top]: https://sjh9714.github.io/gh-extension-atlas/install/top-picks.txt
+
 Statuses mean:
 
 | Status   | Meaning                                                         |

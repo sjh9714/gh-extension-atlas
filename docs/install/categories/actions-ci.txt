@@ -1,0 +1,7 @@
+gh extension install github/gh-actions-importer
+gh extension install basecamp/gh-signoff
+gh extension install dlvhdr/gh-enhance
+gh extension install fchimpan/gh-workflow-stats
+gh extension install fchimpan/gh-slimify
+gh extension install nektos/gh-act
+gh extension install rsese/gh-actions-status

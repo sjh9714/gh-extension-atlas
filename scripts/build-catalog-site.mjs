@@ -51,16 +51,32 @@ const starterPacks = [
 ];
 
 const entries = JSON.parse(fs.readFileSync(dataPath, "utf8"));
-const categoryPageFiles = unique(entries.map((entry) => entry.category)).map((category) => ({
+const categories = unique(entries.map((entry) => entry.category));
+const categoryPageFiles = categories.map((category) => ({
   path: `docs/${categoryPagePath(category)}`,
   content: renderCategoryPage(category, entries.filter((entry) => entry.category === category)),
 }));
+const endpointFiles = [
+  { path: "docs/api/extensions.json", content: renderJson(stableEntries(entries)) },
+  { path: "docs/api/top-picks.json", content: renderJson(getTopPickEntries(entries)) },
+  { path: "docs/install/all.txt", content: renderInstallCommands(stableEntries(entries)) },
+  { path: "docs/install/top-picks.txt", content: renderInstallCommands(getTopPickEntries(entries)) },
+  ...categories.flatMap((category) => {
+    const categoryEntries = entries.filter((entry) => entry.category === category).sort(categorySort);
+    const slug = categorySlug(category);
+    return [
+      { path: `docs/api/categories/${slug}.json`, content: renderJson(categoryEntries) },
+      { path: `docs/install/categories/${slug}.txt`, content: renderInstallCommands(categoryEntries) },
+    ];
+  }),
+];
 const generatedFiles = [
   { path: "docs/index.html", content: renderCatalog(entries) },
   { path: "docs/robots.txt", content: renderRobotsTxt() },
   { path: "docs/sitemap.xml", content: renderSitemapXml(entries) },
   { path: "docs/social-card.svg", content: renderSocialCard(entries) },
   ...categoryPageFiles,
+  ...endpointFiles,
 ];
 
 if (checkOnly) {
@@ -539,7 +555,8 @@ function renderCatalog(items) {
       <div class="meta">
         <span class="pill">Generated ${escapeHtml(generatedAt)}</span>
         <span class="pill">Reviewed snapshot</span>
-        <span class="pill">Data: <a href="https://github.com/sjh9714/gh-extension-atlas/blob/main/data/extensions.json">extensions.json</a></span>
+        <span class="pill">API: <a href="api/extensions.json">extensions.json</a></span>
+        <span class="pill">Install bundle: <a href="install/all.txt">all.txt</a></span>
         <span class="pill"><a href="https://github.com/sjh9714/gh-extension-atlas/blob/main/docs/starter-packs.md">Starter Packs</a></span>
         <span class="pill"><a href="https://github.com/sjh9714/gh-extension-atlas#readme">README</a></span>
       </div>
@@ -978,6 +995,7 @@ function renderCategoryPage(category, items) {
   const pagePath = categoryPagePath(category);
   const pageUrl = `${siteUrl}${pagePath}`;
   const catalogUrl = `${siteUrl}?category=${encodeURIComponent(category)}`;
+  const slug = categorySlug(category);
   const commands = sortedItems.map((entry) => entry.install).join("\n");
 
   return `<!doctype html>
@@ -1210,6 +1228,8 @@ function renderCategoryPage(category, items) {
       <div class="actions">
         <a href="../">Searchable catalog</a>
         <a href="${escapeAttribute(catalogUrl)}">Open this category with filters</a>
+        <a href="../api/categories/${escapeAttribute(slug)}.json">Category JSON</a>
+        <a href="../install/categories/${escapeAttribute(slug)}.txt">Install commands TXT</a>
         <a href="https://github.com/sjh9714/gh-extension-atlas#readme">README</a>
       </div>
     </div>
@@ -1347,6 +1367,23 @@ function categoryRowHtml(entry) {
 function categorySort(a, b) {
   const statusRank = { active: 0, watch: 1, stale: 2 };
   return statusRank[a.status] - statusRank[b.status] || b.stars - a.stars || a.repo.localeCompare(b.repo);
+}
+
+function stableEntries(items) {
+  return [...items].sort((a, b) => a.category.localeCompare(b.category) || categorySort(a, b));
+}
+
+function getTopPickEntries(items) {
+  const entriesByRepo = new Map(items.map((entry) => [entry.repo, entry]));
+  return topPickRepos.map((repo) => entriesByRepo.get(repo)).filter(Boolean);
+}
+
+function renderJson(value) {
+  return `${JSON.stringify(value, null, 2)}\n`;
+}
+
+function renderInstallCommands(items) {
+  return `${items.map((entry) => entry.install).join("\n")}\n`;
 }
 
 function categoryPagePath(category) {

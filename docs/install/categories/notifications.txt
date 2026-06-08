@@ -1,0 +1,4 @@
+gh extension install meiji163/gh-notify
+gh extension install emmanuel-ferdman/gh-gonest
+gh extension install k1LoW/gh-triage
+gh extension install nobe4/gh-not
