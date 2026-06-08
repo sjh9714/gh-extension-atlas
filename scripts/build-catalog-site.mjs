@@ -5193,6 +5193,7 @@ function renderAuditPage(items) {
     let lastMissingTopPickInstalls = "";
     let lastWorkflowGapInstalls = "";
     let lastAuditSummary = "";
+    let auditSource = "manual";
     const sampleAuditLines = [
       "gh dash\\tdlvhdr/gh-dash\\tv4.8.0",
       "gh s\\tgennaro-tedesco/gh-s\\tv0.7.0",
@@ -5200,6 +5201,7 @@ function renderAuditPage(items) {
     ];
 
     document.getElementById("run-audit").addEventListener("click", () => {
+      auditSource = "manual";
       renderAudit(buildAudit(parseExtensionList(textarea.value)));
     });
 
@@ -5213,6 +5215,7 @@ function renderAuditPage(items) {
 
     document.getElementById("clear-input").addEventListener("click", () => {
       textarea.value = "";
+      auditSource = "manual";
       lastMissingTopPickInstalls = "";
       lastWorkflowGapInstalls = "";
       lastAuditSummary = "";
@@ -5256,6 +5259,7 @@ function renderAuditPage(items) {
     }
 
     function loadSampleAudit() {
+      auditSource = "sample";
       textarea.value = sampleAuditLines.join("\\n");
       renderAudit(buildAudit(parseExtensionList(textarea.value)));
     }
@@ -5356,12 +5360,21 @@ function renderAuditPage(items) {
       ].map(([label, value]) => '<div class="summary-card"><strong>' + value + '</strong><span>' + escapeHtml(label) + '</span></div>').join("");
 
       results.innerHTML = '<h2>Audit Results</h2><div class="summary-grid">' + summary + '</div>'
+        + renderAuditSourceNote()
         + renderNextActions(audit)
         + renderReviewedTable(audit.reviewed)
         + renderUnlistedTable(audit.unlisted)
         + renderMissingTopPicks(audit.missingTopPicks)
         + renderWorkflowCoverage(audit.workflowCoverage)
         + '<p class="muted">Review upstream READMEs before installing extensions that can affect branches, CI, releases, security, or repository state.</p>';
+    }
+
+    function renderAuditSourceNote() {
+      if (auditSource !== "sample") {
+        return "";
+      }
+
+      return '<p class="demo-note visible"><strong>Sample audit result.</strong> To audit your setup, copy <code>gh extension list</code>, paste your output above, and run it locally. Nothing is uploaded.</p>';
     }
 
     function renderNextActions(audit) {
