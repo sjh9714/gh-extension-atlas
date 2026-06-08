@@ -70,7 +70,7 @@ I am mainly looking for factual corrections, missing useful extensions, and cate
 - Issue `#7` is updated with the 24-hour review.
 - Preflight confirms issue `#7` includes the second-wave 24-hour review, `gh-notify` status, and a no-negative-signal decision.
 - Latest `Validate` workflow is green.
-- Public audit page loads and shows `Try sample audit`, `Open demo audit`, and `Copy audit summary`.
+- Public audit page loads and shows `15-second audit flow`, `Try sample audit`, `Open demo audit`, and `Copy audit summary`.
 - Repository stars/watchers/forks are recorded.
 - No other public post is planned for the same 24-hour window.
 

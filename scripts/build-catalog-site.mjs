@@ -4920,6 +4920,51 @@ function renderAuditPage(items) {
       font-size: 14px;
     }
 
+    .flow-list {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      counter-reset: audit-step;
+    }
+
+    .flow-list li {
+      display: grid;
+      gap: 4px;
+      position: relative;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 10px 10px 38px;
+      background: #ffffff;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .flow-list li::before {
+      counter-increment: audit-step;
+      content: counter(audit-step);
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .flow-list strong {
+      color: var(--text);
+      font-size: 14px;
+    }
+
     .pill {
       display: inline-flex;
       align-items: center;
@@ -5116,7 +5161,8 @@ function renderAuditPage(items) {
         width: min(100vw - 20px, 1120px);
       }
 
-      .trust-list {
+      .trust-list,
+      .flow-list {
         grid-template-columns: 1fr;
       }
     }
@@ -5154,6 +5200,11 @@ function renderAuditPage(items) {
         <div class="trust-note"><strong>No tracking</strong><span>No analytics scripts and no remote audit API.</span></div>
         <div class="trust-note"><strong>No upload</strong><span>Your pasted extension output stays in your browser.</span></div>
       </div>
+      <ol class="flow-list" aria-label="15-second audit flow">
+        <li><strong>Copy the command</strong><span>Run <code>gh extension list</code> in your terminal.</span></li>
+        <li><strong>Paste the output</strong><span>Use clipboard paste or the text box. The audit stays local.</span></li>
+        <li><strong>Review the gaps</strong><span>See reviewed installs, unlisted tools, and first-choice workflow options.</span></li>
+      </ol>
       <p class="demo-note" id="demo-note">Sample audit loaded. Paste your own <code>gh extension list</code> output when you are ready to check your setup.</p>
       <pre><code>gh extension list</code></pre>
       <textarea id="extension-list" spellcheck="false" placeholder="gh dash&#9;dlvhdr/gh-dash&#9;v4.8.0&#10;gh notify&#9;meiji163/gh-notify&#9;v2.0.0"></textarea>
