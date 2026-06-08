@@ -63,6 +63,7 @@ Allowed:
 - Record missing-extension suggestions.
 - Apply corrections quickly if someone points out inaccurate wording.
 - Thank people for specific feedback.
+- Run `npm run launch:show-hn:monitor -- --story STORY_URL` and paste snapshots into the tracker.
 
 Not allowed:
 
@@ -70,6 +71,29 @@ Not allowed:
 - Posting to another public channel the same day.
 - Sending more maintainer outreach.
 - Turning maintainer thumbs-up reactions into endorsement claims.
+
+## Response Monitoring
+
+After the HN item exists, capture a factual snapshot:
+
+```sh
+npm run launch:show-hn:monitor -- --story STORY_URL
+```
+
+If you do not have the story URL handy, the monitor searches Hacker News for the audit URL:
+
+```sh
+npm run launch:show-hn:monitor
+```
+
+The output is Markdown-ready and includes:
+
+- HN story URL, score, and comment count.
+- GitHub stars/watchers/forks.
+- GitHub traffic views, clones, referrers, and popular paths when the API allows access.
+- The 24-hour guardrail reminder.
+
+Use `--json` if you need a machine-readable snapshot.
 
 ## Reply Templates
 
