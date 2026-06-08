@@ -387,6 +387,7 @@ Published Pages endpoints:
 | [Cheatsheet][]                                | You want a compact workflow and install-command reference. |
 | [Full catalog JSON][api-extensions]           | You want the complete reviewed catalog for automation.     |
 | [Catalog JSON Schema][api-schema]             | You want the public data contract for catalog entries.     |
+| [Search index JSON][api-search-index]         | You want lightweight records for client-side search.       |
 | [Public API Reference][api-reference]         | You want endpoint docs, schema notes, and curl examples.   |
 | [Top Picks JSON][api-top-picks]               | You want only the first-pass recommendations.              |
 | [Starter pack JSON][api-starter-packs]        | You want workflow bundles as machine-readable JSON.        |
@@ -400,6 +401,7 @@ Published Pages endpoints:
 [health]: docs/health.md
 [api-extensions]: https://sjh9714.github.io/gh-extension-atlas/api/extensions.json
 [api-schema]: https://sjh9714.github.io/gh-extension-atlas/api/extensions.schema.json
+[api-search-index]: https://sjh9714.github.io/gh-extension-atlas/api/search-index.json
 [api-reference]: docs/api-reference.md
 [api-top-picks]: https://sjh9714.github.io/gh-extension-atlas/api/top-picks.json
 [api-starter-packs]: https://sjh9714.github.io/gh-extension-atlas/api/starter-packs.json

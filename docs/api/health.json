@@ -202,6 +202,7 @@
     "health": "https://sjh9714.github.io/gh-extension-atlas/health.md",
     "health_json": "https://sjh9714.github.io/gh-extension-atlas/api/health.json",
     "api_manifest": "https://sjh9714.github.io/gh-extension-atlas/api/index.json",
+    "search_index": "https://sjh9714.github.io/gh-extension-atlas/api/search-index.json",
     "llms": "https://sjh9714.github.io/gh-extension-atlas/llms.txt",
     "llms_full": "https://sjh9714.github.io/gh-extension-atlas/llms-full.txt"
   },

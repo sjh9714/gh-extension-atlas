@@ -447,6 +447,7 @@ const endpointFiles = [
   { path: "docs/api/extensions.json", content: renderJson(stableEntries(entries)) },
   { path: "docs/api/extensions.schema.json", content: renderJson(schema) },
   { path: "docs/api/top-picks.json", content: renderJson(getTopPickEntries(entries)) },
+  { path: "docs/api/search-index.json", content: renderJson(renderSearchIndex(entries)) },
   { path: "docs/api/starter-packs.json", content: renderJson(renderStarterPackIndex(entries)) },
   { path: "docs/cheatsheet.md", content: renderCheatsheetMarkdown(entries) },
   { path: "docs/health.md", content: renderHealthMarkdown(entries) },
@@ -3676,6 +3677,7 @@ function renderApiIndex(items) {
       catalog: `${siteUrl}api/extensions.json`,
       schema: `${siteUrl}api/extensions.schema.json`,
       top_picks: `${siteUrl}api/top-picks.json`,
+      search_index: `${siteUrl}api/search-index.json`,
       starter_packs: `${siteUrl}api/starter-packs.json`,
       chooser: `${siteUrl}chooser.html`,
       awesome_markdown: `${siteUrl}awesome-github-cli-extensions.md`,
@@ -3741,6 +3743,53 @@ function renderStarterPack(pack, items) {
   };
 }
 
+function renderSearchIndex(items) {
+  const starterPacksByRepo = new Map();
+  for (const pack of starterPacks) {
+    for (const repo of pack.repos) {
+      const packs = starterPacksByRepo.get(repo) || [];
+      packs.push(pack.name);
+      starterPacksByRepo.set(repo, packs);
+    }
+  }
+
+  return stableEntries(items).map((entry) => {
+    const ownership = entry.official ? "official" : "community";
+    const workflowGuide = workflowGuides[entry.category];
+    const starterPackNames = starterPacksByRepo.get(entry.repo) || [];
+    const searchTextParts = [
+      entry.repo,
+      entry.name,
+      entry.category,
+      entry.summary,
+      entry.best_for,
+      entry.avoid_if,
+      entry.status,
+      ownership,
+      ...starterPackNames,
+    ];
+
+    return {
+      id: categorySlug(entry.repo),
+      repo: entry.repo,
+      name: entry.name,
+      category: entry.category,
+      status: entry.status,
+      ownership,
+      install: entry.install,
+      summary: entry.summary,
+      best_for: entry.best_for,
+      avoid_if: entry.avoid_if,
+      detail: `${siteUrl}${extensionPagePath(entry)}`,
+      upstream: `https://github.com/${entry.repo}`,
+      workflow_guide: workflowGuide ? `${siteUrl}${workflowGuide.path}` : null,
+      starter_packs: starterPackNames,
+      keywords: searchKeywords(searchTextParts),
+      search_text: searchTextParts.join(" "),
+    };
+  });
+}
+
 function renderHealthSnapshot(items) {
   const generatedAt = latestVerifiedAt(items);
   const sortedItems = stableEntries(items);
@@ -3804,6 +3853,7 @@ function renderHealthSnapshot(items) {
       health: `${siteUrl}health.md`,
       health_json: `${siteUrl}api/health.json`,
       api_manifest: `${siteUrl}api/index.json`,
+      search_index: `${siteUrl}api/search-index.json`,
       llms: `${siteUrl}llms.txt`,
       llms_full: `${siteUrl}llms-full.txt`,
     },
@@ -3985,6 +4035,7 @@ ${Object.values(workflowGuides)
 - Full catalog JSON: ${siteUrl}api/extensions.json
 - Catalog health JSON: ${siteUrl}api/health.json
 - Catalog schema: ${siteUrl}api/extensions.schema.json
+- Search index JSON: ${siteUrl}api/search-index.json
 - Top Picks JSON: ${siteUrl}api/top-picks.json
 - Starter packs JSON: ${siteUrl}api/starter-packs.json
 - All install commands: ${siteUrl}install/all.txt
@@ -4064,6 +4115,7 @@ ${Object.entries(workflowGuides)
 - Catalog health JSON: ${siteUrl}api/health.json
 - Full catalog JSON: ${siteUrl}api/extensions.json
 - Catalog JSON Schema: ${siteUrl}api/extensions.schema.json
+- Search index JSON: ${siteUrl}api/search-index.json
 - Top Picks JSON: ${siteUrl}api/top-picks.json
 - Starter packs JSON: ${siteUrl}api/starter-packs.json
 - All install commands: ${siteUrl}install/all.txt
@@ -4081,6 +4133,17 @@ ${sortedItems
 
 function renderJson(value) {
   return `${JSON.stringify(value, null, 2)}\n`;
+}
+
+function searchKeywords(parts) {
+  const stopWords = new Set(["and", "for", "from", "into", "only", "that", "the", "this", "with", "without", "your"]);
+  const tokens = parts
+    .join(" ")
+    .toLowerCase()
+    .split(/[^a-z0-9]+/)
+    .filter((token) => token.length > 2 && !stopWords.has(token));
+
+  return unique(tokens).sort();
 }
 
 function renderInstallCommands(items) {

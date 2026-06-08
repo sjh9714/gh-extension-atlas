@@ -19,6 +19,7 @@ The API is a reviewed snapshot, not a live ranking. Fields such as `stars`, `las
 | [`/api/extensions.json`](https://sjh9714.github.io/gh-extension-atlas/api/extensions.json) | JSON array | You want the complete reviewed extension catalog. |
 | [`/api/extensions.schema.json`](https://sjh9714.github.io/gh-extension-atlas/api/extensions.schema.json) | JSON Schema | You want the public data contract for catalog entries. |
 | [`/api/top-picks.json`](https://sjh9714.github.io/gh-extension-atlas/api/top-picks.json) | JSON array | You want the first-pass recommendations from the README Top Picks table. |
+| [`/api/search-index.json`](https://sjh9714.github.io/gh-extension-atlas/api/search-index.json) | JSON array | You want lightweight records for client-side search, docs indexing, or small tools. |
 | `/api/categories/{slug}.json` | JSON array | You want entries from one category, such as `actions-ci` or `dashboard-tui`. |
 | [`/api/starter-packs.json`](https://sjh9714.github.io/gh-extension-atlas/api/starter-packs.json) | JSON array | You want all workflow starter packs with entries and install commands. |
 | `/api/starter-packs/{slug}.json` | JSON object | You want one workflow starter pack as structured data. |
@@ -141,6 +142,13 @@ Print Top Picks as install commands:
 
 ```sh
 curl -fsSL https://sjh9714.github.io/gh-extension-atlas/install/top-picks.txt
+```
+
+Search lightweight index records:
+
+```sh
+curl -fsSL https://sjh9714.github.io/gh-extension-atlas/api/search-index.json \
+  | jq -r '.[] | select(.keywords[]? == "notifications") | [.repo, .install] | @tsv'
 ```
 
 Fetch LLM-friendly atlas context:

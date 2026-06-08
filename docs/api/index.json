@@ -18,6 +18,7 @@
     "catalog": "https://sjh9714.github.io/gh-extension-atlas/api/extensions.json",
     "schema": "https://sjh9714.github.io/gh-extension-atlas/api/extensions.schema.json",
     "top_picks": "https://sjh9714.github.io/gh-extension-atlas/api/top-picks.json",
+    "search_index": "https://sjh9714.github.io/gh-extension-atlas/api/search-index.json",
     "starter_packs": "https://sjh9714.github.io/gh-extension-atlas/api/starter-packs.json",
     "chooser": "https://sjh9714.github.io/gh-extension-atlas/chooser.html",
     "awesome_markdown": "https://sjh9714.github.io/gh-extension-atlas/awesome-github-cli-extensions.md",

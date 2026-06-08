@@ -61,6 +61,13 @@ Inspect the catalog entry schema:
 curl -fsSL https://sjh9714.github.io/gh-extension-atlas/api/extensions.schema.json
 ```
 
+Search lightweight index records without downloading the full catalog:
+
+```sh
+curl -fsSL https://sjh9714.github.io/gh-extension-atlas/api/search-index.json \
+  | jq -r '.[] | select(.keywords[]? == "actions") | [.repo, .category, .install] | @tsv'
+```
+
 Print active community-maintained Actions/CI install commands:
 
 ```sh
