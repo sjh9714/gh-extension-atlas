@@ -235,6 +235,13 @@ function renderCatalog(items) {
       color: var(--accent);
     }
 
+    button:disabled {
+      cursor: not-allowed;
+      border-color: var(--border);
+      color: var(--muted);
+      opacity: 0.62;
+    }
+
     .presets,
     .actions {
       display: flex;
@@ -550,6 +557,7 @@ function renderCatalog(items) {
       </div>
       <div class="actions">
         <div class="action-buttons">
+          <button type="button" id="copy-visible-installs">Copy shown install commands</button>
           <button type="button" id="copy-link">Copy current view link</button>
           <button type="button" id="reset">Reset filters</button>
         </div>
@@ -609,6 +617,7 @@ function renderCatalog(items) {
       category: document.getElementById("category"),
       copyFeedback: document.getElementById("copy-feedback"),
       copyLink: document.getElementById("copy-link"),
+      copyVisibleInstalls: document.getElementById("copy-visible-installs"),
       empty: document.getElementById("empty"),
       featured: document.getElementById("featured"),
       ownership: document.getElementById("ownership"),
@@ -619,6 +628,7 @@ function renderCatalog(items) {
       status: document.getElementById("status"),
       summary: document.getElementById("summary"),
     };
+    let currentFiltered = [];
 
     loadStateFromUrl();
 
@@ -636,6 +646,12 @@ function renderCatalog(items) {
       updateUrl();
       await copyText(location.href);
       showFeedback("Copied current view link.");
+    });
+
+    controls.copyVisibleInstalls.addEventListener("click", async () => {
+      const commands = currentFiltered.map((entry) => entry.install).join("\\n");
+      await copyText(commands);
+      showFeedback(\`Copied \${currentFiltered.length} install command\${currentFiltered.length === 1 ? "" : "s"}.\`);
     });
 
     controls.reset.addEventListener("click", () => {
@@ -678,6 +694,8 @@ function renderCatalog(items) {
         .filter((entry) => ownership !== "community" || !entry.official)
         .filter((entry) => !search || searchableText(entry).includes(search))
         .sort(sortEntries(sort));
+      currentFiltered = filtered;
+      controls.copyVisibleInstalls.disabled = filtered.length === 0;
 
       controls.summary.innerHTML = [
         pill(\`\${filtered.length} shown\`),
