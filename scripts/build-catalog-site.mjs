@@ -3,6 +3,18 @@ import fs from "node:fs";
 const dataPath = "data/extensions.json";
 const outputPath = "docs/index.html";
 const checkOnly = process.argv.includes("--check");
+const topPickRepos = [
+  "dlvhdr/gh-dash",
+  "github/gh-aw",
+  "github/gh-stack",
+  "seachicken/gh-poi",
+  "yusukebe/gh-markdown-preview",
+  "advanced-security/gh-sbom",
+  "gennaro-tedesco/gh-s",
+  "meiji163/gh-notify",
+  "agynio/gh-pr-review",
+  "fchimpan/gh-workflow-stats",
+];
 
 const entries = JSON.parse(fs.readFileSync(dataPath, "utf8"));
 const html = renderCatalog(entries);
@@ -25,6 +37,7 @@ function renderCatalog(items) {
   const statuses = ["active", "watch", "stale"];
   const generatedAt = latestVerifiedAt(items);
   const dataJson = JSON.stringify(items).replaceAll("<", "\\u003c");
+  const topPickJson = JSON.stringify(topPickRepos).replaceAll("<", "\\u003c");
 
   return `<!doctype html>
 <html lang="en">
@@ -33,6 +46,11 @@ function renderCatalog(items) {
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>GitHub CLI Extension Atlas</title>
   <meta name="description" content="Search and filter a curated catalog of GitHub CLI extensions.">
+  <meta property="og:title" content="GitHub CLI Extension Atlas">
+  <meta property="og:description" content="Search ${items.length} curated GitHub CLI extensions by workflow, maintenance status, ownership, and install command.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://sjh9714.github.io/gh-extension-atlas/">
+  <link rel="canonical" href="https://sjh9714.github.io/gh-extension-atlas/">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230969da'/%3E%3Cpath d='M18 33h28M30 21l12 12-12 12' fill='none' stroke='white' stroke-width='6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
   <style>
     :root {
@@ -128,7 +146,7 @@ function renderCatalog(items) {
 
     .filters {
       display: grid;
-      grid-template-columns: minmax(220px, 1.5fr) repeat(4, minmax(130px, 1fr));
+      grid-template-columns: minmax(220px, 1.4fr) repeat(5, minmax(120px, 1fr));
       gap: 10px;
     }
 
@@ -141,7 +159,8 @@ function renderCatalog(items) {
     }
 
     input,
-    select {
+    select,
+    button {
       width: 100%;
       min-height: 38px;
       border: 1px solid var(--border);
@@ -153,9 +172,51 @@ function renderCatalog(items) {
     }
 
     input:focus,
-    select:focus {
+    select:focus,
+    button:focus {
       outline: 2px solid var(--accent-soft);
       border-color: var(--accent);
+    }
+
+    button {
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    button:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .presets,
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .presets button,
+    .actions button,
+    .copy-button {
+      width: auto;
+      min-height: 32px;
+      font-size: 13px;
+    }
+
+    .actions {
+      justify-content: space-between;
+    }
+
+    .action-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .hint {
+      color: var(--muted);
+      font-size: 13px;
     }
 
     .summary {
@@ -223,6 +284,19 @@ function renderCatalog(items) {
       white-space: nowrap;
     }
 
+    .top-pick {
+      display: inline-flex;
+      margin-left: 6px;
+      border-radius: 999px;
+      padding: 1px 7px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      vertical-align: 1px;
+    }
+
     .status {
       display: inline-flex;
       align-items: center;
@@ -251,6 +325,12 @@ function renderCatalog(items) {
 
     .install {
       white-space: nowrap;
+    }
+
+    .install-wrap {
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
     }
 
     .empty {
@@ -326,6 +406,13 @@ function renderCatalog(items) {
           </select>
         </label>
         <label>
+          Featured
+          <select id="featured">
+            <option value="">All entries</option>
+            <option value="top">Top Picks only</option>
+          </select>
+        </label>
+        <label>
           Sort
           <select id="sort">
             <option value="stars">Stars</option>
@@ -333,6 +420,20 @@ function renderCatalog(items) {
             <option value="pushed">Last pushed</option>
           </select>
         </label>
+      </div>
+      <div class="presets" aria-label="Common starting points">
+        <button type="button" data-preset="top">Top Picks</button>
+        <button type="button" data-preset="actions">Actions TUI</button>
+        <button type="button" data-preset="notifications">Notifications</button>
+        <button type="button" data-preset="branches">Branch cleanup</button>
+        <button type="button" data-preset="security">Security/Admin</button>
+      </div>
+      <div class="actions">
+        <div class="action-buttons">
+          <button type="button" id="copy-link">Copy current view link</button>
+          <button type="button" id="reset">Reset filters</button>
+        </div>
+        <span class="hint" id="copy-feedback" aria-live="polite"></span>
       </div>
       <div class="summary" id="summary"></div>
     </section>
@@ -360,34 +461,78 @@ function renderCatalog(items) {
   </footer>
 
   <script type="application/json" id="catalog-data">${dataJson}</script>
+  <script type="application/json" id="top-pick-data">${topPickJson}</script>
   <script>
     const entries = JSON.parse(document.getElementById("catalog-data").textContent);
+    const topPickRepos = new Set(JSON.parse(document.getElementById("top-pick-data").textContent));
+    const presets = {
+      top: { featured: "top", sort: "stars" },
+      actions: { category: "Actions/CI", status: "active", search: "workflow", sort: "stars" },
+      notifications: { category: "Notifications", status: "active", search: "" },
+      branches: { category: "Repo & Branch", status: "active", search: "branch cleanup" },
+      security: { category: "Security/Admin", status: "active", search: "" },
+    };
     const controls = {
       category: document.getElementById("category"),
+      copyFeedback: document.getElementById("copy-feedback"),
+      copyLink: document.getElementById("copy-link"),
+      empty: document.getElementById("empty"),
+      featured: document.getElementById("featured"),
       ownership: document.getElementById("ownership"),
+      reset: document.getElementById("reset"),
       rows: document.getElementById("rows"),
       search: document.getElementById("search"),
       sort: document.getElementById("sort"),
       status: document.getElementById("status"),
       summary: document.getElementById("summary"),
-      empty: document.getElementById("empty"),
     };
 
-    for (const control of [controls.category, controls.ownership, controls.search, controls.sort, controls.status]) {
+    loadStateFromUrl();
+
+    for (const control of [controls.category, controls.featured, controls.ownership, controls.search, controls.sort, controls.status]) {
       control.addEventListener("input", render);
     }
 
-    render();
+    document.querySelectorAll("[data-preset]").forEach((button) => {
+      button.addEventListener("click", () => {
+        applyPreset(button.dataset.preset);
+      });
+    });
 
-    function render() {
+    controls.copyLink.addEventListener("click", async () => {
+      updateUrl();
+      await copyText(location.href);
+      showFeedback("Copied current view link.");
+    });
+
+    controls.reset.addEventListener("click", () => {
+      resetFilters();
+      render();
+    });
+
+    controls.rows.addEventListener("click", async (event) => {
+      const button = event.target.closest("[data-install]");
+      if (!button) {
+        return;
+      }
+
+      await copyText(button.dataset.install);
+      showFeedback("Copied install command.");
+    });
+
+    render({ replace: true });
+
+    function render(options = {}) {
       const search = controls.search.value.trim().toLowerCase();
       const category = controls.category.value;
+      const featured = controls.featured.value;
       const status = controls.status.value;
       const ownership = controls.ownership.value;
       const sort = controls.sort.value;
 
       const filtered = entries
         .filter((entry) => !category || entry.category === category)
+        .filter((entry) => featured !== "top" || isTopPick(entry))
         .filter((entry) => !status || entry.status === status)
         .filter((entry) => ownership !== "official" || entry.official)
         .filter((entry) => ownership !== "community" || !entry.official)
@@ -397,6 +542,7 @@ function renderCatalog(items) {
       controls.summary.innerHTML = [
         pill(\`\${filtered.length} shown\`),
         pill(\`\${entries.length} total\`),
+        pill(\`\${filtered.filter(isTopPick).length} Top Picks\`),
         pill(\`\${countBy(filtered, "active")} active\`),
         pill(\`\${countBy(filtered, "watch")} watch\`),
         pill(\`\${countBy(filtered, "stale")} stale\`),
@@ -404,6 +550,7 @@ function renderCatalog(items) {
 
       controls.rows.innerHTML = filtered.map(rowHtml).join("");
       controls.empty.hidden = filtered.length > 0;
+      updateUrl(options.replace ?? true);
     }
 
     function searchableText(entry) {
@@ -416,6 +563,7 @@ function renderCatalog(items) {
         entry.avoid_if,
         entry.license,
         entry.status,
+        isTopPick(entry) ? "top pick featured" : "",
       ].join(" ").toLowerCase();
     }
 
@@ -434,14 +582,124 @@ function renderCatalog(items) {
     }
 
     function rowHtml(entry) {
+      const topPickBadge = isTopPick(entry) ? '<span class="top-pick">Top Pick</span>' : "";
       return \`<tr>
-        <td><a class="repo" href="https://github.com/\${escapeAttribute(entry.repo)}">\${escapeHtml(entry.repo)}</a><br><span>\${escapeHtml(entry.summary)}</span></td>
+        <td><a class="repo" href="https://github.com/\${escapeAttribute(entry.repo)}">\${escapeHtml(entry.repo)}</a>\${topPickBadge}<br><span>\${escapeHtml(entry.summary)}</span></td>
         <td>\${escapeHtml(entry.category)}</td>
         <td>\${escapeHtml(entry.best_for)}</td>
         <td><span class="status \${entry.status}">\${entry.status}</span></td>
         <td>\${entry.stars.toLocaleString()}</td>
-        <td class="install"><code>\${escapeHtml(entry.install)}</code></td>
+        <td class="install"><span class="install-wrap"><code>\${escapeHtml(entry.install)}</code><button class="copy-button" type="button" data-install="\${escapeAttribute(entry.install)}">Copy</button></span></td>
       </tr>\`;
+    }
+
+    function applyPreset(name) {
+      setFilters({
+        category: "",
+        featured: "",
+        ownership: "",
+        search: "",
+        sort: "stars",
+        status: "",
+        ...(presets[name] || {}),
+      });
+      render();
+    }
+
+    function resetFilters() {
+      setFilters({
+        category: "",
+        featured: "",
+        ownership: "",
+        search: "",
+        sort: "stars",
+        status: "",
+      });
+    }
+
+    function setFilters(values) {
+      controls.category.value = values.category ?? controls.category.value;
+      controls.featured.value = values.featured ?? controls.featured.value;
+      controls.ownership.value = values.ownership ?? controls.ownership.value;
+      controls.search.value = values.search ?? controls.search.value;
+      controls.sort.value = values.sort ?? controls.sort.value;
+      controls.status.value = values.status ?? controls.status.value;
+    }
+
+    function loadStateFromUrl() {
+      const params = new URLSearchParams(location.search);
+      controls.search.value = params.get("q") || "";
+      setSelect(controls.category, params.get("category"));
+      setSelect(controls.status, params.get("status"));
+      setSelect(controls.ownership, params.get("ownership"));
+      setSelect(controls.featured, params.get("featured"));
+      setSelect(controls.sort, params.get("sort") || "stars");
+    }
+
+    function setSelect(control, value) {
+      if (!value) {
+        control.value = "";
+        return;
+      }
+
+      if ([...control.options].some((option) => option.value === value)) {
+        control.value = value;
+      }
+    }
+
+    function updateUrl(replace = true) {
+      const params = new URLSearchParams();
+      if (controls.search.value.trim()) {
+        params.set("q", controls.search.value.trim());
+      }
+      if (controls.category.value) {
+        params.set("category", controls.category.value);
+      }
+      if (controls.status.value) {
+        params.set("status", controls.status.value);
+      }
+      if (controls.ownership.value) {
+        params.set("ownership", controls.ownership.value);
+      }
+      if (controls.featured.value) {
+        params.set("featured", controls.featured.value);
+      }
+      if (controls.sort.value && controls.sort.value !== "stars") {
+        params.set("sort", controls.sort.value);
+      }
+
+      const nextUrl = params.toString() ? \`\${location.pathname}?\${params.toString()}\` : location.pathname;
+      const method = replace ? "replaceState" : "pushState";
+      history[method](null, "", nextUrl);
+    }
+
+    async function copyText(text) {
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(text);
+        return;
+      }
+
+      const textarea = document.createElement("textarea");
+      textarea.value = text;
+      textarea.setAttribute("readonly", "");
+      textarea.style.position = "absolute";
+      textarea.style.left = "-9999px";
+      document.body.append(textarea);
+      textarea.select();
+      document.execCommand("copy");
+      textarea.remove();
+    }
+
+    function showFeedback(message) {
+      controls.copyFeedback.textContent = message;
+      window.clearTimeout(showFeedback.timeout);
+      showFeedback.timeout = window.setTimeout(() => {
+        controls.copyFeedback.textContent = "";
+      }, 2400);
+    }
+
+    function isTopPick(entry) {
+      return topPickRepos.has(entry.repo);
     }
 
     function countBy(items, status) {
