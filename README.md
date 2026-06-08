@@ -321,7 +321,7 @@ Use issues when the change is specific:
 - [Fix metadata](https://github.com/sjh9714/gh-extension-atlas/issues/new?template=fix-metadata.yml)
 - [Improve a comparison guide](https://github.com/sjh9714/gh-extension-atlas/issues/new?template=comparison-feedback.yml)
 
-Use [Discussions](https://github.com/sjh9714/gh-extension-atlas/discussions) for questions, rough ideas, and lightweight feedback that is not yet a concrete issue.
+Use the [feedback discussion](https://github.com/sjh9714/gh-extension-atlas/discussions/5) for questions, rough ideas, and lightweight feedback that is not yet a concrete issue.
 
 ## For Extension Maintainers
 
