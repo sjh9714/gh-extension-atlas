@@ -27,6 +27,14 @@ npm run launch:show-hn:record-review
 
 This command only comments on the atlas tracker issue. It does not submit to Hacker News, and it refuses to post before the guardrail expires or when manual review is required.
 
+For the final launch moment, use the combined ready check:
+
+```sh
+npm run launch:show-hn:ready
+```
+
+It runs the guarded review posting step first, then runs the final preflight. It prints the HN submitlink when all gates pass, but it still does not submit to Hacker News.
+
 ## Submission
 
 Use a link submission, not a text-only post.
@@ -64,8 +72,9 @@ I am mainly looking for factual corrections, missing useful extensions, and cate
 
 ## Pre-Submit Checklist
 
-- Run `npm run launch:show-hn:preflight`.
+- Run `npm run launch:show-hn:ready`, or run the next two steps manually.
 - Run `npm run launch:show-hn:review` and paste the completed review into issue `#7`, or run `npm run launch:show-hn:record-review`.
+- Run `npm run launch:show-hn:preflight`.
 - `gh-notify` has no negative reply or correction request.
 - Issue `#7` is updated with the 24-hour review.
 - Preflight confirms issue `#7` includes the second-wave 24-hour review, `gh-notify` status, and a no-negative-signal decision.
