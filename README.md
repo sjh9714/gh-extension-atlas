@@ -13,6 +13,7 @@ If `gh extension search` gives you too many options, start here.
 
 ## Contents
 
+- [Start Here](#start-here)
 - [Pick in 30 Seconds](#pick-in-30-seconds)
 - [Quick Start](#quick-start)
 - [Starter Packs](#starter-packs)
@@ -37,6 +38,29 @@ If `gh extension search` gives you too many options, start here.
 - [Metadata Refresh](#metadata-refresh)
 - [Feedback](#feedback)
 - [For Extension Maintainers](#for-extension-maintainers)
+
+## Start Here
+
+Pick the workflow that hurts right now, inspect the starter pack, then install only the extensions that match your project.
+
+| Workflow                  | Read first                                   | Inspect starter pack                                                                                                                  |
+| ------------------------- | -------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| Daily maintainer triage   | [Terminal dashboard guide][guide-dashboards] | [`daily-maintainer-triage.txt`](https://sjh9714.github.io/gh-extension-atlas/install/starter-packs/daily-maintainer-triage.txt)       |
+| PR and issue triage       | [PR and issue triage guide][guide-pr-issues] | [`pr-review-and-issue-triage.txt`](https://sjh9714.github.io/gh-extension-atlas/install/starter-packs/pr-review-and-issue-triage.txt) |
+| GitHub Actions operations | [Actions guide][guide-actions]               | [`github-actions-operator.txt`](https://sjh9714.github.io/gh-extension-atlas/install/starter-packs/github-actions-operator.txt)       |
+| AI and agents             | [AI and agent guide][guide-ai-agents]        | [`ai-and-agents.txt`](https://sjh9714.github.io/gh-extension-atlas/install/starter-packs/ai-and-agents.txt)                           |
+| Local repository cleanup  | [Branch cleanup guide][guide-branches]       | [`local-repository-cleanup.txt`](https://sjh9714.github.io/gh-extension-atlas/install/starter-packs/local-repository-cleanup.txt)     |
+| Documentation review      | Markdown preview comparison                  | [`documentation-review.txt`](https://sjh9714.github.io/gh-extension-atlas/install/starter-packs/documentation-review.txt)             |
+| Search and discovery      | [Repository search guide][guide-search]      | [`search-and-discovery.txt`](https://sjh9714.github.io/gh-extension-atlas/install/starter-packs/search-and-discovery.txt)             |
+| Security and admin        | [Security and admin guide][guide-security]   | [`security-and-admin.txt`](https://sjh9714.github.io/gh-extension-atlas/install/starter-packs/security-and-admin.txt)                 |
+
+Example:
+
+```sh
+curl -fsSL https://sjh9714.github.io/gh-extension-atlas/install/starter-packs/ai-and-agents.txt
+```
+
+Review bundle contents before installing. Do not pipe install bundles directly into a shell.
 
 ## Pick in 30 Seconds
 
