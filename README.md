@@ -15,6 +15,7 @@ If `gh extension search` gives you too many options, start here.
 
 - [Quick Start](#quick-start)
 - [Start Here](#start-here)
+- [Starter Packs](#starter-packs)
 - [Who should use this](#who-should-use-this)
 - [Why this exists](#why-this-exists)
 - [Selection Criteria](#selection-criteria)
@@ -57,6 +58,20 @@ If you only have a few minutes, start from the workflow that hurts right now.
 | Clean local merged branches           | `gh-poi`              | Removes merged branches without making you inspect every ref manually.  |
 | Preview README or docs rendering      | `gh-markdown-preview` | Shows GitHub-flavored Markdown before you publish.                      |
 | Search repositories from the terminal | `gh-s`                | Adds a compact interactive repository search flow.                      |
+
+## Starter Packs
+
+Use the [starter packs](docs/starter-packs.md) when you want a small install sequence for a specific workflow instead of browsing the full catalog.
+
+| Workflow                  | First extensions to compare                              |
+| ------------------------- | -------------------------------------------------------- |
+| Daily maintainer triage   | `gh-dash`, `gh-pr-review`, `gh-notify`                   |
+| GitHub Actions operations | `gh-enhance`, `gh-workflow-stats`, `gh-actions-importer` |
+| Local repository cleanup  | `gh-poi`, `gh-branch`, `gh-install`                      |
+| Documentation review      | `gh-markdown-preview`, `gh-gfm-preview`                  |
+| Security and admin        | `gh-sbom`, `gh-token`, `gh-gei`                          |
+| Search and discovery      | `gh-s`, `gh-grep`, `gh-user-stars`                       |
+| AI and agents             | `gh-aw`, `gh-models`, `gh-mcp`                           |
 
 ## Who should use this
 
