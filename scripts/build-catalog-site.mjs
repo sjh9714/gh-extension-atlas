@@ -566,6 +566,7 @@ function renderCatalog(items) {
         <span class="pill">Reviewed snapshot</span>
         <span class="pill">API index: <a href="api/index.json">index.json</a></span>
         <span class="pill">API: <a href="api/extensions.json">extensions.json</a></span>
+        <span class="pill">API docs: <a href="api-reference.md">api-reference.md</a></span>
         <span class="pill">Install bundle: <a href="install/all.txt">all.txt</a></span>
         <span class="pill"><a href="https://github.com/sjh9714/gh-extension-atlas/blob/main/docs/starter-packs.md">Starter Packs</a></span>
         <span class="pill"><a href="https://github.com/sjh9714/gh-extension-atlas#readme">README</a></span>

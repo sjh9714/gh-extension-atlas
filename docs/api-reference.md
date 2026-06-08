@@ -1,0 +1,148 @@
+# Public API Reference
+
+GitHub CLI Extension Atlas publishes a small static API for people who want to inspect, filter, or reuse the reviewed catalog without cloning the repository.
+
+Base URL:
+
+```text
+https://sjh9714.github.io/gh-extension-atlas/
+```
+
+The API is a reviewed snapshot, not a live ranking. Fields such as `stars`, `last_pushed_at`, `status`, and `verified_at` are refreshed during maintenance passes and should be rechecked before adopting a tool in a production workflow.
+
+## Endpoints
+
+| Endpoint | Format | Use this when... |
+| --- | --- | --- |
+| [`/api/index.json`](https://sjh9714.github.io/gh-extension-atlas/api/index.json) | JSON object | You want a manifest of all generated endpoints, counts, categories, and starter packs. |
+| [`/api/extensions.json`](https://sjh9714.github.io/gh-extension-atlas/api/extensions.json) | JSON array | You want the complete reviewed extension catalog. |
+| [`/api/extensions.schema.json`](https://sjh9714.github.io/gh-extension-atlas/api/extensions.schema.json) | JSON Schema | You want the public data contract for catalog entries. |
+| [`/api/top-picks.json`](https://sjh9714.github.io/gh-extension-atlas/api/top-picks.json) | JSON array | You want the first-pass recommendations from the README Top Picks table. |
+| `/api/categories/{slug}.json` | JSON array | You want entries from one category, such as `actions-ci` or `dashboard-tui`. |
+| [`/install/all.txt`](https://sjh9714.github.io/gh-extension-atlas/install/all.txt) | Plain text | You want every reviewed install command in one file. |
+| [`/install/top-picks.txt`](https://sjh9714.github.io/gh-extension-atlas/install/top-picks.txt) | Plain text | You want install commands for the Top Picks only. |
+| `/install/categories/{slug}.txt` | Plain text | You want install commands for one category. |
+| `/install/starter-packs/{slug}.txt` | Plain text | You want install commands for a small workflow-specific starter pack. |
+
+Current category slugs:
+
+```text
+actions-ci
+ai-agents
+dashboard-tui
+notifications
+pr-issues
+repo-branch
+search
+security-admin
+```
+
+Current starter pack slugs:
+
+```text
+daily-maintainer-triage
+github-actions-operator
+local-repository-cleanup
+security-and-admin
+```
+
+## Manifest
+
+Use the manifest when you want to discover endpoints programmatically:
+
+```sh
+curl -fsSL https://sjh9714.github.io/gh-extension-atlas/api/index.json
+```
+
+Print category endpoints:
+
+```sh
+curl -fsSL https://sjh9714.github.io/gh-extension-atlas/api/index.json \
+  | jq -r '.categories[] | [.name, .count, .json] | @tsv'
+```
+
+Print starter pack install bundles:
+
+```sh
+curl -fsSL https://sjh9714.github.io/gh-extension-atlas/api/index.json \
+  | jq -r '.starter_packs[] | [.name, .install_commands] | @tsv'
+```
+
+## Catalog Schema
+
+The full catalog is an array of extension entries. Each entry must include these fields:
+
+```text
+repo
+name
+category
+summary
+install
+best_for
+avoid_if
+stars
+license
+last_pushed_at
+archived
+official
+verified_at
+status
+```
+
+The schema is published at:
+
+```sh
+curl -fsSL https://sjh9714.github.io/gh-extension-atlas/api/extensions.schema.json
+```
+
+The v1 data contract keeps field names stable. If a future release needs breaking field changes, it should be handled as a major version change rather than a silent schema drift.
+
+## Common Queries
+
+Fetch the complete catalog:
+
+```sh
+curl -fsSL https://sjh9714.github.io/gh-extension-atlas/api/extensions.json
+```
+
+Print active community-maintained Actions/CI tools:
+
+```sh
+curl -fsSL https://sjh9714.github.io/gh-extension-atlas/api/categories/actions-ci.json \
+  | jq -r '.[] | select(.status == "active" and .official == false) | [.name, .repo, .install] | @tsv'
+```
+
+Print Top Picks as install commands:
+
+```sh
+curl -fsSL https://sjh9714.github.io/gh-extension-atlas/install/top-picks.txt
+```
+
+Review a starter pack:
+
+```sh
+curl -fsSL https://sjh9714.github.io/gh-extension-atlas/install/starter-packs/github-actions-operator.txt
+```
+
+## Safety Notes
+
+Install bundles are plain-text convenience files. Review the commands before running them, and install only the extensions that fit your workflow.
+
+Do not pipe install bundles directly into a shell:
+
+```sh
+# Avoid this pattern.
+curl -fsSL https://sjh9714.github.io/gh-extension-atlas/install/top-picks.txt | sh
+```
+
+Instead, inspect first:
+
+```sh
+curl -fsSL https://sjh9714.github.io/gh-extension-atlas/install/top-picks.txt
+```
+
+## Freshness
+
+The generated API includes metadata from the latest reviewed snapshot. The `generated_at` value in `/api/index.json` comes from the newest `verified_at` date in the catalog.
+
+Use `verified_at`, `last_pushed_at`, and `status` as triage signals, not absolute guarantees. Recheck critical tools directly on GitHub before adopting them for security, compliance, or production workflows.

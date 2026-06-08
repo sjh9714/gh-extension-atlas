@@ -307,19 +307,21 @@ Metadata such as stars, last pushed date, and maintenance status is a reviewed s
 
 Published Pages endpoints:
 
-| Endpoint                                      | Use this when...                                        |
-| --------------------------------------------- | ------------------------------------------------------- |
-| [API index][api-index]                        | You want a manifest of every public catalog endpoint.   |
-| [Full catalog JSON][api-extensions]           | You want the complete reviewed catalog for automation.  |
-| [Catalog JSON Schema][api-schema]             | You want the public data contract for catalog entries.  |
-| [Top Picks JSON][api-top-picks]               | You want only the first-pass recommendations.           |
-| [All install commands][install-all]           | You want a plain-text command bundle for every entry.   |
-| [Top Picks install commands][install-top]     | You want a plain-text install bundle for Top Picks.     |
-| [Starter pack install bundles][install-packs] | You want workflow-specific plain-text install bundles.  |
+| Endpoint                                      | Use this when...                                         |
+| --------------------------------------------- | -------------------------------------------------------- |
+| [API index][api-index]                        | You want a manifest of every public catalog endpoint.    |
+| [Full catalog JSON][api-extensions]           | You want the complete reviewed catalog for automation.   |
+| [Catalog JSON Schema][api-schema]             | You want the public data contract for catalog entries.   |
+| [Public API Reference][api-reference]         | You want endpoint docs, schema notes, and curl examples. |
+| [Top Picks JSON][api-top-picks]               | You want only the first-pass recommendations.            |
+| [All install commands][install-all]           | You want a plain-text command bundle for every entry.    |
+| [Top Picks install commands][install-top]     | You want a plain-text install bundle for Top Picks.      |
+| [Starter pack install bundles][install-packs] | You want workflow-specific plain-text install bundles.   |
 
 [api-index]: https://sjh9714.github.io/gh-extension-atlas/api/index.json
 [api-extensions]: https://sjh9714.github.io/gh-extension-atlas/api/extensions.json
 [api-schema]: https://sjh9714.github.io/gh-extension-atlas/api/extensions.schema.json
+[api-reference]: docs/api-reference.md
 [api-top-picks]: https://sjh9714.github.io/gh-extension-atlas/api/top-picks.json
 [install-all]: https://sjh9714.github.io/gh-extension-atlas/install/all.txt
 [install-top]: https://sjh9714.github.io/gh-extension-atlas/install/top-picks.txt

@@ -1,6 +1,6 @@
 # Data Recipes
 
-The atlas is meant to be useful as both a README and a small data catalog. Local recipes use [`data/extensions.json`](../data/extensions.json) without requiring any external dependencies. Public endpoint recipes use the generated Pages API.
+The atlas is meant to be useful as both a README and a small data catalog. Local recipes use [`data/extensions.json`](../data/extensions.json) without requiring any external dependencies. Public endpoint recipes use the generated Pages API. See the [Public API Reference](api-reference.md) for endpoint docs, schema notes, and freshness rules.
 
 ## Query the Local Catalog
 
