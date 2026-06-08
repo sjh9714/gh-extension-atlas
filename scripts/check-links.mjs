@@ -38,7 +38,7 @@ for (const [link, sources] of links) {
   if (isRelative(link)) {
     const source = sources[0];
     const base = path.dirname(source);
-    const withoutHash = link.split("#")[0];
+    const withoutHash = stripQueryAndHash(link);
     const target = path.normalize(path.join(base, withoutHash));
     if (withoutHash && !fs.existsSync(target)) {
       errors.push(`${link} referenced from ${source} does not exist.`);
@@ -145,6 +145,10 @@ function getOwnSiteTarget(link) {
   const parsed = new URL(link);
   const relativePath = parsed.pathname.replace(/^\/gh-extension-atlas\/?/, "") || "index.html";
   return path.join("docs", relativePath.endsWith("/") ? `${relativePath}index.html` : relativePath);
+}
+
+function stripQueryAndHash(link) {
+  return link.split(/[?#]/)[0];
 }
 
 async function checkRemoteLinks(remoteLinks) {

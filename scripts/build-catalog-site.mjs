@@ -5113,6 +5113,7 @@ function renderAuditPage(items) {
         <button type="button" id="copy-missing">Copy missing Top Picks installs</button>
         <button type="button" id="copy-summary">Copy audit summary</button>
         <button type="button" id="clear-input">Clear</button>
+        <a class="button-link" href="audit.html?demo=1">Open demo audit</a>
         <a class="button-link" href="api/extensions.json">Open catalog JSON</a>
       </div>
     </section>
@@ -5136,6 +5137,11 @@ function renderAuditPage(items) {
     const results = document.getElementById("results");
     let lastMissingTopPickInstalls = "";
     let lastAuditSummary = "";
+    const sampleAuditLines = [
+      "gh dash\\tdlvhdr/gh-dash\\tv4.8.0",
+      "gh s\\tgennaro-tedesco/gh-s\\tv0.7.0",
+      "gh unknown\\texample/gh-unknown\\tv1.0.0",
+    ];
 
     document.getElementById("run-audit").addEventListener("click", () => {
       renderAudit(buildAudit(parseExtensionList(textarea.value)));
@@ -5146,12 +5152,7 @@ function renderAuditPage(items) {
     });
 
     document.getElementById("load-sample").addEventListener("click", () => {
-      textarea.value = [
-        "gh dash\\tdlvhdr/gh-dash\\tv4.8.0",
-        "gh s\\tgennaro-tedesco/gh-s\\tv0.7.0",
-        "gh unknown\\texample/gh-unknown\\tv1.0.0",
-      ].join("\\n");
-      renderAudit(buildAudit(parseExtensionList(textarea.value)));
+      loadSampleAudit();
     });
 
     document.getElementById("clear-input").addEventListener("click", () => {
@@ -5180,6 +5181,15 @@ function renderAuditPage(items) {
       }
       await copyText(lastAuditSummary);
     });
+
+    if (new URLSearchParams(window.location.search).has("demo") || new URLSearchParams(window.location.search).has("sample")) {
+      loadSampleAudit();
+    }
+
+    function loadSampleAudit() {
+      textarea.value = sampleAuditLines.join("\\n");
+      renderAudit(buildAudit(parseExtensionList(textarea.value)));
+    }
 
     async function copyText(text) {
       try {

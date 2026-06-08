@@ -2,7 +2,7 @@ import { execFileSync } from "node:child_process";
 
 const repo = "sjh9714/gh-extension-atlas";
 const guardrailAt = new Date("2026-06-09T15:10:00Z");
-const auditUrl = "https://sjh9714.github.io/gh-extension-atlas/audit.html";
+const auditUrl = "https://sjh9714.github.io/gh-extension-atlas/audit.html?demo=1";
 const submissionTitle = "Show HN: GitHub CLI Extension Atlas - audit and choose gh extensions";
 const hnSearchBaseUrl = "https://hn.algolia.com/api/v1/search";
 
@@ -58,7 +58,7 @@ async function checkAuditPage() {
   }
 
   const html = await response.text();
-  for (const marker of ["Audit Your GitHub CLI Extensions", "Try sample audit", "Copy command", "Copy audit summary", "Next Actions", "GitHub repo"]) {
+  for (const marker of ["Audit Your GitHub CLI Extensions", "Try sample audit", "Open demo audit", "Copy command", "Copy audit summary", "Next Actions", "GitHub repo"]) {
     if (!html.includes(marker)) {
       fail(`Audit page is missing marker: ${marker}`);
     }

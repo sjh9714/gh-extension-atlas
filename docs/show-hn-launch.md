@@ -24,8 +24,10 @@ Show HN: GitHub CLI Extension Atlas - audit and choose gh extensions
 URL:
 
 ```text
-https://sjh9714.github.io/gh-extension-atlas/audit.html
+https://sjh9714.github.io/gh-extension-atlas/audit.html?demo=1
 ```
+
+This URL opens the audit page with a sample result already loaded, so first-time visitors can see the output before pasting their own `gh extension list`.
 
 ## Optional First Comment
 
@@ -34,7 +36,7 @@ Post this only if a short explanation feels necessary after submission. Keep it 
 ```text
 I built this because `gh extension search` gives many options, but it can still be hard to decide what is maintained, what fits a workflow, and what overlaps with something already installed.
 
-The linked page is a browser-only audit tool: paste `gh extension list`, and it compares installed extensions against a curated catalog. It shows reviewed installs, unlisted installs, missing Top Picks, and workflow coverage.
+The linked page is a browser-only audit tool. The Show HN link opens with a sample result loaded; after that, paste `gh extension list` to compare your own installed extensions against the curated catalog. It shows reviewed installs, unlisted installs, missing Top Picks, workflow coverage, and next actions.
 
 The repo also includes comparison guides, install bundles, and a small JSON catalog:
 https://github.com/sjh9714/gh-extension-atlas
@@ -49,7 +51,7 @@ I am mainly looking for factual corrections, missing useful extensions, and cate
 - Issue `#7` is updated with the 24-hour review.
 - Preflight confirms issue `#7` includes the second-wave 24-hour review, `gh-notify` status, and a no-negative-signal decision.
 - Latest `Validate` workflow is green.
-- Public audit page loads and shows `Try sample audit`.
+- Public audit page loads and shows `Try sample audit`, `Open demo audit`, and `Copy audit summary`.
 - Repository stars/watchers/forks are recorded.
 - No other public post is planned for the same 24-hour window.
 
