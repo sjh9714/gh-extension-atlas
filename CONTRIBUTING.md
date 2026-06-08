@@ -2,7 +2,7 @@
 
 Thanks for helping improve the GitHub CLI Extension Atlas.
 
-Please follow the [Code of Conduct](CODE_OF_CONDUCT.md). Keep suggestions factual, specific, and free of star, promotion, or endorsement pressure.
+Please follow the [Code of Conduct](CODE_OF_CONDUCT.md). Keep suggestions factual, specific, and free of star, promotion, or endorsement pressure. Security-relevant catalog corrections are covered in [SECURITY.md](SECURITY.md).
 
 ## Where to start
 

@@ -442,6 +442,8 @@ Use issues when the change is specific:
 
 Use the [feedback discussion](https://github.com/sjh9714/gh-extension-atlas/discussions/5) for questions, rough ideas, and lightweight feedback that is not yet a concrete issue.
 
+Security-relevant catalog corrections, unsafe install guidance, or sensitive report handling notes are covered in [`SECURITY.md`](SECURITY.md).
+
 ## For Extension Maintainers
 
 If your extension is listed here, corrections are welcome. Open an issue or pull request when a summary, install command, category, comparison, or maintenance status is off.
