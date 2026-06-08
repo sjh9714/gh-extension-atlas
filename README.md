@@ -18,6 +18,7 @@ If this saves you a few trial installs, [star the repo](https://github.com/sjh97
 
 - [Start Here](#start-here)
 - [Pick in 30 Seconds](#pick-in-30-seconds)
+- [Cheatsheet](#cheatsheet)
 - [Quick Start](#quick-start)
 - [Starter Packs](#starter-packs)
 - [Who should use this](#who-should-use-this)
@@ -50,6 +51,8 @@ Pick the workflow that hurts right now, inspect the starter pack, then install o
 Not sure where to start? Open the [GitHub CLI Extension Chooser][chooser] first.
 
 Want a shareable overview first? Open the [Awesome GitHub CLI Extensions overview][awesome-overview].
+
+Want a copy-paste quick reference? Open the [GitHub CLI Extension Cheatsheet][cheatsheet].
 
 | Workflow                  | Read first                                   | Inspect starter pack                                                                                                                  |
 | ------------------------- | -------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
@@ -84,6 +87,10 @@ If you only have a few minutes, start from the workflow that hurts right now.
 | Preview README or docs rendering      | `gh-markdown-preview`     | Shows GitHub-flavored Markdown before you publish.                     |
 | Search repositories from the terminal | `gh-s`                    | Adds a compact interactive repository search flow.                     |
 | Reuse the catalog data                | [API docs][api-reference] | Documents JSON, schema, and install bundle endpoints.                  |
+
+## Cheatsheet
+
+Use the [GitHub CLI Extension Cheatsheet][cheatsheet] when you want one compact page with workflow picks, Top Picks install commands, starter-pack bundle links, and API shortcuts.
 
 ## Quick Start
 
@@ -205,6 +212,7 @@ These are the first extensions to evaluate if you want broad value fast.
 [guide-security]: https://sjh9714.github.io/gh-extension-atlas/guides/security-admin-extensions.html
 [chooser]: https://sjh9714.github.io/gh-extension-atlas/chooser.html
 [awesome-overview]: https://sjh9714.github.io/gh-extension-atlas/awesome-github-cli-extensions.html
+[cheatsheet]: https://sjh9714.github.io/gh-extension-atlas/cheatsheet.md
 
 ## Catalog Browser
 
@@ -370,20 +378,21 @@ Metadata such as stars, last pushed date, and maintenance status is a reviewed s
 
 Published Pages endpoints:
 
-| Endpoint                                      | Use this when...                                         |
-| --------------------------------------------- | -------------------------------------------------------- |
-| [API index][api-index]                        | You want a manifest of every public catalog endpoint.    |
-| [Catalog health snapshot][health]             | You want counts, freshness, and guardrails.              |
-| [Full catalog JSON][api-extensions]           | You want the complete reviewed catalog for automation.   |
-| [Catalog JSON Schema][api-schema]             | You want the public data contract for catalog entries.   |
-| [Public API Reference][api-reference]         | You want endpoint docs, schema notes, and curl examples. |
-| [Top Picks JSON][api-top-picks]               | You want only the first-pass recommendations.            |
-| [Starter pack JSON][api-starter-packs]        | You want workflow bundles as machine-readable JSON.      |
-| [LLM context][llms]                           | You want a concise plain-text map of the atlas.          |
-| [Full LLM context][llms-full]                 | You want plain-text workflow, API, and catalog context.  |
-| [All install commands][install-all]           | You want a plain-text command bundle for every entry.    |
-| [Top Picks install commands][install-top]     | You want a plain-text install bundle for Top Picks.      |
-| [Starter pack install bundles][install-packs] | You want workflow-specific plain-text install bundles.   |
+| Endpoint                                      | Use this when...                                           |
+| --------------------------------------------- | ---------------------------------------------------------- |
+| [API index][api-index]                        | You want a manifest of every public catalog endpoint.      |
+| [Catalog health snapshot][health]             | You want counts, freshness, and guardrails.                |
+| [Cheatsheet][]                                | You want a compact workflow and install-command reference. |
+| [Full catalog JSON][api-extensions]           | You want the complete reviewed catalog for automation.     |
+| [Catalog JSON Schema][api-schema]             | You want the public data contract for catalog entries.     |
+| [Public API Reference][api-reference]         | You want endpoint docs, schema notes, and curl examples.   |
+| [Top Picks JSON][api-top-picks]               | You want only the first-pass recommendations.              |
+| [Starter pack JSON][api-starter-packs]        | You want workflow bundles as machine-readable JSON.        |
+| [LLM context][llms]                           | You want a concise plain-text map of the atlas.            |
+| [Full LLM context][llms-full]                 | You want plain-text workflow, API, and catalog context.    |
+| [All install commands][install-all]           | You want a plain-text command bundle for every entry.      |
+| [Top Picks install commands][install-top]     | You want a plain-text install bundle for Top Picks.        |
+| [Starter pack install bundles][install-packs] | You want workflow-specific plain-text install bundles.     |
 
 [api-index]: https://sjh9714.github.io/gh-extension-atlas/api/index.json
 [health]: docs/health.md

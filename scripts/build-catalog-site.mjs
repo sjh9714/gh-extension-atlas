@@ -448,6 +448,7 @@ const endpointFiles = [
   { path: "docs/api/extensions.schema.json", content: renderJson(schema) },
   { path: "docs/api/top-picks.json", content: renderJson(getTopPickEntries(entries)) },
   { path: "docs/api/starter-packs.json", content: renderJson(renderStarterPackIndex(entries)) },
+  { path: "docs/cheatsheet.md", content: renderCheatsheetMarkdown(entries) },
   { path: "docs/health.md", content: renderHealthMarkdown(entries) },
   { path: "docs/llms.txt", content: renderLlmsTxt(entries) },
   { path: "docs/llms-full.txt", content: renderLlmsFullTxt(entries) },
@@ -1028,6 +1029,7 @@ function renderCatalog(items) {
         <span class="pill">API: <a href="api/extensions.json">extensions.json</a></span>
         <span class="pill">API docs: <a href="api-reference.md">api-reference.md</a></span>
         <span class="pill"><a href="faq.md">FAQ</a></span>
+        <span class="pill"><a href="cheatsheet.md">Cheatsheet</a></span>
         <span class="pill">Install bundle: <a href="install/all.txt">all.txt</a></span>
         <span class="pill"><a href="chooser.html">Chooser</a></span>
         <span class="pill"><a href="awesome-github-cli-extensions.html">Awesome overview</a></span>
@@ -2557,6 +2559,7 @@ function renderAwesomeLandingPage(items) {
       <div class="actions">
         <a href="chooser.html">Open the chooser</a>
         <a href="./">Searchable catalog</a>
+        <a href="cheatsheet.md">Cheatsheet</a>
         <a href="${repoReadmeUrl}">README</a>
         <a href="${repoUrl}">Star on GitHub</a>
         <a href="${repoIssueChooserUrl}">Suggest a correction</a>
@@ -2914,6 +2917,7 @@ function renderChooserPage(items) {
         <a href="awesome-github-cli-extensions.html">Awesome overview</a>
         <a href="api/index.json">API manifest</a>
         <a href="faq.md">FAQ</a>
+        <a href="cheatsheet.md">Cheatsheet</a>
         <a href="${repoReadmeUrl}">README</a>
         <a href="${repoUrl}">Star on GitHub</a>
       </div>
@@ -3381,6 +3385,12 @@ function renderSitemapXml(items) {
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>`;
+  const cheatsheetUrl = `  <url>
+    <loc>${siteUrl}cheatsheet.md</loc>
+    <lastmod>${escapeHtml(lastmod)}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>`;
   const guideUrls = Object.values(workflowGuides)
     .map((guide) => `  <url>
     <loc>${siteUrl}${guide.path}</loc>
@@ -3416,6 +3426,7 @@ function renderSitemapXml(items) {
   </url>
 ${chooserUrl}
 ${awesomeUrl}
+${cheatsheetUrl}
 ${categoryUrls}
 ${guideUrls}
 ${extensionUrls}
@@ -3570,6 +3581,7 @@ function renderApiIndex(items) {
       top_picks: `${siteUrl}api/top-picks.json`,
       starter_packs: `${siteUrl}api/starter-packs.json`,
       chooser: `${siteUrl}chooser.html`,
+      cheatsheet: `${siteUrl}cheatsheet.md`,
       faq: `${siteUrl}faq.md`,
       llms: `${siteUrl}llms.txt`,
       llms_full: `${siteUrl}llms-full.txt`,
@@ -3688,6 +3700,7 @@ function renderHealthSnapshot(items) {
       catalog: siteUrl,
       chooser: `${siteUrl}chooser.html`,
       awesome_overview: `${siteUrl}awesome-github-cli-extensions.html`,
+      cheatsheet: `${siteUrl}cheatsheet.md`,
       faq: `${siteUrl}faq.md`,
       health: `${siteUrl}health.md`,
       health_json: `${siteUrl}api/health.json`,
@@ -3754,6 +3767,80 @@ curl -fsSL ${siteUrl}api/health.json
 `;
 }
 
+function renderCheatsheetMarkdown(items) {
+  const generatedAt = latestVerifiedAt(items);
+  const topPicks = getTopPickEntries(items);
+  const workflowRows = [
+    ["PRs, issues, and notifications in one place", "dlvhdr/gh-dash"],
+    ["Inline pull request review threads", "agynio/gh-pr-review"],
+    ["Interactive GitHub Actions inspection", "dlvhdr/gh-enhance"],
+    ["Workflow success rate and duration", "fchimpan/gh-workflow-stats"],
+    ["Safe merged branch cleanup", "seachicken/gh-poi"],
+    ["GitHub-flavored Markdown preview", "yusukebe/gh-markdown-preview"],
+    ["Repository search from the terminal", "gennaro-tedesco/gh-s"],
+    ["Terminal GitHub notification display", "meiji163/gh-notify"],
+    ["SBOM generation", "advanced-security/gh-sbom"],
+    ["Agentic GitHub workflows", "github/gh-aw"],
+  ];
+
+  return `# GitHub CLI Extension Cheatsheet
+
+A compact quick reference for choosing a first GitHub CLI extension from the reviewed atlas.
+
+- Repository: ${repoUrl}
+- Searchable catalog: ${siteUrl}
+- Workflow chooser: ${siteUrl}chooser.html
+- Reviewed snapshot: ${generatedAt}
+- Catalog size: ${items.length} extensions
+
+## Pick By Workflow
+
+| If you need... | Try first | Install | Detail |
+| --- | --- | --- | --- |
+${workflowRows
+  .map(([need, repo]) => {
+    const entry = getEntryByRepo(repo);
+    return `| ${need} | \`${entry.name}\` | \`${entry.install}\` | [${entry.repo}](${siteUrl}${extensionPagePath(entry)}) |`;
+  })
+  .join("\n")}
+
+## Top Picks Install Commands
+
+\`\`\`sh
+${topPicks.map((entry) => entry.install).join("\n")}
+\`\`\`
+
+## Starter Pack Bundles
+
+Review each bundle before installing. Do not pipe remote install bundles directly into a shell.
+
+| Workflow | Bundle | First repos |
+| --- | --- | --- |
+${starterPacks
+  .map((pack) => {
+    const slug = starterPackSlug(pack);
+    return `| ${pack.name} | [${slug}.txt](${siteUrl}install/starter-packs/${slug}.txt) | ${pack.repos.map((repo) => `\`${repo}\``).join(", ")} |`;
+  })
+  .join("\n")}
+
+## API Shortcuts
+
+\`\`\`sh
+curl -fsSL ${siteUrl}api/index.json
+curl -fsSL ${siteUrl}api/top-picks.json
+curl -fsSL ${siteUrl}api/starter-packs.json
+curl -fsSL ${siteUrl}install/top-picks.txt
+\`\`\`
+
+## Guardrails
+
+- This is an independent curated resource, not an official GitHub project.
+- Star counts and maintenance status are reviewed snapshots, not live rankings.
+- Recheck upstream repositories before adopting extensions for security, compliance, CI, release, or production workflows.
+- Open a correction if a summary, category, install command, or maintenance label is wrong: ${repoIssueChooserUrl}
+`;
+}
+
 function renderLlmsTxt(items) {
   const generatedAt = latestVerifiedAt(items);
 
@@ -3766,6 +3853,7 @@ function renderLlmsTxt(items) {
 - Searchable catalog: ${siteUrl}
 - Workflow chooser: ${siteUrl}chooser.html
 - Awesome overview: ${siteUrl}awesome-github-cli-extensions.html
+- Cheatsheet: ${siteUrl}cheatsheet.md
 - FAQ: ${siteUrl}faq.md
 - API manifest: ${siteUrl}api/index.json
 - Full LLM context: ${siteUrl}llms-full.txt
@@ -3780,6 +3868,7 @@ GitHub CLI Extension Atlas helps users choose a useful \`gh\` extension faster w
 - Workflow chooser: ${siteUrl}chooser.html
 - Searchable catalog: ${siteUrl}
 - Awesome overview: ${siteUrl}awesome-github-cli-extensions.html
+- Cheatsheet: ${siteUrl}cheatsheet.md
 - Health snapshot: ${siteUrl}health.md
 - FAQ: ${siteUrl}faq.md
 - API reference: ${siteUrl}api-reference.md
@@ -3841,6 +3930,7 @@ This is not an official GitHub project, complete directory, endorsement list, or
 - Workflow chooser: ${siteUrl}chooser.html
 - Searchable catalog: ${siteUrl}
 - Awesome overview: ${siteUrl}awesome-github-cli-extensions.html
+- Cheatsheet: ${siteUrl}cheatsheet.md
 - Health snapshot: ${siteUrl}health.md
 - FAQ: ${siteUrl}faq.md
 - API reference: ${siteUrl}api-reference.md
