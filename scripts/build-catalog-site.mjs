@@ -607,7 +607,7 @@ function validateAuditPage(files) {
     return ["docs/audit.html must be generated."];
   }
 
-  const requiredIds = ["catalog-data", "top-pick-data", "workflow-data", "extension-list", "run-audit", "load-sample", "copy-missing", "clear-input", "results"];
+  const requiredIds = ["catalog-data", "top-pick-data", "workflow-data", "extension-list", "run-audit", "copy-command", "load-sample", "copy-missing", "clear-input", "results"];
 
   for (const id of requiredIds) {
     if (!file.content.includes(`id="${id}"`)) {
@@ -5095,9 +5095,11 @@ function renderAuditPage(items) {
     <section class="panel">
       <h2>Paste Your Installed Extensions</h2>
       <p class="muted">Run <code>gh extension list</code>, paste the output below, and audit locally in your browser. The pasted text is not sent anywhere.</p>
+      <pre><code>gh extension list</code></pre>
       <textarea id="extension-list" spellcheck="false" placeholder="gh dash&#9;dlvhdr/gh-dash&#9;v4.8.0&#10;gh notify&#9;meiji163/gh-notify&#9;v2.0.0"></textarea>
       <div class="button-row">
         <button class="primary" type="button" id="run-audit">Run audit</button>
+        <button type="button" id="copy-command">Copy command</button>
         <button type="button" id="load-sample">Load sample</button>
         <button type="button" id="copy-missing">Copy missing Top Picks installs</button>
         <button type="button" id="clear-input">Clear</button>
@@ -5127,6 +5129,10 @@ function renderAuditPage(items) {
       renderAudit(buildAudit(parseExtensionList(textarea.value)));
     });
 
+    document.getElementById("copy-command").addEventListener("click", async () => {
+      await copyText("gh extension list");
+    });
+
     document.getElementById("load-sample").addEventListener("click", () => {
       textarea.value = [
         "gh dash\\tdlvhdr/gh-dash\\tv4.8.0",
@@ -5149,11 +5155,15 @@ function renderAuditPage(items) {
       if (!lastMissingTopPickInstalls) {
         return;
       }
+      await copyText(lastMissingTopPickInstalls);
+    });
+
+    async function copyText(text) {
       try {
-        await navigator.clipboard.writeText(lastMissingTopPickInstalls);
+        await navigator.clipboard.writeText(text);
       } catch {
         const copyBox = document.createElement("textarea");
-        copyBox.value = lastMissingTopPickInstalls;
+        copyBox.value = text;
         copyBox.setAttribute("readonly", "");
         copyBox.style.position = "absolute";
         copyBox.style.left = "-9999px";
@@ -5162,7 +5172,7 @@ function renderAuditPage(items) {
         document.execCommand("copy");
         copyBox.remove();
       }
-    });
+    }
 
     function parseExtensionList(text) {
       const seen = new Set();
