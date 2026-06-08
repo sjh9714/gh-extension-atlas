@@ -12,7 +12,9 @@ GitHub CLI has hundreds of public extensions. This atlas helps you choose the ri
 
 If `gh extension search` gives you too many options, start here.
 
-If this saves you a few trial installs, [star the repo](https://github.com/sjh9714/gh-extension-atlas) to help other `gh` users find it.
+Try now: [Audit your installed extensions][installed-audit] · [Choose an extension][chooser] · [Compare extensions][compare-presets].
+
+Corrections, missing useful extensions, and category feedback are welcome in the Feedback section.
 
 ## Contents
 
