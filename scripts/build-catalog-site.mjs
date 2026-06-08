@@ -4402,7 +4402,7 @@ function renderInstallBundlesPage(items) {
         <a href="../chooser.html">Chooser</a>
         <a href="../recommendations.html">Recommendations</a>
         <a href="../api/index.json">API manifest</a>
-        <a href="${repoReadmeUrl}">README</a>
+        <a href="${repoReadmeUrl}">GitHub repo</a>
       </div>
     </div>
   </header>
@@ -5086,7 +5086,7 @@ function renderAuditPage(items) {
         <a href="compare.html">Compare</a>
         <a href="recommendations.html">Recommendations</a>
         <a href="install/">Install bundles</a>
-        <a href="${repoReadmeUrl}">README</a>
+        <a href="${repoReadmeUrl}">GitHub repo</a>
       </div>
     </div>
   </header>
