@@ -3,6 +3,7 @@ import fs from "node:fs";
 const dataPath = "data/extensions.json";
 const checkOnly = process.argv.includes("--check");
 const siteUrl = "https://sjh9714.github.io/gh-extension-atlas/";
+const socialImageUrl = `${siteUrl}social-card.svg`;
 const topPickRepos = [
   "dlvhdr/gh-dash",
   "github/gh-aw",
@@ -21,6 +22,7 @@ const generatedFiles = [
   { path: "docs/index.html", content: renderCatalog(entries) },
   { path: "docs/robots.txt", content: renderRobotsTxt() },
   { path: "docs/sitemap.xml", content: renderSitemapXml(entries) },
+  { path: "docs/social-card.svg", content: renderSocialCard(entries) },
 ];
 
 if (checkOnly) {
@@ -64,6 +66,14 @@ function renderCatalog(items) {
   <meta property="og:description" content="Search ${items.length} curated GitHub CLI extensions by workflow, maintenance status, ownership, and install command.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="${siteUrl}">
+  <meta property="og:image" content="${socialImageUrl}">
+  <meta property="og:image:type" content="image/svg+xml">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="GitHub CLI Extension Atlas">
+  <meta name="twitter:description" content="Search ${items.length} curated GitHub CLI extensions by workflow, maintenance status, ownership, and install command.">
+  <meta name="twitter:image" content="${socialImageUrl}">
   <link rel="canonical" href="${siteUrl}">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230969da'/%3E%3Cpath d='M18 33h28M30 21l12 12-12 12' fill='none' stroke='white' stroke-width='6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
   <style>
@@ -763,6 +773,39 @@ function renderSitemapXml(items) {
   </url>
 </urlset>
 `;
+}
+
+function renderSocialCard(items) {
+  const activeCount = items.filter((entry) => entry.status === "active").length;
+  const categoryCount = unique(items.map((entry) => entry.category)).length;
+  const generatedAt = latestVerifiedAt(items);
+
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">GitHub CLI Extension Atlas</title>
+  <desc id="desc">A curated catalog of ${items.length} GitHub CLI extensions.</desc>
+  <rect width="1200" height="630" fill="#f6f8fa"/>
+  <rect x="64" y="64" width="1072" height="502" rx="28" fill="#ffffff" stroke="#d0d7de" stroke-width="2"/>
+  <rect x="64" y="64" width="1072" height="108" rx="28" fill="#0969da"/>
+  <path d="M64 144h1072v28H64z" fill="#0969da"/>
+  <text x="112" y="132" fill="#ffffff" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="42" font-weight="700">GitHub CLI Extension Atlas</text>
+  <text x="112" y="236" fill="#1f2328" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="58" font-weight="800">Choose a useful gh extension faster.</text>
+  <text x="112" y="298" fill="#57606a" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="30">Curated field guide, comparison docs, starter packs, and a searchable catalog.</text>
+  ${socialMetric(112, 374, items.length, "curated extensions")}
+  ${socialMetric(386, 374, activeCount, "active")}
+  ${socialMetric(620, 374, topPickRepos.length, "Top Picks")}
+  ${socialMetric(824, 374, categoryCount, "categories")}
+  <rect x="112" y="488" width="456" height="46" rx="23" fill="#ddf4ff"/>
+  <text x="140" y="520" fill="#0969da" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="22">sjh9714.github.io/gh-extension-atlas</text>
+  <text x="812" y="520" fill="#57606a" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="22">Reviewed snapshot: ${escapeHtml(generatedAt)}</text>
+</svg>
+`;
+}
+
+function socialMetric(x, y, value, label) {
+  return `<g>
+    <text x="${x}" y="${y}" fill="#1f2328" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="48" font-weight="800">${value}</text>
+    <text x="${x}" y="${y + 38}" fill="#57606a" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="22">${escapeHtml(label)}</text>
+  </g>`;
 }
 
 function unique(values) {
