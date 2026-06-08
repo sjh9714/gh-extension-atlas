@@ -1,8 +1,8 @@
 # Data Recipes
 
-The atlas is meant to be useful as both a README and a small data catalog. These recipes use [`data/extensions.json`](../data/extensions.json) without requiring any external dependencies.
+The atlas is meant to be useful as both a README and a small data catalog. Local recipes use [`data/extensions.json`](../data/extensions.json) without requiring any external dependencies. Public endpoint recipes use the generated Pages API.
 
-## Query the Catalog
+## Query the Local Catalog
 
 List active Actions/CI extensions:
 
@@ -33,6 +33,48 @@ Limit output when you only want a quick sample:
 ```sh
 npm run catalog:query -- --status watch --limit 5
 ```
+
+## Use the Public API
+
+Inspect the endpoint manifest:
+
+```sh
+curl -fsSL https://sjh9714.github.io/gh-extension-atlas/api/index.json
+```
+
+List category endpoint URLs with `jq`:
+
+```sh
+curl -fsSL https://sjh9714.github.io/gh-extension-atlas/api/index.json \
+  | jq -r '.categories[] | [.name, .count, .json] | @tsv'
+```
+
+Fetch the complete reviewed catalog:
+
+```sh
+curl -fsSL https://sjh9714.github.io/gh-extension-atlas/api/extensions.json
+```
+
+Print active community-maintained Actions/CI install commands:
+
+```sh
+curl -fsSL https://sjh9714.github.io/gh-extension-atlas/api/categories/actions-ci.json \
+  | jq -r '.[] | select(.status == "active" and .official == false) | .install'
+```
+
+Review Top Picks install commands without cloning the repository:
+
+```sh
+curl -fsSL https://sjh9714.github.io/gh-extension-atlas/install/top-picks.txt
+```
+
+Review a starter pack install bundle:
+
+```sh
+curl -fsSL https://sjh9714.github.io/gh-extension-atlas/install/starter-packs/github-actions-operator.txt
+```
+
+Avoid piping these bundles directly into a shell. Review the commands first, then install only the extensions that fit your workflow.
 
 ## Read the Snapshot Carefully
 

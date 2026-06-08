@@ -335,7 +335,7 @@ Recommended repository topics after publishing: `awesome`, `awesome-list`, `gith
 
 ## Data Recipes
 
-Use [`docs/data-recipes.md`](docs/data-recipes.md) for copy-paste examples that query the catalog by category, maintenance status, search term, and official/community ownership.
+Use [`docs/data-recipes.md`](docs/data-recipes.md) for copy-paste examples that query the local catalog and public Pages API by category, maintenance status, search term, and official/community ownership.
 
 For example:
 
