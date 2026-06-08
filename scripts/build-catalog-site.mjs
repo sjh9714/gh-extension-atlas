@@ -2,6 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 
 const dataPath = "data/extensions.json";
+const packageJson = JSON.parse(fs.readFileSync("package.json", "utf8"));
 const checkOnly = process.argv.includes("--check");
 const siteUrl = "https://sjh9714.github.io/gh-extension-atlas/";
 const socialImageUrl = `${siteUrl}social-card.png`;
@@ -57,10 +58,15 @@ const categoryPageFiles = categories.map((category) => ({
   content: renderCategoryPage(category, entries.filter((entry) => entry.category === category)),
 }));
 const endpointFiles = [
+  { path: "docs/api/index.json", content: renderJson(renderApiIndex(entries)) },
   { path: "docs/api/extensions.json", content: renderJson(stableEntries(entries)) },
   { path: "docs/api/top-picks.json", content: renderJson(getTopPickEntries(entries)) },
   { path: "docs/install/all.txt", content: renderInstallCommands(stableEntries(entries)) },
   { path: "docs/install/top-picks.txt", content: renderInstallCommands(getTopPickEntries(entries)) },
+  ...starterPacks.map((pack) => ({
+    path: `docs/install/starter-packs/${starterPackSlug(pack)}.txt`,
+    content: renderInstallCommands(getStarterPackEntries(pack, entries)),
+  })),
   ...categories.flatMap((category) => {
     const categoryEntries = entries.filter((entry) => entry.category === category).sort(categorySort);
     const slug = categorySlug(category);
@@ -555,6 +561,7 @@ function renderCatalog(items) {
       <div class="meta">
         <span class="pill">Generated ${escapeHtml(generatedAt)}</span>
         <span class="pill">Reviewed snapshot</span>
+        <span class="pill">API index: <a href="api/index.json">index.json</a></span>
         <span class="pill">API: <a href="api/extensions.json">extensions.json</a></span>
         <span class="pill">Install bundle: <a href="install/all.txt">all.txt</a></span>
         <span class="pill"><a href="https://github.com/sjh9714/gh-extension-atlas/blob/main/docs/starter-packs.md">Starter Packs</a></span>
@@ -968,13 +975,17 @@ Sitemap: ${siteUrl}sitemap.xml
 function renderPackCard(pack) {
   const commands = pack.repos.map((repo) => `gh extension install ${repo}`).join("\n");
   const repos = pack.repos.map((repo) => `<code>${escapeHtml(repo)}</code>`).join(", ");
+  const bundlePath = `install/starter-packs/${starterPackSlug(pack)}.txt`;
 
   return `<article class="pack-card">
           <h3>${escapeHtml(pack.name)}</h3>
           <p>${escapeHtml(pack.summary)}</p>
           <p>${repos}</p>
           <pre><code>${escapeHtml(commands)}</code></pre>
-          <button type="button" data-pack-install="${escapeAttribute(commands).replaceAll("\n", "&#10;")}">Copy commands</button>
+          <div class="actions">
+            <button type="button" data-pack-install="${escapeAttribute(commands).replaceAll("\n", "&#10;")}">Copy commands</button>
+            <a href="${escapeAttribute(bundlePath)}">TXT bundle</a>
+          </div>
         </article>`;
 }
 
@@ -1378,6 +1389,61 @@ function getTopPickEntries(items) {
   return topPickRepos.map((repo) => entriesByRepo.get(repo)).filter(Boolean);
 }
 
+function getStarterPackEntries(pack, items) {
+  const entriesByRepo = new Map(items.map((entry) => [entry.repo, entry]));
+  return pack.repos.map((repo) => entriesByRepo.get(repo)).filter(Boolean);
+}
+
+function renderApiIndex(items) {
+  const generatedAt = latestVerifiedAt(items);
+
+  return {
+    name: packageJson.name,
+    version: packageJson.version,
+    generated_at: generatedAt,
+    source: "https://github.com/sjh9714/gh-extension-atlas",
+    homepage: siteUrl,
+    counts: {
+      extensions: items.length,
+      top_picks: getTopPickEntries(items).length,
+      categories: categories.length,
+      starter_packs: starterPacks.length,
+      active: items.filter((entry) => entry.status === "active").length,
+      watch: items.filter((entry) => entry.status === "watch").length,
+      stale: items.filter((entry) => entry.status === "stale").length,
+    },
+    endpoints: {
+      catalog: `${siteUrl}api/extensions.json`,
+      top_picks: `${siteUrl}api/top-picks.json`,
+      all_install_commands: `${siteUrl}install/all.txt`,
+      top_pick_install_commands: `${siteUrl}install/top-picks.txt`,
+    },
+    categories: categories.map((category) => {
+      const categoryItems = items.filter((entry) => entry.category === category);
+      const slug = categorySlug(category);
+      return {
+        name: category,
+        slug,
+        count: categoryItems.length,
+        active: categoryItems.filter((entry) => entry.status === "active").length,
+        page: `${siteUrl}${categoryPagePath(category)}`,
+        json: `${siteUrl}api/categories/${slug}.json`,
+        install_commands: `${siteUrl}install/categories/${slug}.txt`,
+      };
+    }),
+    starter_packs: starterPacks.map((pack) => {
+      const slug = starterPackSlug(pack);
+      return {
+        name: pack.name,
+        slug,
+        summary: pack.summary,
+        repos: pack.repos,
+        install_commands: `${siteUrl}install/starter-packs/${slug}.txt`,
+      };
+    }),
+  };
+}
+
 function renderJson(value) {
   return `${JSON.stringify(value, null, 2)}\n`;
 }
@@ -1396,6 +1462,10 @@ function categorySlug(category) {
     .replace(/&/g, " ")
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-|-$/g, "");
+}
+
+function starterPackSlug(pack) {
+  return categorySlug(pack.name);
 }
 
 function unique(values) {

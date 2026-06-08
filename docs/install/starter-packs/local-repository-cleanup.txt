@@ -1,0 +1,3 @@
+gh extension install seachicken/gh-poi
+gh extension install mislav/gh-branch
+gh extension install redraw/gh-install

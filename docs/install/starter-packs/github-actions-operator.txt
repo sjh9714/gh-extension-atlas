@@ -1,0 +1,3 @@
+gh extension install dlvhdr/gh-enhance
+gh extension install fchimpan/gh-workflow-stats
+gh extension install github/gh-actions-importer

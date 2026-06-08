@@ -1,0 +1,142 @@
+{
+  "name": "gh-extension-atlas",
+  "version": "0.2.0",
+  "generated_at": "2026-06-08",
+  "source": "https://github.com/sjh9714/gh-extension-atlas",
+  "homepage": "https://sjh9714.github.io/gh-extension-atlas/",
+  "counts": {
+    "extensions": 68,
+    "top_picks": 10,
+    "categories": 8,
+    "starter_packs": 4,
+    "active": 49,
+    "watch": 9,
+    "stale": 10
+  },
+  "endpoints": {
+    "catalog": "https://sjh9714.github.io/gh-extension-atlas/api/extensions.json",
+    "top_picks": "https://sjh9714.github.io/gh-extension-atlas/api/top-picks.json",
+    "all_install_commands": "https://sjh9714.github.io/gh-extension-atlas/install/all.txt",
+    "top_pick_install_commands": "https://sjh9714.github.io/gh-extension-atlas/install/top-picks.txt"
+  },
+  "categories": [
+    {
+      "name": "Actions/CI",
+      "slug": "actions-ci",
+      "count": 7,
+      "active": 6,
+      "page": "https://sjh9714.github.io/gh-extension-atlas/categories/actions-ci.html",
+      "json": "https://sjh9714.github.io/gh-extension-atlas/api/categories/actions-ci.json",
+      "install_commands": "https://sjh9714.github.io/gh-extension-atlas/install/categories/actions-ci.txt"
+    },
+    {
+      "name": "AI/Agents",
+      "slug": "ai-agents",
+      "count": 4,
+      "active": 4,
+      "page": "https://sjh9714.github.io/gh-extension-atlas/categories/ai-agents.html",
+      "json": "https://sjh9714.github.io/gh-extension-atlas/api/categories/ai-agents.json",
+      "install_commands": "https://sjh9714.github.io/gh-extension-atlas/install/categories/ai-agents.txt"
+    },
+    {
+      "name": "Dashboard/TUI",
+      "slug": "dashboard-tui",
+      "count": 8,
+      "active": 7,
+      "page": "https://sjh9714.github.io/gh-extension-atlas/categories/dashboard-tui.html",
+      "json": "https://sjh9714.github.io/gh-extension-atlas/api/categories/dashboard-tui.json",
+      "install_commands": "https://sjh9714.github.io/gh-extension-atlas/install/categories/dashboard-tui.txt"
+    },
+    {
+      "name": "Notifications",
+      "slug": "notifications",
+      "count": 4,
+      "active": 4,
+      "page": "https://sjh9714.github.io/gh-extension-atlas/categories/notifications.html",
+      "json": "https://sjh9714.github.io/gh-extension-atlas/api/categories/notifications.json",
+      "install_commands": "https://sjh9714.github.io/gh-extension-atlas/install/categories/notifications.txt"
+    },
+    {
+      "name": "PR & Issues",
+      "slug": "pr-issues",
+      "count": 11,
+      "active": 8,
+      "page": "https://sjh9714.github.io/gh-extension-atlas/categories/pr-issues.html",
+      "json": "https://sjh9714.github.io/gh-extension-atlas/api/categories/pr-issues.json",
+      "install_commands": "https://sjh9714.github.io/gh-extension-atlas/install/categories/pr-issues.txt"
+    },
+    {
+      "name": "Repo & Branch",
+      "slug": "repo-branch",
+      "count": 11,
+      "active": 5,
+      "page": "https://sjh9714.github.io/gh-extension-atlas/categories/repo-branch.html",
+      "json": "https://sjh9714.github.io/gh-extension-atlas/api/categories/repo-branch.json",
+      "install_commands": "https://sjh9714.github.io/gh-extension-atlas/install/categories/repo-branch.txt"
+    },
+    {
+      "name": "Search",
+      "slug": "search",
+      "count": 9,
+      "active": 7,
+      "page": "https://sjh9714.github.io/gh-extension-atlas/categories/search.html",
+      "json": "https://sjh9714.github.io/gh-extension-atlas/api/categories/search.json",
+      "install_commands": "https://sjh9714.github.io/gh-extension-atlas/install/categories/search.txt"
+    },
+    {
+      "name": "Security/Admin",
+      "slug": "security-admin",
+      "count": 14,
+      "active": 8,
+      "page": "https://sjh9714.github.io/gh-extension-atlas/categories/security-admin.html",
+      "json": "https://sjh9714.github.io/gh-extension-atlas/api/categories/security-admin.json",
+      "install_commands": "https://sjh9714.github.io/gh-extension-atlas/install/categories/security-admin.txt"
+    }
+  ],
+  "starter_packs": [
+    {
+      "name": "Daily Maintainer Triage",
+      "slug": "daily-maintainer-triage",
+      "summary": "PRs, issues, review threads, and notifications from the terminal.",
+      "repos": [
+        "dlvhdr/gh-dash",
+        "agynio/gh-pr-review",
+        "meiji163/gh-notify"
+      ],
+      "install_commands": "https://sjh9714.github.io/gh-extension-atlas/install/starter-packs/daily-maintainer-triage.txt"
+    },
+    {
+      "name": "GitHub Actions Operator",
+      "slug": "github-actions-operator",
+      "summary": "Interactive workflow inspection plus CI health and migration helpers.",
+      "repos": [
+        "dlvhdr/gh-enhance",
+        "fchimpan/gh-workflow-stats",
+        "github/gh-actions-importer"
+      ],
+      "install_commands": "https://sjh9714.github.io/gh-extension-atlas/install/starter-packs/github-actions-operator.txt"
+    },
+    {
+      "name": "Local Repository Cleanup",
+      "slug": "local-repository-cleanup",
+      "summary": "Safer branch cleanup, fuzzy branch switching, and release binary installs.",
+      "repos": [
+        "seachicken/gh-poi",
+        "mislav/gh-branch",
+        "redraw/gh-install"
+      ],
+      "install_commands": "https://sjh9714.github.io/gh-extension-atlas/install/starter-packs/local-repository-cleanup.txt"
+    },
+    {
+      "name": "Security And Admin",
+      "slug": "security-and-admin",
+      "summary": "SBOM generation, GitHub App tokens, and enterprise migration workflows.",
+      "repos": [
+        "advanced-security/gh-sbom",
+        "Link-/gh-token",
+        "github/gh-gei"
+      ],
+      "install_commands": "https://sjh9714.github.io/gh-extension-atlas/install/starter-packs/security-and-admin.txt"
+    }
+  ]
+}

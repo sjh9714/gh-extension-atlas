@@ -1,0 +1,3 @@
+gh extension install advanced-security/gh-sbom
+gh extension install Link-/gh-token
+gh extension install github/gh-gei
