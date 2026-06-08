@@ -17,6 +17,7 @@ The API is a reviewed snapshot, not a live ranking. Fields such as `stars`, `las
 | [`/api/index.json`](https://sjh9714.github.io/gh-extension-atlas/api/index.json) | JSON object | You want a manifest of all generated endpoints, counts, categories, and starter packs. |
 | [`/api/health.json`](https://sjh9714.github.io/gh-extension-atlas/api/health.json) | JSON object | You want catalog counts, freshness, category health, generated asset links, and guardrails. |
 | [`/api/extensions.json`](https://sjh9714.github.io/gh-extension-atlas/api/extensions.json) | JSON array | You want the complete reviewed extension catalog. |
+| [`/api/extensions.csv`](https://sjh9714.github.io/gh-extension-atlas/api/extensions.csv) | CSV | You want the reviewed catalog in a spreadsheet-friendly format. |
 | [`/api/extensions.schema.json`](https://sjh9714.github.io/gh-extension-atlas/api/extensions.schema.json) | JSON Schema | You want the public data contract for catalog entries. |
 | [`/api/top-picks.json`](https://sjh9714.github.io/gh-extension-atlas/api/top-picks.json) | JSON array | You want the first-pass recommendations from the README Top Picks table. |
 | [`/api/search-index.json`](https://sjh9714.github.io/gh-extension-atlas/api/search-index.json) | JSON array | You want lightweight records for client-side search, docs indexing, or small tools. |

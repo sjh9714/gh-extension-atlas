@@ -420,6 +420,7 @@ Published Pages endpoints:
 | [Workflow Recommendations][workflow-recommendations]          | You want workflow-first picks with install commands.               |
 | [Agent guide][agent-guide]                                    | You want prompt and JSON recipes for AI coding assistants.         |
 | [Full catalog JSON][api-extensions]                           | You want the complete reviewed catalog for automation.             |
+| [Full catalog CSV][api-extensions-csv]                        | You want the reviewed catalog for spreadsheets or quick imports.   |
 | [Catalog JSON Schema][api-schema]                             | You want the public data contract for catalog entries.             |
 | [Search index JSON][api-search-index]                         | You want lightweight records for client-side search.               |
 | [Workflow recommendations JSON][api-recommendations]          | You want small workflow-first recommendations for tools or agents. |
@@ -437,6 +438,7 @@ Published Pages endpoints:
 [api-index]: https://sjh9714.github.io/gh-extension-atlas/api/index.json
 [health]: docs/health.md
 [api-extensions]: https://sjh9714.github.io/gh-extension-atlas/api/extensions.json
+[api-extensions-csv]: https://sjh9714.github.io/gh-extension-atlas/api/extensions.csv
 [api-schema]: https://sjh9714.github.io/gh-extension-atlas/api/extensions.schema.json
 [api-search-index]: https://sjh9714.github.io/gh-extension-atlas/api/search-index.json
 [api-recommendations]: https://sjh9714.github.io/gh-extension-atlas/api/recommendations.json

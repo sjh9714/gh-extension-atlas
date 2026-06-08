@@ -451,6 +451,7 @@ const endpointFiles = [
   { path: "docs/api/index.json", content: renderJson(renderApiIndex(entries)) },
   { path: "docs/api/health.json", content: renderJson(renderHealthSnapshot(entries)) },
   { path: "docs/api/extensions.json", content: renderJson(stableEntries(entries)) },
+  { path: "docs/api/extensions.csv", content: renderCatalogCsv(stableEntries(entries)) },
   { path: "docs/api/extensions.schema.json", content: renderJson(schema) },
   { path: "docs/api/top-picks.json", content: renderJson(getTopPickEntries(entries)) },
   { path: "docs/api/search-index.json", content: renderJson(renderSearchIndex(entries)) },
@@ -5028,6 +5029,7 @@ function renderApiIndex(items) {
     endpoints: {
       health: `${siteUrl}api/health.json`,
       catalog: `${siteUrl}api/extensions.json`,
+      catalog_csv: `${siteUrl}api/extensions.csv`,
       schema: `${siteUrl}api/extensions.schema.json`,
       top_picks: `${siteUrl}api/top-picks.json`,
       search_index: `${siteUrl}api/search-index.json`,
@@ -5544,6 +5546,40 @@ ${sortedItems
 
 function renderJson(value) {
   return `${JSON.stringify(value, null, 2)}\n`;
+}
+
+function renderCatalogCsv(items) {
+  const fields = [
+    "repo",
+    "name",
+    "category",
+    "summary",
+    "install",
+    "best_for",
+    "avoid_if",
+    "stars",
+    "license",
+    "last_pushed_at",
+    "archived",
+    "official",
+    "verified_at",
+    "status",
+  ];
+  const rows = [
+    fields,
+    ...items.map((entry) => fields.map((field) => entry[field])),
+  ];
+
+  return `${rows.map((row) => row.map(csvCell).join(",")).join("\n")}\n`;
+}
+
+function csvCell(value) {
+  const text = String(value ?? "");
+  if (/[",\n\r]/.test(text)) {
+    return `"${text.replaceAll('"', '""')}"`;
+  }
+
+  return text;
 }
 
 function searchKeywords(parts) {

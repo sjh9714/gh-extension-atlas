@@ -17,6 +17,7 @@
   "endpoints": {
     "health": "https://sjh9714.github.io/gh-extension-atlas/api/health.json",
     "catalog": "https://sjh9714.github.io/gh-extension-atlas/api/extensions.json",
+    "catalog_csv": "https://sjh9714.github.io/gh-extension-atlas/api/extensions.csv",
     "schema": "https://sjh9714.github.io/gh-extension-atlas/api/extensions.schema.json",
     "top_picks": "https://sjh9714.github.io/gh-extension-atlas/api/top-picks.json",
     "search_index": "https://sjh9714.github.io/gh-extension-atlas/api/search-index.json",

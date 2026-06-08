@@ -115,6 +115,12 @@ Fetch the complete reviewed catalog:
 curl -fsSL https://sjh9714.github.io/gh-extension-atlas/api/extensions.json
 ```
 
+Fetch the catalog as CSV for spreadsheet tools:
+
+```sh
+curl -fsSL https://sjh9714.github.io/gh-extension-atlas/api/extensions.csv
+```
+
 Inspect the catalog entry schema:
 
 ```sh
