@@ -1,5 +1,19 @@
 # Changelog
 
+## v0.2.16
+
+This patch release adds LLM-friendly plain-text context files for AI coding tools and documentation indexers.
+
+### Added
+
+- `llms.txt` with concise atlas context, core pages, workflow guides, public data endpoints, and category counts.
+- `llms-full.txt` with workflow, starter pack, API, and catalog entry context.
+
+### Improved
+
+- README and API reference now link to the LLM context files.
+- Public API manifest now lists the LLM context endpoints.
+
 ## v0.2.15
 
 This patch release adds optional maintainer badge snippets to generated extension detail pages.
