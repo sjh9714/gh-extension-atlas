@@ -16,6 +16,18 @@ gh extension install meiji163/gh-notify
 
 Use `gh-dash` first if you want one dashboard for PRs, issues, and notifications. Add `gh-pr-review` when inline review threads are the pain point. Add `gh-notify` only if browser notifications are the specific workflow you want to replace.
 
+## PR Review And Issue Triage
+
+Best when pull request review, stacked changes, and dependency update queues are the repeated maintainer work.
+
+```sh
+gh extension install agynio/gh-pr-review
+gh extension install github/gh-stack
+gh extension install einride/gh-dependabot
+```
+
+Use `gh-pr-review` first when inline review threads are the pain point. Add `gh-stack` when dependent PRs shape the workflow. Add `gh-dependabot` when dependency update PRs are a repeated queue.
+
 ## GitHub Actions Operator
 
 Best when CI debugging, workflow inspection, or migration work shows up repeatedly.
@@ -89,14 +101,15 @@ Use `gh-aw` for GitHub agentic workflows. Use `gh-models` for GitHub Models from
 
 ## Choosing A Pack
 
-| If you only know the symptom...           | Start with              |
-| ----------------------------------------- | ----------------------- |
-| Too many PRs, issues, and notifications   | Daily Maintainer Triage |
-| CI failures need faster inspection        | GitHub Actions Operator |
-| Local branches keep piling up             | Local Repository Cleanup |
-| Markdown looks different after pushing    | Documentation Review    |
-| Security or migration work is repetitive  | Security And Admin      |
-| Searching GitHub from the browser is slow | Search And Discovery    |
-| You are testing GitHub AI workflows       | AI And Agents           |
+| If you only know the symptom...           | Start with                  |
+| ----------------------------------------- | --------------------------- |
+| Too many PRs, issues, and notifications   | Daily Maintainer Triage     |
+| PR review threads keep piling up          | PR Review And Issue Triage  |
+| CI failures need faster inspection        | GitHub Actions Operator     |
+| Local branches keep piling up             | Local Repository Cleanup    |
+| Markdown looks different after pushing    | Documentation Review        |
+| Security or migration work is repetitive  | Security And Admin          |
+| Searching GitHub from the browser is slow | Search And Discovery        |
+| You are testing GitHub AI workflows       | AI And Agents               |
 
 Prefer the catalog browser when you need filters instead of a starter pack: https://sjh9714.github.io/gh-extension-atlas/

@@ -1,0 +1,415 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GitHub PR And Issue Triage CLI Extension Guide | GitHub CLI Extension Atlas</title>
+  <meta name="description" content="Choose a PR review, stacked PR, dependency PR, metrics, issue search, or milestone helper.">
+  <meta property="og:title" content="GitHub PR And Issue Triage CLI Extension Guide">
+  <meta property="og:description" content="Choose a PR review, stacked PR, dependency PR, metrics, issue search, or milestone helper.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://sjh9714.github.io/gh-extension-atlas/guides/pr-issue-triage-extensions.html">
+  <meta property="og:image" content="https://sjh9714.github.io/gh-extension-atlas/social-card.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="GitHub PR And Issue Triage CLI Extension Guide">
+  <meta name="twitter:description" content="Choose a PR review, stacked PR, dependency PR, metrics, issue search, or milestone helper.">
+  <meta name="twitter:image" content="https://sjh9714.github.io/gh-extension-atlas/social-card.png">
+  <link rel="canonical" href="https://sjh9714.github.io/gh-extension-atlas/guides/pr-issue-triage-extensions.html">
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f7f8fa;
+      --panel: #ffffff;
+      --text: #1f2328;
+      --muted: #656d76;
+      --border: #d0d7de;
+      --accent: #0969da;
+      --accent-soft: #ddf4ff;
+      --good: #1a7f37;
+      --warn: #9a6700;
+      --stale: #8250df;
+      --shadow: 0 1px 2px rgba(31, 35, 40, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font: 15px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    header {
+      background: var(--panel);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .wrap {
+      width: min(1080px, calc(100vw - 32px));
+      margin: 0 auto;
+    }
+
+    .header-inner {
+      display: grid;
+      gap: 13px;
+      padding: 30px 0 24px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(30px, 4vw, 44px);
+      line-height: 1.1;
+      letter-spacing: 0;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 20px;
+      line-height: 1.25;
+      letter-spacing: 0;
+    }
+
+    p {
+      margin: 0;
+    }
+
+    .lead {
+      max-width: 800px;
+      color: var(--muted);
+      font-size: 17px;
+    }
+
+    .meta,
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 3px 10px;
+      background: var(--panel);
+      color: var(--muted);
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    main {
+      display: grid;
+      gap: 14px;
+      padding: 20px 0 42px;
+    }
+
+    .panel,
+    .table-wrap {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+    }
+
+    .panel {
+      display: grid;
+      gap: 11px;
+      padding: 16px;
+    }
+
+    .panel p,
+    .muted {
+      color: var(--muted);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .tool-card {
+      display: grid;
+      gap: 7px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px;
+      background: var(--panel);
+    }
+
+    .table-wrap {
+      overflow: auto;
+    }
+
+    table {
+      width: 100%;
+      min-width: 900px;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      padding: 11px 12px;
+      border-bottom: 1px solid var(--border);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: #f6f8fa;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    tr:last-child td {
+      border-bottom: 0;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    code {
+      font: 13px/1.45 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+
+    pre {
+      margin: 0;
+      overflow: auto;
+      border-radius: 6px;
+      padding: 10px;
+      background: #f6f8fa;
+    }
+
+    .repo {
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      min-height: 24px;
+      border-radius: 999px;
+      padding: 2px 9px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .status.active {
+      background: #dafbe1;
+      color: var(--good);
+    }
+
+    .status.watch {
+      background: #fff8c5;
+      color: var(--warn);
+    }
+
+    .status.stale {
+      background: #fbefff;
+      color: var(--stale);
+    }
+
+    @media (max-width: 760px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap header-inner">
+      <h1>GitHub PR And Issue Triage CLI Extension Guide</h1>
+      <p class="lead">Choose a PR review, stacked PR, dependency PR, metrics, issue search, or milestone helper without trying every maintainer tool first.</p>
+      <div class="meta">
+        <span class="pill">11 PR &amp; Issues extensions</span>
+        <span class="pill">8 active</span>
+        <span class="pill">Reviewed 2026-06-08</span>
+      </div>
+      <div class="actions">
+        <a href="../">Searchable catalog</a>
+        <a href="../categories/pr-issues.html">PR &amp; Issues category</a>
+        <a href="../api/categories/pr-issues.json">Category JSON</a>
+        <a href="../guides/pr-issue-triage-extensions.md">Markdown source</a>
+        <a href="https://github.com/sjh9714/gh-extension-atlas#readme">README</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="panel">
+      <h2>Start Here</h2>
+      <p class="muted">Use the table as a quick chooser. The goal is to separate review-thread work, stacked changes, dependency queues, metrics, and planning tools.</p>
+    </section>
+
+    <section class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>If you need to...</th>
+            <th>Start with</th>
+            <th>Why</th>
+            <th>Status</th>
+            <th>Install</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Resolve inline PR review threads</td>
+            <td><a class="repo" href="https://github.com/agynio/gh-pr-review">pr-review</a><br><span class="muted">View, navigate, reply to, and resolve PR review threads.</span></td>
+            <td>Best when review comments and replies are the main workflow.</td>
+            <td><span class="status active">active</span></td>
+            <td><code>gh extension install agynio/gh-pr-review</code></td>
+          </tr>
+          <tr>
+            <td>Manage stacked pull requests</td>
+            <td><a class="repo" href="https://github.com/github/gh-stack">stack</a><br><span class="muted">Manage stacked pull requests on GitHub.</span></td>
+            <td>Useful when large changes are split into dependent PRs.</td>
+            <td><span class="status active">active</span></td>
+            <td><code>gh extension install github/gh-stack</code></td>
+          </tr>
+          <tr>
+            <td>Review pull requests in a focused terminal flow</td>
+            <td><a class="repo" href="https://github.com/kawarimidoll/gh-prism">prism</a><br><span class="muted">Review pull requests from GitHub CLI.</span></td>
+            <td>A compact PR review option when you do not need a full dashboard.</td>
+            <td><span class="status active">active</span></td>
+            <td><code>gh extension install kawarimidoll/gh-prism</code></td>
+          </tr>
+          <tr>
+            <td>Process Dependabot pull requests</td>
+            <td><a class="repo" href="https://github.com/einride/gh-dependabot">dependabot</a><br><span class="muted">Review Dependabot pull requests from GitHub CLI.</span></td>
+            <td>Targets the dependency-update review queue directly.</td>
+            <td><span class="status active">active</span></td>
+            <td><code>gh extension install einride/gh-dependabot</code></td>
+          </tr>
+          <tr>
+            <td>Bulk triage dependency update queues</td>
+            <td><a class="repo" href="https://github.com/jackchuka/gh-dep">dep</a><br><span class="muted">Bulk manage dependency pull requests in a TUI.</span></td>
+            <td>A TUI for teams with many Dependabot or Renovate PRs.</td>
+            <td><span class="status active">active</span></td>
+            <td><code>gh extension install jackchuka/gh-dep</code></td>
+          </tr>
+          <tr>
+            <td>Measure PR review health</td>
+            <td><a class="repo" href="https://github.com/hectcastro/gh-metrics">metrics</a><br><span class="muted">Summarize pull request metrics.</span></td>
+            <td>Summarizes PR timing and review metrics instead of individual PR details.</td>
+            <td><span class="status active">active</span></td>
+            <td><code>gh extension install hectcastro/gh-metrics</code></td>
+          </tr>
+          <tr>
+            <td>Search issues interactively</td>
+            <td><a class="repo" href="https://github.com/gennaro-tedesco/gh-i">i</a><br><span class="muted">Interactively search GitHub issues.</span></td>
+            <td>A focused issue search flow; verify fit because it is marked watch.</td>
+            <td><span class="status watch">watch</span></td>
+            <td><code>gh extension install gennaro-tedesco/gh-i</code></td>
+          </tr>
+          <tr>
+            <td>Create branches and PRs from issues</td>
+            <td><a class="repo" href="https://github.com/InditexTech/gh-sherpa">sherpa</a><br><span class="muted">Create branches and pull requests from Jira or GitHub issues.</span></td>
+            <td>Good when work starts from a Jira or GitHub issue.</td>
+            <td><span class="status active">active</span></td>
+            <td><code>gh extension install InditexTech/gh-sherpa</code></td>
+          </tr>
+          <tr>
+            <td>Manage milestones from the terminal</td>
+            <td><a class="repo" href="https://github.com/valeriobelli/gh-milestone">milestone</a><br><span class="muted">Manage GitHub milestones from the terminal.</span></td>
+            <td>Useful when milestone planning is part of maintainer work.</td>
+            <td><span class="status active">active</span></td>
+            <td><code>gh extension install valeriobelli/gh-milestone</code></td>
+          </tr>
+          <tr>
+            <td>Query GitHub Projects with SQL</td>
+            <td><a class="repo" href="https://github.com/KOBA789/gh-sql">sql</a><br><span class="muted">Query GitHub Projects data with SQL.</span></td>
+            <td>Powerful for advanced project data queries, but verify compatibility because it is stale.</td>
+            <td><span class="status stale">stale</span></td>
+            <td><code>gh extension install KOBA789/gh-sql</code></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="panel">
+      <h2>First Picks</h2>
+      <div class="grid">
+        <article class="tool-card">
+          <strong><a href="https://github.com/agynio/gh-pr-review">pr-review</a></strong>
+          <span class="muted">Inline review threads</span>
+          <span>Reviewers who want inline PR review workflows in the terminal.</span>
+          <code>gh extension install agynio/gh-pr-review</code>
+        </article>
+        <article class="tool-card">
+          <strong><a href="https://github.com/github/gh-stack">stack</a></strong>
+          <span class="muted">Stacked pull requests</span>
+          <span>Teams that split large changes into dependent PRs.</span>
+          <code>gh extension install github/gh-stack</code>
+        </article>
+        <article class="tool-card">
+          <strong><a href="https://github.com/kawarimidoll/gh-prism">prism</a></strong>
+          <span class="muted">Focused PR review</span>
+          <span>Developers who want a focused PR review helper.</span>
+          <code>gh extension install kawarimidoll/gh-prism</code>
+        </article>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Maintainer Workflow Fit</h2>
+      <p class="muted">Use review tools when comments are the work, stack tools when the change shape is the problem, and metrics or milestone tools when you are planning or improving the process.</p>
+      <div class="grid">
+        <article class="tool-card">
+          <strong><a href="https://github.com/einride/gh-dependabot">dependabot</a></strong>
+          <span class="muted">Dependabot PR review</span>
+          <span>Teams that process many dependency update pull requests.</span>
+          <code>gh extension install einride/gh-dependabot</code>
+        </article>
+        <article class="tool-card">
+          <strong><a href="https://github.com/jackchuka/gh-dep">dep</a></strong>
+          <span class="muted">Dependency PR queue TUI</span>
+          <span>Teams with many Dependabot or Renovate pull requests.</span>
+          <code>gh extension install jackchuka/gh-dep</code>
+        </article>
+        <article class="tool-card">
+          <strong><a href="https://github.com/hectcastro/gh-metrics">metrics</a></strong>
+          <span class="muted">PR review metrics</span>
+          <span>Maintainers who track review and merge health.</span>
+          <code>gh extension install hectcastro/gh-metrics</code>
+        </article>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Starter Pack</h2>
+      <p class="muted">Review the commands before installing. Do not pipe install bundles directly into a shell.</p>
+      <pre><code>gh extension install agynio/gh-pr-review
+gh extension install github/gh-stack
+gh extension install einride/gh-dependabot</code></pre>
+      <div class="actions">
+        <a href="../install/starter-packs/pr-review-and-issue-triage.txt">Starter pack TXT</a>
+        <a href="https://sjh9714.github.io/gh-extension-atlas/categories/pr-issues.html">PR &amp; Issues page</a>
+        <a href="https://sjh9714.github.io/gh-extension-atlas/?category=PR%20%26%20Issues">Open filtered catalog</a>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Freshness Notes</h2>
+      <p class="muted">The atlas is a reviewed snapshot, not a live ranking. Recheck upstream repositories before adopting a PR or issue tool, especially when it can comment, resolve threads, update pull requests, or query project data.</p>
+    </section>
+  </main>
+</body>
+</html>

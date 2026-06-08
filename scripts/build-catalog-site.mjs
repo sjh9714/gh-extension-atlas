@@ -42,6 +42,12 @@ const workflowGuides = {
     sourcePath: "guides/notification-triage-extensions.md",
     summary: "Choose a terminal notification viewer, rules helper, cleanup tool, or broader triage dashboard.",
   },
+  "PR & Issues": {
+    title: "GitHub PR And Issue Triage CLI Extension Guide",
+    path: "guides/pr-issue-triage-extensions.html",
+    sourcePath: "guides/pr-issue-triage-extensions.md",
+    summary: "Choose a PR review, stacked PR, dependency PR, metrics, issue search, or milestone helper.",
+  },
   "Search": {
     title: "GitHub Repository Search CLI Extension Guide",
     path: "guides/repository-search-extensions.html",
@@ -182,6 +188,58 @@ const notificationGuideRows = [
     why: "Best when notifications belong beside PR and issue queues in a TUI.",
   },
 ];
+const prIssueGuideRows = [
+  {
+    need: "Resolve inline PR review threads",
+    repo: "agynio/gh-pr-review",
+    why: "Best when review comments and replies are the main workflow.",
+  },
+  {
+    need: "Manage stacked pull requests",
+    repo: "github/gh-stack",
+    why: "Useful when large changes are split into dependent PRs.",
+  },
+  {
+    need: "Review pull requests in a focused terminal flow",
+    repo: "kawarimidoll/gh-prism",
+    why: "A compact PR review option when you do not need a full dashboard.",
+  },
+  {
+    need: "Process Dependabot pull requests",
+    repo: "einride/gh-dependabot",
+    why: "Targets the dependency-update review queue directly.",
+  },
+  {
+    need: "Bulk triage dependency update queues",
+    repo: "jackchuka/gh-dep",
+    why: "A TUI for teams with many Dependabot or Renovate PRs.",
+  },
+  {
+    need: "Measure PR review health",
+    repo: "hectcastro/gh-metrics",
+    why: "Summarizes PR timing and review metrics instead of individual PR details.",
+  },
+  {
+    need: "Search issues interactively",
+    repo: "gennaro-tedesco/gh-i",
+    why: "A focused issue search flow; verify fit because it is marked watch.",
+  },
+  {
+    need: "Create branches and PRs from issues",
+    repo: "InditexTech/gh-sherpa",
+    why: "Good when work starts from a Jira or GitHub issue.",
+  },
+  {
+    need: "Manage milestones from the terminal",
+    repo: "valeriobelli/gh-milestone",
+    why: "Useful when milestone planning is part of maintainer work.",
+  },
+  {
+    need: "Query GitHub Projects with SQL",
+    repo: "KOBA789/gh-sql",
+    why: "Powerful for advanced project data queries, but verify compatibility because it is stale.",
+  },
+];
 const searchGuideRows = [
   {
     need: "Search repositories interactively",
@@ -236,6 +294,11 @@ const starterPacks = [
     name: "Daily Maintainer Triage",
     summary: "PRs, issues, review threads, and notifications from the terminal.",
     repos: ["dlvhdr/gh-dash", "agynio/gh-pr-review", "meiji163/gh-notify"],
+  },
+  {
+    name: "PR Review And Issue Triage",
+    summary: "Inline PR review, stacked PRs, and dependency update queues.",
+    repos: ["agynio/gh-pr-review", "github/gh-stack", "einride/gh-dependabot"],
   },
   {
     name: "GitHub Actions Operator",
@@ -1726,6 +1789,24 @@ function renderWorkflowGuidePage(category, guide, items) {
     secondSectionTitle = "Triage Fit";
     secondSectionCopy = "Use a notification-only tool when visibility is enough. Use a broader dashboard when notifications are just one part of a daily PR and issue review queue.";
     freshnessCopy = "The atlas is a reviewed snapshot, not a live ranking. Recheck upstream repositories before adopting a notification tool, especially when the extension can mark items read, process unread queues, or request notification-related scopes.";
+  } else if (category === "PR & Issues") {
+    guideRows = prIssueGuideRows;
+    starterPackName = "PR Review And Issue Triage";
+    guideLead = "Choose a PR review, stacked PR, dependency PR, metrics, issue search, or milestone helper without trying every maintainer tool first.";
+    startHereCopy = "Use the table as a quick chooser. The goal is to separate review-thread work, stacked changes, dependency queues, metrics, and planning tools.";
+    firstCards = [
+      ["agynio/gh-pr-review", "Inline review threads"],
+      ["github/gh-stack", "Stacked pull requests"],
+      ["kawarimidoll/gh-prism", "Focused PR review"],
+    ];
+    secondCards = [
+      ["einride/gh-dependabot", "Dependabot PR review"],
+      ["jackchuka/gh-dep", "Dependency PR queue TUI"],
+      ["hectcastro/gh-metrics", "PR review metrics"],
+    ];
+    secondSectionTitle = "Maintainer Workflow Fit";
+    secondSectionCopy = "Use review tools when comments are the work, stack tools when the change shape is the problem, and metrics or milestone tools when you are planning or improving the process.";
+    freshnessCopy = "The atlas is a reviewed snapshot, not a live ranking. Recheck upstream repositories before adopting a PR or issue tool, especially when it can comment, resolve threads, update pull requests, or query project data.";
   } else if (category === "Search") {
     guideRows = searchGuideRows;
     starterPackName = "Search And Discovery";

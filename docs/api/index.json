@@ -8,7 +8,7 @@
     "extensions": 68,
     "top_picks": 10,
     "categories": 8,
-    "starter_packs": 5,
+    "starter_packs": 6,
     "active": 49,
     "watch": 9,
     "stale": 10
@@ -105,6 +105,17 @@
         "meiji163/gh-notify"
       ],
       "install_commands": "https://sjh9714.github.io/gh-extension-atlas/install/starter-packs/daily-maintainer-triage.txt"
+    },
+    {
+      "name": "PR Review And Issue Triage",
+      "slug": "pr-review-and-issue-triage",
+      "summary": "Inline PR review, stacked PRs, and dependency update queues.",
+      "repos": [
+        "agynio/gh-pr-review",
+        "github/gh-stack",
+        "einride/gh-dependabot"
+      ],
+      "install_commands": "https://sjh9714.github.io/gh-extension-atlas/install/starter-packs/pr-review-and-issue-triage.txt"
     },
     {
       "name": "GitHub Actions Operator",

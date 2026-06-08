@@ -1,0 +1,3 @@
+gh extension install agynio/gh-pr-review
+gh extension install github/gh-stack
+gh extension install einride/gh-dependabot
