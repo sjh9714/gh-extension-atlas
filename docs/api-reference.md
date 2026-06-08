@@ -41,8 +41,12 @@ Current starter pack slugs:
 
 ```text
 daily-maintainer-triage
+pr-review-and-issue-triage
 github-actions-operator
+ai-and-agents
 local-repository-cleanup
+documentation-review
+search-and-discovery
 security-and-admin
 ```
 

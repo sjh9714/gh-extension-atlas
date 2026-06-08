@@ -8,7 +8,7 @@
     "extensions": 68,
     "top_picks": 10,
     "categories": 8,
-    "starter_packs": 7,
+    "starter_packs": 8,
     "active": 49,
     "watch": 9,
     "stale": 10
@@ -149,6 +149,16 @@
         "redraw/gh-install"
       ],
       "install_commands": "https://sjh9714.github.io/gh-extension-atlas/install/starter-packs/local-repository-cleanup.txt"
+    },
+    {
+      "name": "Documentation Review",
+      "slug": "documentation-review",
+      "summary": "GitHub-flavored Markdown preview before publishing README or docs changes.",
+      "repos": [
+        "yusukebe/gh-markdown-preview",
+        "thiagokokada/gh-gfm-preview"
+      ],
+      "install_commands": "https://sjh9714.github.io/gh-extension-atlas/install/starter-packs/documentation-review.txt"
     },
     {
       "name": "Search And Discovery",

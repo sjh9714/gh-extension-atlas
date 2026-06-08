@@ -407,6 +407,11 @@ const starterPacks = [
     repos: ["seachicken/gh-poi", "mislav/gh-branch", "redraw/gh-install"],
   },
   {
+    name: "Documentation Review",
+    summary: "GitHub-flavored Markdown preview before publishing README or docs changes.",
+    repos: ["yusukebe/gh-markdown-preview", "thiagokokada/gh-gfm-preview"],
+  },
+  {
     name: "Search And Discovery",
     summary: "Repository discovery, API-backed grep, and interactive code search.",
     repos: ["gennaro-tedesco/gh-s", "k1LoW/gh-grep", "LangLangBart/gh-find-code"],

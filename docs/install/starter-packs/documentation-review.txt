@@ -1,0 +1,2 @@
+gh extension install yusukebe/gh-markdown-preview
+gh extension install thiagokokada/gh-gfm-preview
