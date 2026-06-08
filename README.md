@@ -13,8 +13,8 @@ If `gh extension search` gives you too many options, start here.
 
 ## Contents
 
+- [Pick in 30 Seconds](#pick-in-30-seconds)
 - [Quick Start](#quick-start)
-- [Start Here](#start-here)
 - [Starter Packs](#starter-packs)
 - [Who should use this](#who-should-use-this)
 - [Why this exists](#why-this-exists)
@@ -37,6 +37,21 @@ If `gh extension search` gives you too many options, start here.
 - [Feedback](#feedback)
 - [For Extension Maintainers](#for-extension-maintainers)
 
+## Pick in 30 Seconds
+
+If you only have a few minutes, start from the workflow that hurts right now.
+
+| If you need to...                     | Try first                 | Why this is the first stop                                             |
+| ------------------------------------- | ------------------------- | ---------------------------------------------------------------------- |
+| Triage PRs, issues, and notifications | `gh-dash`                 | One maintained TUI covers the daily GitHub queue.                      |
+| Review PR threads in the terminal     | `gh-pr-review`            | Focuses on inline review comments instead of a full dashboard.         |
+| Inspect GitHub Actions interactively  | `gh-enhance`              | Gives Actions workflows a focused terminal interface.                  |
+| Measure workflow health               | `gh-workflow-stats`       | Summarizes success rates and run duration for CI debugging.            |
+| Clean local merged branches           | `gh-poi`                  | Removes merged branches without making you inspect every ref manually. |
+| Preview README or docs rendering      | `gh-markdown-preview`     | Shows GitHub-flavored Markdown before you publish.                     |
+| Search repositories from the terminal | `gh-s`                    | Adds a compact interactive repository search flow.                     |
+| Reuse the catalog data                | [API docs][api-reference] | Documents JSON, schema, and install bundle endpoints.                  |
+
 ## Quick Start
 
 Install the GitHub CLI, authenticate with `gh auth login`, then install any extension with:
@@ -48,20 +63,6 @@ gh extension install OWNER/REPO
 This list favors extensions that are installable, documented, not archived, and useful for repeated terminal workflows.
 
 Prefer browsing first? The catalog browser supports filters and bulk command copy, and starter packs provide small workflow-specific install sequences.
-
-## Start Here
-
-If you only have a few minutes, start from the workflow that hurts right now.
-
-| If you need to...                     | Try first             | Why this is the first stop                                              |
-| ------------------------------------- | --------------------- | ----------------------------------------------------------------------- |
-| Triage PRs, issues, and notifications | `gh-dash`             | One maintained TUI covers the daily GitHub queue.                       |
-| Review PR threads in the terminal     | `gh-pr-review`        | Focuses on inline review comments instead of a full dashboard.          |
-| Inspect GitHub Actions interactively  | `gh-enhance`          | Gives Actions workflows a focused terminal interface.                   |
-| Measure workflow health               | `gh-workflow-stats`   | Summarizes success rates and run duration for CI debugging.             |
-| Clean local merged branches           | `gh-poi`              | Removes merged branches without making you inspect every ref manually.  |
-| Preview README or docs rendering      | `gh-markdown-preview` | Shows GitHub-flavored Markdown before you publish.                      |
-| Search repositories from the terminal | `gh-s`                | Adds a compact interactive repository search flow.                      |
 
 ## Starter Packs
 

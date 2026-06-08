@@ -223,6 +223,63 @@ function renderCatalog(items) {
       padding: 20px 0 42px;
     }
 
+    .chooser {
+      display: grid;
+      gap: 12px;
+      margin-bottom: 14px;
+      padding: 14px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+    }
+
+    .chooser-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .choice-card {
+      display: grid;
+      gap: 5px;
+      min-height: 86px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 11px;
+      background: var(--panel);
+      color: var(--text);
+      text-align: left;
+      text-decoration: none;
+      box-shadow: var(--shadow);
+    }
+
+    button.choice-card {
+      width: 100%;
+      font-weight: 400;
+    }
+
+    .choice-card strong {
+      font-size: 14px;
+      line-height: 1.25;
+    }
+
+    .choice-card span {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.35;
+    }
+
+    .choice-card:hover {
+      border-color: var(--accent);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .choice-card:hover strong {
+      color: var(--accent);
+    }
+
     .toolbar {
       display: grid;
       gap: 12px;
@@ -532,6 +589,10 @@ function renderCatalog(items) {
         grid-template-columns: 1fr 1fr;
       }
 
+      .chooser-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
       .category-grid {
         grid-template-columns: 1fr 1fr;
       }
@@ -547,6 +608,10 @@ function renderCatalog(items) {
       }
 
       .pack-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .chooser-grid {
         grid-template-columns: 1fr;
       }
 
@@ -575,6 +640,49 @@ function renderCatalog(items) {
   </header>
 
   <main class="wrap">
+    <section class="chooser" aria-label="Fast workflow chooser">
+      <div class="section-heading">
+        <div>
+          <h2>Pick in 30 Seconds</h2>
+          <p>Start from the workflow that hurts right now, then narrow the catalog with filters.</p>
+        </div>
+      </div>
+      <div class="chooser-grid">
+        <button class="choice-card" type="button" data-preset="top">
+          <strong>Not sure yet</strong>
+          <span>Start with the Top Picks shortlist.</span>
+        </button>
+        <button class="choice-card" type="button" data-preset="actions">
+          <strong>Actions workflows</strong>
+          <span>Inspect GitHub Actions and CI health from the terminal.</span>
+        </button>
+        <button class="choice-card" type="button" data-preset="notifications">
+          <strong>Daily triage</strong>
+          <span>Compare GitHub notification and inbox tools.</span>
+        </button>
+        <button class="choice-card" type="button" data-preset="branches">
+          <strong>Branch cleanup</strong>
+          <span>Find safer local branch cleanup workflows.</span>
+        </button>
+        <button class="choice-card" type="button" data-preset="docs">
+          <strong>Docs preview</strong>
+          <span>Preview README and GitHub-flavored Markdown changes.</span>
+        </button>
+        <button class="choice-card" type="button" data-preset="search">
+          <strong>Search and discovery</strong>
+          <span>Find repositories, code, stars, and GitHub resources.</span>
+        </button>
+        <button class="choice-card" type="button" data-preset="security">
+          <strong>Security and admin</strong>
+          <span>Review SBOM, token, migration, and admin tools.</span>
+        </button>
+        <a class="choice-card" href="api-reference.md">
+          <strong>Reusable data</strong>
+          <span>Open the public API reference and schema notes.</span>
+        </a>
+      </div>
+    </section>
+
     <section class="toolbar" aria-label="Catalog filters">
       <div class="filters">
         <label>
@@ -694,6 +802,8 @@ function renderCatalog(items) {
       actions: { category: "Actions/CI", status: "active", search: "workflow", sort: "stars" },
       notifications: { category: "Notifications", status: "active", search: "" },
       branches: { category: "Repo & Branch", status: "active", search: "branch cleanup" },
+      docs: { category: "Dashboard/TUI", status: "active", search: "markdown", sort: "stars" },
+      search: { category: "Search", status: "active", search: "repository", sort: "stars" },
       security: { category: "Security/Admin", status: "active", search: "" },
     };
     const controls = {
