@@ -29,6 +29,7 @@ If `gh extension search` gives you too many options, start here.
 - [Security/Admin](#securityadmin)
 - [AI/Agents](#aiagents)
 - [Data](#data)
+- [Data Recipes](#data-recipes)
 - [For Extension Maintainers](#for-extension-maintainers)
 
 ## Quick Start
@@ -242,6 +243,16 @@ Statuses mean:
 | `stale`  | Still notable, but verify compatibility before depending on it. |
 
 Recommended repository topics after publishing: `awesome`, `awesome-list`, `github-cli`, `gh-extension`, `cli`, `terminal`, `developer-tools`, `open-source`.
+
+## Data Recipes
+
+Use [`docs/data-recipes.md`](docs/data-recipes.md) for copy-paste examples that query the catalog by category, maintenance status, search term, and official/community ownership.
+
+For example:
+
+```sh
+npm run catalog:query -- --category "Actions/CI" --status active
+```
 
 ## Contributing
 

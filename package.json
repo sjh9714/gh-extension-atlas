@@ -7,6 +7,7 @@
   "scripts": {
     "validate:data": "node scripts/validate-data.mjs",
     "check:links": "node scripts/check-links.mjs",
+    "catalog:query": "node scripts/query-catalog.mjs",
     "summary:weekly": "node scripts/weekly-summary.mjs",
     "lint:awesome": "node scripts/run-awesome-lint.mjs",
     "lint:awesome:strict": "npx --yes awesome-lint README.md",
