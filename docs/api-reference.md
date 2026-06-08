@@ -21,6 +21,7 @@ The API is a reviewed snapshot, not a live ranking. Fields such as `stars`, `las
 | [`/api/top-picks.json`](https://sjh9714.github.io/gh-extension-atlas/api/top-picks.json) | JSON array | You want the first-pass recommendations from the README Top Picks table. |
 | [`/api/search-index.json`](https://sjh9714.github.io/gh-extension-atlas/api/search-index.json) | JSON array | You want lightweight records for client-side search, docs indexing, or small tools. |
 | [`/api/recommendations.json`](https://sjh9714.github.io/gh-extension-atlas/api/recommendations.json) | JSON array | You want workflow-first recommendations with install commands and avoid-if notes. |
+| [`/api/recommendations.schema.json`](https://sjh9714.github.io/gh-extension-atlas/api/recommendations.schema.json) | JSON Schema | You want the public data contract for workflow recommendation source data. |
 | `/api/categories/{slug}.json` | JSON array | You want entries from one category, such as `actions-ci` or `dashboard-tui`. |
 | [`/api/starter-packs.json`](https://sjh9714.github.io/gh-extension-atlas/api/starter-packs.json) | JSON array | You want all workflow starter packs with entries and install commands. |
 | `/api/starter-packs/{slug}.json` | JSON object | You want one workflow starter pack as structured data. |
@@ -131,6 +132,12 @@ curl -fsSL https://sjh9714.github.io/gh-extension-atlas/api/extensions.schema.js
 ```
 
 The v1 data contract keeps field names stable. If a future release needs breaking field changes, it should be handled as a major version change rather than a silent schema drift.
+
+Workflow recommendation source data is also schema-backed:
+
+```sh
+curl -fsSL https://sjh9714.github.io/gh-extension-atlas/api/recommendations.schema.json
+```
 
 ## Common Queries
 

@@ -3,6 +3,7 @@ import fs from "node:fs";
 const file = "data/extensions.json";
 const schemaFile = "data/extensions.schema.json";
 const recommendationsFile = "data/recommendations.json";
+const recommendationsSchemaFile = "data/recommendations.schema.json";
 const allowedCategories = new Set([
   "Dashboard/TUI",
   "PR & Issues",
@@ -35,9 +36,11 @@ const raw = fs.readFileSync(file, "utf8");
 const entries = JSON.parse(raw);
 const schema = JSON.parse(fs.readFileSync(schemaFile, "utf8"));
 const recommendations = JSON.parse(fs.readFileSync(recommendationsFile, "utf8"));
+const recommendationsSchema = JSON.parse(fs.readFileSync(recommendationsSchemaFile, "utf8"));
 const errors = [];
 
 validateSchemaContract();
+validateRecommendationsSchemaContract();
 
 function readText(path) {
   try {
@@ -81,6 +84,33 @@ function validateSchemaContract() {
 
   if (!sameSet(schemaStatuses, Array.from(allowedStatuses))) {
     errors.push(`${schemaFile}: status enum must match validator statuses.`);
+  }
+}
+
+function validateRecommendationsSchemaContract() {
+  const itemSchema = recommendationsSchema.items;
+  const schemaRequired = itemSchema?.required ?? [];
+  const schemaProperties = itemSchema?.properties ?? {};
+  const recommendationRequired = ["id", "label", "aliases", "repos"];
+
+  if (recommendationsSchema.type !== "array") {
+    errors.push(`${recommendationsSchemaFile}: root schema type must be array.`);
+  }
+
+  if (recommendationsSchema.minItems !== 1) {
+    errors.push(`${recommendationsSchemaFile}: minItems must be 1.`);
+  }
+
+  if (itemSchema?.additionalProperties !== false) {
+    errors.push(`${recommendationsSchemaFile}: item schema must set additionalProperties to false.`);
+  }
+
+  if (!sameSet(schemaRequired, recommendationRequired)) {
+    errors.push(`${recommendationsSchemaFile}: required fields must match validator recommendation fields.`);
+  }
+
+  if (!sameSet(Object.keys(schemaProperties), recommendationRequired)) {
+    errors.push(`${recommendationsSchemaFile}: properties must match validator recommendation fields.`);
   }
 }
 

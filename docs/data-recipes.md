@@ -105,6 +105,12 @@ curl -fsSL https://sjh9714.github.io/gh-extension-atlas/api/recommendations.json
   | jq -r '.[] | [.id, .label, (.entries | length)] | @tsv'
 ```
 
+Inspect the workflow recommendation schema:
+
+```sh
+curl -fsSL https://sjh9714.github.io/gh-extension-atlas/api/recommendations.schema.json
+```
+
 Print install commands for one recommendation workflow:
 
 ```sh

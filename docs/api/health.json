@@ -206,6 +206,7 @@
     "api_manifest": "https://sjh9714.github.io/gh-extension-atlas/api/index.json",
     "search_index": "https://sjh9714.github.io/gh-extension-atlas/api/search-index.json",
     "recommendations": "https://sjh9714.github.io/gh-extension-atlas/api/recommendations.json",
+    "recommendations_schema": "https://sjh9714.github.io/gh-extension-atlas/api/recommendations.schema.json",
     "llms": "https://sjh9714.github.io/gh-extension-atlas/llms.txt",
     "llms_full": "https://sjh9714.github.io/gh-extension-atlas/llms-full.txt"
   },

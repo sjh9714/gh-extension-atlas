@@ -4,6 +4,7 @@ import path from "node:path";
 const dataPath = "data/extensions.json";
 const schemaPath = "data/extensions.schema.json";
 const recommendationsPath = "data/recommendations.json";
+const recommendationsSchemaPath = "data/recommendations.schema.json";
 const packageJson = JSON.parse(fs.readFileSync("package.json", "utf8"));
 const checkOnly = process.argv.includes("--check");
 const siteUrl = "https://sjh9714.github.io/gh-extension-atlas/";
@@ -430,6 +431,7 @@ const starterPacks = [
 const entries = JSON.parse(fs.readFileSync(dataPath, "utf8"));
 const schema = JSON.parse(fs.readFileSync(schemaPath, "utf8"));
 const recommendations = JSON.parse(fs.readFileSync(recommendationsPath, "utf8"));
+const recommendationsSchema = JSON.parse(fs.readFileSync(recommendationsSchemaPath, "utf8"));
 const categories = unique(entries.map((entry) => entry.category));
 const categoryPageFiles = categories.map((category) => ({
   path: `docs/${categoryPagePath(category)}`,
@@ -451,6 +453,7 @@ const endpointFiles = [
   { path: "docs/api/top-picks.json", content: renderJson(getTopPickEntries(entries)) },
   { path: "docs/api/search-index.json", content: renderJson(renderSearchIndex(entries)) },
   { path: "docs/api/recommendations.json", content: renderJson(renderRecommendations(entries)) },
+  { path: "docs/api/recommendations.schema.json", content: renderJson(recommendationsSchema) },
   { path: "docs/api/starter-packs.json", content: renderJson(renderStarterPackIndex(entries)) },
   { path: "docs/cheatsheet.md", content: renderCheatsheetMarkdown(entries) },
   { path: "docs/health.md", content: renderHealthMarkdown(entries) },
@@ -3699,6 +3702,7 @@ function renderApiIndex(items) {
       top_picks: `${siteUrl}api/top-picks.json`,
       search_index: `${siteUrl}api/search-index.json`,
       recommendations: `${siteUrl}api/recommendations.json`,
+      recommendations_schema: `${siteUrl}api/recommendations.schema.json`,
       starter_packs: `${siteUrl}api/starter-packs.json`,
       chooser: `${siteUrl}chooser.html`,
       awesome_markdown: `${siteUrl}awesome-github-cli-extensions.md`,
@@ -3911,6 +3915,7 @@ function renderHealthSnapshot(items) {
       api_manifest: `${siteUrl}api/index.json`,
       search_index: `${siteUrl}api/search-index.json`,
       recommendations: `${siteUrl}api/recommendations.json`,
+      recommendations_schema: `${siteUrl}api/recommendations.schema.json`,
       llms: `${siteUrl}llms.txt`,
       llms_full: `${siteUrl}llms-full.txt`,
     },
@@ -4097,6 +4102,7 @@ ${Object.values(workflowGuides)
 - Catalog schema: ${siteUrl}api/extensions.schema.json
 - Search index JSON: ${siteUrl}api/search-index.json
 - Workflow recommendations JSON: ${siteUrl}api/recommendations.json
+- Workflow recommendations schema: ${siteUrl}api/recommendations.schema.json
 - Top Picks JSON: ${siteUrl}api/top-picks.json
 - Starter packs JSON: ${siteUrl}api/starter-packs.json
 - All install commands: ${siteUrl}install/all.txt
@@ -4153,6 +4159,7 @@ This is not an official GitHub project, complete directory, endorsement list, or
 - API manifest: ${siteUrl}api/index.json
 - Catalog health JSON: ${siteUrl}api/health.json
 - Workflow recommendations JSON: ${siteUrl}api/recommendations.json
+- Workflow recommendations schema: ${siteUrl}api/recommendations.schema.json
 
 ## Top Picks
 
@@ -4180,6 +4187,7 @@ ${Object.entries(workflowGuides)
 - Catalog JSON Schema: ${siteUrl}api/extensions.schema.json
 - Search index JSON: ${siteUrl}api/search-index.json
 - Workflow recommendations JSON: ${siteUrl}api/recommendations.json
+- Workflow recommendations schema: ${siteUrl}api/recommendations.schema.json
 - Top Picks JSON: ${siteUrl}api/top-picks.json
 - Starter packs JSON: ${siteUrl}api/starter-packs.json
 - All install commands: ${siteUrl}install/all.txt

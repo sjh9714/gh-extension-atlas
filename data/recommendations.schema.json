@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sjh9714.github.io/gh-extension-atlas/api/recommendations.schema.json",
+  "title": "GitHub CLI Extension Atlas Workflow Recommendations",
+  "description": "Small workflow-first recommendation sets that reference reviewed catalog entries.",
+  "type": "array",
+  "minItems": 1,
+  "items": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+      "id",
+      "label",
+      "aliases",
+      "repos"
+    ],
+    "properties": {
+      "id": {
+        "type": "string",
+        "pattern": "^[a-z][a-z0-9-]*$",
+        "description": "Stable workflow id used by the local recommendation helper."
+      },
+      "label": {
+        "type": "string",
+        "minLength": 1,
+        "description": "Human-readable workflow label."
+      },
+      "aliases": {
+        "type": "array",
+        "minItems": 1,
+        "items": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]*$"
+        },
+        "description": "Additional workflow names accepted by the local helper."
+      },
+      "repos": {
+        "type": "array",
+        "minItems": 1,
+        "items": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$"
+        },
+        "description": "Ordered catalog repositories to recommend for this workflow."
+      }
+    }
+  }
+}

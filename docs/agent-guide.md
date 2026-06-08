@@ -28,6 +28,7 @@ Use workflow recommendations when the assistant needs a small starting set inste
 
 ```sh
 curl -fsSL https://sjh9714.github.io/gh-extension-atlas/api/recommendations.json
+curl -fsSL https://sjh9714.github.io/gh-extension-atlas/api/recommendations.schema.json
 ```
 
 ## Recommended Prompt
@@ -39,6 +40,7 @@ First inspect:
 - https://sjh9714.github.io/gh-extension-atlas/llms.txt
 - https://sjh9714.github.io/gh-extension-atlas/api/search-index.json
 - https://sjh9714.github.io/gh-extension-atlas/api/recommendations.json
+- https://sjh9714.github.io/gh-extension-atlas/api/recommendations.schema.json
 
 Then recommend only extensions that match my workflow.
 For each recommendation, include:
@@ -120,4 +122,5 @@ Review upstream READMEs before adopting either in production workflows.
 - [Cheatsheet](https://sjh9714.github.io/gh-extension-atlas/cheatsheet.md)
 - [Awesome GitHub CLI Extensions markdown overview](https://sjh9714.github.io/gh-extension-atlas/awesome-github-cli-extensions.md)
 - [Workflow recommendations JSON](https://sjh9714.github.io/gh-extension-atlas/api/recommendations.json)
+- [Workflow recommendations schema](https://sjh9714.github.io/gh-extension-atlas/api/recommendations.schema.json)
 - [Public API reference](api-reference.md)
