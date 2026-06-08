@@ -1,5 +1,18 @@
 # Changelog
 
+## v0.2.14
+
+This patch release adds a workflow-first chooser page for picking GitHub CLI extensions faster.
+
+### Added
+
+- GitHub CLI Extension Chooser at `chooser.html`.
+- Chooser links from the README, searchable catalog, awesome overview, sitemap, and API manifest.
+
+### Improved
+
+- New visitors can start from a workflow, inspect a starter pack, and open generated extension detail pages before installing anything.
+
 ## v0.2.13
 
 This patch release adds generated detail pages for every cataloged GitHub CLI extension.
