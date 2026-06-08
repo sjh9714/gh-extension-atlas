@@ -5410,6 +5410,12 @@ function renderSitemapXml(items) {
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>`;
+  const decisionTreeGuideUrl = `  <url>
+    <loc>${siteUrl}guides/choose-github-cli-extension.md</loc>
+    <lastmod>${escapeHtml(lastmod)}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>`;
   const installedAuditGuideUrl = `  <url>
     <loc>${siteUrl}guides/audit-installed-gh-extensions.md</loc>
     <lastmod>${escapeHtml(lastmod)}</lastmod>
@@ -5459,6 +5465,7 @@ ${recommendationsUrl}
 ${recommendationsMarkdownUrl}
 ${installBundlesUrl}
 ${agentGuideUrl}
+${decisionTreeGuideUrl}
 ${installedAuditGuideUrl}
 ${categoryUrls}
 ${guideUrls}
@@ -6011,6 +6018,7 @@ GitHub CLI Extension Atlas helps users choose a useful \`gh\` extension faster w
 - Awesome overview: ${siteUrl}awesome-github-cli-extensions.html
 - Cheatsheet: ${siteUrl}cheatsheet.md
 - Workflow recommendations: ${siteUrl}recommendations.html
+- Decision tree: ${siteUrl}guides/choose-github-cli-extension.md
 - Agent guide: ${siteUrl}agent-guide.md
 - Health snapshot: ${siteUrl}health.md
 - FAQ: ${siteUrl}faq.md
@@ -6078,6 +6086,7 @@ This is not an official GitHub project, complete directory, endorsement list, or
 - Awesome overview: ${siteUrl}awesome-github-cli-extensions.html
 - Cheatsheet: ${siteUrl}cheatsheet.md
 - Workflow recommendations: ${siteUrl}recommendations.html
+- Decision tree: ${siteUrl}guides/choose-github-cli-extension.md
 - Agent guide: ${siteUrl}agent-guide.md
 - Health snapshot: ${siteUrl}health.md
 - FAQ: ${siteUrl}faq.md
