@@ -1,5 +1,20 @@
 # Changelog
 
+## v0.2.4
+
+This patch release adds a repository search workflow guide and a generated search starter pack.
+
+### Added
+
+- GitHub Repository Search CLI Extension Guide with a public HTML landing page.
+- Search And Discovery starter pack TXT bundle.
+
+### Improved
+
+- Search category page now links to its workflow guide.
+- README Workflow Guides now includes repository search as a first-class entry point.
+- Search starter pack now favors active repository/code search tools over stale starred-repository browsing.
+
 ## v0.2.3
 
 This patch release adds workflow-specific guide landing pages that are easier to share than the full catalog.
