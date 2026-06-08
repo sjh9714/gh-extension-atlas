@@ -245,7 +245,7 @@ function getGitHubApiValidationUrl(url) {
     return `https://api.github.com/repos/${owner}/${repo}`;
   }
 
-  if (rest[0] === "discussions" && rest.length === 1) {
+  if (rest[0] === "discussions") {
     return `https://api.github.com/repos/${owner}/${repo}`;
   }
 
