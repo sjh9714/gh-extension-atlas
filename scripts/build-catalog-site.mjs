@@ -475,6 +475,7 @@ const generatedFiles = [
   { path: "docs/index.html", content: renderCatalog(entries) },
   { path: "docs/chooser.html", content: renderChooserPage(entries) },
   { path: "docs/awesome-github-cli-extensions.html", content: renderAwesomeLandingPage(entries) },
+  { path: "docs/awesome-github-cli-extensions.md", content: renderAwesomeMarkdown(entries) },
   { path: "docs/robots.txt", content: renderRobotsTxt() },
   { path: "docs/sitemap.xml", content: renderSitemapXml(entries) },
   { path: "docs/social-card.svg", content: renderSocialCard(entries) },
@@ -2634,6 +2635,95 @@ function renderAwesomeLandingPage(items) {
 `;
 }
 
+function renderAwesomeMarkdown(items) {
+  const generatedAt = latestVerifiedAt(items);
+  const activeCount = items.filter((entry) => entry.status === "active").length;
+  const watchCount = items.filter((entry) => entry.status === "watch").length;
+  const staleCount = items.filter((entry) => entry.status === "stale").length;
+  const topPicks = getTopPickEntries(items);
+  const quickRows = [
+    ["Daily PR, issue, and notification triage", "dlvhdr/gh-dash", "One maintained TUI covers the daily GitHub queue."],
+    ["Interactive GitHub Actions inspection", "dlvhdr/gh-enhance", "A focused terminal interface for GitHub Actions workflows."],
+    ["Workflow health debugging", "fchimpan/gh-workflow-stats", "Summarizes success rate and duration for workflows and jobs."],
+    ["Safe branch cleanup", "seachicken/gh-poi", "Removes merged branches without making you inspect every ref manually."],
+    ["Markdown preview before publishing", "yusukebe/gh-markdown-preview", "Shows GitHub-flavored Markdown before you push."],
+    ["Repository search", "gennaro-tedesco/gh-s", "Adds a compact interactive repository search flow."],
+  ];
+
+  return `# Awesome GitHub CLI Extensions
+
+A curated field guide to useful GitHub CLI extensions: what to install, when to use them, and which ones are maintained.
+
+- Repository: ${repoUrl}
+- Searchable catalog: ${siteUrl}
+- Workflow chooser: ${siteUrl}chooser.html
+- Cheatsheet: ${siteUrl}cheatsheet.md
+- Reviewed snapshot: ${generatedAt}
+- Catalog size: ${items.length} extensions
+- Status counts: ${activeCount} active, ${watchCount} watch, ${staleCount} stale
+
+## Start Here
+
+Use this page when \`gh extension search\` gives too many overlapping options. Pick the workflow that hurts right now, inspect the linked detail pages, and install only the extensions that match your project.
+
+| Workflow | First stop | Why |
+| --- | --- | --- |
+${quickRows
+  .map(([workflow, repo, why]) => {
+    const entry = getEntryByRepo(repo);
+    return `| ${workflow} | [\`${entry.name}\`](${siteUrl}${extensionPagePath(entry)}) | ${why} |`;
+  })
+  .join("\n")}
+
+## Top Picks
+
+| Extension | Best for | Install | Status |
+| --- | --- | --- | --- |
+${topPicks
+  .map((entry) => `| [\`${entry.name}\`](${siteUrl}${extensionPagePath(entry)}) | ${entry.best_for} | \`${entry.install}\` | ${entry.status} |`)
+  .join("\n")}
+
+## Workflow Guides
+
+| Guide | Use this when... |
+| --- | --- |
+${Object.values(workflowGuides)
+  .map((guide) => `| [${guide.title}](${siteUrl}${guide.path}) | ${guide.summary} |`)
+  .join("\n")}
+
+## Starter Packs
+
+Review bundle contents before installing. Do not pipe remote install bundles directly into a shell.
+
+| Starter pack | Install bundle | Repos |
+| --- | --- | --- |
+${starterPacks
+  .map((pack) => {
+    const slug = starterPackSlug(pack);
+    return `| ${pack.name} | [${slug}.txt](${siteUrl}install/starter-packs/${slug}.txt) | ${pack.repos.map((repo) => `\`${repo}\``).join(", ")} |`;
+  })
+  .join("\n")}
+
+## Public Data
+
+- API manifest: ${siteUrl}api/index.json
+- Full catalog JSON: ${siteUrl}api/extensions.json
+- Top Picks JSON: ${siteUrl}api/top-picks.json
+- Starter packs JSON: ${siteUrl}api/starter-packs.json
+- All install commands: ${siteUrl}install/all.txt
+- Top Picks install commands: ${siteUrl}install/top-picks.txt
+- LLM context: ${siteUrl}llms.txt
+
+## Guardrails
+
+- This is an independent curated resource, not an official GitHub project.
+- The atlas is intentionally curated, not a complete directory of every repository with the \`gh-extension\` topic.
+- Star counts and maintenance labels are reviewed snapshots, not live rankings.
+- Recheck upstream repositories before adopting extensions for security, CI, release, compliance, or production workflows.
+- Corrections are welcome: ${repoIssueChooserUrl}
+`;
+}
+
 function renderChooserPage(items) {
   const generatedAt = latestVerifiedAt(items);
   const pageUrl = `${siteUrl}chooser.html`;
@@ -3385,6 +3475,12 @@ function renderSitemapXml(items) {
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>`;
+  const awesomeMarkdownUrl = `  <url>
+    <loc>${siteUrl}awesome-github-cli-extensions.md</loc>
+    <lastmod>${escapeHtml(lastmod)}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>`;
   const cheatsheetUrl = `  <url>
     <loc>${siteUrl}cheatsheet.md</loc>
     <lastmod>${escapeHtml(lastmod)}</lastmod>
@@ -3426,6 +3522,7 @@ function renderSitemapXml(items) {
   </url>
 ${chooserUrl}
 ${awesomeUrl}
+${awesomeMarkdownUrl}
 ${cheatsheetUrl}
 ${categoryUrls}
 ${guideUrls}
@@ -3581,6 +3678,7 @@ function renderApiIndex(items) {
       top_picks: `${siteUrl}api/top-picks.json`,
       starter_packs: `${siteUrl}api/starter-packs.json`,
       chooser: `${siteUrl}chooser.html`,
+      awesome_markdown: `${siteUrl}awesome-github-cli-extensions.md`,
       cheatsheet: `${siteUrl}cheatsheet.md`,
       faq: `${siteUrl}faq.md`,
       llms: `${siteUrl}llms.txt`,
@@ -3700,6 +3798,7 @@ function renderHealthSnapshot(items) {
       catalog: siteUrl,
       chooser: `${siteUrl}chooser.html`,
       awesome_overview: `${siteUrl}awesome-github-cli-extensions.html`,
+      awesome_markdown: `${siteUrl}awesome-github-cli-extensions.md`,
       cheatsheet: `${siteUrl}cheatsheet.md`,
       faq: `${siteUrl}faq.md`,
       health: `${siteUrl}health.md`,

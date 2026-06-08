@@ -22,6 +22,8 @@ The API is a reviewed snapshot, not a live ranking. Fields such as `stars`, `las
 | `/api/categories/{slug}.json` | JSON array | You want entries from one category, such as `actions-ci` or `dashboard-tui`. |
 | [`/api/starter-packs.json`](https://sjh9714.github.io/gh-extension-atlas/api/starter-packs.json) | JSON array | You want all workflow starter packs with entries and install commands. |
 | `/api/starter-packs/{slug}.json` | JSON object | You want one workflow starter pack as structured data. |
+| [`/awesome-github-cli-extensions.md`](https://sjh9714.github.io/gh-extension-atlas/awesome-github-cli-extensions.md) | Markdown | You want a shareable markdown overview of Top Picks, workflow guides, and starter packs. |
+| [`/cheatsheet.md`](https://sjh9714.github.io/gh-extension-atlas/cheatsheet.md) | Markdown | You want a compact workflow and install-command quick reference. |
 | [`/llms.txt`](https://sjh9714.github.io/gh-extension-atlas/llms.txt) | Plain text | You want a concise plain-text map for AI coding tools and documentation indexers. |
 | [`/llms-full.txt`](https://sjh9714.github.io/gh-extension-atlas/llms-full.txt) | Plain text | You want workflow, API, starter pack, and catalog context in one plain-text file. |
 | [`/install/all.txt`](https://sjh9714.github.io/gh-extension-atlas/install/all.txt) | Plain text | You want every reviewed install command in one file. |
@@ -146,6 +148,13 @@ Fetch LLM-friendly atlas context:
 ```sh
 curl -fsSL https://sjh9714.github.io/gh-extension-atlas/llms.txt
 curl -fsSL https://sjh9714.github.io/gh-extension-atlas/llms-full.txt
+```
+
+Open markdown overview pages:
+
+```sh
+curl -fsSL https://sjh9714.github.io/gh-extension-atlas/awesome-github-cli-extensions.md
+curl -fsSL https://sjh9714.github.io/gh-extension-atlas/cheatsheet.md
 ```
 
 Review a starter pack:

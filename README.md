@@ -50,7 +50,7 @@ Pick the workflow that hurts right now, inspect the starter pack, then install o
 
 Not sure where to start? Open the [GitHub CLI Extension Chooser][chooser] first.
 
-Want a shareable overview first? Open the [Awesome GitHub CLI Extensions overview][awesome-overview].
+Want a shareable overview first? Open the [Awesome GitHub CLI Extensions overview][awesome-overview] or [Markdown overview][awesome-markdown].
 
 Want a copy-paste quick reference? Open the [GitHub CLI Extension Cheatsheet][cheatsheet].
 
@@ -212,6 +212,7 @@ These are the first extensions to evaluate if you want broad value fast.
 [guide-security]: https://sjh9714.github.io/gh-extension-atlas/guides/security-admin-extensions.html
 [chooser]: https://sjh9714.github.io/gh-extension-atlas/chooser.html
 [awesome-overview]: https://sjh9714.github.io/gh-extension-atlas/awesome-github-cli-extensions.html
+[awesome-markdown]: https://sjh9714.github.io/gh-extension-atlas/awesome-github-cli-extensions.md
 [cheatsheet]: https://sjh9714.github.io/gh-extension-atlas/cheatsheet.md
 
 ## Catalog Browser
@@ -382,6 +383,7 @@ Published Pages endpoints:
 | --------------------------------------------- | ---------------------------------------------------------- |
 | [API index][api-index]                        | You want a manifest of every public catalog endpoint.      |
 | [Catalog health snapshot][health]             | You want counts, freshness, and guardrails.                |
+| [Awesome Markdown overview][awesome-markdown] | You want a shareable markdown overview of the atlas.       |
 | [Cheatsheet][]                                | You want a compact workflow and install-command reference. |
 | [Full catalog JSON][api-extensions]           | You want the complete reviewed catalog for automation.     |
 | [Catalog JSON Schema][api-schema]             | You want the public data contract for catalog entries.     |
