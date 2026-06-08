@@ -5147,6 +5147,7 @@ function renderAuditPage(items) {
     const workflows = JSON.parse(document.getElementById("workflow-data").textContent);
     const entriesByRepo = new Map(catalog.map((entry) => [entry.repo.toLowerCase(), entry]));
     const issueChooserUrl = "${repoIssueChooserUrl}";
+    const repositoryUrl = "${repoUrl}";
     const textarea = document.getElementById("extension-list");
     const results = document.getElementById("results");
     let lastMissingTopPickInstalls = "";
@@ -5319,7 +5320,7 @@ function renderAuditPage(items) {
       if (!audit.unlisted.length && !audit.missingTopPicks.length && !uncovered.length && audit.installed.length) {
         actions.push('No immediate gap found. Keep the list small and re-run after installing or removing extensions.');
       }
-      return '<section><h2>Next Actions</h2><ul class="next-list">' + actions.map((action) => '<li>' + action + '</li>').join("") + '</ul><p class="muted">Use <strong>Copy audit summary</strong> to share this result in an issue or personal notes.</p></section>';
+      return '<section><h2>Next Actions</h2><ul class="next-list">' + actions.map((action) => '<li>' + action + '</li>').join("") + '</ul><p class="muted">Use <strong>Copy audit summary</strong> to share this result in an issue or personal notes.</p><div class="button-row"><a class="button-link" href="' + escapeAttribute(repositoryUrl) + '">Open GitHub repo</a><a class="button-link" href="chooser.html">Open chooser</a></div></section>';
     }
 
     function buildAuditSummary(audit) {
