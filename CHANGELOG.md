@@ -1,5 +1,19 @@
 # Changelog
 
+## v0.2.18
+
+This patch release adds machine-readable starter pack JSON endpoints.
+
+### Added
+
+- `/api/starter-packs.json` with all workflow starter packs, entries, install commands, and detail links.
+- `/api/starter-packs/{slug}.json` files for each individual starter pack.
+
+### Improved
+
+- API manifest entries now include each starter pack's JSON endpoint.
+- README, API reference, and LLM context files now link to starter pack JSON.
+
 ## v0.2.17
 
 This patch release adds a generated catalog health snapshot for readers and API consumers.
