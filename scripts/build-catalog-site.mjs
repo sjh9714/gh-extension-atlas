@@ -4808,15 +4808,15 @@ function renderAuditPage(items) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Installed Extension Audit | GitHub CLI Extension Atlas</title>
-  <meta name="description" content="Paste gh extension list output and compare installed GitHub CLI extensions with the reviewed atlas catalog.">
-  <meta property="og:title" content="Installed GitHub CLI Extension Audit">
-  <meta property="og:description" content="Compare your installed GitHub CLI extensions with reviewed atlas entries, missing Top Picks, and workflow coverage.">
+  <title>Audit Your GitHub CLI Extensions | GitHub CLI Extension Atlas</title>
+  <meta name="description" content="Paste gh extension list output to find reviewed installs, unlisted extensions, missing Top Picks, and workflow coverage. Runs locally in your browser.">
+  <meta property="og:title" content="Audit Your GitHub CLI Extensions">
+  <meta property="og:description" content="Paste gh extension list output to see reviewed installs, unlisted extensions, missing Top Picks, and workflow coverage.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="${pageUrl}">
   <meta property="og:image" content="${socialImageUrl}">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Installed GitHub CLI Extension Audit">
+  <meta name="twitter:title" content="Audit Your GitHub CLI Extensions">
   <meta name="twitter:description" content="Paste gh extension list output and see what is reviewed, unlisted, or missing from Top Picks.">
   <meta name="twitter:image" content="${socialImageUrl}">
   <link rel="canonical" href="${pageUrl}">
@@ -5071,12 +5071,13 @@ function renderAuditPage(items) {
 <body>
   <header>
     <div class="wrap header-inner">
-      <h1>Installed Extension Audit</h1>
-      <p class="lead">Paste <code>gh extension list</code> output and compare your installed GitHub CLI extensions with reviewed atlas entries, missing Top Picks, and workflow coverage.</p>
+      <h1>Audit Your GitHub CLI Extensions</h1>
+      <p class="lead">Paste <code>gh extension list</code> output to see which installed extensions are reviewed by the atlas, which are unlisted, and which Top Picks might cover missing workflows.</p>
       <div class="meta">
         <span class="pill">${items.length} curated extensions</span>
         <span class="pill">${topPickRepos.length} Top Picks</span>
         <span class="pill">${recommendations.length} workflows</span>
+        <span class="pill">Runs locally in your browser</span>
         <span class="pill">Reviewed ${escapeHtml(generatedAt)}</span>
       </div>
       <div class="actions">
