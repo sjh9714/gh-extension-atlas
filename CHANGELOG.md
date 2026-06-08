@@ -1,5 +1,19 @@
 # Changelog
 
+## v0.2.5
+
+This patch release adds a terminal dashboard workflow guide for GitHub CLI extensions.
+
+### Added
+
+- GitHub Terminal Dashboard CLI Extension Guide with a public HTML landing page.
+
+### Improved
+
+- Dashboard/TUI category page now links to its workflow guide.
+- README Workflow Guides now includes terminal dashboard and Markdown preview tooling.
+- Workflow guide coverage now includes Dashboard/TUI, Actions/CI, Repo & Branch, Notifications, and Search.
+
 ## v0.2.4
 
 This patch release adds a repository search workflow guide and a generated search starter pack.
