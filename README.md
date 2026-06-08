@@ -12,7 +12,7 @@ GitHub CLI has hundreds of public extensions. This atlas helps you choose the ri
 
 If `gh extension search` gives you too many options, start here.
 
-Try now: [Audit your installed extensions][installed-audit] · [Choose an extension][chooser] · [Compare extensions][compare-presets].
+Try now: [Open a sample audit][audit-demo] · [Choose an extension][chooser] · [Compare extensions][compare-presets].
 
 Corrections, missing useful extensions, and category feedback are welcome in the Feedback section.
 
@@ -477,6 +477,7 @@ Published Pages endpoints:
 [api-starter-packs]: https://sjh9714.github.io/gh-extension-atlas/api/starter-packs.json
 [compare-presets]: https://sjh9714.github.io/gh-extension-atlas/compare.html
 [installed-audit]: https://sjh9714.github.io/gh-extension-atlas/audit.html
+[audit-demo]: https://sjh9714.github.io/gh-extension-atlas/audit.html?demo=1
 [badge-builder]: https://sjh9714.github.io/gh-extension-atlas/badges.html
 [workflow-recommendations]: https://sjh9714.github.io/gh-extension-atlas/recommendations.html
 [llms]: https://sjh9714.github.io/gh-extension-atlas/llms.txt
