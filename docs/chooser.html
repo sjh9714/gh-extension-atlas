@@ -1,0 +1,367 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GitHub CLI Extension Chooser | GitHub CLI Extension Atlas</title>
+  <meta name="description" content="Choose a GitHub CLI extension by workflow: maintainer triage, Actions, branch cleanup, docs preview, search, security, AI, or reusable catalog data.">
+  <meta property="og:title" content="GitHub CLI Extension Chooser">
+  <meta property="og:description" content="A workflow-first chooser for finding the right GitHub CLI extension faster.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://sjh9714.github.io/gh-extension-atlas/chooser.html">
+  <meta property="og:image" content="https://sjh9714.github.io/gh-extension-atlas/social-card.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="GitHub CLI Extension Chooser">
+  <meta name="twitter:description" content="Pick a GitHub CLI extension by workflow, then inspect commands before installing.">
+  <meta name="twitter:image" content="https://sjh9714.github.io/gh-extension-atlas/social-card.png">
+  <link rel="canonical" href="https://sjh9714.github.io/gh-extension-atlas/chooser.html">
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f7f8fa;
+      --panel: #ffffff;
+      --text: #1f2328;
+      --muted: #656d76;
+      --border: #d0d7de;
+      --accent: #0969da;
+      --accent-soft: #ddf4ff;
+      --good: #1a7f37;
+      --warn: #9a6700;
+      --stale: #8250df;
+      --shadow: 0 1px 2px rgba(31, 35, 40, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font: 15px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    header {
+      background: var(--panel);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .wrap {
+      width: min(1120px, calc(100vw - 32px));
+      margin: 0 auto;
+    }
+
+    .header-inner {
+      display: grid;
+      gap: 14px;
+      padding: 30px 0 24px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(30px, 4vw, 46px);
+      line-height: 1.08;
+      letter-spacing: 0;
+    }
+
+    h2,
+    h3,
+    p {
+      margin: 0;
+    }
+
+    h2 {
+      font-size: 20px;
+      line-height: 1.25;
+      letter-spacing: 0;
+    }
+
+    .lead {
+      max-width: 820px;
+      color: var(--muted);
+      font-size: 18px;
+    }
+
+    .meta,
+    .actions,
+    .tool-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 3px 10px;
+      background: var(--panel);
+      color: var(--muted);
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    main {
+      display: grid;
+      gap: 14px;
+      padding: 20px 0 42px;
+    }
+
+    .panel,
+    .choice {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+    }
+
+    .panel {
+      display: grid;
+      gap: 12px;
+      padding: 16px;
+    }
+
+    .choice-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .choice {
+      display: grid;
+      gap: 11px;
+      padding: 15px;
+    }
+
+    .muted,
+    .choice p,
+    .choice span {
+      color: var(--muted);
+    }
+
+    .tool {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 3px 10px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover,
+    .tool:hover {
+      text-decoration: underline;
+    }
+
+    code {
+      font: 13px/1.45 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      overflow-wrap: anywhere;
+    }
+
+    pre {
+      margin: 0;
+      overflow: auto;
+      border-radius: 6px;
+      padding: 10px;
+      background: #f6f8fa;
+    }
+
+    @media (max-width: 760px) {
+      .choice-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .wrap {
+        width: min(100vw - 20px, 1120px);
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap header-inner">
+      <h1>GitHub CLI Extension Chooser</h1>
+      <p class="lead">Start with the workflow that hurts, then inspect a small starter pack instead of installing overlapping GitHub CLI extensions blindly.</p>
+      <div class="meta">
+        <span class="pill">68 curated extensions</span>
+        <span class="pill">8 starter packs</span>
+        <span class="pill">8 workflow guides</span>
+        <span class="pill">Reviewed 2026-06-08</span>
+      </div>
+      <div class="actions">
+        <a href="./">Searchable catalog</a>
+        <a href="awesome-github-cli-extensions.html">Awesome overview</a>
+        <a href="api/index.json">API manifest</a>
+        <a href="https://github.com/sjh9714/gh-extension-atlas#readme">README</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="panel">
+      <h2>Pick A Starting Point</h2>
+      <p class="muted">Each path gives you a short first choice, nearby alternatives, a workflow guide, and an install bundle you can inspect before running anything.</p>
+    </section>
+
+    <section class="choice-grid">
+      <article class="choice">
+        <h3>Daily maintainer triage</h3>
+        <p>I need to keep up with PRs, issues, review threads, and notifications.</p>
+        <div class="tool-list">
+          <a class="tool" href="extensions/dlvhdr-gh-dash.html">dlvhdr/gh-dash</a>
+          <a class="tool" href="extensions/agynio-gh-pr-review.html">agynio/gh-pr-review</a>
+          <a class="tool" href="extensions/meiji163-gh-notify.html">meiji163/gh-notify</a>
+        </div>
+        <pre><code>gh extension install dlvhdr/gh-dash
+gh extension install agynio/gh-pr-review
+gh extension install meiji163/gh-notify</code></pre>
+        <p>Start with a dashboard when the work is a queue. Add focused review or notification tools only if the dashboard is not enough.</p>
+        <div class="actions">
+          <a href="guides/terminal-dashboard-extensions.html">Workflow guide</a>
+          <a href="install/starter-packs/daily-maintainer-triage.txt">Starter pack TXT</a>
+          <a href="categories/dashboard-tui.html">Dashboard/TUI category</a>
+        </div>
+      </article>
+      <article class="choice">
+        <h3>GitHub Actions operations</h3>
+        <p>I need to inspect workflows, understand CI health, or migrate pipelines.</p>
+        <div class="tool-list">
+          <a class="tool" href="extensions/dlvhdr-gh-enhance.html">dlvhdr/gh-enhance</a>
+          <a class="tool" href="extensions/fchimpan-gh-workflow-stats.html">fchimpan/gh-workflow-stats</a>
+          <a class="tool" href="extensions/github-gh-actions-importer.html">github/gh-actions-importer</a>
+        </div>
+        <pre><code>gh extension install dlvhdr/gh-enhance
+gh extension install fchimpan/gh-workflow-stats
+gh extension install github/gh-actions-importer</code></pre>
+        <p>Use a TUI for daily workflow inspection, stats for operational debugging, and importer tooling for migration projects.</p>
+        <div class="actions">
+          <a href="guides/github-actions-extensions.html">Workflow guide</a>
+          <a href="install/starter-packs/github-actions-operator.txt">Starter pack TXT</a>
+          <a href="categories/actions-ci.html">Actions/CI category</a>
+        </div>
+      </article>
+      <article class="choice">
+        <h3>Local repository cleanup</h3>
+        <p>I need safer branch cleanup, branch switching, or local setup help.</p>
+        <div class="tool-list">
+          <a class="tool" href="extensions/seachicken-gh-poi.html">seachicken/gh-poi</a>
+          <a class="tool" href="extensions/mislav-gh-branch.html">mislav/gh-branch</a>
+          <a class="tool" href="extensions/haywardmorihara-gh-tidy.html">HaywardMorihara/gh-tidy</a>
+        </div>
+        <pre><code>gh extension install seachicken/gh-poi
+gh extension install mislav/gh-branch
+gh extension install redraw/gh-install</code></pre>
+        <p>Prefer tools that make deletion explicit and keep unmerged or unpushed work visible.</p>
+        <div class="actions">
+          <a href="guides/branch-cleanup-extensions.html">Workflow guide</a>
+          <a href="install/starter-packs/local-repository-cleanup.txt">Starter pack TXT</a>
+          <a href="categories/repo-branch.html">Repo &amp; Branch category</a>
+        </div>
+      </article>
+      <article class="choice">
+        <h3>Documentation review</h3>
+        <p>I need to preview README or GitHub-flavored Markdown before publishing.</p>
+        <div class="tool-list">
+          <a class="tool" href="extensions/yusukebe-gh-markdown-preview.html">yusukebe/gh-markdown-preview</a>
+          <a class="tool" href="extensions/thiagokokada-gh-gfm-preview.html">thiagokokada/gh-gfm-preview</a>
+        </div>
+        <pre><code>gh extension install yusukebe/gh-markdown-preview
+gh extension install thiagokokada/gh-gfm-preview</code></pre>
+        <p>Choose Markdown preview tools when the rendered document is the thing you need to inspect.</p>
+        <div class="actions">
+          <a href="guides/terminal-dashboard-extensions.html">Workflow guide</a>
+          <a href="install/starter-packs/documentation-review.txt">Starter pack TXT</a>
+          <a href="categories/dashboard-tui.html">Dashboard/TUI category</a>
+        </div>
+      </article>
+      <article class="choice">
+        <h3>Search and discovery</h3>
+        <p>I need to find repositories, code, stars, or saved tools from the terminal.</p>
+        <div class="tool-list">
+          <a class="tool" href="extensions/gennaro-tedesco-gh-s.html">gennaro-tedesco/gh-s</a>
+          <a class="tool" href="extensions/k1low-gh-grep.html">k1LoW/gh-grep</a>
+          <a class="tool" href="extensions/langlangbart-gh-find-code.html">LangLangBart/gh-find-code</a>
+        </div>
+        <pre><code>gh extension install gennaro-tedesco/gh-s
+gh extension install k1LoW/gh-grep
+gh extension install LangLangBart/gh-find-code</code></pre>
+        <p>Use repository search when you need a project, code search when you need a line, and starred-repository tools when mining saved references.</p>
+        <div class="actions">
+          <a href="guides/repository-search-extensions.html">Workflow guide</a>
+          <a href="install/starter-packs/search-and-discovery.txt">Starter pack TXT</a>
+          <a href="categories/search.html">Search category</a>
+        </div>
+      </article>
+      <article class="choice">
+        <h3>Security and admin</h3>
+        <p>I need SBOMs, CodeQL, tokens, webhooks, repository config, or migration support.</p>
+        <div class="tool-list">
+          <a class="tool" href="extensions/advanced-security-gh-sbom.html">advanced-security/gh-sbom</a>
+          <a class="tool" href="extensions/link-gh-token.html">Link-/gh-token</a>
+          <a class="tool" href="extensions/github-gh-gei.html">github/gh-gei</a>
+        </div>
+        <pre><code>gh extension install advanced-security/gh-sbom
+gh extension install Link-/gh-token
+gh extension install github/gh-gei</code></pre>
+        <p>Treat security and admin extensions as operational tools: inspect scopes, output, and repository impact before adopting them.</p>
+        <div class="actions">
+          <a href="guides/security-admin-extensions.html">Workflow guide</a>
+          <a href="install/starter-packs/security-and-admin.txt">Starter pack TXT</a>
+          <a href="categories/security-admin.html">Security/Admin category</a>
+        </div>
+      </article>
+      <article class="choice">
+        <h3>AI and agents</h3>
+        <p>I need GitHub-native agent workflows, Models, standup summaries, or MCP setup.</p>
+        <div class="tool-list">
+          <a class="tool" href="extensions/github-gh-aw.html">github/gh-aw</a>
+          <a class="tool" href="extensions/github-gh-models.html">github/gh-models</a>
+          <a class="tool" href="extensions/shuymn-gh-mcp.html">shuymn/gh-mcp</a>
+        </div>
+        <pre><code>gh extension install github/gh-aw
+gh extension install github/gh-models
+gh extension install shuymn/gh-mcp</code></pre>
+        <p>Use agent workflow tools when GitHub is the work surface, Models tools for prompt iteration, and MCP helpers for authenticated AI clients.</p>
+        <div class="actions">
+          <a href="guides/ai-agent-extensions.html">Workflow guide</a>
+          <a href="install/starter-packs/ai-and-agents.txt">Starter pack TXT</a>
+          <a href="categories/ai-agents.html">AI/Agents category</a>
+        </div>
+      </article>
+      <article class="choice">
+        <h3>Reusable catalog data</h3>
+        <p>I want JSON, schema, install bundles, or automation-friendly catalog data.</p>
+        <div class="tool-list">
+          <a class="tool" href="extensions/dlvhdr-gh-dash.html">dlvhdr/gh-dash</a>
+          <a class="tool" href="extensions/gennaro-tedesco-gh-s.html">gennaro-tedesco/gh-s</a>
+          <a class="tool" href="extensions/advanced-security-gh-sbom.html">advanced-security/gh-sbom</a>
+        </div>
+        <pre><code>curl -fsSL https://sjh9714.github.io/gh-extension-atlas/api/index.json</code></pre>
+        <p>Use the API manifest and schema when the atlas is input to another tool, report, or documentation workflow.</p>
+        <div class="actions">
+          <a href="api-reference.md">API reference</a>
+          <a href="api/extensions.json">Catalog JSON</a>
+          <a href="data-recipes.md">Data recipes</a>
+        </div>
+      </article>
+    </section>
+  </main>
+</body>
+</html>

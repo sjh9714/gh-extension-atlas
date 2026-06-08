@@ -44,6 +44,8 @@ If `gh extension search` gives you too many options, start here.
 
 Pick the workflow that hurts right now, inspect the starter pack, then install only the extensions that match your project.
 
+Not sure where to start? Open the [GitHub CLI Extension Chooser][chooser] first.
+
 Want a shareable overview first? Open the [Awesome GitHub CLI Extensions overview][awesome-overview].
 
 | Workflow                  | Read first                                   | Inspect starter pack                                                                                                                  |
@@ -198,6 +200,7 @@ These are the first extensions to evaluate if you want broad value fast.
 [guide-notifications]: https://sjh9714.github.io/gh-extension-atlas/guides/notification-triage-extensions.html
 [guide-search]: https://sjh9714.github.io/gh-extension-atlas/guides/repository-search-extensions.html
 [guide-security]: https://sjh9714.github.io/gh-extension-atlas/guides/security-admin-extensions.html
+[chooser]: https://sjh9714.github.io/gh-extension-atlas/chooser.html
 [awesome-overview]: https://sjh9714.github.io/gh-extension-atlas/awesome-github-cli-extensions.html
 
 ## Catalog Browser
@@ -210,6 +213,7 @@ Quick entry points:
 
 | Start here                                                                           | Use this when...                                        |
 | ------------------------------------------------------------------------------------ | ------------------------------------------------------- |
+| [Workflow chooser][chooser]                                                          | You want a guided first choice instead of browsing.     |
 | [Top Picks][catalog-top-picks]                                                       | You want the shortest list of broadly useful choices.   |
 | [Actions TUI][catalog-actions]                                                       | You want to inspect GitHub Actions from the terminal.   |
 | [Notifications][catalog-notifications]                                               | You want GitHub notification tools without the browser. |

@@ -460,6 +460,7 @@ const endpointFiles = [
 ];
 const generatedFiles = [
   { path: "docs/index.html", content: renderCatalog(entries) },
+  { path: "docs/chooser.html", content: renderChooserPage(entries) },
   { path: "docs/awesome-github-cli-extensions.html", content: renderAwesomeLandingPage(entries) },
   { path: "docs/robots.txt", content: renderRobotsTxt() },
   { path: "docs/sitemap.xml", content: renderSitemapXml(entries) },
@@ -1015,6 +1016,7 @@ function renderCatalog(items) {
         <span class="pill">API: <a href="api/extensions.json">extensions.json</a></span>
         <span class="pill">API docs: <a href="api-reference.md">api-reference.md</a></span>
         <span class="pill">Install bundle: <a href="install/all.txt">all.txt</a></span>
+        <span class="pill"><a href="chooser.html">Chooser</a></span>
         <span class="pill"><a href="awesome-github-cli-extensions.html">Awesome overview</a></span>
         <span class="pill"><a href="https://github.com/sjh9714/gh-extension-atlas/blob/main/docs/starter-packs.md">Starter Packs</a></span>
         <span class="pill"><a href="https://github.com/sjh9714/gh-extension-atlas#readme">README</a></span>
@@ -2537,6 +2539,7 @@ function renderAwesomeLandingPage(items) {
         <span class="pill">Reviewed ${escapeHtml(generatedAt)}</span>
       </div>
       <div class="actions">
+        <a href="chooser.html">Open the chooser</a>
         <a href="./">Searchable catalog</a>
         <a href="https://github.com/sjh9714/gh-extension-atlas#readme">README</a>
         <a href="api/index.json">API manifest</a>
@@ -2602,6 +2605,308 @@ function renderAwesomeLandingPage(items) {
         <a href="install/top-picks.txt">Top Picks install bundle</a>
         <a href="api-reference.md">API reference</a>
       </div>
+    </section>
+  </main>
+</body>
+</html>
+`;
+}
+
+function renderChooserPage(items) {
+  const generatedAt = latestVerifiedAt(items);
+  const pageUrl = `${siteUrl}chooser.html`;
+  const choices = [
+    {
+      title: "Daily maintainer triage",
+      question: "I need to keep up with PRs, issues, review threads, and notifications.",
+      category: "Dashboard/TUI",
+      starterPack: "Daily Maintainer Triage",
+      repos: ["dlvhdr/gh-dash", "agynio/gh-pr-review", "meiji163/gh-notify"],
+      note: "Start with a dashboard when the work is a queue. Add focused review or notification tools only if the dashboard is not enough.",
+    },
+    {
+      title: "GitHub Actions operations",
+      question: "I need to inspect workflows, understand CI health, or migrate pipelines.",
+      category: "Actions/CI",
+      starterPack: "GitHub Actions Operator",
+      repos: ["dlvhdr/gh-enhance", "fchimpan/gh-workflow-stats", "github/gh-actions-importer"],
+      note: "Use a TUI for daily workflow inspection, stats for operational debugging, and importer tooling for migration projects.",
+    },
+    {
+      title: "Local repository cleanup",
+      question: "I need safer branch cleanup, branch switching, or local setup help.",
+      category: "Repo & Branch",
+      starterPack: "Local Repository Cleanup",
+      repos: ["seachicken/gh-poi", "mislav/gh-branch", "HaywardMorihara/gh-tidy"],
+      note: "Prefer tools that make deletion explicit and keep unmerged or unpushed work visible.",
+    },
+    {
+      title: "Documentation review",
+      question: "I need to preview README or GitHub-flavored Markdown before publishing.",
+      category: "Dashboard/TUI",
+      starterPack: "Documentation Review",
+      repos: ["yusukebe/gh-markdown-preview", "thiagokokada/gh-gfm-preview"],
+      note: "Choose Markdown preview tools when the rendered document is the thing you need to inspect.",
+    },
+    {
+      title: "Search and discovery",
+      question: "I need to find repositories, code, stars, or saved tools from the terminal.",
+      category: "Search",
+      starterPack: "Search And Discovery",
+      repos: ["gennaro-tedesco/gh-s", "k1LoW/gh-grep", "LangLangBart/gh-find-code"],
+      note: "Use repository search when you need a project, code search when you need a line, and starred-repository tools when mining saved references.",
+    },
+    {
+      title: "Security and admin",
+      question: "I need SBOMs, CodeQL, tokens, webhooks, repository config, or migration support.",
+      category: "Security/Admin",
+      starterPack: "Security And Admin",
+      repos: ["advanced-security/gh-sbom", "Link-/gh-token", "github/gh-gei"],
+      note: "Treat security and admin extensions as operational tools: inspect scopes, output, and repository impact before adopting them.",
+    },
+    {
+      title: "AI and agents",
+      question: "I need GitHub-native agent workflows, Models, standup summaries, or MCP setup.",
+      category: "AI/Agents",
+      starterPack: "AI And Agents",
+      repos: ["github/gh-aw", "github/gh-models", "shuymn/gh-mcp"],
+      note: "Use agent workflow tools when GitHub is the work surface, Models tools for prompt iteration, and MCP helpers for authenticated AI clients.",
+    },
+    {
+      title: "Reusable catalog data",
+      question: "I want JSON, schema, install bundles, or automation-friendly catalog data.",
+      category: "",
+      starterPack: "",
+      repos: ["dlvhdr/gh-dash", "gennaro-tedesco/gh-s", "advanced-security/gh-sbom"],
+      note: "Use the API manifest and schema when the atlas is input to another tool, report, or documentation workflow.",
+      dataOnly: true,
+    },
+  ];
+
+  return `<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GitHub CLI Extension Chooser | GitHub CLI Extension Atlas</title>
+  <meta name="description" content="Choose a GitHub CLI extension by workflow: maintainer triage, Actions, branch cleanup, docs preview, search, security, AI, or reusable catalog data.">
+  <meta property="og:title" content="GitHub CLI Extension Chooser">
+  <meta property="og:description" content="A workflow-first chooser for finding the right GitHub CLI extension faster.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="${pageUrl}">
+  <meta property="og:image" content="${socialImageUrl}">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="GitHub CLI Extension Chooser">
+  <meta name="twitter:description" content="Pick a GitHub CLI extension by workflow, then inspect commands before installing.">
+  <meta name="twitter:image" content="${socialImageUrl}">
+  <link rel="canonical" href="${pageUrl}">
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f7f8fa;
+      --panel: #ffffff;
+      --text: #1f2328;
+      --muted: #656d76;
+      --border: #d0d7de;
+      --accent: #0969da;
+      --accent-soft: #ddf4ff;
+      --good: #1a7f37;
+      --warn: #9a6700;
+      --stale: #8250df;
+      --shadow: 0 1px 2px rgba(31, 35, 40, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font: 15px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    header {
+      background: var(--panel);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .wrap {
+      width: min(1120px, calc(100vw - 32px));
+      margin: 0 auto;
+    }
+
+    .header-inner {
+      display: grid;
+      gap: 14px;
+      padding: 30px 0 24px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(30px, 4vw, 46px);
+      line-height: 1.08;
+      letter-spacing: 0;
+    }
+
+    h2,
+    h3,
+    p {
+      margin: 0;
+    }
+
+    h2 {
+      font-size: 20px;
+      line-height: 1.25;
+      letter-spacing: 0;
+    }
+
+    .lead {
+      max-width: 820px;
+      color: var(--muted);
+      font-size: 18px;
+    }
+
+    .meta,
+    .actions,
+    .tool-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 3px 10px;
+      background: var(--panel);
+      color: var(--muted);
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    main {
+      display: grid;
+      gap: 14px;
+      padding: 20px 0 42px;
+    }
+
+    .panel,
+    .choice {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+    }
+
+    .panel {
+      display: grid;
+      gap: 12px;
+      padding: 16px;
+    }
+
+    .choice-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .choice {
+      display: grid;
+      gap: 11px;
+      padding: 15px;
+    }
+
+    .muted,
+    .choice p,
+    .choice span {
+      color: var(--muted);
+    }
+
+    .tool {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 3px 10px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover,
+    .tool:hover {
+      text-decoration: underline;
+    }
+
+    code {
+      font: 13px/1.45 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      overflow-wrap: anywhere;
+    }
+
+    pre {
+      margin: 0;
+      overflow: auto;
+      border-radius: 6px;
+      padding: 10px;
+      background: #f6f8fa;
+    }
+
+    @media (max-width: 760px) {
+      .choice-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .wrap {
+        width: min(100vw - 20px, 1120px);
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap header-inner">
+      <h1>GitHub CLI Extension Chooser</h1>
+      <p class="lead">Start with the workflow that hurts, then inspect a small starter pack instead of installing overlapping GitHub CLI extensions blindly.</p>
+      <div class="meta">
+        <span class="pill">${items.length} curated extensions</span>
+        <span class="pill">${starterPacks.length} starter packs</span>
+        <span class="pill">${Object.keys(workflowGuides).length} workflow guides</span>
+        <span class="pill">Reviewed ${escapeHtml(generatedAt)}</span>
+      </div>
+      <div class="actions">
+        <a href="./">Searchable catalog</a>
+        <a href="awesome-github-cli-extensions.html">Awesome overview</a>
+        <a href="api/index.json">API manifest</a>
+        <a href="https://github.com/sjh9714/gh-extension-atlas#readme">README</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="panel">
+      <h2>Pick A Starting Point</h2>
+      <p class="muted">Each path gives you a short first choice, nearby alternatives, a workflow guide, and an install bundle you can inspect before running anything.</p>
+    </section>
+
+    <section class="choice-grid">
+      ${choices.map((choice) => renderChooserChoice(choice)).join("\n      ")}
     </section>
   </main>
 </body>
@@ -3030,6 +3335,12 @@ function renderExtensionPage(entry) {
 
 function renderSitemapXml(items) {
   const lastmod = latestVerifiedAt(items);
+  const chooserUrl = `  <url>
+    <loc>${siteUrl}chooser.html</loc>
+    <lastmod>${escapeHtml(lastmod)}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+  </url>`;
   const awesomeUrl = `  <url>
     <loc>${siteUrl}awesome-github-cli-extensions.html</loc>
     <lastmod>${escapeHtml(lastmod)}</lastmod>
@@ -3069,6 +3380,7 @@ function renderSitemapXml(items) {
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
+${chooserUrl}
 ${awesomeUrl}
 ${categoryUrls}
 ${guideUrls}
@@ -3131,6 +3443,36 @@ function toolCard(repo, label) {
         </article>`;
 }
 
+function renderChooserChoice(choice) {
+  const pack = choice.starterPack ? starterPacks.find((candidate) => candidate.name === choice.starterPack) : null;
+  const guide = choice.category ? workflowGuides[choice.category] : null;
+  const packPath = pack ? `install/starter-packs/${starterPackSlug(pack)}.txt` : "";
+  const commands = choice.dataOnly
+    ? "curl -fsSL https://sjh9714.github.io/gh-extension-atlas/api/index.json"
+    : getStarterPackEntries(pack, entries)
+        .map((entry) => entry.install)
+        .join("\n");
+  const tools = choice.repos
+    .map((repo) => getEntryByRepo(repo))
+    .map((entry) => `<a class="tool" href="${escapeAttribute(extensionPagePath(entry))}">${escapeHtml(entry.repo)}</a>`)
+    .join("\n          ");
+
+  return `<article class="choice">
+        <h3>${escapeHtml(choice.title)}</h3>
+        <p>${escapeHtml(choice.question)}</p>
+        <div class="tool-list">
+          ${tools}
+        </div>
+        <pre><code>${escapeHtml(commands)}</code></pre>
+        <p>${escapeHtml(choice.note)}</p>
+        <div class="actions">
+          ${guide ? `<a href="${escapeAttribute(guide.path)}">Workflow guide</a>` : '<a href="api-reference.md">API reference</a>'}
+          ${packPath ? `<a href="${escapeAttribute(packPath)}">Starter pack TXT</a>` : '<a href="api/extensions.json">Catalog JSON</a>'}
+          ${choice.category ? `<a href="${escapeAttribute(categoryPagePath(choice.category))}">${escapeHtml(choice.category)} category</a>` : '<a href="data-recipes.md">Data recipes</a>'}
+        </div>
+      </article>`;
+}
+
 function categoryRowHtml(entry) {
   return `<tr>
             <td><a class="repo" href="../${escapeAttribute(extensionPagePath(entry))}">${escapeHtml(entry.repo)}</a><br><span>${escapeHtml(entry.summary)}</span></td>
@@ -3191,6 +3533,7 @@ function renderApiIndex(items) {
       catalog: `${siteUrl}api/extensions.json`,
       schema: `${siteUrl}api/extensions.schema.json`,
       top_picks: `${siteUrl}api/top-picks.json`,
+      chooser: `${siteUrl}chooser.html`,
       extension_page_template: `${siteUrl}extensions/{owner-repo}.html`,
       all_install_commands: `${siteUrl}install/all.txt`,
       top_pick_install_commands: `${siteUrl}install/top-picks.txt`,
