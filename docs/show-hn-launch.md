@@ -42,6 +42,7 @@ I am mainly looking for factual corrections, missing useful extensions, and cate
 
 ## Pre-Submit Checklist
 
+- Run `npm run launch:show-hn:preflight`.
 - `gh-notify` has no negative reply or correction request.
 - Issue `#7` is updated with the 24-hour review.
 - Latest `Validate` workflow is green.
