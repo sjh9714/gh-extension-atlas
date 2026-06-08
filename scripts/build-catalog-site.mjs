@@ -1,9 +1,20 @@
 import fs from "node:fs";
+import path from "node:path";
 
 const dataPath = "data/extensions.json";
 const checkOnly = process.argv.includes("--check");
 const siteUrl = "https://sjh9714.github.io/gh-extension-atlas/";
 const socialImageUrl = `${siteUrl}social-card.png`;
+const categoryDescriptions = {
+  "Actions/CI": "Inspect workflows, summarize CI health, migrate pipelines, and operate GitHub Actions from the terminal.",
+  "AI/Agents": "Try agentic, AI-assisted, and model-driven GitHub workflows from the GitHub CLI.",
+  "Dashboard/TUI": "Use terminal dashboards and visual interfaces for daily GitHub triage.",
+  "Notifications": "Review and reduce GitHub notification noise without opening the browser.",
+  "PR & Issues": "Review pull requests, issues, comments, and maintainer queues from the terminal.",
+  "Repo & Branch": "Clean branches, manage repositories, and keep local GitHub workflows tidy.",
+  "Search": "Search repositories, code, stars, and GitHub resources from the command line.",
+  "Security/Admin": "Generate SBOMs, inspect security posture, manage tokens, and support admin workflows.",
+};
 const topPickRepos = [
   "dlvhdr/gh-dash",
   "github/gh-aw",
@@ -40,11 +51,16 @@ const starterPacks = [
 ];
 
 const entries = JSON.parse(fs.readFileSync(dataPath, "utf8"));
+const categoryPageFiles = unique(entries.map((entry) => entry.category)).map((category) => ({
+  path: `docs/${categoryPagePath(category)}`,
+  content: renderCategoryPage(category, entries.filter((entry) => entry.category === category)),
+}));
 const generatedFiles = [
   { path: "docs/index.html", content: renderCatalog(entries) },
   { path: "docs/robots.txt", content: renderRobotsTxt() },
   { path: "docs/sitemap.xml", content: renderSitemapXml(entries) },
   { path: "docs/social-card.svg", content: renderSocialCard(entries) },
+  ...categoryPageFiles,
 ];
 
 if (checkOnly) {
@@ -65,6 +81,7 @@ if (checkOnly) {
   console.log("Generated site files are up to date.");
 } else {
   for (const file of generatedFiles) {
+    fs.mkdirSync(path.dirname(file.path), { recursive: true });
     fs.writeFileSync(file.path, file.content);
     console.log(`Wrote ${file.path}.`);
   }
@@ -288,6 +305,12 @@ function renderCatalog(items) {
       gap: 12px;
     }
 
+    .category-pages {
+      margin-top: 14px;
+      display: grid;
+      gap: 12px;
+    }
+
     .section-heading {
       display: flex;
       flex-wrap: wrap;
@@ -315,7 +338,14 @@ function renderCatalog(items) {
       gap: 10px;
     }
 
-    .pack-card {
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .pack-card,
+    .category-card {
       display: grid;
       gap: 9px;
       border: 1px solid var(--border);
@@ -325,6 +355,10 @@ function renderCatalog(items) {
       box-shadow: var(--shadow);
     }
 
+    .category-card {
+      color: var(--text);
+    }
+
     .pack-card h3 {
       margin: 0;
       font-size: 15px;
@@ -332,7 +366,8 @@ function renderCatalog(items) {
       letter-spacing: 0;
     }
 
-    .pack-card p {
+    .pack-card p,
+    .category-card span {
       margin: 0;
       color: var(--muted);
       font-size: 13px;
@@ -471,6 +506,10 @@ function renderCatalog(items) {
       .pack-grid {
         grid-template-columns: 1fr 1fr;
       }
+
+      .category-grid {
+        grid-template-columns: 1fr 1fr;
+      }
     }
 
     @media (max-width: 560px) {
@@ -483,6 +522,10 @@ function renderCatalog(items) {
       }
 
       .pack-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .category-grid {
         grid-template-columns: 1fr;
       }
     }
@@ -576,6 +619,18 @@ function renderCatalog(items) {
       </div>
       <div class="pack-grid">
         ${starterPacks.map(renderPackCard).join("\n        ")}
+      </div>
+    </section>
+
+    <section class="category-pages" aria-label="Category landing pages">
+      <div class="section-heading">
+        <div>
+          <h2>Category Guides</h2>
+          <p>Static entry points for focused GitHub CLI extension workflows.</p>
+        </div>
+      </div>
+      <div class="category-grid">
+        ${categories.map((category) => renderCategoryLinkCard(category, items)).join("\n        ")}
       </div>
     </section>
 
@@ -906,8 +961,332 @@ function renderPackCard(pack) {
         </article>`;
 }
 
+function renderCategoryLinkCard(category, items) {
+  const categoryItems = items.filter((entry) => entry.category === category);
+  const activeCount = categoryItems.filter((entry) => entry.status === "active").length;
+
+  return `<a class="category-card" href="${categoryPagePath(category)}">
+          <strong>${escapeHtml(category)}</strong>
+          <span>${categoryItems.length} extensions · ${activeCount} active</span>
+        </a>`;
+}
+
+function renderCategoryPage(category, items) {
+  const sortedItems = [...items].sort(categorySort);
+  const generatedAt = latestVerifiedAt(sortedItems);
+  const description = categoryDescriptions[category] || `Curated GitHub CLI extensions in the ${category} category.`;
+  const pagePath = categoryPagePath(category);
+  const pageUrl = `${siteUrl}${pagePath}`;
+  const catalogUrl = `${siteUrl}?category=${encodeURIComponent(category)}`;
+  const commands = sortedItems.map((entry) => entry.install).join("\n");
+
+  return `<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>${escapeHtml(category)} GitHub CLI Extensions | GitHub CLI Extension Atlas</title>
+  <meta name="description" content="${escapeAttribute(description)}">
+  <meta property="og:title" content="${escapeAttribute(category)} GitHub CLI Extensions">
+  <meta property="og:description" content="${escapeAttribute(description)}">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="${pageUrl}">
+  <meta property="og:image" content="${socialImageUrl}">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="${escapeAttribute(category)} GitHub CLI Extensions">
+  <meta name="twitter:description" content="${escapeAttribute(description)}">
+  <meta name="twitter:image" content="${socialImageUrl}">
+  <link rel="canonical" href="${pageUrl}">
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f7f8fa;
+      --panel: #ffffff;
+      --text: #1f2328;
+      --muted: #656d76;
+      --border: #d0d7de;
+      --accent: #0969da;
+      --accent-soft: #ddf4ff;
+      --good: #1a7f37;
+      --warn: #9a6700;
+      --stale: #8250df;
+      --shadow: 0 1px 2px rgba(31, 35, 40, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font: 15px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    header {
+      background: var(--panel);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .wrap {
+      width: min(1080px, calc(100vw - 32px));
+      margin: 0 auto;
+    }
+
+    .header-inner {
+      display: grid;
+      gap: 13px;
+      padding: 28px 0 22px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(28px, 4vw, 42px);
+      line-height: 1.1;
+      letter-spacing: 0;
+    }
+
+    .lead {
+      max-width: 780px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 17px;
+    }
+
+    .meta,
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 3px 10px;
+      background: var(--panel);
+      color: var(--muted);
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    main {
+      display: grid;
+      gap: 14px;
+      padding: 20px 0 42px;
+    }
+
+    .panel,
+    .table-wrap {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+    }
+
+    .panel {
+      display: grid;
+      gap: 10px;
+      padding: 14px;
+    }
+
+    .panel p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .table-wrap {
+      overflow: auto;
+    }
+
+    table {
+      width: 100%;
+      min-width: 900px;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      padding: 11px 12px;
+      border-bottom: 1px solid var(--border);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: #f6f8fa;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    tr:last-child td {
+      border-bottom: 0;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    button {
+      min-height: 34px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 7px 10px;
+      background: var(--panel);
+      color: var(--text);
+      cursor: pointer;
+      font: inherit;
+      font-weight: 600;
+    }
+
+    button:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    code {
+      font: 13px/1.45 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+
+    .repo {
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      min-height: 24px;
+      border-radius: 999px;
+      padding: 2px 9px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .status.active {
+      background: #dafbe1;
+      color: var(--good);
+    }
+
+    .status.watch {
+      background: #fff8c5;
+      color: var(--warn);
+    }
+
+    .status.stale {
+      background: #fbefff;
+      color: var(--stale);
+    }
+
+    .hint {
+      color: var(--muted);
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap header-inner">
+      <h1>${escapeHtml(category)} GitHub CLI Extensions</h1>
+      <p class="lead">${escapeHtml(description)}</p>
+      <div class="meta">
+        <span class="pill">${sortedItems.length} extensions</span>
+        <span class="pill">${sortedItems.filter((entry) => entry.status === "active").length} active</span>
+        <span class="pill">Reviewed ${escapeHtml(generatedAt)}</span>
+      </div>
+      <div class="actions">
+        <a href="../">Searchable catalog</a>
+        <a href="${escapeAttribute(catalogUrl)}">Open this category with filters</a>
+        <a href="https://github.com/sjh9714/gh-extension-atlas#readme">README</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="panel">
+      <p>Use this page when you want a focused entry point for the ${escapeHtml(category)} category. The full catalog can filter the same entries by status, ownership, search text, and Top Picks.</p>
+      <div class="actions">
+        <button type="button" id="copy-category-installs" data-install-all="${escapeAttribute(commands).replaceAll("\n", "&#10;")}">Copy all ${sortedItems.length} install commands</button>
+        <span class="hint" id="copy-feedback" aria-live="polite"></span>
+      </div>
+    </section>
+
+    <section class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Extension</th>
+            <th>Best for</th>
+            <th>Status</th>
+            <th>Stars</th>
+            <th>Install</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${sortedItems.map(categoryRowHtml).join("\n          ")}
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <script>
+    const button = document.getElementById("copy-category-installs");
+    const feedback = document.getElementById("copy-feedback");
+
+    button.addEventListener("click", async () => {
+      await copyText(button.dataset.installAll);
+      feedback.textContent = "Copied ${sortedItems.length} install commands.";
+      window.clearTimeout(feedback.timeout);
+      feedback.timeout = window.setTimeout(() => {
+        feedback.textContent = "";
+      }, 2400);
+    });
+
+    async function copyText(text) {
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(text);
+        return;
+      }
+
+      const textarea = document.createElement("textarea");
+      textarea.value = text;
+      textarea.setAttribute("readonly", "");
+      textarea.style.position = "absolute";
+      textarea.style.left = "-9999px";
+      document.body.append(textarea);
+      textarea.select();
+      document.execCommand("copy");
+      textarea.remove();
+    }
+  </script>
+</body>
+</html>
+`;
+}
+
 function renderSitemapXml(items) {
   const lastmod = latestVerifiedAt(items);
+  const categoryUrls = unique(items.map((entry) => entry.category))
+    .map((category) => `  <url>
+    <loc>${siteUrl}${categoryPagePath(category)}</loc>
+    <lastmod>${escapeHtml(lastmod)}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>`)
+    .join("\n");
 
   return `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -917,6 +1296,7 @@ function renderSitemapXml(items) {
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
+${categoryUrls}
 </urlset>
 `;
 }
@@ -952,6 +1332,33 @@ function socialMetric(x, y, value, label) {
     <text x="${x}" y="${y}" fill="#1f2328" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="48" font-weight="800">${value}</text>
     <text x="${x}" y="${y + 38}" fill="#57606a" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="22">${escapeHtml(label)}</text>
   </g>`;
+}
+
+function categoryRowHtml(entry) {
+  return `<tr>
+            <td><a class="repo" href="https://github.com/${escapeAttribute(entry.repo)}">${escapeHtml(entry.repo)}</a><br><span>${escapeHtml(entry.summary)}</span></td>
+            <td>${escapeHtml(entry.best_for)}</td>
+            <td><span class="status ${entry.status}">${entry.status}</span></td>
+            <td>${entry.stars.toLocaleString()}</td>
+            <td><code>${escapeHtml(entry.install)}</code></td>
+          </tr>`;
+}
+
+function categorySort(a, b) {
+  const statusRank = { active: 0, watch: 1, stale: 2 };
+  return statusRank[a.status] - statusRank[b.status] || b.stars - a.stars || a.repo.localeCompare(b.repo);
+}
+
+function categoryPagePath(category) {
+  return `categories/${categorySlug(category)}.html`;
+}
+
+function categorySlug(category) {
+  return category
+    .toLowerCase()
+    .replace(/&/g, " ")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
 }
 
 function unique(values) {

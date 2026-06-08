@@ -1,0 +1,356 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Search GitHub CLI Extensions | GitHub CLI Extension Atlas</title>
+  <meta name="description" content="Search repositories, code, stars, and GitHub resources from the command line.">
+  <meta property="og:title" content="Search GitHub CLI Extensions">
+  <meta property="og:description" content="Search repositories, code, stars, and GitHub resources from the command line.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://sjh9714.github.io/gh-extension-atlas/categories/search.html">
+  <meta property="og:image" content="https://sjh9714.github.io/gh-extension-atlas/social-card.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Search GitHub CLI Extensions">
+  <meta name="twitter:description" content="Search repositories, code, stars, and GitHub resources from the command line.">
+  <meta name="twitter:image" content="https://sjh9714.github.io/gh-extension-atlas/social-card.png">
+  <link rel="canonical" href="https://sjh9714.github.io/gh-extension-atlas/categories/search.html">
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f7f8fa;
+      --panel: #ffffff;
+      --text: #1f2328;
+      --muted: #656d76;
+      --border: #d0d7de;
+      --accent: #0969da;
+      --accent-soft: #ddf4ff;
+      --good: #1a7f37;
+      --warn: #9a6700;
+      --stale: #8250df;
+      --shadow: 0 1px 2px rgba(31, 35, 40, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font: 15px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    header {
+      background: var(--panel);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .wrap {
+      width: min(1080px, calc(100vw - 32px));
+      margin: 0 auto;
+    }
+
+    .header-inner {
+      display: grid;
+      gap: 13px;
+      padding: 28px 0 22px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(28px, 4vw, 42px);
+      line-height: 1.1;
+      letter-spacing: 0;
+    }
+
+    .lead {
+      max-width: 780px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 17px;
+    }
+
+    .meta,
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 3px 10px;
+      background: var(--panel);
+      color: var(--muted);
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    main {
+      display: grid;
+      gap: 14px;
+      padding: 20px 0 42px;
+    }
+
+    .panel,
+    .table-wrap {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+    }
+
+    .panel {
+      display: grid;
+      gap: 10px;
+      padding: 14px;
+    }
+
+    .panel p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .table-wrap {
+      overflow: auto;
+    }
+
+    table {
+      width: 100%;
+      min-width: 900px;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      padding: 11px 12px;
+      border-bottom: 1px solid var(--border);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: #f6f8fa;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    tr:last-child td {
+      border-bottom: 0;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    button {
+      min-height: 34px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 7px 10px;
+      background: var(--panel);
+      color: var(--text);
+      cursor: pointer;
+      font: inherit;
+      font-weight: 600;
+    }
+
+    button:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    code {
+      font: 13px/1.45 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+
+    .repo {
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      min-height: 24px;
+      border-radius: 999px;
+      padding: 2px 9px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .status.active {
+      background: #dafbe1;
+      color: var(--good);
+    }
+
+    .status.watch {
+      background: #fff8c5;
+      color: var(--warn);
+    }
+
+    .status.stale {
+      background: #fbefff;
+      color: var(--stale);
+    }
+
+    .hint {
+      color: var(--muted);
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap header-inner">
+      <h1>Search GitHub CLI Extensions</h1>
+      <p class="lead">Search repositories, code, stars, and GitHub resources from the command line.</p>
+      <div class="meta">
+        <span class="pill">9 extensions</span>
+        <span class="pill">7 active</span>
+        <span class="pill">Reviewed 2026-06-08</span>
+      </div>
+      <div class="actions">
+        <a href="../">Searchable catalog</a>
+        <a href="https://sjh9714.github.io/gh-extension-atlas/?category=Search">Open this category with filters</a>
+        <a href="https://github.com/sjh9714/gh-extension-atlas#readme">README</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="panel">
+      <p>Use this page when you want a focused entry point for the Search category. The full catalog can filter the same entries by status, ownership, search text, and Top Picks.</p>
+      <div class="actions">
+        <button type="button" id="copy-category-installs" data-install-all="gh extension install gennaro-tedesco/gh-s&#10;gh extension install gennaro-tedesco/gh-f&#10;gh extension install k1LoW/gh-grep&#10;gh extension install LangLangBart/gh-find-code&#10;gh extension install kawarimidoll/gh-q&#10;gh extension install benelan/gh-fzf&#10;gh extension install Link-/gh-stars&#10;gh extension install korosuke613/gh-user-stars&#10;gh extension install samcoe/gh-repo-explore">Copy all 9 install commands</button>
+        <span class="hint" id="copy-feedback" aria-live="polite"></span>
+      </div>
+    </section>
+
+    <section class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Extension</th>
+            <th>Best for</th>
+            <th>Status</th>
+            <th>Stars</th>
+            <th>Install</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><a class="repo" href="https://github.com/gennaro-tedesco/gh-s">gennaro-tedesco/gh-s</a><br><span>Interactively search GitHub repositories.</span></td>
+            <td>Finding repositories quickly from a terminal workflow.</td>
+            <td><span class="status active">active</span></td>
+            <td>404</td>
+            <td><code>gh extension install gennaro-tedesco/gh-s</code></td>
+          </tr>
+          <tr>
+            <td><a class="repo" href="https://github.com/gennaro-tedesco/gh-f">gennaro-tedesco/gh-f</a><br><span>A compact fzf-powered GitHub extension.</span></td>
+            <td>Users who want fast fuzzy GitHub navigation.</td>
+            <td><span class="status active">active</span></td>
+            <td>386</td>
+            <td><code>gh extension install gennaro-tedesco/gh-f</code></td>
+          </tr>
+          <tr>
+            <td><a class="repo" href="https://github.com/k1LoW/gh-grep">k1LoW/gh-grep</a><br><span>Print matching lines from repositories through the GitHub API.</span></td>
+            <td>Searching repository content without cloning.</td>
+            <td><span class="status active">active</span></td>
+            <td>229</td>
+            <td><code>gh extension install k1LoW/gh-grep</code></td>
+          </tr>
+          <tr>
+            <td><a class="repo" href="https://github.com/LangLangBart/gh-find-code">LangLangBart/gh-find-code</a><br><span>Search GitHub code with fzf.</span></td>
+            <td>Developers who want interactive code search from the terminal.</td>
+            <td><span class="status active">active</span></td>
+            <td>68</td>
+            <td><code>gh extension install LangLangBart/gh-find-code</code></td>
+          </tr>
+          <tr>
+            <td><a class="repo" href="https://github.com/kawarimidoll/gh-q">kawarimidoll/gh-q</a><br><span>Clone GitHub repositories using fzf and ghq.</span></td>
+            <td>Users who organize local repositories with ghq.</td>
+            <td><span class="status active">active</span></td>
+            <td>49</td>
+            <td><code>gh extension install kawarimidoll/gh-q</code></td>
+          </tr>
+          <tr>
+            <td><a class="repo" href="https://github.com/benelan/gh-fzf">benelan/gh-fzf</a><br><span>Wrap GitHub CLI workflows with fzf.</span></td>
+            <td>Users who prefer fuzzy selection over typing exact identifiers.</td>
+            <td><span class="status active">active</span></td>
+            <td>36</td>
+            <td><code>gh extension install benelan/gh-fzf</code></td>
+          </tr>
+          <tr>
+            <td><a class="repo" href="https://github.com/Link-/gh-stars">Link-/gh-stars</a><br><span>Search starred repositories from GitHub CLI.</span></td>
+            <td>Users who treat GitHub stars as a personal knowledge base.</td>
+            <td><span class="status active">active</span></td>
+            <td>32</td>
+            <td><code>gh extension install Link-/gh-stars</code></td>
+          </tr>
+          <tr>
+            <td><a class="repo" href="https://github.com/korosuke613/gh-user-stars">korosuke613/gh-user-stars</a><br><span>Interactively browse and search starred repositories.</span></td>
+            <td>Users with large personal star collections.</td>
+            <td><span class="status stale">stale</span></td>
+            <td>184</td>
+            <td><code>gh extension install korosuke613/gh-user-stars</code></td>
+          </tr>
+          <tr>
+            <td><a class="repo" href="https://github.com/samcoe/gh-repo-explore">samcoe/gh-repo-explore</a><br><span>Interactively explore a repository without cloning it.</span></td>
+            <td>Inspecting unfamiliar repositories quickly.</td>
+            <td><span class="status stale">stale</span></td>
+            <td>63</td>
+            <td><code>gh extension install samcoe/gh-repo-explore</code></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <script>
+    const button = document.getElementById("copy-category-installs");
+    const feedback = document.getElementById("copy-feedback");
+
+    button.addEventListener("click", async () => {
+      await copyText(button.dataset.installAll);
+      feedback.textContent = "Copied 9 install commands.";
+      window.clearTimeout(feedback.timeout);
+      feedback.timeout = window.setTimeout(() => {
+        feedback.textContent = "";
+      }, 2400);
+    });
+
+    async function copyText(text) {
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(text);
+        return;
+      }
+
+      const textarea = document.createElement("textarea");
+      textarea.value = text;
+      textarea.setAttribute("readonly", "");
+      textarea.style.position = "absolute";
+      textarea.style.left = "-9999px";
+      document.body.append(textarea);
+      textarea.select();
+      document.execCommand("copy");
+      textarea.remove();
+    }
+  </script>
+</body>
+</html>

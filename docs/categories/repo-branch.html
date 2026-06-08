@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Repo &amp; Branch GitHub CLI Extensions | GitHub CLI Extension Atlas</title>
+  <meta name="description" content="Clean branches, manage repositories, and keep local GitHub workflows tidy.">
+  <meta property="og:title" content="Repo &amp; Branch GitHub CLI Extensions">
+  <meta property="og:description" content="Clean branches, manage repositories, and keep local GitHub workflows tidy.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://sjh9714.github.io/gh-extension-atlas/categories/repo-branch.html">
+  <meta property="og:image" content="https://sjh9714.github.io/gh-extension-atlas/social-card.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Repo &amp; Branch GitHub CLI Extensions">
+  <meta name="twitter:description" content="Clean branches, manage repositories, and keep local GitHub workflows tidy.">
+  <meta name="twitter:image" content="https://sjh9714.github.io/gh-extension-atlas/social-card.png">
+  <link rel="canonical" href="https://sjh9714.github.io/gh-extension-atlas/categories/repo-branch.html">
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f7f8fa;
+      --panel: #ffffff;
+      --text: #1f2328;
+      --muted: #656d76;
+      --border: #d0d7de;
+      --accent: #0969da;
+      --accent-soft: #ddf4ff;
+      --good: #1a7f37;
+      --warn: #9a6700;
+      --stale: #8250df;
+      --shadow: 0 1px 2px rgba(31, 35, 40, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font: 15px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    header {
+      background: var(--panel);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .wrap {
+      width: min(1080px, calc(100vw - 32px));
+      margin: 0 auto;
+    }
+
+    .header-inner {
+      display: grid;
+      gap: 13px;
+      padding: 28px 0 22px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(28px, 4vw, 42px);
+      line-height: 1.1;
+      letter-spacing: 0;
+    }
+
+    .lead {
+      max-width: 780px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 17px;
+    }
+
+    .meta,
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 3px 10px;
+      background: var(--panel);
+      color: var(--muted);
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    main {
+      display: grid;
+      gap: 14px;
+      padding: 20px 0 42px;
+    }
+
+    .panel,
+    .table-wrap {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+    }
+
+    .panel {
+      display: grid;
+      gap: 10px;
+      padding: 14px;
+    }
+
+    .panel p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .table-wrap {
+      overflow: auto;
+    }
+
+    table {
+      width: 100%;
+      min-width: 900px;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      padding: 11px 12px;
+      border-bottom: 1px solid var(--border);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: #f6f8fa;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    tr:last-child td {
+      border-bottom: 0;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    button {
+      min-height: 34px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 7px 10px;
+      background: var(--panel);
+      color: var(--text);
+      cursor: pointer;
+      font: inherit;
+      font-weight: 600;
+    }
+
+    button:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    code {
+      font: 13px/1.45 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+
+    .repo {
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      min-height: 24px;
+      border-radius: 999px;
+      padding: 2px 9px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .status.active {
+      background: #dafbe1;
+      color: var(--good);
+    }
+
+    .status.watch {
+      background: #fff8c5;
+      color: var(--warn);
+    }
+
+    .status.stale {
+      background: #fbefff;
+      color: var(--stale);
+    }
+
+    .hint {
+      color: var(--muted);
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap header-inner">
+      <h1>Repo &amp; Branch GitHub CLI Extensions</h1>
+      <p class="lead">Clean branches, manage repositories, and keep local GitHub workflows tidy.</p>
+      <div class="meta">
+        <span class="pill">11 extensions</span>
+        <span class="pill">5 active</span>
+        <span class="pill">Reviewed 2026-06-08</span>
+      </div>
+      <div class="actions">
+        <a href="../">Searchable catalog</a>
+        <a href="https://sjh9714.github.io/gh-extension-atlas/?category=Repo%20%26%20Branch">Open this category with filters</a>
+        <a href="https://github.com/sjh9714/gh-extension-atlas#readme">README</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="panel">
+      <p>Use this page when you want a focused entry point for the Repo &amp; Branch category. The full catalog can filter the same entries by status, ownership, search text, and Top Picks.</p>
+      <div class="actions">
+        <button type="button" id="copy-category-installs" data-install-all="gh extension install seachicken/gh-poi&#10;gh extension install redraw/gh-install&#10;gh extension install johnmanjiro13/gh-bump&#10;gh extension install HaywardMorihara/gh-tidy&#10;gh extension install despreston/gh-worktree&#10;gh extension install mislav/gh-branch&#10;gh extension install chelnak/gh-changelog&#10;gh extension install davidraviv/gh-clean-branches&#10;gh extension install matt-bartel/gh-clone-org&#10;gh extension install mislav/gh-cp&#10;gh extension install yuler/gh-download">Copy all 11 install commands</button>
+        <span class="hint" id="copy-feedback" aria-live="polite"></span>
+      </div>
+    </section>
+
+    <section class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Extension</th>
+            <th>Best for</th>
+            <th>Status</th>
+            <th>Stars</th>
+            <th>Install</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><a class="repo" href="https://github.com/seachicken/gh-poi">seachicken/gh-poi</a><br><span>Safely clean up local branches.</span></td>
+            <td>Developers who want a trustworthy branch cleanup default.</td>
+            <td><span class="status active">active</span></td>
+            <td>966</td>
+            <td><code>gh extension install seachicken/gh-poi</code></td>
+          </tr>
+          <tr>
+            <td><a class="repo" href="https://github.com/redraw/gh-install">redraw/gh-install</a><br><span>Install GitHub release binaries interactively.</span></td>
+            <td>Developers who often install tools from GitHub releases.</td>
+            <td><span class="status active">active</span></td>
+            <td>222</td>
+            <td><code>gh extension install redraw/gh-install</code></td>
+          </tr>
+          <tr>
+            <td><a class="repo" href="https://github.com/johnmanjiro13/gh-bump">johnmanjiro13/gh-bump</a><br><span>Bump repository versions from the CLI.</span></td>
+            <td>Projects with manual version bump workflows.</td>
+            <td><span class="status active">active</span></td>
+            <td>62</td>
+            <td><code>gh extension install johnmanjiro13/gh-bump</code></td>
+          </tr>
+          <tr>
+            <td><a class="repo" href="https://github.com/HaywardMorihara/gh-tidy">HaywardMorihara/gh-tidy</a><br><span>Clean up a Git workspace before starting new work.</span></td>
+            <td>Developers who regularly switch tasks and branches.</td>
+            <td><span class="status active">active</span></td>
+            <td>61</td>
+            <td><code>gh extension install HaywardMorihara/gh-tidy</code></td>
+          </tr>
+          <tr>
+            <td><a class="repo" href="https://github.com/despreston/gh-worktree">despreston/gh-worktree</a><br><span>Improve Git worktree workflows with GitHub context.</span></td>
+            <td>Developers who keep multiple branches checked out at once.</td>
+            <td><span class="status active">active</span></td>
+            <td>44</td>
+            <td><code>gh extension install despreston/gh-worktree</code></td>
+          </tr>
+          <tr>
+            <td><a class="repo" href="https://github.com/mislav/gh-branch">mislav/gh-branch</a><br><span>Fuzzy find, switch between, and delete branches.</span></td>
+            <td>Developers with many local branches.</td>
+            <td><span class="status watch">watch</span></td>
+            <td>274</td>
+            <td><code>gh extension install mislav/gh-branch</code></td>
+          </tr>
+          <tr>
+            <td><a class="repo" href="https://github.com/chelnak/gh-changelog">chelnak/gh-changelog</a><br><span>Create changelogs that follow Keep a Changelog.</span></td>
+            <td>Projects that want consistent changelog generation.</td>
+            <td><span class="status watch">watch</span></td>
+            <td>128</td>
+            <td><code>gh extension install chelnak/gh-changelog</code></td>
+          </tr>
+          <tr>
+            <td><a class="repo" href="https://github.com/davidraviv/gh-clean-branches">davidraviv/gh-clean-branches</a><br><span>Delete local branches with no upstream and no unpushed commits.</span></td>
+            <td>Developers cleaning long-lived local Git workspaces.</td>
+            <td><span class="status stale">stale</span></td>
+            <td>185</td>
+            <td><code>gh extension install davidraviv/gh-clean-branches</code></td>
+          </tr>
+          <tr>
+            <td><a class="repo" href="https://github.com/matt-bartel/gh-clone-org">matt-bartel/gh-clone-org</a><br><span>Clone all repositories in an organization with optional filtering.</span></td>
+            <td>Migration, audit, or offline analysis of organization repositories.</td>
+            <td><span class="status stale">stale</span></td>
+            <td>146</td>
+            <td><code>gh extension install matt-bartel/gh-clone-org</code></td>
+          </tr>
+          <tr>
+            <td><a class="repo" href="https://github.com/mislav/gh-cp">mislav/gh-cp</a><br><span>Copy a file from a GitHub repository without cloning.</span></td>
+            <td>Grabbing a single file from a remote repository.</td>
+            <td><span class="status stale">stale</span></td>
+            <td>109</td>
+            <td><code>gh extension install mislav/gh-cp</code></td>
+          </tr>
+          <tr>
+            <td><a class="repo" href="https://github.com/yuler/gh-download">yuler/gh-download</a><br><span>Download folders or files without cloning a repository.</span></td>
+            <td>Fetching a subset of a repository.</td>
+            <td><span class="status stale">stale</span></td>
+            <td>85</td>
+            <td><code>gh extension install yuler/gh-download</code></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <script>
+    const button = document.getElementById("copy-category-installs");
+    const feedback = document.getElementById("copy-feedback");
+
+    button.addEventListener("click", async () => {
+      await copyText(button.dataset.installAll);
+      feedback.textContent = "Copied 11 install commands.";
+      window.clearTimeout(feedback.timeout);
+      feedback.timeout = window.setTimeout(() => {
+        feedback.textContent = "";
+      }, 2400);
+    });
+
+    async function copyText(text) {
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(text);
+        return;
+      }
+
+      const textarea = document.createElement("textarea");
+      textarea.value = text;
+      textarea.setAttribute("readonly", "");
+      textarea.style.position = "absolute";
+      textarea.style.left = "-9999px";
+      document.body.append(textarea);
+      textarea.select();
+      document.execCommand("copy");
+      textarea.remove();
+    }
+  </script>
+</body>
+</html>

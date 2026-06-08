@@ -209,6 +209,12 @@
       gap: 12px;
     }
 
+    .category-pages {
+      margin-top: 14px;
+      display: grid;
+      gap: 12px;
+    }
+
     .section-heading {
       display: flex;
       flex-wrap: wrap;
@@ -236,7 +242,14 @@
       gap: 10px;
     }
 
-    .pack-card {
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .pack-card,
+    .category-card {
       display: grid;
       gap: 9px;
       border: 1px solid var(--border);
@@ -246,6 +259,10 @@
       box-shadow: var(--shadow);
     }
 
+    .category-card {
+      color: var(--text);
+    }
+
     .pack-card h3 {
       margin: 0;
       font-size: 15px;
@@ -253,7 +270,8 @@
       letter-spacing: 0;
     }
 
-    .pack-card p {
+    .pack-card p,
+    .category-card span {
       margin: 0;
       color: var(--muted);
       font-size: 13px;
@@ -392,6 +410,10 @@
       .pack-grid {
         grid-template-columns: 1fr 1fr;
       }
+
+      .category-grid {
+        grid-template-columns: 1fr 1fr;
+      }
     }
 
     @media (max-width: 560px) {
@@ -404,6 +426,10 @@
       }
 
       .pack-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .category-grid {
         grid-template-columns: 1fr;
       }
     }
@@ -541,6 +567,49 @@ gh extension install Link-/gh-token
 gh extension install github/gh-gei</code></pre>
           <button type="button" data-pack-install="gh extension install advanced-security/gh-sbom&#10;gh extension install Link-/gh-token&#10;gh extension install github/gh-gei">Copy commands</button>
         </article>
+      </div>
+    </section>
+
+    <section class="category-pages" aria-label="Category landing pages">
+      <div class="section-heading">
+        <div>
+          <h2>Category Guides</h2>
+          <p>Static entry points for focused GitHub CLI extension workflows.</p>
+        </div>
+      </div>
+      <div class="category-grid">
+        <a class="category-card" href="categories/actions-ci.html">
+          <strong>Actions/CI</strong>
+          <span>7 extensions · 6 active</span>
+        </a>
+        <a class="category-card" href="categories/ai-agents.html">
+          <strong>AI/Agents</strong>
+          <span>4 extensions · 4 active</span>
+        </a>
+        <a class="category-card" href="categories/dashboard-tui.html">
+          <strong>Dashboard/TUI</strong>
+          <span>8 extensions · 7 active</span>
+        </a>
+        <a class="category-card" href="categories/notifications.html">
+          <strong>Notifications</strong>
+          <span>4 extensions · 4 active</span>
+        </a>
+        <a class="category-card" href="categories/pr-issues.html">
+          <strong>PR &amp; Issues</strong>
+          <span>11 extensions · 8 active</span>
+        </a>
+        <a class="category-card" href="categories/repo-branch.html">
+          <strong>Repo &amp; Branch</strong>
+          <span>11 extensions · 5 active</span>
+        </a>
+        <a class="category-card" href="categories/search.html">
+          <strong>Search</strong>
+          <span>9 extensions · 7 active</span>
+        </a>
+        <a class="category-card" href="categories/security-admin.html">
+          <strong>Security/Admin</strong>
+          <span>14 extensions · 8 active</span>
+        </a>
       </div>
     </section>
 

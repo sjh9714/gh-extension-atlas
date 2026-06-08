@@ -3,6 +3,7 @@ import path from "node:path";
 import { execFileSync } from "node:child_process";
 
 const markdownFiles = listFiles(".", (file) => file.endsWith(".md"));
+const htmlFiles = listFiles("docs", (file) => file.endsWith(".html"));
 const data = JSON.parse(fs.readFileSync("data/extensions.json", "utf8"));
 const links = new Map();
 const errors = [];
@@ -14,6 +15,13 @@ const githubToken = getGitHubToken();
 for (const file of markdownFiles) {
   const content = fs.readFileSync(file, "utf8");
   for (const link of extractMarkdownLinks(content)) {
+    addLink(link, file);
+  }
+}
+
+for (const file of htmlFiles) {
+  const content = fs.readFileSync(file, "utf8");
+  for (const link of extractHtmlLinks(content)) {
     addLink(link, file);
   }
 }
@@ -35,10 +43,15 @@ for (const [link, sources] of links) {
     if (withoutHash && !fs.existsSync(target)) {
       errors.push(`${link} referenced from ${source} does not exist.`);
     }
+  } else if (isOwnSiteLink(link)) {
+    const target = getOwnSiteTarget(link);
+    if (!fs.existsSync(target)) {
+      errors.push(`${link} referenced from ${sources[0]} maps to missing ${target}.`);
+    }
   }
 }
 
-const remoteLinks = Array.from(links.keys()).filter((link) => !isIgnored(link) && !isRelative(link));
+const remoteLinks = Array.from(links.keys()).filter((link) => !isIgnored(link) && !isRelative(link) && !isOwnSiteLink(link));
 const failures = await checkRemoteLinks(remoteLinks);
 errors.push(...failures);
 
@@ -83,6 +96,19 @@ function extractMarkdownLinks(content) {
   return links;
 }
 
+function extractHtmlLinks(content) {
+  const links = [];
+  const staticHtml = content.replace(/<script\b[\s\S]*?<\/script>/gi, "");
+  const htmlLinkPattern = /\b(?:href|src)="([^"]+)"/g;
+  let match;
+
+  while ((match = htmlLinkPattern.exec(staticHtml)) !== null) {
+    links.push(match[1]);
+  }
+
+  return links;
+}
+
 function stripAngleBrackets(value) {
   return value.replace(/^</, "").replace(/>$/, "");
 }
@@ -99,11 +125,21 @@ function addLink(link, source) {
 }
 
 function isIgnored(link) {
-  return link.startsWith("#") || link.startsWith("mailto:");
+  return link.startsWith("#") || link.startsWith("mailto:") || link.startsWith("data:") || link.startsWith("javascript:");
 }
 
 function isRelative(link) {
   return !/^https?:\/\//.test(link);
+}
+
+function isOwnSiteLink(link) {
+  return link.startsWith("https://sjh9714.github.io/gh-extension-atlas/");
+}
+
+function getOwnSiteTarget(link) {
+  const parsed = new URL(link);
+  const relativePath = parsed.pathname.replace(/^\/gh-extension-atlas\/?/, "") || "index.html";
+  return path.join("docs", relativePath.endsWith("/") ? `${relativePath}index.html` : relativePath);
 }
 
 async function checkRemoteLinks(remoteLinks) {
