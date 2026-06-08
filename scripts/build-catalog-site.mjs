@@ -12,6 +12,8 @@ const repoUrl = "https://github.com/sjh9714/gh-extension-atlas";
 const repoReadmeUrl = `${repoUrl}#readme`;
 const repoIssueChooserUrl = `${repoUrl}/issues/new/choose`;
 const socialImageUrl = `${siteUrl}social-card.png`;
+const socialImagePath = "docs/social-card.png";
+const expectedSocialImageSize = { width: 1200, height: 630 };
 const categoryDescriptions = {
   "Actions/CI": "Inspect workflows, summarize CI health, migrate pipelines, and operate GitHub Actions from the terminal.",
   "AI/Agents": "Try agentic, AI-assisted, and model-driven GitHub workflows from the GitHub CLI.",
@@ -503,6 +505,11 @@ if (checkOnly) {
     }
   }
 
+  for (const error of validateSocialPreviewAssets()) {
+    console.error(error);
+    hasStaleFile = true;
+  }
+
   if (hasStaleFile) {
     process.exit(1);
   }
@@ -514,6 +521,41 @@ if (checkOnly) {
     fs.writeFileSync(file.path, file.content);
     console.log(`Wrote ${file.path}.`);
   }
+}
+
+function validateSocialPreviewAssets() {
+  const errors = [];
+
+  if (!fs.existsSync(socialImagePath)) {
+    errors.push(`${socialImagePath} is missing. Social preview meta tags point to ${socialImageUrl}.`);
+    return errors;
+  }
+
+  const size = readPngSize(socialImagePath);
+
+  if (!size) {
+    errors.push(`${socialImagePath} must be a PNG image.`);
+  } else if (size.width !== expectedSocialImageSize.width || size.height !== expectedSocialImageSize.height) {
+    errors.push(
+      `${socialImagePath} must be ${expectedSocialImageSize.width}x${expectedSocialImageSize.height}; found ${size.width}x${size.height}.`,
+    );
+  }
+
+  return errors;
+}
+
+function readPngSize(filePath) {
+  const pngSignature = "89504e470d0a1a0a";
+  const buffer = fs.readFileSync(filePath);
+
+  if (buffer.length < 24 || buffer.subarray(0, 8).toString("hex") !== pngSignature) {
+    return null;
+  }
+
+  return {
+    width: buffer.readUInt32BE(16),
+    height: buffer.readUInt32BE(20),
+  };
 }
 
 function renderCatalog(items) {
