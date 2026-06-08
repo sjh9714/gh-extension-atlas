@@ -4990,6 +4990,19 @@ function renderAuditPage(items) {
       margin: 4px 0;
     }
 
+    .demo-note {
+      display: none;
+      border: 1px solid #bfdbfe;
+      border-radius: 8px;
+      padding: 10px 12px;
+      background: #eff6ff;
+      color: #1e40af;
+    }
+
+    .demo-note.visible {
+      display: block;
+    }
+
     .table-wrap {
       overflow: auto;
       border: 1px solid var(--border);
@@ -5104,6 +5117,7 @@ function renderAuditPage(items) {
     <section class="panel">
       <h2>Paste Your Installed Extensions</h2>
       <p class="muted">Run <code>gh extension list</code>, paste the output below, and audit locally in your browser. The pasted text is not sent anywhere.</p>
+      <p class="demo-note" id="demo-note">Sample audit loaded. Paste your own <code>gh extension list</code> output when you are ready to check your setup.</p>
       <pre><code>gh extension list</code></pre>
       <textarea id="extension-list" spellcheck="false" placeholder="gh dash&#9;dlvhdr/gh-dash&#9;v4.8.0&#10;gh notify&#9;meiji163/gh-notify&#9;v2.0.0"></textarea>
       <div class="button-row">
@@ -5184,6 +5198,8 @@ function renderAuditPage(items) {
 
     if (new URLSearchParams(window.location.search).has("demo") || new URLSearchParams(window.location.search).has("sample")) {
       loadSampleAudit();
+      document.getElementById("demo-note").classList.add("visible");
+      requestAnimationFrame(() => results.scrollIntoView({ block: "start" }));
     }
 
     function loadSampleAudit() {
