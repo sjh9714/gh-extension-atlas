@@ -85,16 +85,17 @@ Review bundle contents before installing. Do not pipe install bundles directly i
 
 If you only have a few minutes, start from the workflow that hurts right now.
 
-| If you need to...                     | Try first                 | Why this is the first stop                                             |
-| ------------------------------------- | ------------------------- | ---------------------------------------------------------------------- |
-| Triage PRs, issues, and notifications | `gh-dash`                 | One maintained TUI covers the daily GitHub queue.                      |
-| Review PR threads in the terminal     | `gh-pr-review`            | Focuses on inline review comments instead of a full dashboard.         |
-| Inspect GitHub Actions interactively  | `gh-enhance`              | Gives Actions workflows a focused terminal interface.                  |
-| Measure workflow health               | `gh-workflow-stats`       | Summarizes success rates and run duration for CI debugging.            |
-| Clean local merged branches           | `gh-poi`                  | Removes merged branches without making you inspect every ref manually. |
-| Preview README or docs rendering      | `gh-markdown-preview`     | Shows GitHub-flavored Markdown before you publish.                     |
-| Search repositories from the terminal | `gh-s`                    | Adds a compact interactive repository search flow.                     |
-| Reuse the catalog data                | [API docs][api-reference] | Documents JSON, schema, and install bundle endpoints.                  |
+| If you need to...                     | Try first                 | Command                                                    | Why this is the first stop                                             |
+| ------------------------------------- | ------------------------- | ---------------------------------------------------------- | ---------------------------------------------------------------------- |
+| Triage PRs, issues, and notifications | `gh-dash`                 | `gh extension install dlvhdr/gh-dash`                      | One maintained TUI covers the daily GitHub queue.                      |
+| Review PR threads in the terminal     | `gh-pr-review`            | `gh extension install agynio/gh-pr-review`                 | Focuses on inline review comments instead of a full dashboard.         |
+| Inspect GitHub Actions interactively  | `gh-enhance`              | `gh extension install dlvhdr/gh-enhance`                   | Gives Actions workflows a focused terminal interface.                  |
+| Measure workflow health               | `gh-workflow-stats`       | `gh extension install fchimpan/gh-workflow-stats`          | Summarizes success rates and run duration for CI debugging.            |
+| Clean local merged branches           | `gh-poi`                  | `gh extension install seachicken/gh-poi`                   | Removes merged branches without making you inspect every ref manually. |
+| Preview README or docs rendering      | `gh-markdown-preview`     | `gh extension install yusukebe/gh-markdown-preview`        | Shows GitHub-flavored Markdown before you publish.                     |
+| Search repositories from the terminal | `gh-s`                    | `gh extension install gennaro-tedesco/gh-s`                | Adds a compact interactive repository search flow.                     |
+
+Using the atlas as data instead of installing extensions? Start with the [API docs][api-reference] or fetch the endpoint manifest with `curl -fsSL https://sjh9714.github.io/gh-extension-atlas/api/index.json`.
 
 ## Cheatsheet
 
