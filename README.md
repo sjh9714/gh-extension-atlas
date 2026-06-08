@@ -167,6 +167,28 @@ Quick entry points:
 [catalog-branches]: https://sjh9714.github.io/gh-extension-atlas/?q=branch+cleanup&category=Repo+%26+Branch&status=active
 [catalog-security]: https://sjh9714.github.io/gh-extension-atlas/?category=Security%2FAdmin&status=active
 
+Static category pages:
+
+| Page                                                           | Use this when...                                             |
+| -------------------------------------------------------------- | ------------------------------------------------------------ |
+| [Actions/CI extensions][category-actions-ci]                   | You want a focused page for GitHub Actions and CI tools.     |
+| [AI/Agents extensions][category-ai-agents]                     | You want AI-assisted and agentic GitHub CLI workflows.       |
+| [Dashboard/TUI extensions][category-dashboard-tui]             | You want terminal dashboards and visual interfaces.          |
+| [Notification extensions][category-notifications]              | You want notification triage options without the browser.    |
+| [PR & Issues extensions][category-pr-issues]                   | You want pull request, review, issue, and maintainer tools.  |
+| [Repo & Branch extensions][category-repo-branch]               | You want branch cleanup and repository workflow helpers.     |
+| [Search extensions][category-search]                           | You want repository, code, star, or user discovery tools.    |
+| [Security/Admin extensions][category-security-admin]           | You want SBOM, CodeQL, token, migration, or admin tooling.   |
+
+[category-actions-ci]: https://sjh9714.github.io/gh-extension-atlas/categories/actions-ci.html
+[category-ai-agents]: https://sjh9714.github.io/gh-extension-atlas/categories/ai-agents.html
+[category-dashboard-tui]: https://sjh9714.github.io/gh-extension-atlas/categories/dashboard-tui.html
+[category-notifications]: https://sjh9714.github.io/gh-extension-atlas/categories/notifications.html
+[category-pr-issues]: https://sjh9714.github.io/gh-extension-atlas/categories/pr-issues.html
+[category-repo-branch]: https://sjh9714.github.io/gh-extension-atlas/categories/repo-branch.html
+[category-search]: https://sjh9714.github.io/gh-extension-atlas/categories/search.html
+[category-security-admin]: https://sjh9714.github.io/gh-extension-atlas/categories/security-admin.html
+
 The generated source lives at [`docs/index.html`](docs/index.html).
 
 Regenerate it after catalog changes with:
