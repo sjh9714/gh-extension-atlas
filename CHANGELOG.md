@@ -1,5 +1,20 @@
 # Changelog
 
+## v0.2.13
+
+This patch release adds generated detail pages for every cataloged GitHub CLI extension.
+
+### Added
+
+- Individual extension pages under `extensions/`, one page per catalog entry.
+- Extension detail links from the searchable catalog, category pages, workflow guides, and awesome overview.
+- Sitemap entries for all generated extension detail pages.
+
+### Improved
+
+- Public API manifest now documents the extension page URL template.
+- README Catalog Browser section now points to a generated extension detail page example.
+
 ## v0.2.12
 
 This patch release adds a shareable SEO landing page for awesome GitHub CLI extensions.
