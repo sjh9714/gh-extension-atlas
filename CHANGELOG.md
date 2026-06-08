@@ -1,5 +1,18 @@
 # Changelog
 
+## v0.2.17
+
+This patch release adds a generated catalog health snapshot for readers and API consumers.
+
+### Added
+
+- `docs/health.md` with counts, freshness, category health, and guardrails.
+- `/api/health.json` with machine-readable catalog health, generated asset links, Top Picks metadata, and freshness signals.
+
+### Improved
+
+- README, API reference, API manifest, and LLM context files now link to the health snapshot.
+
 ## v0.2.16
 
 This patch release adds LLM-friendly plain-text context files for AI coding tools and documentation indexers.
