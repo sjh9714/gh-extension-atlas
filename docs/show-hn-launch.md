@@ -65,23 +65,12 @@ This URL opens the audit page with a sample result already loaded, so first-time
 
 ## Optional First Comment
 
-Post this only if a short explanation feels necessary after submission. Keep it factual and do not mention stars.
+Avoid a first comment unless a short explanation feels necessary after submission. [Hacker News guidelines](https://news.ycombinator.com/newsguidelines.html) say not to post generated or AI-edited text in comments, so write any comment yourself in your own words. Keep it factual and do not mention stars.
 
-To print the prepared comment:
+To print a factual note list for your own drafting:
 
 ```sh
 npm run launch:show-hn:first-comment
-```
-
-```text
-I built this because `gh extension search` gives many options, but it can still be hard to decide what is maintained, what fits a workflow, and what overlaps with something already installed.
-
-The linked page is a browser-only audit tool. The Show HN link opens with a sample result loaded; after that, paste `gh extension list` to compare your own installed extensions against the curated catalog. It shows reviewed installs, unlisted installs, missing Top Picks, workflow coverage, and next actions.
-
-The repo also includes comparison guides, install bundles, and a small JSON catalog:
-https://github.com/sjh9714/gh-extension-atlas
-
-I am mainly looking for factual corrections, missing useful extensions, and category feedback.
 ```
 
 ## Pre-Submit Checklist
@@ -151,31 +140,16 @@ npm run launch:show-hn:review-24h -- --story STORY_URL --post
 
 The review records HN score/comments, repository stars/watchers/forks, traffic, detected concern keywords in top-level comments, and a conservative decision. It refuses to post before the item is 24 hours old.
 
-## Reply Templates
+## Reply Notes
 
-Missing extension:
+Do not copy generated reply text into Hacker News. Reply in your own words and keep comments short, factual, and specific to what the other person said.
 
-```text
-Thanks - I will check whether it is installable with `gh extension install`, documented, not archived, maintained enough to list, and broadly useful. If it fits the criteria, I will add it or open a candidate review issue.
-```
+Response principles:
 
-Correction:
-
-```text
-Thanks, that is exactly the kind of correction I am looking for. I will update the wording so it stays factual.
-```
-
-Skeptical or promotional concern:
-
-```text
-That is fair. My intent is to collect factual corrections and useful missing extensions, not to promote aggressively. I will keep follow-up inside the atlas repo.
-```
-
-Positive but no action needed:
-
-```text
-Thanks. I am trying to keep it conservative and useful rather than exhaustive.
-```
+- Missing extension: say you will check installability, docs, archived status, maintenance, and fit with the atlas criteria.
+- Correction: thank them for the specific correction and say you will update the wording or metadata.
+- Skeptical or promotional concern: acknowledge it, clarify that the goal is factual correction and useful missing-extension suggestions, and stop expanding the launch.
+- Positive but no action needed: thank them briefly without asking for stars, upvotes, or sharing.
 
 ## Tracker Update
 
