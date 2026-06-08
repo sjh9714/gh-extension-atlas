@@ -6,6 +6,9 @@ const schemaPath = "data/extensions.schema.json";
 const packageJson = JSON.parse(fs.readFileSync("package.json", "utf8"));
 const checkOnly = process.argv.includes("--check");
 const siteUrl = "https://sjh9714.github.io/gh-extension-atlas/";
+const repoUrl = "https://github.com/sjh9714/gh-extension-atlas";
+const repoReadmeUrl = `${repoUrl}#readme`;
+const repoIssueChooserUrl = `${repoUrl}/issues/new/choose`;
 const socialImageUrl = `${siteUrl}social-card.png`;
 const categoryDescriptions = {
   "Actions/CI": "Inspect workflows, summarize CI health, migrate pipelines, and operate GitHub Actions from the terminal.",
@@ -1028,7 +1031,8 @@ function renderCatalog(items) {
         <span class="pill"><a href="chooser.html">Chooser</a></span>
         <span class="pill"><a href="awesome-github-cli-extensions.html">Awesome overview</a></span>
         <span class="pill"><a href="https://github.com/sjh9714/gh-extension-atlas/blob/main/docs/starter-packs.md">Starter Packs</a></span>
-        <span class="pill"><a href="https://github.com/sjh9714/gh-extension-atlas#readme">README</a></span>
+        <span class="pill"><a href="${repoReadmeUrl}">README</a></span>
+        <span class="pill"><a href="${repoUrl}">Star on GitHub</a></span>
       </div>
     </div>
   </header>
@@ -1775,7 +1779,8 @@ function renderCategoryPage(category, items) {
         <a href="${escapeAttribute(catalogUrl)}">Open this category with filters</a>
         <a href="../api/categories/${escapeAttribute(slug)}.json">Category JSON</a>
         <a href="../install/categories/${escapeAttribute(slug)}.txt">Install commands TXT</a>${guideHeaderLink}
-        <a href="https://github.com/sjh9714/gh-extension-atlas#readme">README</a>
+        <a href="${repoReadmeUrl}">README</a>
+        <a href="${repoUrl}">Star on GitHub</a>
       </div>
     </div>
   </header>
@@ -2248,7 +2253,8 @@ function renderWorkflowGuidePage(category, guide, items) {
         <a href="../categories/${categorySlugValue}.html">${escapeHtml(category)} category</a>
         <a href="../api/categories/${categorySlugValue}.json">Category JSON</a>
         <a href="../${escapeAttribute(guide.sourcePath)}">Markdown source</a>
-        <a href="https://github.com/sjh9714/gh-extension-atlas#readme">README</a>
+        <a href="${repoReadmeUrl}">README</a>
+        <a href="${repoUrl}">Star on GitHub</a>
       </div>
     </div>
   </header>
@@ -2550,7 +2556,9 @@ function renderAwesomeLandingPage(items) {
       <div class="actions">
         <a href="chooser.html">Open the chooser</a>
         <a href="./">Searchable catalog</a>
-        <a href="https://github.com/sjh9714/gh-extension-atlas#readme">README</a>
+        <a href="${repoReadmeUrl}">README</a>
+        <a href="${repoUrl}">Star on GitHub</a>
+        <a href="${repoIssueChooserUrl}">Suggest a correction</a>
         <a href="api/index.json">API manifest</a>
         <a href="install/all.txt">All install commands</a>
       </div>
@@ -2903,7 +2911,8 @@ function renderChooserPage(items) {
         <a href="./">Searchable catalog</a>
         <a href="awesome-github-cli-extensions.html">Awesome overview</a>
         <a href="api/index.json">API manifest</a>
-        <a href="https://github.com/sjh9714/gh-extension-atlas#readme">README</a>
+        <a href="${repoReadmeUrl}">README</a>
+        <a href="${repoUrl}">Star on GitHub</a>
       </div>
     </div>
   </header>
@@ -3225,7 +3234,9 @@ function renderExtensionPage(entry) {
         <a href="../${escapeAttribute(categoryPath)}">${escapeHtml(entry.category)} category</a>
         ${guidePath ? `<a href="../${escapeAttribute(guidePath)}">Workflow guide</a>` : ""}
         <a href="https://github.com/${escapeAttribute(entry.repo)}">Upstream repository</a>
-        <a href="https://github.com/sjh9714/gh-extension-atlas#readme">Atlas README</a>
+        <a href="${repoReadmeUrl}">Atlas README</a>
+        <a href="${repoUrl}">Star atlas on GitHub</a>
+        <a href="${repoIssueChooserUrl}">Suggest a correction</a>
       </div>
     </div>
   </header>
