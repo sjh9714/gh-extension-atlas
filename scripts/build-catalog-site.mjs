@@ -607,7 +607,7 @@ function validateAuditPage(files) {
     return ["docs/audit.html must be generated."];
   }
 
-  const requiredIds = ["catalog-data", "top-pick-data", "workflow-data", "extension-list", "run-audit", "copy-command", "load-sample", "copy-missing", "copy-gap-installs", "copy-summary", "clear-input", "results"];
+  const requiredIds = ["catalog-data", "top-pick-data", "workflow-data", "extension-list", "run-audit", "copy-command", "paste-clipboard", "load-sample", "copy-missing", "copy-gap-installs", "copy-summary", "clear-input", "results"];
 
   for (const id of requiredIds) {
     if (!file.content.includes(`id="${id}"`)) {
@@ -5160,6 +5160,7 @@ function renderAuditPage(items) {
       <div class="button-row">
         <button class="primary" type="button" id="run-audit">Run audit</button>
         <button type="button" id="copy-command">Copy command</button>
+        <button type="button" id="paste-clipboard">Paste from clipboard</button>
         <button type="button" id="load-sample">Try sample audit</button>
         <button type="button" id="copy-missing">Copy missing Top Picks installs</button>
         <button type="button" id="copy-gap-installs">Copy workflow gap installs</button>
@@ -5207,6 +5208,10 @@ function renderAuditPage(items) {
 
     document.getElementById("copy-command").addEventListener("click", async () => {
       await copyText("gh extension list", "Copied command.");
+    });
+
+    document.getElementById("paste-clipboard").addEventListener("click", async () => {
+      await pasteFromClipboard();
     });
 
     document.getElementById("load-sample").addEventListener("click", () => {
@@ -5279,6 +5284,31 @@ function renderAuditPage(items) {
         copyBox.remove();
       }
       showCopyFeedback(message);
+    }
+
+    async function pasteFromClipboard() {
+      if (!navigator.clipboard?.readText) {
+        textarea.focus();
+        showCopyFeedback("Clipboard read is unavailable. Paste into the box manually.");
+        return;
+      }
+
+      try {
+        const text = await navigator.clipboard.readText();
+        if (!text.trim()) {
+          textarea.focus();
+          showCopyFeedback("Clipboard is empty. Copy gh extension list output first.");
+          return;
+        }
+
+        auditSource = "manual";
+        textarea.value = text;
+        renderAudit(buildAudit(parseExtensionList(textarea.value)));
+        showCopyFeedback("Pasted clipboard output and ran audit.");
+      } catch {
+        textarea.focus();
+        showCopyFeedback("Clipboard permission was blocked. Paste into the box manually.");
+      }
     }
 
     function showCopyFeedback(message) {
