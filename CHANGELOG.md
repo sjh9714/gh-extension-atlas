@@ -1,5 +1,18 @@
 # Changelog
 
+## v0.2.15
+
+This patch release adds optional maintainer badge snippets to generated extension detail pages.
+
+### Added
+
+- Maintainer snippet section on every generated extension detail page.
+- Markdown and HTML badge snippets that link back to the reviewed atlas detail page.
+
+### Improved
+
+- README maintainer guidance now explains that badge snippets are optional and not required for factual corrections.
+
 ## v0.2.14
 
 This patch release adds a workflow-first chooser page for picking GitHub CLI extensions faster.
