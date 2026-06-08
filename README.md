@@ -65,6 +65,8 @@ Want to inspect install bundles by workflow or category? Open the [Install Bundl
 
 Want to compare your installed extensions with the atlas? Open the [Installed Extension Audit][installed-audit].
 
+Want the full audit workflow? Read the [installed extension audit guide][guide-installed-audit].
+
 | Workflow                  | Read first                                   | Inspect starter pack                                                                                                                  |
 | ------------------------- | -------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
 | Daily maintainer triage   | [Terminal dashboard guide][guide-dashboards] | [`daily-maintainer-triage.txt`](https://sjh9714.github.io/gh-extension-atlas/install/starter-packs/daily-maintainer-triage.txt)       |
@@ -241,6 +243,7 @@ These are the first extensions to evaluate if you want broad value fast.
 | [GitHub notification triage CLI extension guide][guide-notifications] | You want terminal notification display, filtering, cleanup, or broader triage.            |
 | [GitHub repository search CLI extension guide][guide-search]          | You want repository search, code search, starred-repository search, or clone helpers.     |
 | [GitHub security and admin CLI extension guide][guide-security]       | You want SBOM, CodeQL, token, webhook, repository config, or migration helpers.           |
+| [Installed GitHub CLI extension audit guide][guide-installed-audit]   | You want to compare your current `gh extension list` output with the atlas.               |
 
 [guide-dashboards]: https://sjh9714.github.io/gh-extension-atlas/guides/terminal-dashboard-extensions.html
 [guide-actions]: https://sjh9714.github.io/gh-extension-atlas/guides/github-actions-extensions.html
@@ -250,6 +253,7 @@ These are the first extensions to evaluate if you want broad value fast.
 [guide-notifications]: https://sjh9714.github.io/gh-extension-atlas/guides/notification-triage-extensions.html
 [guide-search]: https://sjh9714.github.io/gh-extension-atlas/guides/repository-search-extensions.html
 [guide-security]: https://sjh9714.github.io/gh-extension-atlas/guides/security-admin-extensions.html
+[guide-installed-audit]: docs/guides/audit-installed-gh-extensions.md
 [chooser]: https://sjh9714.github.io/gh-extension-atlas/chooser.html
 [awesome-overview]: https://sjh9714.github.io/gh-extension-atlas/awesome-github-cli-extensions.html
 [awesome-markdown]: https://sjh9714.github.io/gh-extension-atlas/awesome-github-cli-extensions.md

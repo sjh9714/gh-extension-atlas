@@ -5410,6 +5410,12 @@ function renderSitemapXml(items) {
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>`;
+  const installedAuditGuideUrl = `  <url>
+    <loc>${siteUrl}guides/audit-installed-gh-extensions.md</loc>
+    <lastmod>${escapeHtml(lastmod)}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.75</priority>
+  </url>`;
   const guideUrls = Object.values(workflowGuides)
     .map((guide) => `  <url>
     <loc>${siteUrl}${guide.path}</loc>
@@ -5453,6 +5459,7 @@ ${recommendationsUrl}
 ${recommendationsMarkdownUrl}
 ${installBundlesUrl}
 ${agentGuideUrl}
+${installedAuditGuideUrl}
 ${categoryUrls}
 ${guideUrls}
 ${extensionUrls}

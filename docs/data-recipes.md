@@ -100,6 +100,8 @@ Use `catalog:audit-installed` when you want to compare your current `gh extensio
 
 Prefer a browser tool? Open the [Installed Extension Audit](https://sjh9714.github.io/gh-extension-atlas/audit.html) page and paste `gh extension list` output there.
 
+For a fuller walkthrough, read the [installed extension audit guide](guides/audit-installed-gh-extensions.md).
+
 Audit locally installed extensions:
 
 ```sh
