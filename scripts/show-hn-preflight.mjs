@@ -4,6 +4,7 @@ const repo = "sjh9714/gh-extension-atlas";
 const guardrailAt = new Date("2026-06-09T15:10:00Z");
 const auditUrl = "https://sjh9714.github.io/gh-extension-atlas/audit.html";
 const submissionTitle = "Show HN: GitHub CLI Extension Atlas - audit and choose gh extensions";
+const hnSearchBaseUrl = "https://hn.algolia.com/api/v1/search";
 
 const failures = [];
 const warnings = [];
@@ -54,6 +55,44 @@ async function checkAuditPage() {
     if (!html.includes(marker)) {
       fail(`Audit page is missing marker: ${marker}`);
     }
+  }
+}
+
+async function searchHn(query) {
+  const url = new URL(hnSearchBaseUrl);
+  url.searchParams.set("query", query);
+  url.searchParams.set("tags", "story");
+  url.searchParams.set("hitsPerPage", "5");
+
+  const response = await fetch(url);
+  if (!response.ok) {
+    throw new Error(`HN search returned HTTP ${response.status}`);
+  }
+
+  return response.json();
+}
+
+async function checkHnDuplicate() {
+  try {
+    const [urlSearch, titleSearch] = await Promise.all([
+      searchHn(auditUrl),
+      searchHn("GitHub CLI Extension Atlas"),
+    ]);
+
+    const urlHits = urlSearch.hits.filter((hit) => hit.url === auditUrl);
+    const titleHits = titleSearch.hits.filter((hit) => /github cli extension atlas/i.test(hit.title || ""));
+
+    if (urlHits.length) {
+      fail(`HN already has a story for the audit URL: https://news.ycombinator.com/item?id=${urlHits[0].objectID}`);
+    }
+
+    if (titleHits.length) {
+      warn(`HN search found a similar title: https://news.ycombinator.com/item?id=${titleHits[0].objectID}`);
+    }
+
+    console.log(`HN duplicate check: ${urlHits.length} exact URL hit(s), ${titleHits.length} similar title hit(s)`);
+  } catch (error) {
+    warn(`HN duplicate check could not complete: ${error.message}`);
   }
 }
 
@@ -147,6 +186,7 @@ async function main() {
   checkTrackerIssues();
   checkGhNotify();
   await checkAuditPage();
+  await checkHnDuplicate();
 
   console.log("");
   console.log("Submission title:");
