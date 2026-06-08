@@ -1,8 +1,8 @@
 import fs from "node:fs";
 
 const dataPath = "data/extensions.json";
-const outputPath = "docs/index.html";
 const checkOnly = process.argv.includes("--check");
+const siteUrl = "https://sjh9714.github.io/gh-extension-atlas/";
 const topPickRepos = [
   "dlvhdr/gh-dash",
   "github/gh-aw",
@@ -17,19 +17,33 @@ const topPickRepos = [
 ];
 
 const entries = JSON.parse(fs.readFileSync(dataPath, "utf8"));
-const html = renderCatalog(entries);
+const generatedFiles = [
+  { path: "docs/index.html", content: renderCatalog(entries) },
+  { path: "docs/robots.txt", content: renderRobotsTxt() },
+  { path: "docs/sitemap.xml", content: renderSitemapXml(entries) },
+];
 
 if (checkOnly) {
-  const current = fs.existsSync(outputPath) ? fs.readFileSync(outputPath, "utf8") : "";
-  if (current !== html) {
-    console.error(`${outputPath} is out of date. Run \`npm run site:build\`.`);
+  let hasStaleFile = false;
+
+  for (const file of generatedFiles) {
+    const current = fs.existsSync(file.path) ? fs.readFileSync(file.path, "utf8") : "";
+    if (current !== file.content) {
+      console.error(`${file.path} is out of date. Run \`npm run site:build\`.`);
+      hasStaleFile = true;
+    }
+  }
+
+  if (hasStaleFile) {
     process.exit(1);
   }
 
-  console.log(`${outputPath} is up to date.`);
+  console.log("Generated site files are up to date.");
 } else {
-  fs.writeFileSync(outputPath, html);
-  console.log(`Wrote ${outputPath}.`);
+  for (const file of generatedFiles) {
+    fs.writeFileSync(file.path, file.content);
+    console.log(`Wrote ${file.path}.`);
+  }
 }
 
 function renderCatalog(items) {
@@ -49,8 +63,8 @@ function renderCatalog(items) {
   <meta property="og:title" content="GitHub CLI Extension Atlas">
   <meta property="og:description" content="Search ${items.length} curated GitHub CLI extensions by workflow, maintenance status, ownership, and install command.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://sjh9714.github.io/gh-extension-atlas/">
-  <link rel="canonical" href="https://sjh9714.github.io/gh-extension-atlas/">
+  <meta property="og:url" content="${siteUrl}">
+  <link rel="canonical" href="${siteUrl}">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230969da'/%3E%3Cpath d='M18 33h28M30 21l12 12-12 12' fill='none' stroke='white' stroke-width='6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
   <style>
     :root {
@@ -724,6 +738,29 @@ function renderCatalog(items) {
   </script>
 </body>
 </html>
+`;
+}
+
+function renderRobotsTxt() {
+  return `User-agent: *
+Allow: /
+
+Sitemap: ${siteUrl}sitemap.xml
+`;
+}
+
+function renderSitemapXml(items) {
+  const lastmod = latestVerifiedAt(items);
+
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>${siteUrl}</loc>
+    <lastmod>${escapeHtml(lastmod)}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+</urlset>
 `;
 }
 

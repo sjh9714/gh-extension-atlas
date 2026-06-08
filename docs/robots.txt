@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://sjh9714.github.io/gh-extension-atlas/sitemap.xml
