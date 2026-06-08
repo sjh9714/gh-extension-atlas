@@ -140,9 +140,20 @@ function checkValidateRun() {
 }
 
 function checkRepoMetrics() {
-  const metrics = readGhJson(["repo", "view", repo, "--json", "stargazerCount,watchers,forkCount,url"]);
+  const metrics = readGhJson(["repo", "view", repo, "--json", "stargazerCount,watchers,forkCount,url,description,homepageUrl"]);
   console.log(`Repo: ${metrics.url}`);
   console.log(`Stars/watchers/forks: ${metrics.stargazerCount}/${metrics.watchers.totalCount}/${metrics.forkCount}`);
+  console.log(`Repo homepage: ${metrics.homepageUrl || "(none)"}`);
+  console.log(`Repo description: ${metrics.description || "(none)"}`);
+
+  if (metrics.homepageUrl !== auditUrl) {
+    fail(`Repo homepage should point to the Show HN demo audit URL: ${auditUrl}`);
+  }
+
+  const description = (metrics.description || "").toLowerCase();
+  if (!description.includes("audit") || !description.includes("github cli extensions")) {
+    warn("Repo description no longer leads with the GitHub CLI extension audit/choice use case.");
+  }
 }
 
 function checkTrackerIssues() {
