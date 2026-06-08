@@ -2,7 +2,7 @@
 
 [![Validate](https://github.com/sjh9714/gh-extension-atlas/actions/workflows/validate.yml/badge.svg)](https://github.com/sjh9714/gh-extension-atlas/actions/workflows/validate.yml)
 [![License: CC0-1.0](https://img.shields.io/badge/license-CC0--1.0-lightgrey.svg)](LICENSE)
-![Extensions: 67](https://img.shields.io/badge/extensions-67-blue.svg)
+![Extensions: 68](https://img.shields.io/badge/extensions-68-blue.svg)
 
 > A curated field guide to GitHub CLI extensions: what to install, when to use them, and which ones are actively maintained.
 

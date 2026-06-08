@@ -204,7 +204,7 @@ Those questions need context, not just a list of repositories.
 
 The first version of the atlas includes:
 
-- 67 curated extensions
+- 68 curated extensions
 - Top Picks for broad daily value
 - use-case based navigation
 - comparison guides for dashboards, branch cleanup, notifications, Markdown preview, and Actions/CI
@@ -295,7 +295,7 @@ I made a curated field guide for GitHub CLI extensions:
 
 https://github.com/sjh9714/gh-extension-atlas
 
-67 curated extensions, Top Picks, comparison guides, maintenance labels, and a JSON catalog.
+68 curated extensions, Top Picks, comparison guides, maintenance labels, and a JSON catalog.
 
 Useful when `gh extension search` gives too many options. Corrections welcome.
 ```

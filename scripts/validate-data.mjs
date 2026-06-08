@@ -33,10 +33,60 @@ const raw = fs.readFileSync(file, "utf8");
 const entries = JSON.parse(raw);
 const errors = [];
 
+function readText(path) {
+  try {
+    return fs.readFileSync(path, "utf8");
+  } catch (error) {
+    errors.push(`${path}: unable to read for count validation (${error.message}).`);
+    return "";
+  }
+}
+
+function validateReferencedCounts(expectedCount) {
+  const readme = readText("README.md");
+  const badgeMatches = [
+    ...readme.matchAll(/!\[Extensions:\s*(\d+)\]\(https:\/\/img\.shields\.io\/badge\/extensions-(\d+)-blue\.svg\)/g),
+  ];
+
+  if (badgeMatches.length === 0) {
+    errors.push("README.md: missing extensions badge count.");
+  }
+
+  for (const match of badgeMatches) {
+    const altCount = Number.parseInt(match[1], 10);
+    const badgeUrlCount = Number.parseInt(match[2], 10);
+
+    if (altCount !== expectedCount) {
+      errors.push(`README.md: extensions badge alt text says ${altCount}, expected ${expectedCount}.`);
+    }
+
+    if (badgeUrlCount !== expectedCount) {
+      errors.push(`README.md: extensions badge URL says ${badgeUrlCount}, expected ${expectedCount}.`);
+    }
+  }
+
+  const launchKit = readText("docs/launch-kit.md");
+  const launchKitMatches = [...launchKit.matchAll(/\b(\d+)\s+curated extensions\b/g)];
+
+  if (launchKitMatches.length === 0) {
+    errors.push("docs/launch-kit.md: missing curated extensions count.");
+  }
+
+  for (const match of launchKitMatches) {
+    const launchKitCount = Number.parseInt(match[1], 10);
+
+    if (launchKitCount !== expectedCount) {
+      errors.push(`docs/launch-kit.md: curated extensions copy says ${launchKitCount}, expected ${expectedCount}.`);
+    }
+  }
+}
+
 if (!Array.isArray(entries)) {
   errors.push(`${file} must contain a JSON array.`);
 } else if (entries.length < 50) {
   errors.push(`${file} must contain at least 50 verified extensions.`);
+} else {
+  validateReferencedCounts(entries.length);
 }
 
 const seenRepos = new Set();
