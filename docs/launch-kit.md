@@ -300,6 +300,10 @@ https://github.com/sjh9714/gh-extension-atlas
 Useful when `gh extension search` gives too many options. Corrections welcome.
 ```
 
+## Show HN
+
+Use [`docs/show-hn-launch.md`](show-hn-launch.md) after the second-wave maintainer guardrail expires and there are no negative replies or pending corrections. Lead with the browser audit tool, not the README.
+
 ## Correction Ask
 
 ```text
