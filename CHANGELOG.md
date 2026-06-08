@@ -1,5 +1,19 @@
 # Changelog
 
+## v0.2.7
+
+This patch release adds a security and admin workflow guide for GitHub CLI extensions.
+
+### Added
+
+- GitHub Security And Admin CLI Extension Guide with a public HTML landing page.
+
+### Improved
+
+- Security/Admin category page now links to its workflow guide.
+- README Workflow Guides now includes security and admin workflows as a first-class entry point.
+- Generated sitemap now includes the security and admin guide landing page.
+
 ## v0.2.6
 
 This patch release adds a PR and issue triage workflow guide for GitHub CLI extensions.
