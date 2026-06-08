@@ -19,6 +19,14 @@ npm run launch:show-hn:review
 
 Paste the output into issue `#7` before running the final preflight. If the review says to hold, do not submit to Show HN.
 
+To record the review directly in issue `#7`, use the guarded posting command:
+
+```sh
+npm run launch:show-hn:record-review
+```
+
+This command only comments on the atlas tracker issue. It does not submit to Hacker News, and it refuses to post before the guardrail expires or when manual review is required.
+
 ## Submission
 
 Use a link submission, not a text-only post.
@@ -57,7 +65,7 @@ I am mainly looking for factual corrections, missing useful extensions, and cate
 ## Pre-Submit Checklist
 
 - Run `npm run launch:show-hn:preflight`.
-- Run `npm run launch:show-hn:review` and paste the completed review into issue `#7`.
+- Run `npm run launch:show-hn:review` and paste the completed review into issue `#7`, or run `npm run launch:show-hn:record-review`.
 - `gh-notify` has no negative reply or correction request.
 - Issue `#7` is updated with the 24-hour review.
 - Preflight confirms issue `#7` includes the second-wave 24-hour review, `gh-notify` status, and a no-negative-signal decision.

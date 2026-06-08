@@ -4,6 +4,36 @@ const repo = "sjh9714/gh-extension-atlas";
 const guardrailAt = new Date("2026-06-09T15:10:00Z");
 const showHnUrl = "https://sjh9714.github.io/gh-extension-atlas/audit.html?demo=1";
 const showHnTitle = "Show HN: Audit your installed GitHub CLI extensions";
+const args = parseArgs(process.argv.slice(2));
+
+function parseArgs(argv) {
+  const parsed = {
+    post: false,
+  };
+
+  for (const arg of argv) {
+    if (arg === "--post") {
+      parsed.post = true;
+    } else if (arg === "--help" || arg === "-h") {
+      printHelp();
+      process.exit(0);
+    } else {
+      throw new Error(`Unknown argument: ${arg}`);
+    }
+  }
+
+  return parsed;
+}
+
+function printHelp() {
+  console.log(`Usage:
+  npm run launch:show-hn:review
+  npm run launch:show-hn:record-review
+
+Generates the second-wave 24h review required by Show HN preflight.
+By default it only prints Markdown. Use --post, or the record-review npm script,
+to comment on sjh9714/gh-extension-atlas#7 after the guardrail expires.`);
+}
 
 function runGh(args) {
   try {
@@ -16,6 +46,18 @@ function runGh(args) {
 
 function readGhJson(args) {
   return JSON.parse(runGh(args));
+}
+
+function issue7HasCompletedReview() {
+  const issue = readGhJson(["issue", "view", "7", "--repo", repo, "--json", "body,comments"]);
+  const commentText = Array.isArray(issue.comments)
+    ? issue.comments.map((comment) => comment.body || "").join("\n")
+    : "";
+  const reviewText = `${issue.body || ""}\n${commentText}`.toLowerCase();
+
+  return reviewText.includes("## second-wave 24h review")
+    && reviewText.includes("gh-notify")
+    && reviewText.includes("ok to run `npm run launch:show-hn:preflight`");
 }
 
 function formatKst(date) {
@@ -118,6 +160,41 @@ function renderReview(snapshot) {
   return lines.join("\n");
 }
 
+function canPostReview(snapshot) {
+  const validate = snapshot.validate;
+
+  if (!snapshot.guardrailExpired) {
+    return "Second-wave guardrail has not expired.";
+  }
+
+  if (snapshot.requiresManualReview) {
+    return "Maintainer response or possible correction requires manual review.";
+  }
+
+  if (!validate || validate.status !== "completed" || validate.conclusion !== "success") {
+    return "Latest Validate is not green.";
+  }
+
+  return "";
+}
+
+function postReview(review, snapshot) {
+  const blocker = canPostReview(snapshot);
+  if (blocker) {
+    console.error(`Not posting issue #7 review: ${blocker}`);
+    process.exitCode = 1;
+    return;
+  }
+
+  if (issue7HasCompletedReview()) {
+    console.log("Issue #7 already contains a completed second-wave 24h review.");
+    return;
+  }
+
+  const url = runGh(["issue", "comment", "7", "--repo", repo, "--body", review]);
+  console.log(`Posted issue #7 review: ${url}`);
+}
+
 function main() {
   const now = new Date();
   const ghS = readGhJson(["issue", "view", "33", "--repo", "gennaro-tedesco/gh-s", "--json", "state,url,title,comments,updatedAt"]);
@@ -136,7 +213,13 @@ function main() {
     requiresManualReview,
   };
 
-  console.log(renderReview(snapshot));
+  const review = renderReview(snapshot);
+  console.log(review);
+
+  if (args.post) {
+    console.log("");
+    postReview(review, snapshot);
+  }
 }
 
 main();
