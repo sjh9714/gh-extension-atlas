@@ -1032,6 +1032,7 @@ function renderCatalog(items) {
         <span class="pill">API docs: <a href="api-reference.md">api-reference.md</a></span>
         <span class="pill"><a href="faq.md">FAQ</a></span>
         <span class="pill"><a href="cheatsheet.md">Cheatsheet</a></span>
+        <span class="pill"><a href="agent-guide.md">Agent guide</a></span>
         <span class="pill">Install bundle: <a href="install/all.txt">all.txt</a></span>
         <span class="pill"><a href="chooser.html">Chooser</a></span>
         <span class="pill"><a href="awesome-github-cli-extensions.html">Awesome overview</a></span>
@@ -2562,6 +2563,7 @@ function renderAwesomeLandingPage(items) {
         <a href="chooser.html">Open the chooser</a>
         <a href="./">Searchable catalog</a>
         <a href="cheatsheet.md">Cheatsheet</a>
+        <a href="agent-guide.md">Agent guide</a>
         <a href="${repoReadmeUrl}">README</a>
         <a href="${repoUrl}">Star on GitHub</a>
         <a href="${repoIssueChooserUrl}">Suggest a correction</a>
@@ -2659,6 +2661,7 @@ A curated field guide to useful GitHub CLI extensions: what to install, when to 
 - Searchable catalog: ${siteUrl}
 - Workflow chooser: ${siteUrl}chooser.html
 - Cheatsheet: ${siteUrl}cheatsheet.md
+- Agent guide: ${siteUrl}agent-guide.md
 - Reviewed snapshot: ${generatedAt}
 - Catalog size: ${items.length} extensions
 - Status counts: ${activeCount} active, ${watchCount} watch, ${staleCount} stale
@@ -3009,6 +3012,7 @@ function renderChooserPage(items) {
         <a href="api/index.json">API manifest</a>
         <a href="faq.md">FAQ</a>
         <a href="cheatsheet.md">Cheatsheet</a>
+        <a href="agent-guide.md">Agent guide</a>
         <a href="${repoReadmeUrl}">README</a>
         <a href="${repoUrl}">Star on GitHub</a>
       </div>
@@ -3488,6 +3492,12 @@ function renderSitemapXml(items) {
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>`;
+  const agentGuideUrl = `  <url>
+    <loc>${siteUrl}agent-guide.md</loc>
+    <lastmod>${escapeHtml(lastmod)}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>`;
   const guideUrls = Object.values(workflowGuides)
     .map((guide) => `  <url>
     <loc>${siteUrl}${guide.path}</loc>
@@ -3525,6 +3535,7 @@ ${chooserUrl}
 ${awesomeUrl}
 ${awesomeMarkdownUrl}
 ${cheatsheetUrl}
+${agentGuideUrl}
 ${categoryUrls}
 ${guideUrls}
 ${extensionUrls}
@@ -3682,6 +3693,7 @@ function renderApiIndex(items) {
       chooser: `${siteUrl}chooser.html`,
       awesome_markdown: `${siteUrl}awesome-github-cli-extensions.md`,
       cheatsheet: `${siteUrl}cheatsheet.md`,
+      agent_guide: `${siteUrl}agent-guide.md`,
       faq: `${siteUrl}faq.md`,
       llms: `${siteUrl}llms.txt`,
       llms_full: `${siteUrl}llms-full.txt`,
@@ -3849,6 +3861,7 @@ function renderHealthSnapshot(items) {
       awesome_overview: `${siteUrl}awesome-github-cli-extensions.html`,
       awesome_markdown: `${siteUrl}awesome-github-cli-extensions.md`,
       cheatsheet: `${siteUrl}cheatsheet.md`,
+      agent_guide: `${siteUrl}agent-guide.md`,
       faq: `${siteUrl}faq.md`,
       health: `${siteUrl}health.md`,
       health_json: `${siteUrl}api/health.json`,
@@ -4003,6 +4016,7 @@ function renderLlmsTxt(items) {
 - Workflow chooser: ${siteUrl}chooser.html
 - Awesome overview: ${siteUrl}awesome-github-cli-extensions.html
 - Cheatsheet: ${siteUrl}cheatsheet.md
+- Agent guide: ${siteUrl}agent-guide.md
 - FAQ: ${siteUrl}faq.md
 - API manifest: ${siteUrl}api/index.json
 - Full LLM context: ${siteUrl}llms-full.txt
@@ -4018,6 +4032,7 @@ GitHub CLI Extension Atlas helps users choose a useful \`gh\` extension faster w
 - Searchable catalog: ${siteUrl}
 - Awesome overview: ${siteUrl}awesome-github-cli-extensions.html
 - Cheatsheet: ${siteUrl}cheatsheet.md
+- Agent guide: ${siteUrl}agent-guide.md
 - Health snapshot: ${siteUrl}health.md
 - FAQ: ${siteUrl}faq.md
 - API reference: ${siteUrl}api-reference.md
@@ -4081,6 +4096,7 @@ This is not an official GitHub project, complete directory, endorsement list, or
 - Searchable catalog: ${siteUrl}
 - Awesome overview: ${siteUrl}awesome-github-cli-extensions.html
 - Cheatsheet: ${siteUrl}cheatsheet.md
+- Agent guide: ${siteUrl}agent-guide.md
 - Health snapshot: ${siteUrl}health.md
 - FAQ: ${siteUrl}faq.md
 - API reference: ${siteUrl}api-reference.md

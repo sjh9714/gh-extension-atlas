@@ -21,6 +21,7 @@ If this saves you a few trial installs, [star the repo](https://github.com/sjh97
 - [Cheatsheet](#cheatsheet)
 - [Quick Start](#quick-start)
 - [Starter Packs](#starter-packs)
+- [AI Coding Agents](#ai-coding-agents)
 - [Who should use this](#who-should-use-this)
 - [Why this exists](#why-this-exists)
 - [Selection Criteria](#selection-criteria)
@@ -119,6 +120,10 @@ Use the [starter packs](docs/starter-packs.md) when you want a small install seq
 | Search and discovery      | `gh-s`, `gh-grep`, `gh-find-code`                        |
 | AI and agents             | `gh-aw`, `gh-models`, `gh-mcp`                           |
 
+## AI Coding Agents
+
+Use [`docs/agent-guide.md`](docs/agent-guide.md) when you want ChatGPT, Codex, Claude, local coding agents, or documentation indexers to suggest GitHub CLI extensions from current atlas data instead of stale memory.
+
 ## Who should use this
 
 Use this atlas when you know GitHub CLI can probably help, but you do not want to install five overlapping extensions to find the right one.
@@ -214,6 +219,7 @@ These are the first extensions to evaluate if you want broad value fast.
 [awesome-overview]: https://sjh9714.github.io/gh-extension-atlas/awesome-github-cli-extensions.html
 [awesome-markdown]: https://sjh9714.github.io/gh-extension-atlas/awesome-github-cli-extensions.md
 [cheatsheet]: https://sjh9714.github.io/gh-extension-atlas/cheatsheet.md
+[agent-guide]: docs/agent-guide.md
 
 ## Catalog Browser
 
@@ -385,6 +391,7 @@ Published Pages endpoints:
 | [Catalog health snapshot][health]             | You want counts, freshness, and guardrails.                |
 | [Awesome Markdown overview][awesome-markdown] | You want a shareable markdown overview of the atlas.       |
 | [Cheatsheet][]                                | You want a compact workflow and install-command reference. |
+| [Agent guide][agent-guide]                    | You want prompt and JSON recipes for AI coding assistants. |
 | [Full catalog JSON][api-extensions]           | You want the complete reviewed catalog for automation.     |
 | [Catalog JSON Schema][api-schema]             | You want the public data contract for catalog entries.     |
 | [Search index JSON][api-search-index]         | You want lightweight records for client-side search.       |

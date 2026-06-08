@@ -31,6 +31,12 @@
     <priority>0.85</priority>
   </url>
   <url>
+    <loc>https://sjh9714.github.io/gh-extension-atlas/agent-guide.md</loc>
+    <lastmod>2026-06-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
     <loc>https://sjh9714.github.io/gh-extension-atlas/categories/actions-ci.html</loc>
     <lastmod>2026-06-08</lastmod>
     <changefreq>weekly</changefreq>
