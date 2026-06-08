@@ -26,7 +26,7 @@ GitHub CLI Extension Atlas helps users choose a useful `gh` extension faster whe
 - Awesome overview: https://sjh9714.github.io/gh-extension-atlas/awesome-github-cli-extensions.html
 - Cheatsheet: https://sjh9714.github.io/gh-extension-atlas/cheatsheet.md
 - Workflow recommendations: https://sjh9714.github.io/gh-extension-atlas/recommendations.html
-- Decision tree: https://sjh9714.github.io/gh-extension-atlas/guides/choose-github-cli-extension.md
+- Decision tree: https://sjh9714.github.io/gh-extension-atlas/guides/choose-github-cli-extension.html
 - Agent guide: https://sjh9714.github.io/gh-extension-atlas/agent-guide.md
 - Health snapshot: https://sjh9714.github.io/gh-extension-atlas/health.md
 - FAQ: https://sjh9714.github.io/gh-extension-atlas/faq.md

@@ -256,7 +256,7 @@ These are the first extensions to evaluate if you want broad value fast.
 [guide-notifications]: https://sjh9714.github.io/gh-extension-atlas/guides/notification-triage-extensions.html
 [guide-search]: https://sjh9714.github.io/gh-extension-atlas/guides/repository-search-extensions.html
 [guide-security]: https://sjh9714.github.io/gh-extension-atlas/guides/security-admin-extensions.html
-[guide-decision-tree]: docs/guides/choose-github-cli-extension.md
+[guide-decision-tree]: https://sjh9714.github.io/gh-extension-atlas/guides/choose-github-cli-extension.html
 [guide-installed-audit]: docs/guides/audit-installed-gh-extensions.md
 [chooser]: https://sjh9714.github.io/gh-extension-atlas/chooser.html
 [awesome-overview]: https://sjh9714.github.io/gh-extension-atlas/awesome-github-cli-extensions.html

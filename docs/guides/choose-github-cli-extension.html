@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Which GitHub CLI Extension Should I Install? | GitHub CLI Extension Atlas</title>
+  <meta name="description" content="A practical decision tree for choosing a GitHub CLI extension when gh extension search returns too many options.">
+  <meta property="og:title" content="Which GitHub CLI Extension Should I Install?">
+  <meta property="og:description" content="Start from your workflow and pick one reviewed GitHub CLI extension to try first.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://sjh9714.github.io/gh-extension-atlas/guides/choose-github-cli-extension.html">
+  <meta property="og:image" content="https://sjh9714.github.io/gh-extension-atlas/social-card.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Which GitHub CLI Extension Should I Install?">
+  <meta name="twitter:description" content="A practical decision tree for choosing a reviewed GitHub CLI extension.">
+  <meta name="twitter:image" content="https://sjh9714.github.io/gh-extension-atlas/social-card.png">
+  <link rel="canonical" href="https://sjh9714.github.io/gh-extension-atlas/guides/choose-github-cli-extension.html">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Which GitHub CLI Extension Should I Install?",
+  "description": "A practical decision tree for choosing a GitHub CLI extension from a reviewed atlas.",
+  "url": "https://sjh9714.github.io/gh-extension-atlas/guides/choose-github-cli-extension.html",
+  "dateModified": "2026-06-08",
+  "isAccessibleForFree": true
+}
+  </script>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f7f8fa;
+      --panel: #ffffff;
+      --text: #1f2328;
+      --muted: #656d76;
+      --border: #d0d7de;
+      --accent: #0969da;
+      --accent-soft: #ddf4ff;
+      --shadow: 0 1px 2px rgba(31, 35, 40, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font: 15px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    header {
+      background: var(--panel);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .wrap {
+      width: min(1080px, calc(100vw - 32px));
+      margin: 0 auto;
+    }
+
+    .header-inner {
+      display: grid;
+      gap: 13px;
+      padding: 32px 0 24px;
+    }
+
+    h1 {
+      max-width: 860px;
+      margin: 0;
+      font-size: 40px;
+      line-height: 1.1;
+      letter-spacing: 0;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 20px;
+      line-height: 1.25;
+      letter-spacing: 0;
+    }
+
+    p {
+      margin: 0;
+    }
+
+    .lead {
+      max-width: 780px;
+      color: var(--muted);
+      font-size: 17px;
+    }
+
+    .meta,
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 3px 10px;
+      background: var(--panel);
+      color: var(--muted);
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    main {
+      display: grid;
+      gap: 14px;
+      padding: 20px 0 42px;
+    }
+
+    .panel,
+    .table-wrap {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+    }
+
+    .panel {
+      display: grid;
+      gap: 11px;
+      padding: 16px;
+    }
+
+    .panel p,
+    .muted {
+      color: var(--muted);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .callout {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px;
+      background: var(--accent-soft);
+    }
+
+    .table-wrap {
+      overflow: auto;
+    }
+
+    table {
+      width: 100%;
+      min-width: 920px;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      padding: 11px 12px;
+      border-bottom: 1px solid var(--border);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: #f6f8fa;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    tr:last-child td {
+      border-bottom: 0;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    code {
+      font: 13px/1.45 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+
+    pre {
+      margin: 0;
+      overflow: auto;
+      border-radius: 6px;
+      padding: 10px;
+      background: #f6f8fa;
+    }
+
+    .repo {
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    ul {
+      margin: 0;
+      padding-left: 20px;
+    }
+
+    @media (max-width: 760px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      h1 {
+        font-size: 32px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap header-inner">
+      <h1>Which GitHub CLI Extension Should I Install?</h1>
+      <p class="lead">A practical decision tree for the moment when <code>gh extension search</code> gives you too many options and you want one reviewed extension to try first.</p>
+      <div class="meta">
+        <span class="pill">68 reviewed extensions</span>
+        <span class="pill">Reviewed 2026-06-08</span>
+        <span class="pill">Conservative first choices</span>
+      </div>
+      <div class="actions">
+        <a href="../chooser.html">Interactive chooser</a>
+        <a href="../audit.html">Installed extension audit</a>
+        <a href="../recommendations.html">Workflow recommendations</a>
+        <a href="../guides/choose-github-cli-extension.md">Markdown source</a>
+        <a href="https://github.com/sjh9714/gh-extension-atlas#readme">README</a>
+        <a href="https://github.com/sjh9714/gh-extension-atlas">Star on GitHub</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="panel">
+      <h2>Use The Workflow You Have Right Now</h2>
+      <p>Install one extension for the job in front of you, try it on a real repository, then come back only if you need a narrower alternative.</p>
+    </section>
+
+    <section class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>If your problem is...</th>
+            <th>Start with</th>
+            <th>Install command</th>
+            <th>Why this is a good first check</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Daily PR, issue, and notification triage</td>
+            <td><a class="repo" href="../extensions/dlvhdr-gh-dash.html">dash</a><br><span class="muted">A rich terminal dashboard for pull requests, issues, and notifications.</span></td>
+            <td><code>gh extension install dlvhdr/gh-dash</code></td>
+            <td>One terminal dashboard covers the broad GitHub queue.</td>
+          </tr>
+<tr>
+            <td>Interactive GitHub Actions inspection</td>
+            <td><a class="repo" href="../extensions/dlvhdr-gh-enhance.html">enhance</a><br><span class="muted">A fast terminal UI for inspecting and managing GitHub Actions.</span></td>
+            <td><code>gh extension install dlvhdr/gh-enhance</code></td>
+            <td>A focused TUI for Actions workflows before you reach for the web UI.</td>
+          </tr>
+<tr>
+            <td>Workflow health and CI duration</td>
+            <td><a class="repo" href="../extensions/fchimpan-gh-workflow-stats.html">workflow-stats</a><br><span class="muted">Calculate workflow and job success rate and execution time.</span></td>
+            <td><code>gh extension install fchimpan/gh-workflow-stats</code></td>
+            <td>Summarizes success rate and runtime when CI starts feeling slow or flaky.</td>
+          </tr>
+<tr>
+            <td>Safer local branch cleanup</td>
+            <td><a class="repo" href="../extensions/seachicken-gh-poi.html">poi</a><br><span class="muted">Safely clean up local branches.</span></td>
+            <td><code>gh extension install seachicken/gh-poi</code></td>
+            <td>Helps remove merged branches without turning cleanup into a manual ref audit.</td>
+          </tr>
+<tr>
+            <td>README or docs preview</td>
+            <td><a class="repo" href="../extensions/yusukebe-gh-markdown-preview.html">markdown-preview</a><br><span class="muted">Preview Markdown as it appears on GitHub.</span></td>
+            <td><code>gh extension install yusukebe/gh-markdown-preview</code></td>
+            <td>Preview GitHub-flavored Markdown before pushing docs changes.</td>
+          </tr>
+<tr>
+            <td>Repository search from the terminal</td>
+            <td><a class="repo" href="../extensions/gennaro-tedesco-gh-s.html">s</a><br><span class="muted">Interactively search GitHub repositories.</span></td>
+            <td><code>gh extension install gennaro-tedesco/gh-s</code></td>
+            <td>Adds a compact interactive repository search flow.</td>
+          </tr>
+<tr>
+            <td>Notification-only triage</td>
+            <td><a class="repo" href="../extensions/meiji163-gh-notify.html">notify</a><br><span class="muted">Display GitHub notifications in the terminal.</span></td>
+            <td><code>gh extension install meiji163/gh-notify</code></td>
+            <td>Useful when you want notification review without a broader dashboard.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="grid">
+      <div class="panel">
+        <h2>If Two Choices Look Similar</h2>
+        <ul>
+          <li>Choose <code>gh-pr-review</code> over <code>gh-dash</code> if inline PR review comments are the main job.</li>
+          <li>Choose <code>gh-workflow-stats</code> over <code>gh-enhance</code> if you want CI metrics rather than an Actions TUI.</li>
+          <li>Choose <code>gh-notify</code> over <code>gh-dash</code> if notifications are the only queue you care about.</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h2>When To Avoid Installing</h2>
+        <ul>
+          <li>The built-in <code>gh</code> command already solves the job.</li>
+          <li>You only need the command once.</li>
+          <li>The extension is archived, poorly documented, or asks for permissions you do not understand.</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h2>Safer Install Flow</h2>
+        <pre><code>gh extension install OWNER/REPO
+gh extension list
+gh extension remove EXTENSION_NAME</code></pre>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Use The Atlas Tools</h2>
+      <p class="muted">Use these when you want a guided choice, a local installed-extension audit, or reusable catalog data.</p>
+      <div class="actions">
+        <a href="../chooser.html">Open chooser</a>
+        <a href="../audit.html">Audit installed extensions</a>
+        <a href="../install/">Inspect install bundles</a>
+        <a href="../api/extensions.json">Catalog JSON</a>
+        <a href="https://github.com/sjh9714/gh-extension-atlas/issues/new/choose">Suggest a missing extension</a>
+      </div>
+    </section>
+
+    <section class="callout">
+      Missing from the atlas does not mean bad. It means the extension has not been reviewed against the current selection criteria yet.
+    </section>
+  </main>
+</body>
+</html>
