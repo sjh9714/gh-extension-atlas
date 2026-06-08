@@ -18,6 +18,12 @@ const categoryDescriptions = {
   "Security/Admin": "Generate SBOMs, inspect security posture, manage tokens, and support admin workflows.",
 };
 const workflowGuides = {
+  "Dashboard/TUI": {
+    title: "GitHub Terminal Dashboard CLI Extension Guide",
+    path: "guides/terminal-dashboard-extensions.html",
+    sourcePath: "guides/terminal-dashboard-extensions.md",
+    summary: "Choose a GitHub terminal dashboard, Markdown preview TUI, or visual contribution tool.",
+  },
   "Actions/CI": {
     title: "GitHub Actions CLI extension guide",
     path: "guides/github-actions-extensions.html",
@@ -78,6 +84,43 @@ const actionsGuideRows = [
     need: "Check organization-wide Actions status",
     repo: "rsese/gh-actions-status",
     why: "Targets organization-level Actions reporting; verify compatibility because it is stale.",
+  },
+];
+const dashboardGuideRows = [
+  {
+    need: "Triage PRs, issues, and notifications daily",
+    repo: "dlvhdr/gh-dash",
+    why: "The strongest first stop when GitHub work is a queue you review every day.",
+  },
+  {
+    need: "Browse GitHub resources in a compact TUI",
+    repo: "gizmo385/gh-lazy",
+    why: "A smaller terminal UI when you want exploration rather than a full maintainer cockpit.",
+  },
+  {
+    need: "Preview README or docs before pushing",
+    repo: "yusukebe/gh-markdown-preview",
+    why: "Useful when the visual state you care about is GitHub-flavored Markdown rendering.",
+  },
+  {
+    need: "Preview GitHub-flavored Markdown with offline-friendly tooling",
+    repo: "thiagokokada/gh-gfm-preview",
+    why: "A good alternative when you want a standalone Markdown preview path.",
+  },
+  {
+    need: "Explore GitHub profiles and ecosystems",
+    repo: "jrnxf/gh-eco",
+    why: "Better for discovery and profile context than operational triage.",
+  },
+  {
+    need: "Create a visual contribution-history artifact",
+    repo: "github/gh-skyline",
+    why: "Best when the output is a visual artifact rather than a productivity dashboard.",
+  },
+  {
+    need: "See contribution graphs in the terminal",
+    repo: "kawarimidoll/gh-graph",
+    why: "A narrow terminal visualization tool for contribution history.",
   },
 ];
 const branchCleanupGuideRows = [
@@ -1630,7 +1673,25 @@ function renderWorkflowGuidePage(category, guide, items) {
   let secondSectionCopy = "Use local runners for fast feedback, not as a perfect replacement for GitHub-hosted runners. Runner images, permissions, secrets, service containers, and network access can still differ.";
   let freshnessCopy = "The atlas is a reviewed snapshot, not a live ranking. Recheck upstream repositories before adopting a tool for production workflows, especially when the extension can change local branches, CI workflows, repository state, or release automation.";
 
-  if (category === "Repo & Branch") {
+  if (category === "Dashboard/TUI") {
+    guideRows = dashboardGuideRows;
+    starterPackName = "Daily Maintainer Triage";
+    guideLead = "Choose a GitHub terminal dashboard, Markdown preview TUI, or visual contribution tool without installing every interface first.";
+    startHereCopy = "Use the table as a quick chooser. The goal is to separate daily operational dashboards from preview, profile, and contribution-visualization tools.";
+    firstCards = [
+      ["dlvhdr/gh-dash", "Daily maintainer cockpit"],
+      ["gizmo385/gh-lazy", "Compact GitHub TUI"],
+      ["yusukebe/gh-markdown-preview", "GitHub Markdown preview"],
+    ];
+    secondCards = [
+      ["thiagokokada/gh-gfm-preview", "Offline-friendly Markdown preview"],
+      ["github/gh-skyline", "Contribution skyline artifact"],
+      ["kawarimidoll/gh-graph", "Terminal contribution graph"],
+    ];
+    secondSectionTitle = "Interface Fit";
+    secondSectionCopy = "Use a dashboard when GitHub work is an operational queue. Use Markdown preview or contribution visualization tools when the output itself is the thing you need to inspect.";
+    freshnessCopy = "The atlas is a reviewed snapshot, not a live ranking. Recheck upstream repositories before adopting a TUI, especially when the extension opens persistent dashboards, requests broad repository access, or depends on local terminal UI behavior.";
+  } else if (category === "Repo & Branch") {
     guideRows = branchCleanupGuideRows;
     starterPackName = "Local Repository Cleanup";
     guideLead = "Choose a safe branch cleanup, branch switching, worktree, or local repository setup helper without risking unmerged work.";

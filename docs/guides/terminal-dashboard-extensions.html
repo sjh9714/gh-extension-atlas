@@ -1,0 +1,394 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GitHub Terminal Dashboard CLI Extension Guide | GitHub CLI Extension Atlas</title>
+  <meta name="description" content="Choose a GitHub terminal dashboard, Markdown preview TUI, or visual contribution tool.">
+  <meta property="og:title" content="GitHub Terminal Dashboard CLI Extension Guide">
+  <meta property="og:description" content="Choose a GitHub terminal dashboard, Markdown preview TUI, or visual contribution tool.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://sjh9714.github.io/gh-extension-atlas/guides/terminal-dashboard-extensions.html">
+  <meta property="og:image" content="https://sjh9714.github.io/gh-extension-atlas/social-card.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="GitHub Terminal Dashboard CLI Extension Guide">
+  <meta name="twitter:description" content="Choose a GitHub terminal dashboard, Markdown preview TUI, or visual contribution tool.">
+  <meta name="twitter:image" content="https://sjh9714.github.io/gh-extension-atlas/social-card.png">
+  <link rel="canonical" href="https://sjh9714.github.io/gh-extension-atlas/guides/terminal-dashboard-extensions.html">
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f7f8fa;
+      --panel: #ffffff;
+      --text: #1f2328;
+      --muted: #656d76;
+      --border: #d0d7de;
+      --accent: #0969da;
+      --accent-soft: #ddf4ff;
+      --good: #1a7f37;
+      --warn: #9a6700;
+      --stale: #8250df;
+      --shadow: 0 1px 2px rgba(31, 35, 40, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font: 15px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    header {
+      background: var(--panel);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .wrap {
+      width: min(1080px, calc(100vw - 32px));
+      margin: 0 auto;
+    }
+
+    .header-inner {
+      display: grid;
+      gap: 13px;
+      padding: 30px 0 24px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(30px, 4vw, 44px);
+      line-height: 1.1;
+      letter-spacing: 0;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 20px;
+      line-height: 1.25;
+      letter-spacing: 0;
+    }
+
+    p {
+      margin: 0;
+    }
+
+    .lead {
+      max-width: 800px;
+      color: var(--muted);
+      font-size: 17px;
+    }
+
+    .meta,
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 3px 10px;
+      background: var(--panel);
+      color: var(--muted);
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    main {
+      display: grid;
+      gap: 14px;
+      padding: 20px 0 42px;
+    }
+
+    .panel,
+    .table-wrap {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+    }
+
+    .panel {
+      display: grid;
+      gap: 11px;
+      padding: 16px;
+    }
+
+    .panel p,
+    .muted {
+      color: var(--muted);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .tool-card {
+      display: grid;
+      gap: 7px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px;
+      background: var(--panel);
+    }
+
+    .table-wrap {
+      overflow: auto;
+    }
+
+    table {
+      width: 100%;
+      min-width: 900px;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      padding: 11px 12px;
+      border-bottom: 1px solid var(--border);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: #f6f8fa;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    tr:last-child td {
+      border-bottom: 0;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    code {
+      font: 13px/1.45 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+
+    pre {
+      margin: 0;
+      overflow: auto;
+      border-radius: 6px;
+      padding: 10px;
+      background: #f6f8fa;
+    }
+
+    .repo {
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      min-height: 24px;
+      border-radius: 999px;
+      padding: 2px 9px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .status.active {
+      background: #dafbe1;
+      color: var(--good);
+    }
+
+    .status.watch {
+      background: #fff8c5;
+      color: var(--warn);
+    }
+
+    .status.stale {
+      background: #fbefff;
+      color: var(--stale);
+    }
+
+    @media (max-width: 760px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap header-inner">
+      <h1>GitHub Terminal Dashboard CLI Extension Guide</h1>
+      <p class="lead">Choose a GitHub terminal dashboard, Markdown preview TUI, or visual contribution tool without installing every interface first.</p>
+      <div class="meta">
+        <span class="pill">8 Dashboard/TUI extensions</span>
+        <span class="pill">7 active</span>
+        <span class="pill">Reviewed 2026-06-08</span>
+      </div>
+      <div class="actions">
+        <a href="../">Searchable catalog</a>
+        <a href="../categories/dashboard-tui.html">Dashboard/TUI category</a>
+        <a href="../api/categories/dashboard-tui.json">Category JSON</a>
+        <a href="../guides/terminal-dashboard-extensions.md">Markdown source</a>
+        <a href="https://github.com/sjh9714/gh-extension-atlas#readme">README</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="panel">
+      <h2>Start Here</h2>
+      <p class="muted">Use the table as a quick chooser. The goal is to separate daily operational dashboards from preview, profile, and contribution-visualization tools.</p>
+    </section>
+
+    <section class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>If you need to...</th>
+            <th>Start with</th>
+            <th>Why</th>
+            <th>Status</th>
+            <th>Install</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Triage PRs, issues, and notifications daily</td>
+            <td><a class="repo" href="https://github.com/dlvhdr/gh-dash">dash</a><br><span class="muted">A rich terminal dashboard for pull requests, issues, and notifications.</span></td>
+            <td>The strongest first stop when GitHub work is a queue you review every day.</td>
+            <td><span class="status active">active</span></td>
+            <td><code>gh extension install dlvhdr/gh-dash</code></td>
+          </tr>
+          <tr>
+            <td>Browse GitHub resources in a compact TUI</td>
+            <td><a class="repo" href="https://github.com/gizmo385/gh-lazy">lazy</a><br><span class="muted">A terminal UI for interacting with GitHub.</span></td>
+            <td>A smaller terminal UI when you want exploration rather than a full maintainer cockpit.</td>
+            <td><span class="status active">active</span></td>
+            <td><code>gh extension install gizmo385/gh-lazy</code></td>
+          </tr>
+          <tr>
+            <td>Preview README or docs before pushing</td>
+            <td><a class="repo" href="https://github.com/yusukebe/gh-markdown-preview">markdown-preview</a><br><span class="muted">Preview Markdown as it appears on GitHub.</span></td>
+            <td>Useful when the visual state you care about is GitHub-flavored Markdown rendering.</td>
+            <td><span class="status active">active</span></td>
+            <td><code>gh extension install yusukebe/gh-markdown-preview</code></td>
+          </tr>
+          <tr>
+            <td>Preview GitHub-flavored Markdown with offline-friendly tooling</td>
+            <td><a class="repo" href="https://github.com/thiagokokada/gh-gfm-preview">gfm-preview</a><br><span class="muted">Preview GitHub-flavored Markdown, including offline workflows.</span></td>
+            <td>A good alternative when you want a standalone Markdown preview path.</td>
+            <td><span class="status active">active</span></td>
+            <td><code>gh extension install thiagokokada/gh-gfm-preview</code></td>
+          </tr>
+          <tr>
+            <td>Explore GitHub profiles and ecosystems</td>
+            <td><a class="repo" href="https://github.com/jrnxf/gh-eco">eco</a><br><span class="muted">Explore GitHub profiles and ecosystem information.</span></td>
+            <td>Better for discovery and profile context than operational triage.</td>
+            <td><span class="status watch">watch</span></td>
+            <td><code>gh extension install jrnxf/gh-eco</code></td>
+          </tr>
+          <tr>
+            <td>Create a visual contribution-history artifact</td>
+            <td><a class="repo" href="https://github.com/github/gh-skyline">skyline</a><br><span class="muted">Generate a 3D model of GitHub contribution history.</span></td>
+            <td>Best when the output is a visual artifact rather than a productivity dashboard.</td>
+            <td><span class="status active">active</span></td>
+            <td><code>gh extension install github/gh-skyline</code></td>
+          </tr>
+          <tr>
+            <td>See contribution graphs in the terminal</td>
+            <td><a class="repo" href="https://github.com/kawarimidoll/gh-graph">graph</a><br><span class="muted">Display a GitHub contribution graph in the terminal.</span></td>
+            <td>A narrow terminal visualization tool for contribution history.</td>
+            <td><span class="status active">active</span></td>
+            <td><code>gh extension install kawarimidoll/gh-graph</code></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="panel">
+      <h2>First Picks</h2>
+      <div class="grid">
+        <article class="tool-card">
+          <strong><a href="https://github.com/dlvhdr/gh-dash">dash</a></strong>
+          <span class="muted">Daily maintainer cockpit</span>
+          <span>Maintainers who live in PR, issue, and notification queues.</span>
+          <code>gh extension install dlvhdr/gh-dash</code>
+        </article>
+        <article class="tool-card">
+          <strong><a href="https://github.com/gizmo385/gh-lazy">lazy</a></strong>
+          <span class="muted">Compact GitHub TUI</span>
+          <span>Users who want a compact TUI for GitHub resources.</span>
+          <code>gh extension install gizmo385/gh-lazy</code>
+        </article>
+        <article class="tool-card">
+          <strong><a href="https://github.com/yusukebe/gh-markdown-preview">markdown-preview</a></strong>
+          <span class="muted">GitHub Markdown preview</span>
+          <span>README, issue template, and documentation review.</span>
+          <code>gh extension install yusukebe/gh-markdown-preview</code>
+        </article>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Interface Fit</h2>
+      <p class="muted">Use a dashboard when GitHub work is an operational queue. Use Markdown preview or contribution visualization tools when the output itself is the thing you need to inspect.</p>
+      <div class="grid">
+        <article class="tool-card">
+          <strong><a href="https://github.com/thiagokokada/gh-gfm-preview">gfm-preview</a></strong>
+          <span class="muted">Offline-friendly Markdown preview</span>
+          <span>Writers who need Markdown preview without relying on GitHub web UI.</span>
+          <code>gh extension install thiagokokada/gh-gfm-preview</code>
+        </article>
+        <article class="tool-card">
+          <strong><a href="https://github.com/github/gh-skyline">skyline</a></strong>
+          <span class="muted">Contribution skyline artifact</span>
+          <span>Profile visualizations, demos, and community events.</span>
+          <code>gh extension install github/gh-skyline</code>
+        </article>
+        <article class="tool-card">
+          <strong><a href="https://github.com/kawarimidoll/gh-graph">graph</a></strong>
+          <span class="muted">Terminal contribution graph</span>
+          <span>Users who want contribution history without opening a profile page.</span>
+          <code>gh extension install kawarimidoll/gh-graph</code>
+        </article>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Starter Pack</h2>
+      <p class="muted">Review the commands before installing. Do not pipe install bundles directly into a shell.</p>
+      <pre><code>gh extension install dlvhdr/gh-dash
+gh extension install agynio/gh-pr-review
+gh extension install meiji163/gh-notify</code></pre>
+      <div class="actions">
+        <a href="../install/starter-packs/daily-maintainer-triage.txt">Starter pack TXT</a>
+        <a href="https://sjh9714.github.io/gh-extension-atlas/categories/dashboard-tui.html">Dashboard/TUI page</a>
+        <a href="https://sjh9714.github.io/gh-extension-atlas/?category=Dashboard%2FTUI">Open filtered catalog</a>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Freshness Notes</h2>
+      <p class="muted">The atlas is a reviewed snapshot, not a live ranking. Recheck upstream repositories before adopting a TUI, especially when the extension opens persistent dashboards, requests broad repository access, or depends on local terminal UI behavior.</p>
+    </section>
+  </main>
+</body>
+</html>
