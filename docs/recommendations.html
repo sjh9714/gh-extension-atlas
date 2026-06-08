@@ -1,0 +1,550 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Workflow Recommendations - GitHub CLI Extension Atlas</title>
+  <meta name="description" content="Workflow-first GitHub CLI extension recommendations with install commands, avoid-if notes, status labels, and detail links.">
+  <meta property="og:title" content="GitHub CLI Extension Workflow Recommendations">
+  <meta property="og:description" content="Choose a small starting set of GitHub CLI extensions by workflow.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://sjh9714.github.io/gh-extension-atlas/recommendations.html">
+  <meta property="og:image" content="https://sjh9714.github.io/gh-extension-atlas/social-card.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="GitHub CLI Extension Workflow Recommendations">
+  <meta name="twitter:description" content="Choose a small starting set of GitHub CLI extensions by workflow.">
+  <meta name="twitter:image" content="https://sjh9714.github.io/gh-extension-atlas/social-card.png">
+  <link rel="canonical" href="https://sjh9714.github.io/gh-extension-atlas/recommendations.html">
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f7f8fa;
+      --panel: #ffffff;
+      --text: #1f2328;
+      --muted: #656d76;
+      --border: #d0d7de;
+      --accent: #0969da;
+      --accent-soft: #ddf4ff;
+      --good: #1a7f37;
+      --warn: #9a6700;
+      --stale: #8250df;
+      --shadow: 0 1px 2px rgba(31, 35, 40, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font: 15px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    header {
+      background: var(--panel);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .wrap {
+      width: min(1180px, calc(100vw - 32px));
+      margin: 0 auto;
+    }
+
+    .header-inner {
+      display: grid;
+      gap: 12px;
+      padding: 28px 0 22px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 40px;
+      line-height: 1.1;
+      letter-spacing: 0;
+    }
+
+    .lead {
+      max-width: 800px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 17px;
+    }
+
+    .meta,
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 3px 10px;
+      background: var(--panel);
+      color: var(--muted);
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    main {
+      display: grid;
+      gap: 16px;
+      padding: 20px 0 42px;
+    }
+
+    .workflow {
+      display: grid;
+      gap: 12px;
+      padding: 16px 0 4px;
+      border-top: 1px solid var(--border);
+    }
+
+    .workflow-head {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 12px;
+      align-items: baseline;
+      justify-content: space-between;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 20px;
+      line-height: 1.25;
+      letter-spacing: 0;
+    }
+
+    .aliases {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .card {
+      display: grid;
+      gap: 9px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px;
+      background: var(--panel);
+    }
+
+    .card-top {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .rank {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .repo {
+      color: var(--accent);
+      font-weight: 700;
+      overflow-wrap: anywhere;
+    }
+
+    .status {
+      display: inline-flex;
+      min-height: 24px;
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .status.active {
+      background: #dafbe1;
+      color: var(--good);
+    }
+
+    .status.watch {
+      background: #fff8c5;
+      color: var(--warn);
+    }
+
+    .status.stale {
+      background: #fbefff;
+      color: var(--stale);
+    }
+
+    p {
+      margin: 0;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    code {
+      font: 13px/1.45 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      overflow-wrap: anywhere;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .install {
+      border-radius: 6px;
+      padding: 8px;
+      background: #f6f8fa;
+    }
+
+    @media (max-width: 900px) {
+      .cards {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .wrap {
+        width: min(100vw - 20px, 1180px);
+      }
+
+      h1 {
+        font-size: 32px;
+      }
+
+      .cards {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap header-inner">
+      <h1>Workflow Recommendations</h1>
+      <p class="lead">Pick a workflow and compare a small reviewed starting set before installing anything.</p>
+      <div class="meta">
+        <span class="pill">Generated 2026-06-08</span>
+        <span class="pill">8 workflows</span>
+        <span class="pill"><a href="recommendations.md">Markdown version</a></span>
+        <span class="pill"><a href="api/recommendations.json">JSON API</a></span>
+        <span class="pill"><a href="chooser.html">Chooser</a></span>
+        <span class="pill"><a href="./">Catalog</a></span>
+        <span class="pill"><a href="https://github.com/sjh9714/gh-extension-atlas#readme">README</a></span>
+      </div>
+    </div>
+  </header>
+  <main class="wrap">
+    <section class="workflow" id="triage">
+      <div class="workflow-head">
+        <h2>Daily maintainer triage</h2>
+        <div class="aliases">Aliases: <code>maintainer</code>, <code>dashboard</code>, <code>notifications</code>, <code>notify</code></div>
+      </div>
+      <div class="cards">
+        <article class="card">
+          <div class="card-top">
+            <span class="rank">#1</span>
+            <span class="status active">active</span>
+          </div>
+          <a class="repo" href="extensions/dlvhdr-gh-dash.html">dlvhdr/gh-dash</a>
+          <p>Maintainers who live in PR, issue, and notification queues.</p>
+          <p class="muted">Avoid if: You prefer one-off commands over a persistent TUI.</p>
+          <div class="install"><code>gh extension install dlvhdr/gh-dash</code></div>
+        </article>
+        <article class="card">
+          <div class="card-top">
+            <span class="rank">#2</span>
+            <span class="status active">active</span>
+          </div>
+          <a class="repo" href="extensions/agynio-gh-pr-review.html">agynio/gh-pr-review</a>
+          <p>Reviewers who want inline PR review workflows in the terminal.</p>
+          <p class="muted">Avoid if: Your team reviews exclusively in the GitHub web UI.</p>
+          <div class="install"><code>gh extension install agynio/gh-pr-review</code></div>
+        </article>
+        <article class="card">
+          <div class="card-top">
+            <span class="rank">#3</span>
+            <span class="status active">active</span>
+          </div>
+          <a class="repo" href="extensions/meiji163-gh-notify.html">meiji163/gh-notify</a>
+          <p>Developers who want notification awareness without the browser.</p>
+          <p class="muted">Avoid if: You already manage notifications through email or mobile.</p>
+          <div class="install"><code>gh extension install meiji163/gh-notify</code></div>
+        </article>
+      </div>
+    </section>
+    <section class="workflow" id="pr">
+      <div class="workflow-head">
+        <h2>PR and issue review</h2>
+        <div class="aliases">Aliases: <code>issues</code>, <code>review</code>, <code>pull-requests</code></div>
+      </div>
+      <div class="cards">
+        <article class="card">
+          <div class="card-top">
+            <span class="rank">#1</span>
+            <span class="status active">active</span>
+          </div>
+          <a class="repo" href="extensions/agynio-gh-pr-review.html">agynio/gh-pr-review</a>
+          <p>Reviewers who want inline PR review workflows in the terminal.</p>
+          <p class="muted">Avoid if: Your team reviews exclusively in the GitHub web UI.</p>
+          <div class="install"><code>gh extension install agynio/gh-pr-review</code></div>
+        </article>
+        <article class="card">
+          <div class="card-top">
+            <span class="rank">#2</span>
+            <span class="status active">active</span>
+          </div>
+          <a class="repo" href="extensions/github-gh-stack.html">github/gh-stack</a>
+          <p>Teams that split large changes into dependent PRs.</p>
+          <p class="muted">Avoid if: Your team avoids stacked changes.</p>
+          <div class="install"><code>gh extension install github/gh-stack</code></div>
+        </article>
+        <article class="card">
+          <div class="card-top">
+            <span class="rank">#3</span>
+            <span class="status active">active</span>
+          </div>
+          <a class="repo" href="extensions/einride-gh-dependabot.html">einride/gh-dependabot</a>
+          <p>Teams that process many dependency update pull requests.</p>
+          <p class="muted">Avoid if: You do not use Dependabot.</p>
+          <div class="install"><code>gh extension install einride/gh-dependabot</code></div>
+        </article>
+      </div>
+    </section>
+    <section class="workflow" id="actions">
+      <div class="workflow-head">
+        <h2>GitHub Actions operations</h2>
+        <div class="aliases">Aliases: <code>ci</code>, <code>workflows</code></div>
+      </div>
+      <div class="cards">
+        <article class="card">
+          <div class="card-top">
+            <span class="rank">#1</span>
+            <span class="status active">active</span>
+          </div>
+          <a class="repo" href="extensions/dlvhdr-gh-enhance.html">dlvhdr/gh-enhance</a>
+          <p>Developers who want an interactive terminal UI for GitHub Actions workflows.</p>
+          <p class="muted">Avoid if: You only need basic workflow status output or prefer the GitHub web UI.</p>
+          <div class="install"><code>gh extension install dlvhdr/gh-enhance</code></div>
+        </article>
+        <article class="card">
+          <div class="card-top">
+            <span class="rank">#2</span>
+            <span class="status active">active</span>
+          </div>
+          <a class="repo" href="extensions/fchimpan-gh-workflow-stats.html">fchimpan/gh-workflow-stats</a>
+          <p>CI owners investigating slow or flaky workflows.</p>
+          <p class="muted">Avoid if: You only need the latest run status.</p>
+          <div class="install"><code>gh extension install fchimpan/gh-workflow-stats</code></div>
+        </article>
+        <article class="card">
+          <div class="card-top">
+            <span class="rank">#3</span>
+            <span class="status active">active</span>
+          </div>
+          <a class="repo" href="extensions/github-gh-actions-importer.html">github/gh-actions-importer</a>
+          <p>Enterprise teams migrating from other CI systems.</p>
+          <p class="muted">Avoid if: Your project is already on GitHub Actions.</p>
+          <div class="install"><code>gh extension install github/gh-actions-importer</code></div>
+        </article>
+      </div>
+    </section>
+    <section class="workflow" id="ai">
+      <div class="workflow-head">
+        <h2>AI and agent workflows</h2>
+        <div class="aliases">Aliases: <code>agents</code>, <code>models</code></div>
+      </div>
+      <div class="cards">
+        <article class="card">
+          <div class="card-top">
+            <span class="rank">#1</span>
+            <span class="status active">active</span>
+          </div>
+          <a class="repo" href="extensions/github-gh-aw.html">github/gh-aw</a>
+          <p>Developers experimenting with GitHub-native agent workflows.</p>
+          <p class="muted">Avoid if: You are not using agentic automation yet.</p>
+          <div class="install"><code>gh extension install github/gh-aw</code></div>
+        </article>
+        <article class="card">
+          <div class="card-top">
+            <span class="rank">#2</span>
+            <span class="status active">active</span>
+          </div>
+          <a class="repo" href="extensions/github-gh-models.html">github/gh-models</a>
+          <p>Developers testing prompts and models from the terminal.</p>
+          <p class="muted">Avoid if: You do not use GitHub Models.</p>
+          <div class="install"><code>gh extension install github/gh-models</code></div>
+        </article>
+        <article class="card">
+          <div class="card-top">
+            <span class="rank">#3</span>
+            <span class="status active">active</span>
+          </div>
+          <a class="repo" href="extensions/shuymn-gh-mcp.html">shuymn/gh-mcp</a>
+          <p>Users connecting AI tools to GitHub through MCP.</p>
+          <p class="muted">Avoid if: You do not use MCP-compatible clients.</p>
+          <div class="install"><code>gh extension install shuymn/gh-mcp</code></div>
+        </article>
+      </div>
+    </section>
+    <section class="workflow" id="branches">
+      <div class="workflow-head">
+        <h2>Local branch cleanup</h2>
+        <div class="aliases">Aliases: <code>branch</code>, <code>cleanup</code>, <code>repo-cleanup</code></div>
+      </div>
+      <div class="cards">
+        <article class="card">
+          <div class="card-top">
+            <span class="rank">#1</span>
+            <span class="status active">active</span>
+          </div>
+          <a class="repo" href="extensions/seachicken-gh-poi.html">seachicken/gh-poi</a>
+          <p>Developers who want a trustworthy branch cleanup default.</p>
+          <p class="muted">Avoid if: You want to manually inspect every branch before deletion.</p>
+          <div class="install"><code>gh extension install seachicken/gh-poi</code></div>
+        </article>
+        <article class="card">
+          <div class="card-top">
+            <span class="rank">#2</span>
+            <span class="status watch">watch</span>
+          </div>
+          <a class="repo" href="extensions/mislav-gh-branch.html">mislav/gh-branch</a>
+          <p>Developers with many local branches.</p>
+          <p class="muted">Avoid if: You want only automated cleanup rather than manual selection.</p>
+          <div class="install"><code>gh extension install mislav/gh-branch</code></div>
+        </article>
+        <article class="card">
+          <div class="card-top">
+            <span class="rank">#3</span>
+            <span class="status active">active</span>
+          </div>
+          <a class="repo" href="extensions/redraw-gh-install.html">redraw/gh-install</a>
+          <p>Developers who often install tools from GitHub releases.</p>
+          <p class="muted">Avoid if: You already use a package manager for all release binaries.</p>
+          <div class="install"><code>gh extension install redraw/gh-install</code></div>
+        </article>
+      </div>
+    </section>
+    <section class="workflow" id="docs">
+      <div class="workflow-head">
+        <h2>Documentation review</h2>
+        <div class="aliases">Aliases: <code>markdown</code>, <code>readme</code></div>
+      </div>
+      <div class="cards">
+        <article class="card">
+          <div class="card-top">
+            <span class="rank">#1</span>
+            <span class="status active">active</span>
+          </div>
+          <a class="repo" href="extensions/yusukebe-gh-markdown-preview.html">yusukebe/gh-markdown-preview</a>
+          <p>README, issue template, and documentation review.</p>
+          <p class="muted">Avoid if: You need fully offline preview support.</p>
+          <div class="install"><code>gh extension install yusukebe/gh-markdown-preview</code></div>
+        </article>
+        <article class="card">
+          <div class="card-top">
+            <span class="rank">#2</span>
+            <span class="status active">active</span>
+          </div>
+          <a class="repo" href="extensions/thiagokokada-gh-gfm-preview.html">thiagokokada/gh-gfm-preview</a>
+          <p>Writers who need Markdown preview without relying on GitHub web UI.</p>
+          <p class="muted">Avoid if: You only need the simplest browser-based preview.</p>
+          <div class="install"><code>gh extension install thiagokokada/gh-gfm-preview</code></div>
+        </article>
+      </div>
+    </section>
+    <section class="workflow" id="search">
+      <div class="workflow-head">
+        <h2>Search and discovery</h2>
+        <div class="aliases">Aliases: <code>discovery</code>, <code>code-search</code></div>
+      </div>
+      <div class="cards">
+        <article class="card">
+          <div class="card-top">
+            <span class="rank">#1</span>
+            <span class="status active">active</span>
+          </div>
+          <a class="repo" href="extensions/gennaro-tedesco-gh-s.html">gennaro-tedesco/gh-s</a>
+          <p>Finding repositories quickly from a terminal workflow.</p>
+          <p class="muted">Avoid if: You need advanced code search rather than repository search.</p>
+          <div class="install"><code>gh extension install gennaro-tedesco/gh-s</code></div>
+        </article>
+        <article class="card">
+          <div class="card-top">
+            <span class="rank">#2</span>
+            <span class="status active">active</span>
+          </div>
+          <a class="repo" href="extensions/k1low-gh-grep.html">k1LoW/gh-grep</a>
+          <p>Searching repository content without cloning.</p>
+          <p class="muted">Avoid if: You need local ripgrep speed across checked-out code.</p>
+          <div class="install"><code>gh extension install k1LoW/gh-grep</code></div>
+        </article>
+        <article class="card">
+          <div class="card-top">
+            <span class="rank">#3</span>
+            <span class="status active">active</span>
+          </div>
+          <a class="repo" href="extensions/langlangbart-gh-find-code.html">LangLangBart/gh-find-code</a>
+          <p>Developers who want interactive code search from the terminal.</p>
+          <p class="muted">Avoid if: You need local search inside a checked-out repository.</p>
+          <div class="install"><code>gh extension install LangLangBart/gh-find-code</code></div>
+        </article>
+      </div>
+    </section>
+    <section class="workflow" id="security">
+      <div class="workflow-head">
+        <h2>Security and admin</h2>
+        <div class="aliases">Aliases: <code>admin</code>, <code>compliance</code></div>
+      </div>
+      <div class="cards">
+        <article class="card">
+          <div class="card-top">
+            <span class="rank">#1</span>
+            <span class="status watch">watch</span>
+          </div>
+          <a class="repo" href="extensions/advanced-security-gh-sbom.html">advanced-security/gh-sbom</a>
+          <p>Teams that need SBOM output during release or compliance work.</p>
+          <p class="muted">Avoid if: Your SBOM workflow is already handled by another build step.</p>
+          <div class="install"><code>gh extension install advanced-security/gh-sbom</code></div>
+        </article>
+        <article class="card">
+          <div class="card-top">
+            <span class="rank">#2</span>
+            <span class="status active">active</span>
+          </div>
+          <a class="repo" href="extensions/link-gh-token.html">Link-/gh-token</a>
+          <p>Developers working with GitHub App authentication.</p>
+          <p class="muted">Avoid if: You only use personal access tokens or browser flows.</p>
+          <div class="install"><code>gh extension install Link-/gh-token</code></div>
+        </article>
+        <article class="card">
+          <div class="card-top">
+            <span class="rank">#3</span>
+            <span class="status active">active</span>
+          </div>
+          <a class="repo" href="extensions/github-gh-gei.html">github/gh-gei</a>
+          <p>Enterprise teams migrating repositories to GitHub Enterprise Cloud.</p>
+          <p class="muted">Avoid if: You are not running GitHub migration projects.</p>
+          <div class="install"><code>gh extension install github/gh-gei</code></div>
+        </article>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

@@ -484,6 +484,7 @@ const endpointFiles = [
 const generatedFiles = [
   { path: "docs/index.html", content: renderCatalog(entries) },
   { path: "docs/chooser.html", content: renderChooserPage(entries) },
+  { path: "docs/recommendations.html", content: renderRecommendationsPage(entries) },
   { path: "docs/awesome-github-cli-extensions.html", content: renderAwesomeLandingPage(entries) },
   { path: "docs/awesome-github-cli-extensions.md", content: renderAwesomeMarkdown(entries) },
   { path: "docs/robots.txt", content: renderRobotsTxt() },
@@ -633,7 +634,7 @@ function renderCatalog(items) {
 
     h1 {
       margin: 0;
-      font-size: clamp(28px, 4vw, 42px);
+      font-size: 40px;
       line-height: 1.1;
       letter-spacing: 0;
     }
@@ -1081,7 +1082,7 @@ function renderCatalog(items) {
         <span class="pill">API docs: <a href="api-reference.md">api-reference.md</a></span>
         <span class="pill"><a href="faq.md">FAQ</a></span>
         <span class="pill"><a href="cheatsheet.md">Cheatsheet</a></span>
-        <span class="pill"><a href="recommendations.md">Recommendations</a></span>
+        <span class="pill"><a href="recommendations.html">Recommendations</a></span>
         <span class="pill"><a href="agent-guide.md">Agent guide</a></span>
         <span class="pill">Install bundle: <a href="install/all.txt">all.txt</a></span>
         <span class="pill"><a href="chooser.html">Chooser</a></span>
@@ -1665,7 +1666,7 @@ function renderCategoryPage(category, items) {
 
     h1 {
       margin: 0;
-      font-size: clamp(28px, 4vw, 42px);
+      font-size: 40px;
       line-height: 1.1;
       letter-spacing: 0;
     }
@@ -2822,6 +2823,297 @@ curl -fsSL ${siteUrl}api/recommendations.json \\
 `;
 }
 
+function renderRecommendationsPage(items) {
+  const generatedAt = latestVerifiedAt(items);
+  const pageUrl = `${siteUrl}recommendations.html`;
+
+  return `<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Workflow Recommendations - GitHub CLI Extension Atlas</title>
+  <meta name="description" content="Workflow-first GitHub CLI extension recommendations with install commands, avoid-if notes, status labels, and detail links.">
+  <meta property="og:title" content="GitHub CLI Extension Workflow Recommendations">
+  <meta property="og:description" content="Choose a small starting set of GitHub CLI extensions by workflow.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="${pageUrl}">
+  <meta property="og:image" content="${socialImageUrl}">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="GitHub CLI Extension Workflow Recommendations">
+  <meta name="twitter:description" content="Choose a small starting set of GitHub CLI extensions by workflow.">
+  <meta name="twitter:image" content="${socialImageUrl}">
+  <link rel="canonical" href="${pageUrl}">
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f7f8fa;
+      --panel: #ffffff;
+      --text: #1f2328;
+      --muted: #656d76;
+      --border: #d0d7de;
+      --accent: #0969da;
+      --accent-soft: #ddf4ff;
+      --good: #1a7f37;
+      --warn: #9a6700;
+      --stale: #8250df;
+      --shadow: 0 1px 2px rgba(31, 35, 40, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font: 15px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    header {
+      background: var(--panel);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .wrap {
+      width: min(1180px, calc(100vw - 32px));
+      margin: 0 auto;
+    }
+
+    .header-inner {
+      display: grid;
+      gap: 12px;
+      padding: 28px 0 22px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 40px;
+      line-height: 1.1;
+      letter-spacing: 0;
+    }
+
+    .lead {
+      max-width: 800px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 17px;
+    }
+
+    .meta,
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 3px 10px;
+      background: var(--panel);
+      color: var(--muted);
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    main {
+      display: grid;
+      gap: 16px;
+      padding: 20px 0 42px;
+    }
+
+    .workflow {
+      display: grid;
+      gap: 12px;
+      padding: 16px 0 4px;
+      border-top: 1px solid var(--border);
+    }
+
+    .workflow-head {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 12px;
+      align-items: baseline;
+      justify-content: space-between;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 20px;
+      line-height: 1.25;
+      letter-spacing: 0;
+    }
+
+    .aliases {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .card {
+      display: grid;
+      gap: 9px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px;
+      background: var(--panel);
+    }
+
+    .card-top {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .rank {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .repo {
+      color: var(--accent);
+      font-weight: 700;
+      overflow-wrap: anywhere;
+    }
+
+    .status {
+      display: inline-flex;
+      min-height: 24px;
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .status.active {
+      background: #dafbe1;
+      color: var(--good);
+    }
+
+    .status.watch {
+      background: #fff8c5;
+      color: var(--warn);
+    }
+
+    .status.stale {
+      background: #fbefff;
+      color: var(--stale);
+    }
+
+    p {
+      margin: 0;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    code {
+      font: 13px/1.45 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      overflow-wrap: anywhere;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .install {
+      border-radius: 6px;
+      padding: 8px;
+      background: #f6f8fa;
+    }
+
+    @media (max-width: 900px) {
+      .cards {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .wrap {
+        width: min(100vw - 20px, 1180px);
+      }
+
+      h1 {
+        font-size: 32px;
+      }
+
+      .cards {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap header-inner">
+      <h1>Workflow Recommendations</h1>
+      <p class="lead">Pick a workflow and compare a small reviewed starting set before installing anything.</p>
+      <div class="meta">
+        <span class="pill">Generated ${escapeHtml(generatedAt)}</span>
+        <span class="pill">${recommendations.length} workflows</span>
+        <span class="pill"><a href="recommendations.md">Markdown version</a></span>
+        <span class="pill"><a href="api/recommendations.json">JSON API</a></span>
+        <span class="pill"><a href="chooser.html">Chooser</a></span>
+        <span class="pill"><a href="./">Catalog</a></span>
+        <span class="pill"><a href="${repoReadmeUrl}">README</a></span>
+      </div>
+    </div>
+  </header>
+  <main class="wrap">
+    ${recommendations.map((recommendation) => renderRecommendationHtmlSection(recommendation, items)).join("\n    ")}
+  </main>
+</body>
+</html>
+`;
+}
+
+function renderRecommendationHtmlSection(recommendation, items) {
+  const recommendationEntries = getRecommendationEntries(recommendation, items);
+
+  return `<section class="workflow" id="${escapeAttribute(recommendation.id)}">
+      <div class="workflow-head">
+        <h2>${escapeHtml(recommendation.label)}</h2>
+        <div class="aliases">Aliases: ${recommendation.aliases.map((alias) => `<code>${escapeHtml(alias)}</code>`).join(", ")}</div>
+      </div>
+      <div class="cards">
+        ${recommendationEntries.map((entry, index) => renderRecommendationCard(entry, index)).join("\n        ")}
+      </div>
+    </section>`;
+}
+
+function renderRecommendationCard(entry, index) {
+  return `<article class="card">
+          <div class="card-top">
+            <span class="rank">#${index + 1}</span>
+            <span class="status ${escapeAttribute(entry.status)}">${escapeHtml(entry.status)}</span>
+          </div>
+          <a class="repo" href="${escapeAttribute(extensionPagePath(entry))}">${escapeHtml(entry.repo)}</a>
+          <p>${escapeHtml(entry.best_for)}</p>
+          <p class="muted">Avoid if: ${escapeHtml(entry.avoid_if)}</p>
+          <div class="install"><code>${escapeHtml(entry.install)}</code></div>
+        </article>`;
+}
+
 function renderRecommendationMarkdownSection(recommendation, items) {
   const recommendationEntries = getRecommendationEntries(recommendation, items);
 
@@ -3604,10 +3896,16 @@ function renderSitemapXml(items) {
     <priority>0.85</priority>
   </url>`;
   const recommendationsUrl = `  <url>
-    <loc>${siteUrl}recommendations.md</loc>
+    <loc>${siteUrl}recommendations.html</loc>
     <lastmod>${escapeHtml(lastmod)}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
+  </url>`;
+  const recommendationsMarkdownUrl = `  <url>
+    <loc>${siteUrl}recommendations.md</loc>
+    <lastmod>${escapeHtml(lastmod)}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
   </url>`;
   const agentGuideUrl = `  <url>
     <loc>${siteUrl}agent-guide.md</loc>
@@ -3653,6 +3951,7 @@ ${awesomeUrl}
 ${awesomeMarkdownUrl}
 ${cheatsheetUrl}
 ${recommendationsUrl}
+${recommendationsMarkdownUrl}
 ${agentGuideUrl}
 ${categoryUrls}
 ${guideUrls}
@@ -3819,7 +4118,8 @@ function renderApiIndex(items) {
       chooser: `${siteUrl}chooser.html`,
       awesome_markdown: `${siteUrl}awesome-github-cli-extensions.md`,
       cheatsheet: `${siteUrl}cheatsheet.md`,
-      workflow_recommendations: `${siteUrl}recommendations.md`,
+      workflow_recommendations: `${siteUrl}recommendations.html`,
+      workflow_recommendations_markdown: `${siteUrl}recommendations.md`,
       agent_guide: `${siteUrl}agent-guide.md`,
       faq: `${siteUrl}faq.md`,
       llms: `${siteUrl}llms.txt`,
@@ -4021,7 +4321,8 @@ function renderHealthSnapshot(items) {
       awesome_overview: `${siteUrl}awesome-github-cli-extensions.html`,
       awesome_markdown: `${siteUrl}awesome-github-cli-extensions.md`,
       cheatsheet: `${siteUrl}cheatsheet.md`,
-      workflow_recommendations: `${siteUrl}recommendations.md`,
+      workflow_recommendations: `${siteUrl}recommendations.html`,
+      workflow_recommendations_markdown: `${siteUrl}recommendations.md`,
       agent_guide: `${siteUrl}agent-guide.md`,
       faq: `${siteUrl}faq.md`,
       health: `${siteUrl}health.md`,
@@ -4180,7 +4481,7 @@ function renderLlmsTxt(items) {
 - Workflow chooser: ${siteUrl}chooser.html
 - Awesome overview: ${siteUrl}awesome-github-cli-extensions.html
 - Cheatsheet: ${siteUrl}cheatsheet.md
-- Workflow recommendations: ${siteUrl}recommendations.md
+- Workflow recommendations: ${siteUrl}recommendations.html
 - Agent guide: ${siteUrl}agent-guide.md
 - FAQ: ${siteUrl}faq.md
 - API manifest: ${siteUrl}api/index.json
@@ -4197,7 +4498,7 @@ GitHub CLI Extension Atlas helps users choose a useful \`gh\` extension faster w
 - Searchable catalog: ${siteUrl}
 - Awesome overview: ${siteUrl}awesome-github-cli-extensions.html
 - Cheatsheet: ${siteUrl}cheatsheet.md
-- Workflow recommendations: ${siteUrl}recommendations.md
+- Workflow recommendations: ${siteUrl}recommendations.html
 - Agent guide: ${siteUrl}agent-guide.md
 - Health snapshot: ${siteUrl}health.md
 - FAQ: ${siteUrl}faq.md
@@ -4264,7 +4565,7 @@ This is not an official GitHub project, complete directory, endorsement list, or
 - Searchable catalog: ${siteUrl}
 - Awesome overview: ${siteUrl}awesome-github-cli-extensions.html
 - Cheatsheet: ${siteUrl}cheatsheet.md
-- Workflow recommendations: ${siteUrl}recommendations.md
+- Workflow recommendations: ${siteUrl}recommendations.html
 - Agent guide: ${siteUrl}agent-guide.md
 - Health snapshot: ${siteUrl}health.md
 - FAQ: ${siteUrl}faq.md

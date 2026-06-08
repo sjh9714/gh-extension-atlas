@@ -432,7 +432,7 @@ Published Pages endpoints:
 [api-reference]: docs/api-reference.md
 [api-top-picks]: https://sjh9714.github.io/gh-extension-atlas/api/top-picks.json
 [api-starter-packs]: https://sjh9714.github.io/gh-extension-atlas/api/starter-packs.json
-[workflow-recommendations]: https://sjh9714.github.io/gh-extension-atlas/recommendations.md
+[workflow-recommendations]: https://sjh9714.github.io/gh-extension-atlas/recommendations.html
 [llms]: https://sjh9714.github.io/gh-extension-atlas/llms.txt
 [llms-full]: https://sjh9714.github.io/gh-extension-atlas/llms-full.txt
 [install-all]: https://sjh9714.github.io/gh-extension-atlas/install/all.txt
