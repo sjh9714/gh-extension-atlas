@@ -607,7 +607,7 @@ function validateAuditPage(files) {
     return ["docs/audit.html must be generated."];
   }
 
-  const requiredIds = ["catalog-data", "top-pick-data", "workflow-data", "extension-list", "run-audit", "copy-command", "load-sample", "copy-missing", "copy-summary", "clear-input", "results"];
+  const requiredIds = ["catalog-data", "top-pick-data", "workflow-data", "extension-list", "run-audit", "copy-command", "load-sample", "copy-missing", "copy-gap-installs", "copy-summary", "clear-input", "results"];
 
   for (const id of requiredIds) {
     if (!file.content.includes(`id="${id}"`)) {
@@ -5125,6 +5125,7 @@ function renderAuditPage(items) {
         <button type="button" id="copy-command">Copy command</button>
         <button type="button" id="load-sample">Try sample audit</button>
         <button type="button" id="copy-missing">Copy missing Top Picks installs</button>
+        <button type="button" id="copy-gap-installs">Copy workflow gap installs</button>
         <button type="button" id="copy-summary">Copy audit summary</button>
         <button type="button" id="clear-input">Clear</button>
         <a class="button-link" href="audit.html?demo=1">Open demo audit</a>
@@ -5151,6 +5152,7 @@ function renderAuditPage(items) {
     const textarea = document.getElementById("extension-list");
     const results = document.getElementById("results");
     let lastMissingTopPickInstalls = "";
+    let lastWorkflowGapInstalls = "";
     let lastAuditSummary = "";
     const sampleAuditLines = [
       "gh dash\\tdlvhdr/gh-dash\\tv4.8.0",
@@ -5173,6 +5175,7 @@ function renderAuditPage(items) {
     document.getElementById("clear-input").addEventListener("click", () => {
       textarea.value = "";
       lastMissingTopPickInstalls = "";
+      lastWorkflowGapInstalls = "";
       lastAuditSummary = "";
       results.innerHTML = '<h2>Audit Results</h2><p class="muted">Run an audit or try the sample to see reviewed installs, unlisted installs, missing Top Picks, and workflow coverage.</p>';
     });
@@ -5195,6 +5198,16 @@ function renderAuditPage(items) {
         return;
       }
       await copyText(lastAuditSummary);
+    });
+
+    document.getElementById("copy-gap-installs").addEventListener("click", async () => {
+      if (!lastWorkflowGapInstalls) {
+        renderAudit(buildAudit(parseExtensionList(textarea.value)));
+      }
+      if (!lastWorkflowGapInstalls) {
+        return;
+      }
+      await copyText(lastWorkflowGapInstalls);
     });
 
     if (new URLSearchParams(window.location.search).has("demo") || new URLSearchParams(window.location.search).has("sample")) {
@@ -5280,6 +5293,12 @@ function renderAuditPage(items) {
 
     function renderAudit(audit) {
       lastMissingTopPickInstalls = audit.missingTopPicks.map((entry) => entry.install).join("\\n");
+      lastWorkflowGapInstalls = audit.workflowCoverage
+        .filter((workflow) => workflow.coverage.startsWith("0/"))
+        .map((workflow) => workflow.missingEntries[0])
+        .filter(Boolean)
+        .map((entry) => entry.install)
+        .join("\\n");
       lastAuditSummary = buildAuditSummary(audit);
       const summary = [
         ["Installed parsed", audit.installed.length],
@@ -5311,6 +5330,9 @@ function renderAuditPage(items) {
         actions.push('Use <strong>Copy missing Top Picks installs</strong> as a review queue, not a blind install list.');
       }
       const uncovered = audit.workflowCoverage.filter((workflow) => workflow.coverage.startsWith("0/")).slice(0, 3);
+      if (uncovered.length) {
+        actions.push('Use <strong>Copy workflow gap installs</strong> for one first-choice command per uncovered workflow.');
+      }
       for (const workflow of uncovered) {
         const firstMissing = workflow.missingEntries[0];
         if (firstMissing) {
