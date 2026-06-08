@@ -30,6 +30,12 @@ const workflowGuides = {
     sourcePath: "guides/github-actions-extensions.md",
     summary: "Choose an Actions TUI, local runner, migration, or workflow health extension.",
   },
+  "AI/Agents": {
+    title: "GitHub AI And Agent CLI Extension Guide",
+    path: "guides/ai-agent-extensions.html",
+    sourcePath: "guides/ai-agent-extensions.md",
+    summary: "Choose a GitHub agent workflow, Models, standup, or MCP helper.",
+  },
   "Repo & Branch": {
     title: "Git Branch Cleanup CLI Extension Guide",
     path: "guides/branch-cleanup-extensions.html",
@@ -96,6 +102,28 @@ const actionsGuideRows = [
     need: "Check organization-wide Actions status",
     repo: "rsese/gh-actions-status",
     why: "Targets organization-level Actions reporting; verify compatibility because it is stale.",
+  },
+];
+const aiAgentGuideRows = [
+  {
+    need: "Run GitHub-native agent workflows",
+    repo: "github/gh-aw",
+    why: "The strongest first stop when the workflow itself is an agent task.",
+  },
+  {
+    need: "Test prompts and models from the terminal",
+    repo: "github/gh-models",
+    why: "Useful when you want GitHub Models inside an existing gh workflow.",
+  },
+  {
+    need: "Generate an AI-assisted standup report",
+    repo: "sgoedecke/gh-standup",
+    why: "A focused helper when the repeated task is summarizing GitHub activity.",
+  },
+  {
+    need: "Connect AI tools to GitHub through MCP",
+    repo: "shuymn/gh-mcp",
+    why: "A practical bridge for running GitHub MCP Server with existing gh authentication.",
   },
 ];
 const dashboardGuideRows = [
@@ -367,6 +395,11 @@ const starterPacks = [
     name: "GitHub Actions Operator",
     summary: "Interactive workflow inspection plus CI health and migration helpers.",
     repos: ["dlvhdr/gh-enhance", "fchimpan/gh-workflow-stats", "github/gh-actions-importer"],
+  },
+  {
+    name: "AI And Agents",
+    summary: "GitHub agent workflows, Models, standup summaries, and MCP setup.",
+    repos: ["github/gh-aw", "github/gh-models", "shuymn/gh-mcp"],
   },
   {
     name: "Local Repository Cleanup",
@@ -1799,7 +1832,23 @@ function renderWorkflowGuidePage(category, guide, items) {
   let secondSectionCopy = "Use local runners for fast feedback, not as a perfect replacement for GitHub-hosted runners. Runner images, permissions, secrets, service containers, and network access can still differ.";
   let freshnessCopy = "The atlas is a reviewed snapshot, not a live ranking. Recheck upstream repositories before adopting a tool for production workflows, especially when the extension can change local branches, CI workflows, repository state, or release automation.";
 
-  if (category === "Dashboard/TUI") {
+  if (category === "AI/Agents") {
+    guideRows = aiAgentGuideRows;
+    starterPackName = "AI And Agents";
+    guideLead = "Choose a GitHub-native agent workflow, Models helper, standup summarizer, or MCP bridge without installing every AI-adjacent gh extension first.";
+    startHereCopy = "Use the table as a quick chooser. The goal is to separate agent workflow execution, model experimentation, activity summarization, and MCP setup.";
+    firstCards = [
+      ["github/gh-aw", "Agent workflows"],
+      ["github/gh-models", "GitHub Models"],
+      ["shuymn/gh-mcp", "MCP setup"],
+    ];
+    secondCards = [
+      ["sgoedecke/gh-standup", "AI standup reports"],
+    ];
+    secondSectionTitle = "AI Workflow Fit";
+    secondSectionCopy = "Use agent workflow tools when GitHub is the work surface, Models tools when prompt iteration is the task, and MCP helpers when another AI client needs authenticated GitHub context.";
+    freshnessCopy = "The atlas is a reviewed snapshot, not a live ranking. Recheck upstream repositories before adopting an AI or agent extension, especially when the extension can access repository data, call external models, or configure MCP access.";
+  } else if (category === "Dashboard/TUI") {
     guideRows = dashboardGuideRows;
     starterPackName = "Daily Maintainer Triage";
     guideLead = "Choose a GitHub terminal dashboard, Markdown preview TUI, or visual contribution tool without installing every interface first.";

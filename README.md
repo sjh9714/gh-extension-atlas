@@ -156,6 +156,7 @@ These are the first extensions to evaluate if you want broad value fast.
 | --------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
 | [GitHub terminal dashboard CLI extension guide][guide-dashboards]     | You want a terminal dashboard, Markdown preview TUI, or visual contribution tool.         |
 | [GitHub Actions CLI extension guide][guide-actions]                   | You want to choose an Actions TUI, local runner, migration, or workflow health extension. |
+| [GitHub AI and agent CLI extension guide][guide-ai-agents]            | You want GitHub agent workflows, Models, standup summaries, or MCP setup.                 |
 | [GitHub PR and issue triage CLI extension guide][guide-pr-issues]     | You want PR review, stacked PR, dependency PR, metrics, issue search, or milestone tools. |
 | [Git branch cleanup CLI extension guide][guide-branches]              | You want safer branch cleanup, branch switching, or worktree helpers.                     |
 | [GitHub notification triage CLI extension guide][guide-notifications] | You want terminal notification display, filtering, cleanup, or broader triage.            |
@@ -164,6 +165,7 @@ These are the first extensions to evaluate if you want broad value fast.
 
 [guide-dashboards]: https://sjh9714.github.io/gh-extension-atlas/guides/terminal-dashboard-extensions.html
 [guide-actions]: https://sjh9714.github.io/gh-extension-atlas/guides/github-actions-extensions.html
+[guide-ai-agents]: https://sjh9714.github.io/gh-extension-atlas/guides/ai-agent-extensions.html
 [guide-pr-issues]: https://sjh9714.github.io/gh-extension-atlas/guides/pr-issue-triage-extensions.html
 [guide-branches]: https://sjh9714.github.io/gh-extension-atlas/guides/branch-cleanup-extensions.html
 [guide-notifications]: https://sjh9714.github.io/gh-extension-atlas/guides/notification-triage-extensions.html

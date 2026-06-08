@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GitHub AI And Agent CLI Extension Guide | GitHub CLI Extension Atlas</title>
+  <meta name="description" content="Choose a GitHub agent workflow, Models, standup, or MCP helper.">
+  <meta property="og:title" content="GitHub AI And Agent CLI Extension Guide">
+  <meta property="og:description" content="Choose a GitHub agent workflow, Models, standup, or MCP helper.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://sjh9714.github.io/gh-extension-atlas/guides/ai-agent-extensions.html">
+  <meta property="og:image" content="https://sjh9714.github.io/gh-extension-atlas/social-card.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="GitHub AI And Agent CLI Extension Guide">
+  <meta name="twitter:description" content="Choose a GitHub agent workflow, Models, standup, or MCP helper.">
+  <meta name="twitter:image" content="https://sjh9714.github.io/gh-extension-atlas/social-card.png">
+  <link rel="canonical" href="https://sjh9714.github.io/gh-extension-atlas/guides/ai-agent-extensions.html">
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f7f8fa;
+      --panel: #ffffff;
+      --text: #1f2328;
+      --muted: #656d76;
+      --border: #d0d7de;
+      --accent: #0969da;
+      --accent-soft: #ddf4ff;
+      --good: #1a7f37;
+      --warn: #9a6700;
+      --stale: #8250df;
+      --shadow: 0 1px 2px rgba(31, 35, 40, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font: 15px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    header {
+      background: var(--panel);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .wrap {
+      width: min(1080px, calc(100vw - 32px));
+      margin: 0 auto;
+    }
+
+    .header-inner {
+      display: grid;
+      gap: 13px;
+      padding: 30px 0 24px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(30px, 4vw, 44px);
+      line-height: 1.1;
+      letter-spacing: 0;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 20px;
+      line-height: 1.25;
+      letter-spacing: 0;
+    }
+
+    p {
+      margin: 0;
+    }
+
+    .lead {
+      max-width: 800px;
+      color: var(--muted);
+      font-size: 17px;
+    }
+
+    .meta,
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 3px 10px;
+      background: var(--panel);
+      color: var(--muted);
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    main {
+      display: grid;
+      gap: 14px;
+      padding: 20px 0 42px;
+    }
+
+    .panel,
+    .table-wrap {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+    }
+
+    .panel {
+      display: grid;
+      gap: 11px;
+      padding: 16px;
+    }
+
+    .panel p,
+    .muted {
+      color: var(--muted);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .tool-card {
+      display: grid;
+      gap: 7px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px;
+      background: var(--panel);
+    }
+
+    .table-wrap {
+      overflow: auto;
+    }
+
+    table {
+      width: 100%;
+      min-width: 900px;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      padding: 11px 12px;
+      border-bottom: 1px solid var(--border);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: #f6f8fa;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    tr:last-child td {
+      border-bottom: 0;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    code {
+      font: 13px/1.45 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+
+    pre {
+      margin: 0;
+      overflow: auto;
+      border-radius: 6px;
+      padding: 10px;
+      background: #f6f8fa;
+    }
+
+    .repo {
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      min-height: 24px;
+      border-radius: 999px;
+      padding: 2px 9px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .status.active {
+      background: #dafbe1;
+      color: var(--good);
+    }
+
+    .status.watch {
+      background: #fff8c5;
+      color: var(--warn);
+    }
+
+    .status.stale {
+      background: #fbefff;
+      color: var(--stale);
+    }
+
+    @media (max-width: 760px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap header-inner">
+      <h1>GitHub AI And Agent CLI Extension Guide</h1>
+      <p class="lead">Choose a GitHub-native agent workflow, Models helper, standup summarizer, or MCP bridge without installing every AI-adjacent gh extension first.</p>
+      <div class="meta">
+        <span class="pill">4 AI/Agents extensions</span>
+        <span class="pill">4 active</span>
+        <span class="pill">Reviewed 2026-06-08</span>
+      </div>
+      <div class="actions">
+        <a href="../">Searchable catalog</a>
+        <a href="../categories/ai-agents.html">AI/Agents category</a>
+        <a href="../api/categories/ai-agents.json">Category JSON</a>
+        <a href="../guides/ai-agent-extensions.md">Markdown source</a>
+        <a href="https://github.com/sjh9714/gh-extension-atlas#readme">README</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="panel">
+      <h2>Start Here</h2>
+      <p class="muted">Use the table as a quick chooser. The goal is to separate agent workflow execution, model experimentation, activity summarization, and MCP setup.</p>
+    </section>
+
+    <section class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>If you need to...</th>
+            <th>Start with</th>
+            <th>Why</th>
+            <th>Status</th>
+            <th>Install</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Run GitHub-native agent workflows</td>
+            <td><a class="repo" href="https://github.com/github/gh-aw">aw</a><br><span class="muted">Run GitHub agentic workflows from the CLI.</span></td>
+            <td>The strongest first stop when the workflow itself is an agent task.</td>
+            <td><span class="status active">active</span></td>
+            <td><code>gh extension install github/gh-aw</code></td>
+          </tr>
+          <tr>
+            <td>Test prompts and models from the terminal</td>
+            <td><a class="repo" href="https://github.com/github/gh-models">models</a><br><span class="muted">Use GitHub Models from GitHub CLI.</span></td>
+            <td>Useful when you want GitHub Models inside an existing gh workflow.</td>
+            <td><span class="status active">active</span></td>
+            <td><code>gh extension install github/gh-models</code></td>
+          </tr>
+          <tr>
+            <td>Generate an AI-assisted standup report</td>
+            <td><a class="repo" href="https://github.com/sgoedecke/gh-standup">standup</a><br><span class="muted">Generate an AI-assisted standup report from GitHub activity.</span></td>
+            <td>A focused helper when the repeated task is summarizing GitHub activity.</td>
+            <td><span class="status active">active</span></td>
+            <td><code>gh extension install sgoedecke/gh-standup</code></td>
+          </tr>
+          <tr>
+            <td>Connect AI tools to GitHub through MCP</td>
+            <td><a class="repo" href="https://github.com/shuymn/gh-mcp">mcp</a><br><span class="muted">Run GitHub MCP Server using existing GitHub CLI authentication.</span></td>
+            <td>A practical bridge for running GitHub MCP Server with existing gh authentication.</td>
+            <td><span class="status active">active</span></td>
+            <td><code>gh extension install shuymn/gh-mcp</code></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="panel">
+      <h2>First Picks</h2>
+      <div class="grid">
+        <article class="tool-card">
+          <strong><a href="https://github.com/github/gh-aw">aw</a></strong>
+          <span class="muted">Agent workflows</span>
+          <span>Developers experimenting with GitHub-native agent workflows.</span>
+          <code>gh extension install github/gh-aw</code>
+        </article>
+        <article class="tool-card">
+          <strong><a href="https://github.com/github/gh-models">models</a></strong>
+          <span class="muted">GitHub Models</span>
+          <span>Developers testing prompts and models from the terminal.</span>
+          <code>gh extension install github/gh-models</code>
+        </article>
+        <article class="tool-card">
+          <strong><a href="https://github.com/shuymn/gh-mcp">mcp</a></strong>
+          <span class="muted">MCP setup</span>
+          <span>Users connecting AI tools to GitHub through MCP.</span>
+          <code>gh extension install shuymn/gh-mcp</code>
+        </article>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>AI Workflow Fit</h2>
+      <p class="muted">Use agent workflow tools when GitHub is the work surface, Models tools when prompt iteration is the task, and MCP helpers when another AI client needs authenticated GitHub context.</p>
+      <div class="grid">
+        <article class="tool-card">
+          <strong><a href="https://github.com/sgoedecke/gh-standup">standup</a></strong>
+          <span class="muted">AI standup reports</span>
+          <span>Developers who prepare regular written standup updates.</span>
+          <code>gh extension install sgoedecke/gh-standup</code>
+        </article>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Starter Pack</h2>
+      <p class="muted">Review the commands before installing. Do not pipe install bundles directly into a shell.</p>
+      <pre><code>gh extension install github/gh-aw
+gh extension install github/gh-models
+gh extension install shuymn/gh-mcp</code></pre>
+      <div class="actions">
+        <a href="../install/starter-packs/ai-and-agents.txt">Starter pack TXT</a>
+        <a href="https://sjh9714.github.io/gh-extension-atlas/categories/ai-agents.html">AI/Agents page</a>
+        <a href="https://sjh9714.github.io/gh-extension-atlas/?category=AI%2FAgents">Open filtered catalog</a>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Freshness Notes</h2>
+      <p class="muted">The atlas is a reviewed snapshot, not a live ranking. Recheck upstream repositories before adopting an AI or agent extension, especially when the extension can access repository data, call external models, or configure MCP access.</p>
+    </section>
+  </main>
+</body>
+</html>

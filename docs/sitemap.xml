@@ -67,6 +67,12 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://sjh9714.github.io/gh-extension-atlas/guides/ai-agent-extensions.html</loc>
+    <lastmod>2026-06-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://sjh9714.github.io/gh-extension-atlas/guides/branch-cleanup-extensions.html</loc>
     <lastmod>2026-06-08</lastmod>
     <changefreq>weekly</changefreq>

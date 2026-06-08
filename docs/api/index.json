@@ -8,7 +8,7 @@
     "extensions": 68,
     "top_picks": 10,
     "categories": 8,
-    "starter_packs": 6,
+    "starter_packs": 7,
     "active": 49,
     "watch": 9,
     "stale": 10
@@ -127,6 +127,17 @@
         "github/gh-actions-importer"
       ],
       "install_commands": "https://sjh9714.github.io/gh-extension-atlas/install/starter-packs/github-actions-operator.txt"
+    },
+    {
+      "name": "AI And Agents",
+      "slug": "ai-and-agents",
+      "summary": "GitHub agent workflows, Models, standup summaries, and MCP setup.",
+      "repos": [
+        "github/gh-aw",
+        "github/gh-models",
+        "shuymn/gh-mcp"
+      ],
+      "install_commands": "https://sjh9714.github.io/gh-extension-atlas/install/starter-packs/ai-and-agents.txt"
     },
     {
       "name": "Local Repository Cleanup",
