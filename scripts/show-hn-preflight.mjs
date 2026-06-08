@@ -158,7 +158,7 @@ function checkRepoMetrics() {
 
 function checkTrackerIssues() {
   const issue7 = readGhJson(["issue", "view", "7", "--repo", repo, "--json", "state,url,body,comments"]);
-  const issue8 = readGhJson(["issue", "view", "8", "--repo", repo, "--json", "state,url"]);
+  const issue8 = readGhJson(["issue", "view", "8", "--repo", repo, "--json", "state,url,body"]);
 
   if (issue7.state !== "OPEN") {
     warn(`Issue #7 is ${issue7.state}; confirm the 24h review is recorded: ${issue7.url}`);
@@ -171,6 +171,25 @@ function checkTrackerIssues() {
   console.log(`Tracker #7: ${issue7.url}`);
   console.log(`Tracker #8: ${issue8.url}`);
   checkSecondWaveReview(issue7);
+  checkShowHnTracker(issue8);
+}
+
+function checkShowHnTracker(issue8) {
+  const body = issue8.body || "";
+
+  if (!body.includes(submissionTitle)) {
+    fail(`Issue #8 is missing the current Show HN title: ${submissionTitle}`);
+  }
+
+  if (!body.includes(auditUrl)) {
+    fail(`Issue #8 is missing the current Show HN URL: ${auditUrl}`);
+  }
+
+  if (body.includes("Show HN: GitHub CLI Extension Atlas - audit and choose gh extensions")) {
+    fail("Issue #8 still contains the old Show HN title.");
+  }
+
+  console.log("Show HN tracker: title and URL recorded in issue #8");
 }
 
 function checkSecondWaveReview(issue7) {
