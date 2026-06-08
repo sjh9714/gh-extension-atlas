@@ -54,6 +54,12 @@ const workflowGuides = {
     sourcePath: "guides/repository-search-extensions.md",
     summary: "Choose a repository search, code search, starred-repository, or local clone helper.",
   },
+  "Security/Admin": {
+    title: "GitHub Security And Admin CLI Extension Guide",
+    path: "guides/security-admin-extensions.html",
+    sourcePath: "guides/security-admin-extensions.md",
+    summary: "Choose an SBOM, CodeQL, token, webhook, repository config, or migration helper.",
+  },
 };
 const actionsGuideRows = [
   {
@@ -275,6 +281,63 @@ const searchGuideRows = [
     need: "Explore a repository before cloning it",
     repo: "samcoe/gh-repo-explore",
     why: "A narrow explorer workflow, but verify compatibility because it is stale.",
+  },
+];
+const securityAdminGuideRows = [
+  {
+    need: "Generate an SBOM for release or compliance work",
+    repo: "advanced-security/gh-sbom",
+    why: "The strongest first stop when the output you need is a software bill of materials.",
+  },
+  {
+    need: "Inspect code scanning findings",
+    repo: "advanced-security/gh-code-scanning",
+    why: "A focused way to view GitHub code scanning data from the terminal.",
+  },
+  {
+    need: "Run CodeQL workflows",
+    repo: "github/gh-codeql",
+    why: "Useful for security engineers who need CodeQL commands in their gh workflow.",
+  },
+  {
+    need: "Run CodeQL queries across many repositories",
+    repo: "GitHubSecurityLab/gh-mrva",
+    why: "Targets multi-repository variant analysis; verify fit because it is marked watch.",
+  },
+  {
+    need: "Work directly with CodeQL databases",
+    repo: "GitHubSecurityLab/gh-qldb",
+    why: "Useful when CodeQL database management is the task, not general scanning.",
+  },
+  {
+    need: "Create GitHub App installation tokens",
+    repo: "Link-/gh-token",
+    why: "A practical helper for GitHub App authentication and automation workflows.",
+  },
+  {
+    need: "Manage GitHub infrastructure with YAML",
+    repo: "babarot/gh-infra",
+    why: "Best when repository and organization settings should be reviewed as code.",
+  },
+  {
+    need: "Standardize repository configuration",
+    repo: "twelvelabs/gh-repo-config",
+    why: "A focused option for teams that repeatedly adjust repository settings.",
+  },
+  {
+    need: "Test webhook-driven integrations",
+    repo: "cli/gh-webhook",
+    why: "Useful when local or development webhook workflows are the main problem.",
+  },
+  {
+    need: "Support GitHub Enterprise Importer migrations",
+    repo: "github/gh-gei",
+    why: "The canonical extension for Enterprise Importer migration workflows.",
+  },
+  {
+    need: "Collect repository inventory for migrations",
+    repo: "mona-actions/gh-repo-stats",
+    why: "Useful when migration planning starts with repository metadata collection.",
   },
 ];
 const topPickRepos = [
@@ -1825,6 +1888,24 @@ function renderWorkflowGuidePage(category, guide, items) {
     secondSectionTitle = "Search Fit";
     secondSectionCopy = "Use repository search when you need a project, code search when you need a line, and starred-repository search when you are mining your own saved tools.";
     freshnessCopy = "The atlas is a reviewed snapshot, not a live ranking. Recheck upstream repositories before adopting a search extension, especially when it depends on fzf, ghq, GitHub API rate limits, or older search endpoints.";
+  } else if (category === "Security/Admin") {
+    guideRows = securityAdminGuideRows;
+    starterPackName = "Security And Admin";
+    guideLead = "Choose an SBOM, CodeQL, token, webhook, repository configuration, or migration helper without mixing security review with general repository tooling.";
+    startHereCopy = "Use the table as a quick chooser. The goal is to separate evidence generation, security analysis, authentication, repository administration, and migration workflows.";
+    firstCards = [
+      ["advanced-security/gh-sbom", "SBOM generation"],
+      ["advanced-security/gh-code-scanning", "Code scanning findings"],
+      ["Link-/gh-token", "GitHub App tokens"],
+    ];
+    secondCards = [
+      ["github/gh-gei", "Enterprise migrations"],
+      ["babarot/gh-infra", "Infrastructure as code"],
+      ["cli/gh-webhook", "Webhook workflows"],
+    ];
+    secondSectionTitle = "Security And Admin Fit";
+    secondSectionCopy = "Use security tools when you need evidence or analysis. Use admin tools when the work is repository configuration, GitHub App authentication, webhooks, or migration support.";
+    freshnessCopy = "The atlas is a reviewed snapshot, not a live ranking. Recheck upstream repositories before adopting a security or admin extension, especially when it can create tokens, inspect private security findings, manage repository settings, or support enterprise migrations.";
   }
 
   const starterPack = starterPacks.find((pack) => pack.name === starterPackName);

@@ -160,6 +160,7 @@ These are the first extensions to evaluate if you want broad value fast.
 | [Git branch cleanup CLI extension guide][guide-branches]              | You want safer branch cleanup, branch switching, or worktree helpers.                     |
 | [GitHub notification triage CLI extension guide][guide-notifications] | You want terminal notification display, filtering, cleanup, or broader triage.            |
 | [GitHub repository search CLI extension guide][guide-search]          | You want repository search, code search, starred-repository search, or clone helpers.     |
+| [GitHub security and admin CLI extension guide][guide-security]       | You want SBOM, CodeQL, token, webhook, repository config, or migration helpers.           |
 
 [guide-dashboards]: https://sjh9714.github.io/gh-extension-atlas/guides/terminal-dashboard-extensions.html
 [guide-actions]: https://sjh9714.github.io/gh-extension-atlas/guides/github-actions-extensions.html
@@ -167,6 +168,7 @@ These are the first extensions to evaluate if you want broad value fast.
 [guide-branches]: https://sjh9714.github.io/gh-extension-atlas/guides/branch-cleanup-extensions.html
 [guide-notifications]: https://sjh9714.github.io/gh-extension-atlas/guides/notification-triage-extensions.html
 [guide-search]: https://sjh9714.github.io/gh-extension-atlas/guides/repository-search-extensions.html
+[guide-security]: https://sjh9714.github.io/gh-extension-atlas/guides/security-admin-extensions.html
 
 ## Catalog Browser
 
