@@ -192,6 +192,22 @@
     "status": "active"
   },
   {
+    "repo": "dlvhdr/gh-enhance",
+    "name": "enhance",
+    "category": "Actions/CI",
+    "summary": "A fast terminal UI for inspecting and managing GitHub Actions.",
+    "install": "gh extension install dlvhdr/gh-enhance",
+    "best_for": "Developers who want an interactive terminal UI for GitHub Actions workflows.",
+    "avoid_if": "You only need basic workflow status output or prefer the GitHub web UI.",
+    "stars": 193,
+    "license": "MIT",
+    "last_pushed_at": "2026-06-07T09:10:56Z",
+    "archived": false,
+    "official": false,
+    "verified_at": "2026-06-08",
+    "status": "active"
+  },
+  {
     "repo": "einride/gh-dependabot",
     "name": "dependabot",
     "category": "PR & Issues",
