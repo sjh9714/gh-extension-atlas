@@ -2,6 +2,8 @@
 
 Thanks for helping improve the GitHub CLI Extension Atlas.
 
+Please follow the [Code of Conduct](CODE_OF_CONDUCT.md). Keep suggestions factual, specific, and free of star, promotion, or endorsement pressure.
+
 ## Where to start
 
 - Use an issue template for concrete extension suggestions, metadata fixes, or comparison-guide changes.
