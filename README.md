@@ -438,6 +438,7 @@ Use issues when the change is specific:
 - [Add an extension](https://github.com/sjh9714/gh-extension-atlas/issues/new?template=add-extension.yml)
 - [Fix metadata](https://github.com/sjh9714/gh-extension-atlas/issues/new?template=fix-metadata.yml)
 - [Improve a comparison guide](https://github.com/sjh9714/gh-extension-atlas/issues/new?template=comparison-feedback.yml)
+- [Report site, API, or install bundle feedback](https://github.com/sjh9714/gh-extension-atlas/issues/new?template=site-api-feedback.yml)
 
 Use the [feedback discussion](https://github.com/sjh9714/gh-extension-atlas/discussions/5) for questions, rough ideas, and lightweight feedback that is not yet a concrete issue.
 

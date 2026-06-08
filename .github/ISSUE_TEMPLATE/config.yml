@@ -9,3 +9,6 @@ contact_links:
   - name: Use starter packs
     url: https://github.com/sjh9714/gh-extension-atlas/blob/main/docs/starter-packs.md
     about: Start from small workflow-based install sequences.
+  - name: Public API reference
+    url: https://sjh9714.github.io/gh-extension-atlas/api-reference.md
+    about: Review JSON endpoints, schemas, and install bundle guardrails.

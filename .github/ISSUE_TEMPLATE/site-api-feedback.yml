@@ -1,0 +1,50 @@
+name: Site, API, or install bundle feedback
+description: Report a problem with the generated website, JSON API, or install-command bundles.
+title: "Site/API feedback: "
+labels: ["site-api-feedback"]
+body:
+  - type: dropdown
+    id: surface
+    attributes:
+      label: Surface
+      options:
+        - Searchable catalog
+        - Workflow chooser
+        - Extension detail page
+        - Category page
+        - Workflow guide
+        - JSON API
+        - Install-command bundle
+        - llms.txt / llms-full.txt
+        - Other generated page
+    validations:
+      required: true
+  - type: input
+    id: url
+    attributes:
+      label: URL or path
+      description: Link to the page, endpoint, or file that needs attention.
+      placeholder: https://sjh9714.github.io/gh-extension-atlas/api/index.json
+    validations:
+      required: true
+  - type: textarea
+    id: issue
+    attributes:
+      label: What is wrong or confusing?
+      description: Describe the broken link, stale output, confusing page, missing endpoint, or install bundle problem.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected result
+      description: Optional. What should the page, endpoint, or bundle show instead?
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checklist
+      options:
+        - label: I checked the latest published site or the current `main` branch before reporting.
+          required: true
+        - label: This is about the atlas site/API/install output, not a request for stars, promotion, or maintainer endorsement.
+          required: true
