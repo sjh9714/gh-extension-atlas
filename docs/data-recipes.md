@@ -55,6 +55,12 @@ Fetch the complete reviewed catalog:
 curl -fsSL https://sjh9714.github.io/gh-extension-atlas/api/extensions.json
 ```
 
+Inspect the catalog entry schema:
+
+```sh
+curl -fsSL https://sjh9714.github.io/gh-extension-atlas/api/extensions.schema.json
+```
+
 Print active community-maintained Actions/CI install commands:
 
 ```sh

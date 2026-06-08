@@ -311,6 +311,7 @@ Published Pages endpoints:
 | --------------------------------------------- | ------------------------------------------------------- |
 | [API index][api-index]                        | You want a manifest of every public catalog endpoint.   |
 | [Full catalog JSON][api-extensions]           | You want the complete reviewed catalog for automation.  |
+| [Catalog JSON Schema][api-schema]             | You want the public data contract for catalog entries.  |
 | [Top Picks JSON][api-top-picks]               | You want only the first-pass recommendations.           |
 | [All install commands][install-all]           | You want a plain-text command bundle for every entry.   |
 | [Top Picks install commands][install-top]     | You want a plain-text install bundle for Top Picks.     |
@@ -318,6 +319,7 @@ Published Pages endpoints:
 
 [api-index]: https://sjh9714.github.io/gh-extension-atlas/api/index.json
 [api-extensions]: https://sjh9714.github.io/gh-extension-atlas/api/extensions.json
+[api-schema]: https://sjh9714.github.io/gh-extension-atlas/api/extensions.schema.json
 [api-top-picks]: https://sjh9714.github.io/gh-extension-atlas/api/top-picks.json
 [install-all]: https://sjh9714.github.io/gh-extension-atlas/install/all.txt
 [install-top]: https://sjh9714.github.io/gh-extension-atlas/install/top-picks.txt

@@ -1,0 +1,99 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sjh9714.github.io/gh-extension-atlas/api/extensions.schema.json",
+  "title": "GitHub CLI Extension Atlas Catalog",
+  "description": "Reviewed GitHub CLI extension catalog entries.",
+  "type": "array",
+  "minItems": 50,
+  "items": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+      "repo",
+      "name",
+      "category",
+      "summary",
+      "install",
+      "best_for",
+      "avoid_if",
+      "stars",
+      "license",
+      "last_pushed_at",
+      "archived",
+      "official",
+      "verified_at",
+      "status"
+    ],
+    "properties": {
+      "repo": {
+        "type": "string",
+        "pattern": "^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$",
+        "description": "GitHub repository in OWNER/REPO form."
+      },
+      "name": {
+        "type": "string",
+        "minLength": 1,
+        "description": "Short extension name without the gh- prefix when appropriate."
+      },
+      "category": {
+        "type": "string",
+        "enum": [
+          "Dashboard/TUI",
+          "PR & Issues",
+          "Actions/CI",
+          "Repo & Branch",
+          "Search",
+          "Notifications",
+          "Security/Admin",
+          "AI/Agents"
+        ]
+      },
+      "summary": {
+        "type": "string",
+        "minLength": 1
+      },
+      "install": {
+        "type": "string",
+        "pattern": "^gh extension install [A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$"
+      },
+      "best_for": {
+        "type": "string",
+        "minLength": 1
+      },
+      "avoid_if": {
+        "type": "string",
+        "minLength": 1
+      },
+      "stars": {
+        "type": "integer",
+        "minimum": 0
+      },
+      "license": {
+        "type": "string",
+        "minLength": 1
+      },
+      "last_pushed_at": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "archived": {
+        "const": false
+      },
+      "official": {
+        "type": "boolean"
+      },
+      "verified_at": {
+        "type": "string",
+        "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+      },
+      "status": {
+        "type": "string",
+        "enum": [
+          "active",
+          "watch",
+          "stale"
+        ]
+      }
+    }
+  }
+}

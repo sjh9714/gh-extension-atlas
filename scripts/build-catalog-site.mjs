@@ -2,6 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 
 const dataPath = "data/extensions.json";
+const schemaPath = "data/extensions.schema.json";
 const packageJson = JSON.parse(fs.readFileSync("package.json", "utf8"));
 const checkOnly = process.argv.includes("--check");
 const siteUrl = "https://sjh9714.github.io/gh-extension-atlas/";
@@ -52,6 +53,7 @@ const starterPacks = [
 ];
 
 const entries = JSON.parse(fs.readFileSync(dataPath, "utf8"));
+const schema = JSON.parse(fs.readFileSync(schemaPath, "utf8"));
 const categories = unique(entries.map((entry) => entry.category));
 const categoryPageFiles = categories.map((category) => ({
   path: `docs/${categoryPagePath(category)}`,
@@ -60,6 +62,7 @@ const categoryPageFiles = categories.map((category) => ({
 const endpointFiles = [
   { path: "docs/api/index.json", content: renderJson(renderApiIndex(entries)) },
   { path: "docs/api/extensions.json", content: renderJson(stableEntries(entries)) },
+  { path: "docs/api/extensions.schema.json", content: renderJson(schema) },
   { path: "docs/api/top-picks.json", content: renderJson(getTopPickEntries(entries)) },
   { path: "docs/install/all.txt", content: renderInstallCommands(stableEntries(entries)) },
   { path: "docs/install/top-picks.txt", content: renderInstallCommands(getTopPickEntries(entries)) },
@@ -1414,6 +1417,7 @@ function renderApiIndex(items) {
     },
     endpoints: {
       catalog: `${siteUrl}api/extensions.json`,
+      schema: `${siteUrl}api/extensions.schema.json`,
       top_picks: `${siteUrl}api/top-picks.json`,
       all_install_commands: `${siteUrl}install/all.txt`,
       top_pick_install_commands: `${siteUrl}install/top-picks.txt`,

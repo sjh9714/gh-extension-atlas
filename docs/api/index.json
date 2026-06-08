@@ -15,6 +15,7 @@
   },
   "endpoints": {
     "catalog": "https://sjh9714.github.io/gh-extension-atlas/api/extensions.json",
+    "schema": "https://sjh9714.github.io/gh-extension-atlas/api/extensions.schema.json",
     "top_picks": "https://sjh9714.github.io/gh-extension-atlas/api/top-picks.json",
     "all_install_commands": "https://sjh9714.github.io/gh-extension-atlas/install/all.txt",
     "top_pick_install_commands": "https://sjh9714.github.io/gh-extension-atlas/install/top-picks.txt"

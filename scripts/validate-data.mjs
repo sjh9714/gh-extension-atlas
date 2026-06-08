@@ -1,6 +1,7 @@
 import fs from "node:fs";
 
 const file = "data/extensions.json";
+const schemaFile = "data/extensions.schema.json";
 const allowedCategories = new Set([
   "Dashboard/TUI",
   "PR & Issues",
@@ -31,7 +32,10 @@ const required = [
 
 const raw = fs.readFileSync(file, "utf8");
 const entries = JSON.parse(raw);
+const schema = JSON.parse(fs.readFileSync(schemaFile, "utf8"));
 const errors = [];
+
+validateSchemaContract();
 
 function readText(path) {
   try {
@@ -39,6 +43,42 @@ function readText(path) {
   } catch (error) {
     errors.push(`${path}: unable to read for count validation (${error.message}).`);
     return "";
+  }
+}
+
+function validateSchemaContract() {
+  const itemSchema = schema.items;
+  const schemaRequired = itemSchema?.required ?? [];
+  const schemaProperties = itemSchema?.properties ?? {};
+  const schemaCategories = schemaProperties.category?.enum ?? [];
+  const schemaStatuses = schemaProperties.status?.enum ?? [];
+
+  if (schema.type !== "array") {
+    errors.push(`${schemaFile}: root schema type must be array.`);
+  }
+
+  if (schema.minItems !== 50) {
+    errors.push(`${schemaFile}: minItems must be 50.`);
+  }
+
+  if (itemSchema?.additionalProperties !== false) {
+    errors.push(`${schemaFile}: item schema must set additionalProperties to false.`);
+  }
+
+  if (!sameSet(schemaRequired, required)) {
+    errors.push(`${schemaFile}: required fields must match validator required fields.`);
+  }
+
+  if (!sameSet(Object.keys(schemaProperties), required)) {
+    errors.push(`${schemaFile}: properties must match validator required fields.`);
+  }
+
+  if (!sameSet(schemaCategories, Array.from(allowedCategories))) {
+    errors.push(`${schemaFile}: category enum must match validator categories.`);
+  }
+
+  if (!sameSet(schemaStatuses, Array.from(allowedStatuses))) {
+    errors.push(`${schemaFile}: status enum must match validator statuses.`);
   }
 }
 
@@ -168,3 +208,12 @@ if (errors.length > 0) {
 }
 
 console.log(`Validated ${entries.length} GitHub CLI extensions.`);
+
+function sameSet(left, right) {
+  if (left.length !== right.length) {
+    return false;
+  }
+
+  const rightSet = new Set(right);
+  return left.every((value) => rightSet.has(value));
+}
