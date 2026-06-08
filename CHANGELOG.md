@@ -1,5 +1,20 @@
 # Changelog
 
+## v0.2.6
+
+This patch release adds a PR and issue triage workflow guide for GitHub CLI extensions.
+
+### Added
+
+- GitHub PR And Issue Triage CLI Extension Guide with a public HTML landing page.
+- PR Review And Issue Triage starter pack TXT bundle.
+
+### Improved
+
+- PR & Issues category page now links to its workflow guide.
+- README Workflow Guides now includes PR and issue triage as a first-class entry point.
+- Public API manifest now includes the PR Review And Issue Triage starter pack.
+
 ## v0.2.5
 
 This patch release adds a terminal dashboard workflow guide for GitHub CLI extensions.
