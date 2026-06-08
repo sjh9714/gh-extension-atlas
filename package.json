@@ -19,6 +19,7 @@
     "launch:show-hn:review": "node scripts/show-hn-review.mjs",
     "launch:show-hn:record-review": "node scripts/show-hn-review.mjs --post",
     "launch:show-hn:ready": "node scripts/show-hn-ready.mjs",
+    "launch:show-hn:record-share": "node scripts/show-hn-record-share.mjs",
     "launch:show-hn:monitor": "node scripts/show-hn-monitor.mjs",
     "site:build": "node scripts/build-catalog-site.mjs",
     "site:check": "node scripts/build-catalog-site.mjs --check",

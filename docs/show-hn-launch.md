@@ -41,6 +41,14 @@ Use a link submission, not a text-only post.
 
 After the preflight passes, open the `HN submitlink` URL printed by `npm run launch:show-hn:preflight`. It pre-fills the URL and title, but still requires a manual final submit.
 
+After Hacker News creates the item, record the story in issue `#8`:
+
+```sh
+npm run launch:show-hn:record-share -- --story STORY_URL
+```
+
+If you do not have the story URL handy, run the same command without `--story`; it searches Hacker News for the configured audit URL. The command only comments on the atlas tracker issue and refuses to record a story that points somewhere else.
+
 Title:
 
 ```text
