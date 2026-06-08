@@ -131,6 +131,20 @@ The output is Markdown-ready and includes:
 
 Use `--json` if you need a machine-readable snapshot.
 
+After the first 24 hours, generate the review for issue `#8`:
+
+```sh
+npm run launch:show-hn:review-24h -- --story STORY_URL
+```
+
+To post it directly to issue `#8` after the 24-hour window has elapsed:
+
+```sh
+npm run launch:show-hn:review-24h -- --story STORY_URL --post
+```
+
+The review records HN score/comments, repository stars/watchers/forks, traffic, detected concern keywords in top-level comments, and a conservative decision. It refuses to post before the item is 24 hours old.
+
 ## Reply Templates
 
 Missing extension:
