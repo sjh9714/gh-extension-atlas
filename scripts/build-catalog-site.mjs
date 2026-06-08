@@ -4898,6 +4898,28 @@ function renderAuditPage(items) {
       align-items: center;
     }
 
+    .trust-list {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .trust-note {
+      display: grid;
+      gap: 3px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 9px 10px;
+      background: #f6f8fa;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .trust-note strong {
+      color: var(--text);
+      font-size: 14px;
+    }
+
     .pill {
       display: inline-flex;
       align-items: center;
@@ -5003,6 +5025,12 @@ function renderAuditPage(items) {
       display: block;
     }
 
+    .copy-feedback {
+      min-height: 22px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
     .table-wrap {
       overflow: auto;
       border: 1px solid var(--border);
@@ -5087,6 +5115,10 @@ function renderAuditPage(items) {
       .wrap {
         width: min(100vw - 20px, 1120px);
       }
+
+      .trust-list {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
@@ -5117,6 +5149,11 @@ function renderAuditPage(items) {
     <section class="panel">
       <h2>Paste Your Installed Extensions</h2>
       <p class="muted">Run <code>gh extension list</code>, paste the output below, and audit locally in your browser. The pasted text is not sent anywhere.</p>
+      <div class="trust-list" aria-label="Privacy and trust notes">
+        <div class="trust-note"><strong>No sign-in</strong><span>Runs as a static page; paste output only when you choose.</span></div>
+        <div class="trust-note"><strong>No tracking</strong><span>No analytics scripts and no remote audit API.</span></div>
+        <div class="trust-note"><strong>No upload</strong><span>Your pasted extension output stays in your browser.</span></div>
+      </div>
       <p class="demo-note" id="demo-note">Sample audit loaded. Paste your own <code>gh extension list</code> output when you are ready to check your setup.</p>
       <pre><code>gh extension list</code></pre>
       <textarea id="extension-list" spellcheck="false" placeholder="gh dash&#9;dlvhdr/gh-dash&#9;v4.8.0&#10;gh notify&#9;meiji163/gh-notify&#9;v2.0.0"></textarea>
@@ -5131,6 +5168,7 @@ function renderAuditPage(items) {
         <a class="button-link" href="audit.html?demo=1">Open demo audit</a>
         <a class="button-link" href="api/extensions.json">Open catalog JSON</a>
       </div>
+      <span class="copy-feedback" id="copy-feedback" aria-live="polite"></span>
     </section>
 
     <section class="result-panel" id="results" aria-live="polite">
@@ -5151,6 +5189,7 @@ function renderAuditPage(items) {
     const repositoryUrl = "${repoUrl}";
     const textarea = document.getElementById("extension-list");
     const results = document.getElementById("results");
+    const copyFeedback = document.getElementById("copy-feedback");
     let lastMissingTopPickInstalls = "";
     let lastWorkflowGapInstalls = "";
     let lastAuditSummary = "";
@@ -5165,7 +5204,7 @@ function renderAuditPage(items) {
     });
 
     document.getElementById("copy-command").addEventListener("click", async () => {
-      await copyText("gh extension list");
+      await copyText("gh extension list", "Copied command.");
     });
 
     document.getElementById("load-sample").addEventListener("click", () => {
@@ -5187,7 +5226,7 @@ function renderAuditPage(items) {
       if (!lastMissingTopPickInstalls) {
         return;
       }
-      await copyText(lastMissingTopPickInstalls);
+      await copyText(lastMissingTopPickInstalls, "Copied missing Top Picks installs.");
     });
 
     document.getElementById("copy-summary").addEventListener("click", async () => {
@@ -5197,7 +5236,7 @@ function renderAuditPage(items) {
       if (!lastAuditSummary) {
         return;
       }
-      await copyText(lastAuditSummary);
+      await copyText(lastAuditSummary, "Copied audit summary.");
     });
 
     document.getElementById("copy-gap-installs").addEventListener("click", async () => {
@@ -5207,7 +5246,7 @@ function renderAuditPage(items) {
       if (!lastWorkflowGapInstalls) {
         return;
       }
-      await copyText(lastWorkflowGapInstalls);
+      await copyText(lastWorkflowGapInstalls, "Copied workflow gap installs.");
     });
 
     if (new URLSearchParams(window.location.search).has("demo") || new URLSearchParams(window.location.search).has("sample")) {
@@ -5221,7 +5260,7 @@ function renderAuditPage(items) {
       renderAudit(buildAudit(parseExtensionList(textarea.value)));
     }
 
-    async function copyText(text) {
+    async function copyText(text, message = "Copied.") {
       try {
         await navigator.clipboard.writeText(text);
       } catch {
@@ -5235,6 +5274,15 @@ function renderAuditPage(items) {
         document.execCommand("copy");
         copyBox.remove();
       }
+      showCopyFeedback(message);
+    }
+
+    function showCopyFeedback(message) {
+      copyFeedback.textContent = message;
+      window.clearTimeout(showCopyFeedback.timeout);
+      showCopyFeedback.timeout = window.setTimeout(() => {
+        copyFeedback.textContent = "";
+      }, 2400);
     }
 
     function parseExtensionList(text) {
