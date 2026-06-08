@@ -1,0 +1,380 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GitHub Notification Triage CLI Extension Guide | GitHub CLI Extension Atlas</title>
+  <meta name="description" content="Choose a terminal notification viewer, rules helper, cleanup tool, or broader triage dashboard.">
+  <meta property="og:title" content="GitHub Notification Triage CLI Extension Guide">
+  <meta property="og:description" content="Choose a terminal notification viewer, rules helper, cleanup tool, or broader triage dashboard.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://sjh9714.github.io/gh-extension-atlas/guides/notification-triage-extensions.html">
+  <meta property="og:image" content="https://sjh9714.github.io/gh-extension-atlas/social-card.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="GitHub Notification Triage CLI Extension Guide">
+  <meta name="twitter:description" content="Choose a terminal notification viewer, rules helper, cleanup tool, or broader triage dashboard.">
+  <meta name="twitter:image" content="https://sjh9714.github.io/gh-extension-atlas/social-card.png">
+  <link rel="canonical" href="https://sjh9714.github.io/gh-extension-atlas/guides/notification-triage-extensions.html">
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f7f8fa;
+      --panel: #ffffff;
+      --text: #1f2328;
+      --muted: #656d76;
+      --border: #d0d7de;
+      --accent: #0969da;
+      --accent-soft: #ddf4ff;
+      --good: #1a7f37;
+      --warn: #9a6700;
+      --stale: #8250df;
+      --shadow: 0 1px 2px rgba(31, 35, 40, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font: 15px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    header {
+      background: var(--panel);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .wrap {
+      width: min(1080px, calc(100vw - 32px));
+      margin: 0 auto;
+    }
+
+    .header-inner {
+      display: grid;
+      gap: 13px;
+      padding: 30px 0 24px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(30px, 4vw, 44px);
+      line-height: 1.1;
+      letter-spacing: 0;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 20px;
+      line-height: 1.25;
+      letter-spacing: 0;
+    }
+
+    p {
+      margin: 0;
+    }
+
+    .lead {
+      max-width: 800px;
+      color: var(--muted);
+      font-size: 17px;
+    }
+
+    .meta,
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 3px 10px;
+      background: var(--panel);
+      color: var(--muted);
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    main {
+      display: grid;
+      gap: 14px;
+      padding: 20px 0 42px;
+    }
+
+    .panel,
+    .table-wrap {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+    }
+
+    .panel {
+      display: grid;
+      gap: 11px;
+      padding: 16px;
+    }
+
+    .panel p,
+    .muted {
+      color: var(--muted);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .tool-card {
+      display: grid;
+      gap: 7px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px;
+      background: var(--panel);
+    }
+
+    .table-wrap {
+      overflow: auto;
+    }
+
+    table {
+      width: 100%;
+      min-width: 900px;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      padding: 11px 12px;
+      border-bottom: 1px solid var(--border);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: #f6f8fa;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    tr:last-child td {
+      border-bottom: 0;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    code {
+      font: 13px/1.45 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+
+    pre {
+      margin: 0;
+      overflow: auto;
+      border-radius: 6px;
+      padding: 10px;
+      background: #f6f8fa;
+    }
+
+    .repo {
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      min-height: 24px;
+      border-radius: 999px;
+      padding: 2px 9px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .status.active {
+      background: #dafbe1;
+      color: var(--good);
+    }
+
+    .status.watch {
+      background: #fff8c5;
+      color: var(--warn);
+    }
+
+    .status.stale {
+      background: #fbefff;
+      color: var(--stale);
+    }
+
+    @media (max-width: 760px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap header-inner">
+      <h1>GitHub Notification Triage CLI Extension Guide</h1>
+      <p class="lead">Choose a terminal notification viewer, rules helper, cleanup tool, or broader maintainer triage dashboard without opening every GitHub inbox first.</p>
+      <div class="meta">
+        <span class="pill">4 Notifications extensions</span>
+        <span class="pill">4 active</span>
+        <span class="pill">Reviewed 2026-06-08</span>
+      </div>
+      <div class="actions">
+        <a href="../">Searchable catalog</a>
+        <a href="../categories/notifications.html">Notifications category</a>
+        <a href="../api/categories/notifications.json">Category JSON</a>
+        <a href="../guides/notification-triage-extensions.md">Markdown source</a>
+        <a href="https://github.com/sjh9714/gh-extension-atlas#readme">README</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="panel">
+      <h2>Start Here</h2>
+      <p class="muted">Use the table as a quick chooser. The goal is not to replace every notification setting; it is to pick the first terminal workflow that reduces the noise in front of you.</p>
+    </section>
+
+    <section class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>If you need to...</th>
+            <th>Start with</th>
+            <th>Why</th>
+            <th>Status</th>
+            <th>Install</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>See GitHub notifications without opening the browser</td>
+            <td><a class="repo" href="https://github.com/meiji163/gh-notify">notify</a><br><span class="muted">Display GitHub notifications in the terminal.</span></td>
+            <td>The simplest first stop when visibility is the main problem.</td>
+            <td><span class="status active">active</span></td>
+            <td><code>gh extension install meiji163/gh-notify</code></td>
+          </tr>
+          <tr>
+            <td>Filter or process notifications with rules</td>
+            <td><a class="repo" href="https://github.com/nobe4/gh-not">not</a><br><span class="muted">Manage GitHub notifications with rules.</span></td>
+            <td>Better when your notification workflow needs filtering instead of display only.</td>
+            <td><span class="status active">active</span></td>
+            <td><code>gh extension install nobe4/gh-not</code></td>
+          </tr>
+          <tr>
+            <td>Remove phantom notifications</td>
+            <td><a class="repo" href="https://github.com/emmanuel-ferdman/gh-gonest">gonest</a><br><span class="muted">Remove phantom notifications from inaccessible repositories.</span></td>
+            <td>Focused on stuck notifications from deleted or inaccessible repositories.</td>
+            <td><span class="status active">active</span></td>
+            <td><code>gh extension install emmanuel-ferdman/gh-gonest</code></td>
+          </tr>
+          <tr>
+            <td>Work unread issues and PRs from notifications</td>
+            <td><a class="repo" href="https://github.com/k1LoW/gh-triage">triage</a><br><span class="muted">Manage issues and pull requests through unread notifications.</span></td>
+            <td>Useful when notifications are the input to issue and PR triage.</td>
+            <td><span class="status active">active</span></td>
+            <td><code>gh extension install k1LoW/gh-triage</code></td>
+          </tr>
+          <tr>
+            <td>Fold notifications into maintainer triage</td>
+            <td><a class="repo" href="https://github.com/dlvhdr/gh-dash">dash</a><br><span class="muted">A rich terminal dashboard for pull requests, issues, and notifications.</span></td>
+            <td>Best when notifications belong beside PR and issue queues in a TUI.</td>
+            <td><span class="status active">active</span></td>
+            <td><code>gh extension install dlvhdr/gh-dash</code></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="panel">
+      <h2>First Picks</h2>
+      <div class="grid">
+        <article class="tool-card">
+          <strong><a href="https://github.com/meiji163/gh-notify">notify</a></strong>
+          <span class="muted">Notification visibility</span>
+          <span>Developers who want notification awareness without the browser.</span>
+          <code>gh extension install meiji163/gh-notify</code>
+        </article>
+        <article class="tool-card">
+          <strong><a href="https://github.com/nobe4/gh-not">not</a></strong>
+          <span class="muted">Rule-based notification handling</span>
+          <span>Users who need filtering and rule-based notification handling.</span>
+          <code>gh extension install nobe4/gh-not</code>
+        </article>
+        <article class="tool-card">
+          <strong><a href="https://github.com/emmanuel-ferdman/gh-gonest">gonest</a></strong>
+          <span class="muted">Phantom notification cleanup</span>
+          <span>Users stuck with notifications from deleted or inaccessible repositories.</span>
+          <code>gh extension install emmanuel-ferdman/gh-gonest</code>
+        </article>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Triage Fit</h2>
+      <p class="muted">Use a notification-only tool when visibility is enough. Use a broader dashboard when notifications are just one part of a daily PR and issue review queue.</p>
+      <div class="grid">
+        <article class="tool-card">
+          <strong><a href="https://github.com/dlvhdr/gh-dash">dash</a></strong>
+          <span class="muted">PR, issue, and notification triage</span>
+          <span>Maintainers who live in PR, issue, and notification queues.</span>
+          <code>gh extension install dlvhdr/gh-dash</code>
+        </article>
+        <article class="tool-card">
+          <strong><a href="https://github.com/k1LoW/gh-triage">triage</a></strong>
+          <span class="muted">Unread issue and PR processing</span>
+          <span>Maintainers who triage from their notification inbox.</span>
+          <code>gh extension install k1LoW/gh-triage</code>
+        </article>
+        <article class="tool-card">
+          <strong><a href="https://github.com/agynio/gh-pr-review">pr-review</a></strong>
+          <span class="muted">Review thread follow-up</span>
+          <span>Reviewers who want inline PR review workflows in the terminal.</span>
+          <code>gh extension install agynio/gh-pr-review</code>
+        </article>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Starter Pack</h2>
+      <p class="muted">Review the commands before installing. Do not pipe install bundles directly into a shell.</p>
+      <pre><code>gh extension install dlvhdr/gh-dash
+gh extension install agynio/gh-pr-review
+gh extension install meiji163/gh-notify</code></pre>
+      <div class="actions">
+        <a href="../install/starter-packs/daily-maintainer-triage.txt">Starter pack TXT</a>
+        <a href="https://sjh9714.github.io/gh-extension-atlas/categories/notifications.html">Notifications page</a>
+        <a href="https://sjh9714.github.io/gh-extension-atlas/?category=Notifications">Open filtered catalog</a>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Freshness Notes</h2>
+      <p class="muted">The atlas is a reviewed snapshot, not a live ranking. Recheck upstream repositories before adopting a notification tool, especially when the extension can mark items read, process unread queues, or request notification-related scopes.</p>
+    </section>
+  </main>
+</body>
+</html>

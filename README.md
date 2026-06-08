@@ -151,13 +151,15 @@ These are the first extensions to evaluate if you want broad value fast.
 
 ## Workflow Guides
 
-| Guide                                                        | Use this when...                                                                          |
-| ------------------------------------------------------------ | ----------------------------------------------------------------------------------------- |
-| [GitHub Actions CLI extension guide][guide-actions]          | You want to choose an Actions TUI, local runner, migration, or workflow health extension. |
-| [Git branch cleanup CLI extension guide][guide-branches]     | You want safer branch cleanup, branch switching, or worktree helpers.                     |
+| Guide                                                                 | Use this when...                                                                          |
+| --------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| [GitHub Actions CLI extension guide][guide-actions]                   | You want to choose an Actions TUI, local runner, migration, or workflow health extension. |
+| [Git branch cleanup CLI extension guide][guide-branches]              | You want safer branch cleanup, branch switching, or worktree helpers.                     |
+| [GitHub notification triage CLI extension guide][guide-notifications] | You want terminal notification display, filtering, cleanup, or broader triage.            |
 
 [guide-actions]: https://sjh9714.github.io/gh-extension-atlas/guides/github-actions-extensions.html
 [guide-branches]: https://sjh9714.github.io/gh-extension-atlas/guides/branch-cleanup-extensions.html
+[guide-notifications]: https://sjh9714.github.io/gh-extension-atlas/guides/notification-triage-extensions.html
 
 ## Catalog Browser
 

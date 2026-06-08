@@ -30,6 +30,12 @@ const workflowGuides = {
     sourcePath: "guides/branch-cleanup-extensions.md",
     summary: "Choose a safe local branch cleanup, branch switching, or worktree helper.",
   },
+  "Notifications": {
+    title: "GitHub Notification Triage CLI Extension Guide",
+    path: "guides/notification-triage-extensions.html",
+    sourcePath: "guides/notification-triage-extensions.md",
+    summary: "Choose a terminal notification viewer, rules helper, cleanup tool, or broader triage dashboard.",
+  },
 };
 const actionsGuideRows = [
   {
@@ -98,6 +104,33 @@ const branchCleanupGuideRows = [
     need: "Install release binaries while setting up a repo",
     repo: "redraw/gh-install",
     why: "Not a cleanup tool, but useful in local repo setup workflows.",
+  },
+];
+const notificationGuideRows = [
+  {
+    need: "See GitHub notifications without opening the browser",
+    repo: "meiji163/gh-notify",
+    why: "The simplest first stop when visibility is the main problem.",
+  },
+  {
+    need: "Filter or process notifications with rules",
+    repo: "nobe4/gh-not",
+    why: "Better when your notification workflow needs filtering instead of display only.",
+  },
+  {
+    need: "Remove phantom notifications",
+    repo: "emmanuel-ferdman/gh-gonest",
+    why: "Focused on stuck notifications from deleted or inaccessible repositories.",
+  },
+  {
+    need: "Work unread issues and PRs from notifications",
+    repo: "k1LoW/gh-triage",
+    why: "Useful when notifications are the input to issue and PR triage.",
+  },
+  {
+    need: "Fold notifications into maintainer triage",
+    repo: "dlvhdr/gh-dash",
+    why: "Best when notifications belong beside PR and issue queues in a TUI.",
   },
 ];
 const topPickRepos = [
@@ -1531,46 +1564,62 @@ function renderWorkflowGuidePage(category, guide, items) {
   const categoryUrl = `${siteUrl}${categoryPagePath(category)}`;
   const catalogUrl = `${siteUrl}?category=${encodeURIComponent(category)}`;
   const categorySlugValue = categorySlug(category);
-  const guideRows = category === "Repo & Branch" ? branchCleanupGuideRows : actionsGuideRows;
-  const starterPackName = category === "Repo & Branch" ? "Local Repository Cleanup" : "GitHub Actions Operator";
+  let guideRows = actionsGuideRows;
+  let starterPackName = "GitHub Actions Operator";
+  let guideLead = "Choose a GitHub Actions TUI, local runner, migration helper, workflow health reporter, or runner cost tool without installing every extension first.";
+  let startHereCopy = "Use the table as a quick chooser. The goal is not to rank every Actions extension; it is to pick the first useful tool for the specific CI problem in front of you.";
+  let firstCards = [
+    ["dlvhdr/gh-enhance", "Interactive workflow triage"],
+    ["fchimpan/gh-workflow-stats", "Workflow health patterns"],
+    ["basecamp/gh-signoff", "Local signoff before CI"],
+  ];
+  let secondCards = [
+    ["nektos/gh-act", "Local Actions runs"],
+    ["github/gh-actions-importer", "CI migration projects"],
+    ["fchimpan/gh-slimify", "Runner cost review"],
+  ];
+  let secondSectionTitle = "Local Checks And Operations";
+  let secondSectionCopy = "Use local runners for fast feedback, not as a perfect replacement for GitHub-hosted runners. Runner images, permissions, secrets, service containers, and network access can still differ.";
+  let freshnessCopy = "The atlas is a reviewed snapshot, not a live ranking. Recheck upstream repositories before adopting a tool for production workflows, especially when the extension can change local branches, CI workflows, repository state, or release automation.";
+
+  if (category === "Repo & Branch") {
+    guideRows = branchCleanupGuideRows;
+    starterPackName = "Local Repository Cleanup";
+    guideLead = "Choose a safe branch cleanup, branch switching, worktree, or local repository setup helper without risking unmerged work.";
+    startHereCopy = "Use the table as a quick chooser. The goal is not to automate deletion blindly; it is to pick the safest first tool for the branch cleanup or repository workflow in front of you.";
+    firstCards = [
+      ["seachicken/gh-poi", "Safe merged branch cleanup"],
+      ["mislav/gh-branch", "Fuzzy branch selection"],
+      ["HaywardMorihara/gh-tidy", "Workspace cleanup"],
+    ];
+    secondCards = [
+      ["despreston/gh-worktree", "Parallel branch work"],
+      ["davidraviv/gh-clean-branches", "Upstream-aware cleanup"],
+      ["redraw/gh-install", "Release binary installs"],
+    ];
+    secondSectionTitle = "Safety Checks And Workflow Fit";
+    secondSectionCopy = "Prefer tools that make deletion explicit, show what will be removed, and help you avoid unmerged or unpushed work. Verify stale tools before trusting them with cleanup.";
+  } else if (category === "Notifications") {
+    guideRows = notificationGuideRows;
+    starterPackName = "Daily Maintainer Triage";
+    guideLead = "Choose a terminal notification viewer, rules helper, cleanup tool, or broader maintainer triage dashboard without opening every GitHub inbox first.";
+    startHereCopy = "Use the table as a quick chooser. The goal is not to replace every notification setting; it is to pick the first terminal workflow that reduces the noise in front of you.";
+    firstCards = [
+      ["meiji163/gh-notify", "Notification visibility"],
+      ["nobe4/gh-not", "Rule-based notification handling"],
+      ["emmanuel-ferdman/gh-gonest", "Phantom notification cleanup"],
+    ];
+    secondCards = [
+      ["dlvhdr/gh-dash", "PR, issue, and notification triage"],
+      ["k1LoW/gh-triage", "Unread issue and PR processing"],
+      ["agynio/gh-pr-review", "Review thread follow-up"],
+    ];
+    secondSectionTitle = "Triage Fit";
+    secondSectionCopy = "Use a notification-only tool when visibility is enough. Use a broader dashboard when notifications are just one part of a daily PR and issue review queue.";
+    freshnessCopy = "The atlas is a reviewed snapshot, not a live ranking. Recheck upstream repositories before adopting a notification tool, especially when the extension can mark items read, process unread queues, or request notification-related scopes.";
+  }
+
   const starterPack = starterPacks.find((pack) => pack.name === starterPackName);
-  const guideLead =
-    category === "Repo & Branch"
-      ? "Choose a safe branch cleanup, branch switching, worktree, or local repository setup helper without risking unmerged work."
-      : "Choose a GitHub Actions TUI, local runner, migration helper, workflow health reporter, or runner cost tool without installing every extension first.";
-  const startHereCopy =
-    category === "Repo & Branch"
-      ? "Use the table as a quick chooser. The goal is not to automate deletion blindly; it is to pick the safest first tool for the branch cleanup or repository workflow in front of you."
-      : "Use the table as a quick chooser. The goal is not to rank every Actions extension; it is to pick the first useful tool for the specific CI problem in front of you.";
-  const firstCards =
-    category === "Repo & Branch"
-      ? [
-          ["seachicken/gh-poi", "Safe merged branch cleanup"],
-          ["mislav/gh-branch", "Fuzzy branch selection"],
-          ["HaywardMorihara/gh-tidy", "Workspace cleanup"],
-        ]
-      : [
-          ["dlvhdr/gh-enhance", "Interactive workflow triage"],
-          ["fchimpan/gh-workflow-stats", "Workflow health patterns"],
-          ["basecamp/gh-signoff", "Local signoff before CI"],
-        ];
-  const secondCards =
-    category === "Repo & Branch"
-      ? [
-          ["despreston/gh-worktree", "Parallel branch work"],
-          ["davidraviv/gh-clean-branches", "Upstream-aware cleanup"],
-          ["redraw/gh-install", "Release binary installs"],
-        ]
-      : [
-          ["nektos/gh-act", "Local Actions runs"],
-          ["github/gh-actions-importer", "CI migration projects"],
-          ["fchimpan/gh-slimify", "Runner cost review"],
-        ];
-  const secondSectionTitle = category === "Repo & Branch" ? "Safety Checks And Workflow Fit" : "Local Checks And Operations";
-  const secondSectionCopy =
-    category === "Repo & Branch"
-      ? "Prefer tools that make deletion explicit, show what will be removed, and help you avoid unmerged or unpushed work. Verify stale tools before trusting them with cleanup."
-      : "Use local runners for fast feedback, not as a perfect replacement for GitHub-hosted runners. Runner images, permissions, secrets, service containers, and network access can still differ.";
   const starterPackCommands = getStarterPackEntries(starterPack, entries)
     .map((entry) => entry.install)
     .join("\n");
@@ -1880,7 +1929,7 @@ function renderWorkflowGuidePage(category, guide, items) {
 
     <section class="panel">
       <h2>Freshness Notes</h2>
-      <p class="muted">The atlas is a reviewed snapshot, not a live ranking. Recheck upstream repositories before adopting a tool for production workflows, especially when the extension can change local branches, CI workflows, repository state, or release automation.</p>
+      <p class="muted">${escapeHtml(freshnessCopy)}</p>
     </section>
   </main>
 </body>
