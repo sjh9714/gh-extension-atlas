@@ -437,4 +437,6 @@ If your extension is listed here, corrections are welcome. Open an issue or pull
 
 Good correction requests include the repository name, the field that should change, and a short reason. The atlas is intentionally conservative: a clearer description beats a louder one.
 
+Each generated extension detail page includes an optional badge snippet that maintainers can use when they want to point users to the atlas comparison context. This is optional and never required for factual corrections.
+
 If this helped you choose an extension, a star helps other `gh` users find it too.

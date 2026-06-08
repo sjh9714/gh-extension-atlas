@@ -2937,6 +2937,8 @@ function renderExtensionPage(entry) {
     url: pageUrl,
   };
   const jsonLdScript = JSON.stringify(jsonLd).replaceAll("<", "\\u003c");
+  const atlasBadgeMarkdown = `[![Listed in GitHub CLI Extension Atlas](https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue)](${pageUrl})`;
+  const atlasBadgeHtml = `<a href="${pageUrl}"><img alt="Listed in GitHub CLI Extension Atlas" src="https://img.shields.io/badge/GitHub%20CLI%20Extension%20Atlas-listed-blue"></a>`;
 
   return `<!doctype html>
 <html lang="en">
@@ -3285,6 +3287,15 @@ function renderExtensionPage(entry) {
       <div class="actions">
         ${relatedEntries.map((candidate) => `<a href="../${escapeAttribute(extensionPagePath(candidate))}">${escapeHtml(candidate.repo)}</a>`).join("\n        ")}
       </div>
+    </section>
+
+    <section class="panel">
+      <h2>Maintainer Snippet</h2>
+      <p class="muted">If this listing is accurate and you want to point users to the atlas comparison context, these optional snippets link to this reviewed detail page. They are not required for corrections.</p>
+      <p><strong>Markdown</strong></p>
+      <pre><code>${escapeHtml(atlasBadgeMarkdown)}</code></pre>
+      <p><strong>HTML</strong></p>
+      <pre><code>${escapeHtml(atlasBadgeHtml)}</code></pre>
     </section>
 
     <section class="panel">
