@@ -59,7 +59,7 @@ It opens with a sample result loaded. If you want to check your own setup, run:
 
 ```sh
 gh extension list
-````
+```
 
 Then paste the output into the page.
 
@@ -142,7 +142,7 @@ I am mainly looking for factual corrections and missing-extension suggestions:
 If you maintain a GitHub CLI extension and the atlas describes it poorly, a short correction is enough.
 
 Note: I used AI assistance while organizing the launch plan and editing this post, but the project metadata, examples, and claims were reviewed before publishing.
-```
+````
 
 ## Before Publishing
 
