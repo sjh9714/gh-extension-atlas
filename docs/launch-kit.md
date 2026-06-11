@@ -304,6 +304,10 @@ Useful when `gh extension search` gives too many options. Corrections welcome.
 
 Use [`docs/show-hn-launch.md`](show-hn-launch.md) after the second-wave maintainer guardrail expires and there are no negative replies or pending corrections. Lead with the browser audit tool, not the README.
 
+## DEV Fallback
+
+If Hacker News remains blocked by account or site submission restrictions, use [`docs/devto-fallback.md`](devto-fallback.md). Do not cross-post automatically; publish only one substantial article and keep the ask focused on factual corrections and missing-extension suggestions.
+
 ## Correction Ask
 
 ```text

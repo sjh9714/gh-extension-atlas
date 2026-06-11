@@ -44,6 +44,7 @@ Hold these until after the first-wave response quality is reviewed.
 | ---------------------- | ---------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
 | GitHub CLI Discussions | Highest relevance if there is an appropriate showcase or extension-related thread. | Use the GitHub Discussions draft in [`docs/launch-kit.md`](launch-kit.md). |
 | Hacker News / Show HN  | Best follower-independent reach if the audit tool is ready and corrections are clear. | Use [`docs/show-hn-launch.md`](show-hn-launch.md).                         |
+| DEV fallback           | Use only if Hacker News remains blocked and there are no pending corrections.      | Use [`docs/devto-fallback.md`](devto-fallback.md).                         |
 | Dev.to or Hashnode     | Good for a fuller explanation and search traffic.                                  | Use the article draft.                                                     |
 | X or LinkedIn          | Good for a short launch note and follow-up thread.                                 | Use the short social draft.                                                |
 
