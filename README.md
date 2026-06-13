@@ -12,17 +12,9 @@ GitHub CLI has hundreds of public extensions. This atlas helps you choose the ri
 
 If `gh extension search` gives you too many options, start here.
 
-Try now: [Open a sample audit][audit-demo] · [Choose an extension][chooser] · [Compare extensions][compare-presets].
+Quick paths: [choose by workflow][chooser] · [audit installed extensions][audit-demo] · [browse the catalog][catalog-home].
 
 Corrections, missing useful extensions, and category feedback are welcome in the Feedback section.
-
-Quick audit path:
-
-```sh
-gh extension list
-```
-
-Then open the [sample audit][audit-demo], choose **Paste from clipboard** or paste the output manually, and review covered installs, unlisted extensions, and workflow gaps. The audit page is static, requires no sign-in, and does not upload pasted extension output.
 
 ## Contents
 
@@ -60,48 +52,34 @@ Then open the [sample audit][audit-demo], choose **Paste from clipboard** or pas
 
 ## Start Here
 
-Pick the workflow that hurts right now, inspect the starter pack, then install only the extensions that match your project.
+Pick one path first. The rest of the atlas is there when you need detail.
 
-Not sure where to start? Open the [GitHub CLI Extension Chooser][chooser] first.
+| I want to...                           | Open this                                      | Why                                                                |
+| -------------------------------------- | ---------------------------------------------- | ------------------------------------------------------------------ |
+| Choose one extension for my workflow   | [Workflow chooser][chooser]                    | Pick by job, not by popularity.                                    |
+| Audit extensions I already installed   | [Sample installed-extension audit][audit-demo] | Paste `gh extension list`; runs locally with no sign-in or upload. |
+| Browse the reviewed catalog            | [Searchable catalog][catalog-home]             | Filter 68 curated extensions by category, status, and ownership.   |
 
-Want every guide in one place? Open the [GitHub CLI Extension Guides index][guide-index].
+Secondary paths: [compare overlapping tools][compare-presets] · [workflow picks][workflow-recommendations] · [install bundles][install-index] · [guide hub][guide-index] · [one-page cheatsheet][cheatsheet] · [API docs][api-reference].
 
-Want a plain-English install path? Read [Which GitHub CLI Extension Should I Install?][guide-decision-tree].
+Example audit result:
 
-New to `gh` extensions? Read [Install GitHub CLI Extensions Safely][guide-install].
-
-Want a shareable overview first? Open the [Awesome GitHub CLI Extensions overview][awesome-overview] or [Markdown overview][awesome-markdown].
-
-Want a copy-paste quick reference? Open the [GitHub CLI Extension Cheatsheet][cheatsheet].
-
-Want workflow-first picks with install commands and avoid-if notes? Open [Workflow Recommendations][workflow-recommendations].
-
-Want side-by-side workflow comparisons? Open [Compare Presets][compare-presets].
-
-Want to inspect install bundles by workflow or category? Open the [Install Bundle Index][install-index].
-
-Want to compare your installed extensions with the atlas? Open the [Installed Extension Audit][installed-audit].
-
-Want the full audit workflow? Read the [installed extension audit guide][guide-installed-audit].
-
-| Workflow                  | Read first                                   | Inspect starter pack                                                                                                                  |
-| ------------------------- | -------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
-| Daily maintainer triage   | [Terminal dashboard guide][guide-dashboards] | [`daily-maintainer-triage.txt`](https://sjh9714.github.io/gh-extension-atlas/install/starter-packs/daily-maintainer-triage.txt)       |
-| PR and issue triage       | [PR and issue triage guide][guide-pr-issues] | [`pr-review-and-issue-triage.txt`](https://sjh9714.github.io/gh-extension-atlas/install/starter-packs/pr-review-and-issue-triage.txt) |
-| GitHub Actions operations | [Actions guide][guide-actions]               | [`github-actions-operator.txt`](https://sjh9714.github.io/gh-extension-atlas/install/starter-packs/github-actions-operator.txt)       |
-| AI and agents             | [AI and agent guide][guide-ai-agents]        | [`ai-and-agents.txt`](https://sjh9714.github.io/gh-extension-atlas/install/starter-packs/ai-and-agents.txt)                           |
-| Local repository cleanup  | [Branch cleanup guide][guide-branches]       | [`local-repository-cleanup.txt`](https://sjh9714.github.io/gh-extension-atlas/install/starter-packs/local-repository-cleanup.txt)     |
-| Documentation review      | Markdown preview comparison                  | [`documentation-review.txt`](https://sjh9714.github.io/gh-extension-atlas/install/starter-packs/documentation-review.txt)             |
-| Search and discovery      | [Repository search guide][guide-search]      | [`search-and-discovery.txt`](https://sjh9714.github.io/gh-extension-atlas/install/starter-packs/search-and-discovery.txt)             |
-| Security and admin        | [Security and admin guide][guide-security]   | [`security-and-admin.txt`](https://sjh9714.github.io/gh-extension-atlas/install/starter-packs/security-and-admin.txt)                 |
-
-Example:
-
-```sh
-curl -fsSL https://sjh9714.github.io/gh-extension-atlas/install/starter-packs/ai-and-agents.txt
+```text
+Installed parsed: 3
+Reviewed by atlas: 2
+Unlisted: 1
+Workflow gaps:
+- GitHub Actions operations: gh extension install dlvhdr/gh-enhance
+- Documentation review: gh extension install yusukebe/gh-markdown-preview
 ```
 
-Review bundle contents before installing. Do not pipe install bundles directly into a shell.
+Quick audit path:
+
+```sh
+gh extension list
+```
+
+Then open the [sample audit][audit-demo], choose **Paste from clipboard** or paste the output manually, and review covered installs, unlisted extensions, and workflow gaps. The audit page is static, requires no sign-in, and does not upload pasted extension output.
 
 ## Pick in 30 Seconds
 
@@ -278,7 +256,7 @@ These are the first extensions to evaluate if you want broad value fast.
 [guide-install]: https://sjh9714.github.io/gh-extension-atlas/guides/install-github-cli-extensions.html
 [guide-installed-audit]: docs/guides/audit-installed-gh-extensions.md
 [chooser]: https://sjh9714.github.io/gh-extension-atlas/chooser.html
-[awesome-overview]: https://sjh9714.github.io/gh-extension-atlas/awesome-github-cli-extensions.html
+[catalog-home]: https://sjh9714.github.io/gh-extension-atlas/
 [awesome-markdown]: https://sjh9714.github.io/gh-extension-atlas/awesome-github-cli-extensions.md
 [cheatsheet]: https://sjh9714.github.io/gh-extension-atlas/cheatsheet.md
 [agent-guide]: docs/agent-guide.md

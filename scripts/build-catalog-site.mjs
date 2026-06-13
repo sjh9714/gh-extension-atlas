@@ -5070,6 +5070,19 @@ function renderAuditPage(items) {
       display: block;
     }
 
+    .feedback-cta {
+      display: grid;
+      gap: 10px;
+      border: 1px solid #bfdbfe;
+      border-radius: 8px;
+      padding: 12px;
+      background: #eff6ff;
+    }
+
+    .feedback-cta strong {
+      display: block;
+    }
+
     .copy-feedback {
       min-height: 22px;
       color: var(--muted);
@@ -5239,6 +5252,8 @@ function renderAuditPage(items) {
     const entriesByRepo = new Map(catalog.map((entry) => [entry.repo.toLowerCase(), entry]));
     const issueChooserUrl = "${repoIssueChooserUrl}";
     const repositoryUrl = "${repoUrl}";
+    const addExtensionIssueUrl = "${repoUrl}/issues/new?template=add-extension.yml";
+    const fixMetadataIssueUrl = "${repoUrl}/issues/new?template=fix-metadata.yml";
     const textarea = document.getElementById("extension-list");
     const results = document.getElementById("results");
     const copyFeedback = document.getElementById("copy-feedback");
@@ -5447,6 +5462,7 @@ function renderAuditPage(items) {
         + renderUnlistedTable(audit.unlisted)
         + renderMissingTopPicks(audit.missingTopPicks)
         + renderWorkflowCoverage(audit.workflowCoverage)
+        + renderFeedbackCta()
         + '<p class="muted">Review upstream READMEs before installing extensions that can affect branches, CI, releases, security, or repository state.</p>';
     }
 
@@ -5485,6 +5501,10 @@ function renderAuditPage(items) {
         actions.push('No immediate gap found. Keep the list small and re-run after installing or removing extensions.');
       }
       return '<section><h2>Next Actions</h2><ul class="next-list">' + actions.map((action) => '<li>' + action + '</li>').join("") + '</ul><p class="muted">Use <strong>Copy audit summary</strong> to share this result in an issue or personal notes. The source, catalog data, and correction workflow live in the GitHub repository.</p><div class="button-row"><a class="button-link" href="' + escapeAttribute(repositoryUrl) + '">Open source and data on GitHub</a><a class="button-link" href="chooser.html">Open chooser</a></div></section>';
+    }
+
+    function renderFeedbackCta() {
+      return '<section class="feedback-cta" aria-label="Audit feedback actions"><p><strong>Was this audit useful?</strong><span class="muted">Help the atlas stay accurate without turning this into a popularity ranking.</span></p><div class="button-row"><a class="button-link" href="' + escapeAttribute(repositoryUrl) + '">Star atlas on GitHub</a><a class="button-link" href="' + escapeAttribute(addExtensionIssueUrl) + '">Suggest a missing extension</a><a class="button-link" href="' + escapeAttribute(fixMetadataIssueUrl) + '">Fix metadata</a></div></section>';
     }
 
     function buildAuditSummary(audit) {
