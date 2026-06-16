@@ -12,13 +12,39 @@ GitHub CLI has hundreds of public extensions. This atlas helps you choose the ri
 
 If `gh extension search` gives you too many options, start here.
 
-Quick paths: [choose by workflow][chooser] · [audit installed extensions][audit-demo] · [browse the catalog][catalog-home].
+Start here by picking one path first. The rest of the atlas is there when you need detail.
+
+| I want to...                           | Open this                                      | Why                                                                |
+| -------------------------------------- | ---------------------------------------------- | ------------------------------------------------------------------ |
+| Choose one extension for my workflow   | [Workflow chooser][chooser]                    | Pick by job, not by popularity.                                    |
+| Audit extensions I already installed   | [Sample installed-extension audit][audit-demo] | Paste `gh extension list`; runs locally with no sign-in or upload. |
+| Browse the reviewed catalog            | [Searchable catalog][catalog-home]             | Filter 68 curated extensions by category, status, and ownership.   |
+
+Secondary paths: [compare overlapping tools][compare-presets] · [workflow picks][workflow-recommendations] · [install bundles][install-index] · [guide hub][guide-index] · [one-page cheatsheet][cheatsheet] · [API docs][api-reference].
+
+Example audit result:
+
+```text
+Installed parsed: 3
+Reviewed by atlas: 2
+Unlisted: 1
+Workflow gaps:
+- GitHub Actions operations: gh extension install dlvhdr/gh-enhance
+- Documentation review: gh extension install yusukebe/gh-markdown-preview
+```
+
+Quick audit path:
+
+```sh
+gh extension list
+```
+
+Then open the [sample audit][audit-demo], choose **Paste from clipboard** or paste the output manually, and review covered installs, unlisted extensions, and workflow gaps. The audit page is static, requires no sign-in, and does not upload pasted extension output.
 
 Corrections, missing useful extensions, and category feedback are welcome in the Feedback section.
 
 ## Contents
 
-- [Start Here](#start-here)
 - [Pick in 30 Seconds](#pick-in-30-seconds)
 - [Cheatsheet](#cheatsheet)
 - [Workflow Recommendations](#workflow-recommendations)
@@ -49,37 +75,6 @@ Corrections, missing useful extensions, and category feedback are welcome in the
 - [Feedback](#feedback)
 - [Support](#support)
 - [For Extension Maintainers](#for-extension-maintainers)
-
-## Start Here
-
-Pick one path first. The rest of the atlas is there when you need detail.
-
-| I want to...                           | Open this                                      | Why                                                                |
-| -------------------------------------- | ---------------------------------------------- | ------------------------------------------------------------------ |
-| Choose one extension for my workflow   | [Workflow chooser][chooser]                    | Pick by job, not by popularity.                                    |
-| Audit extensions I already installed   | [Sample installed-extension audit][audit-demo] | Paste `gh extension list`; runs locally with no sign-in or upload. |
-| Browse the reviewed catalog            | [Searchable catalog][catalog-home]             | Filter 68 curated extensions by category, status, and ownership.   |
-
-Secondary paths: [compare overlapping tools][compare-presets] · [workflow picks][workflow-recommendations] · [install bundles][install-index] · [guide hub][guide-index] · [one-page cheatsheet][cheatsheet] · [API docs][api-reference].
-
-Example audit result:
-
-```text
-Installed parsed: 3
-Reviewed by atlas: 2
-Unlisted: 1
-Workflow gaps:
-- GitHub Actions operations: gh extension install dlvhdr/gh-enhance
-- Documentation review: gh extension install yusukebe/gh-markdown-preview
-```
-
-Quick audit path:
-
-```sh
-gh extension list
-```
-
-Then open the [sample audit][audit-demo], choose **Paste from clipboard** or paste the output manually, and review covered installs, unlisted extensions, and workflow gaps. The audit page is static, requires no sign-in, and does not upload pasted extension output.
 
 ## Pick in 30 Seconds
 
