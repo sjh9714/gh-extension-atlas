@@ -4,7 +4,7 @@
 [![Metadata Audit](https://github.com/sjh9714/gh-extension-atlas/actions/workflows/metadata-audit.yml/badge.svg)](https://github.com/sjh9714/gh-extension-atlas/actions/workflows/metadata-audit.yml)
 [![Release](https://img.shields.io/github/v/release/sjh9714/gh-extension-atlas?sort=semver)](https://github.com/sjh9714/gh-extension-atlas/releases/latest)
 [![License: CC0-1.0](https://img.shields.io/badge/license-CC0--1.0-lightgrey.svg)](LICENSE)
-![Extensions: 68](https://img.shields.io/badge/extensions-68-blue.svg)
+![Extensions: 69](https://img.shields.io/badge/extensions-69-blue.svg)
 
 > A curated field guide to GitHub CLI extensions: what to install, when to use them, and which ones are actively maintained.
 
@@ -18,7 +18,7 @@ Start here by picking one path first. The rest of the atlas is there when you ne
 | -------------------------------------- | ---------------------------------------------- | ------------------------------------------------------------------ |
 | Choose one extension for my workflow   | [Workflow chooser][chooser]                    | Pick by job, not by popularity.                                    |
 | Audit extensions I already installed   | [Sample installed-extension audit][audit-demo] | Paste `gh extension list`; runs locally with no sign-in or upload. |
-| Browse the reviewed catalog            | [Searchable catalog][catalog-home]             | Filter 68 curated extensions by category, status, and ownership.   |
+| Browse the reviewed catalog            | [Searchable catalog][catalog-home]             | Filter 69 curated extensions by category, status, and ownership.   |
 
 Secondary paths: [compare overlapping tools][compare-presets] · [workflow picks][workflow-recommendations] · [install bundles][install-index] · [guide hub][guide-index] · [one-page cheatsheet][cheatsheet] · [API docs][api-reference].
 

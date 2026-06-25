@@ -208,6 +208,22 @@
     "status": "active"
   },
   {
+    "repo": "drogers0/gh-image",
+    "name": "image",
+    "category": "Repo & Branch",
+    "summary": "Upload local images to GitHub and get back user-attachments URLs from the terminal.",
+    "install": "gh extension install drogers0/gh-image",
+    "best_for": "Developers and AI agents that need a hosted image URL from a local file without leaving the terminal.",
+    "avoid_if": "You only embed images via the GitHub web UI and never script it.",
+    "stars": 102,
+    "license": "MIT",
+    "last_pushed_at": "2026-06-25T04:54:11Z",
+    "archived": false,
+    "official": false,
+    "verified_at": "2026-06-25",
+    "status": "active"
+  },
+  {
     "repo": "einride/gh-dependabot",
     "name": "dependabot",
     "category": "PR & Issues",
