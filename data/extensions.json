@@ -1008,6 +1008,22 @@
     "status": "active"
   },
   {
+    "repo": "sudosubin/gh-attach",
+    "name": "attach",
+    "category": "Repo & Branch",
+    "summary": "Upload and download GitHub user-attachments from the terminal, producing URLs that work in issues, PRs, and READMEs.",
+    "install": "gh extension install sudosubin/gh-attach",
+    "best_for": "Developers and AI agents that need a hosted URL for a screenshot, PDF, or log file without leaving the terminal.",
+    "avoid_if": "You only attach files through the GitHub web UI and never need them from the terminal.",
+    "stars": 34,
+    "license": "MIT",
+    "last_pushed_at": "2026-07-31T16:49:21Z",
+    "archived": false,
+    "official": false,
+    "verified_at": "2026-08-01",
+    "status": "active"
+  },
+  {
     "repo": "thiagokokada/gh-gfm-preview",
     "name": "gfm-preview",
     "category": "Dashboard/TUI",
