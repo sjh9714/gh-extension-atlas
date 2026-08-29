@@ -7,7 +7,7 @@ Use this page when you know the workflow, but you do not want to compare the ful
 - Workflow chooser: https://sjh9714.github.io/gh-extension-atlas/chooser.html
 - Recommendations API: https://sjh9714.github.io/gh-extension-atlas/api/recommendations.json
 - Recommendations schema: https://sjh9714.github.io/gh-extension-atlas/api/recommendations.schema.json
-- Reviewed snapshot: 2026-06-08
+- Reviewed snapshot: 2026-08-29
 
 These are small starting sets, not endorsements or complete rankings. Review upstream READMEs before adopting extensions for security, CI, release, compliance, or production workflows.
 

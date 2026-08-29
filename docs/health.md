@@ -6,8 +6,8 @@ GitHub CLI Extension Atlas is a reviewed snapshot, not a live ranking. This page
 
 | Signal | Value |
 | --- | ---: |
-| Extensions | 68 |
-| Active | 49 |
+| Extensions | 69 |
+| Active | 50 |
 | Watch | 9 |
 | Stale | 10 |
 | Categories | 8 |
@@ -15,15 +15,15 @@ GitHub CLI Extension Atlas is a reviewed snapshot, not a live ranking. This page
 | Starter packs | 8 |
 | Recommendations | 8 |
 | Workflow guides | 8 |
-| Generated extension pages | 68 |
+| Generated extension pages | 69 |
 
 ## Freshness
 
 | Signal | Value |
 | --- | --- |
-| Latest verified date | 2026-06-08 |
+| Latest verified date | 2026-08-29 |
 | Oldest verified date | 2026-06-08 |
-| Latest upstream push snapshot | 2026-06-08T11:02:52Z |
+| Latest upstream push snapshot | 2026-08-29T21:39:07Z |
 | Oldest upstream push snapshot | 2021-11-08T18:00:37Z |
 
 ## Category Health
@@ -34,7 +34,7 @@ GitHub CLI Extension Atlas is a reviewed snapshot, not a live ranking. This page
 | [AI/Agents](https://sjh9714.github.io/gh-extension-atlas/categories/ai-agents.html) | 4 | 4 | 0 | 0 |
 | [Dashboard/TUI](https://sjh9714.github.io/gh-extension-atlas/categories/dashboard-tui.html) | 8 | 7 | 1 | 0 |
 | [Notifications](https://sjh9714.github.io/gh-extension-atlas/categories/notifications.html) | 4 | 4 | 0 | 0 |
-| [PR & Issues](https://sjh9714.github.io/gh-extension-atlas/categories/pr-issues.html) | 11 | 8 | 1 | 2 |
+| [PR & Issues](https://sjh9714.github.io/gh-extension-atlas/categories/pr-issues.html) | 12 | 9 | 1 | 2 |
 | [Repo & Branch](https://sjh9714.github.io/gh-extension-atlas/categories/repo-branch.html) | 11 | 5 | 2 | 4 |
 | [Search](https://sjh9714.github.io/gh-extension-atlas/categories/search.html) | 9 | 7 | 0 | 2 |
 | [Security/Admin](https://sjh9714.github.io/gh-extension-atlas/categories/security-admin.html) | 14 | 8 | 5 | 1 |

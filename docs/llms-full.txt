@@ -4,9 +4,9 @@
 
 Repository: https://github.com/sjh9714/gh-extension-atlas
 Website: https://sjh9714.github.io/gh-extension-atlas/
-Reviewed snapshot: 2026-06-08
-Catalog size: 68 extensions
-Status counts: 49 active, 9 watch, 10 stale
+Reviewed snapshot: 2026-08-29
+Catalog size: 69 extensions
+Status counts: 50 active, 9 watch, 10 stale
 
 ## Purpose
 
@@ -122,6 +122,7 @@ This is not an official GitHub project, complete directory, endorsement list, or
 - kawarimidoll/gh-prism - category: PR & Issues; status: active; stars snapshot: 44; license: MIT; verified_at: 2026-06-08; install: `gh extension install kawarimidoll/gh-prism`; summary: Review pull requests from GitHub CLI.; best_for: Developers who want a focused PR review helper.; avoid_if: You need full project management features.; detail: https://sjh9714.github.io/gh-extension-atlas/extensions/kawarimidoll-gh-prism.html
 - einride/gh-dependabot - category: PR & Issues; status: active; stars snapshot: 43; license: MIT; verified_at: 2026-06-08; install: `gh extension install einride/gh-dependabot`; summary: Review Dependabot pull requests from GitHub CLI.; best_for: Teams that process many dependency update pull requests.; avoid_if: You do not use Dependabot.; detail: https://sjh9714.github.io/gh-extension-atlas/extensions/einride-gh-dependabot.html
 - jackchuka/gh-dep - category: PR & Issues; status: active; stars snapshot: 29; license: MIT; verified_at: 2026-06-08; install: `gh extension install jackchuka/gh-dep`; summary: Bulk manage dependency pull requests in a TUI.; best_for: Teams with many Dependabot or Renovate pull requests.; avoid_if: You rarely receive dependency update PRs.; detail: https://sjh9714.github.io/gh-extension-atlas/extensions/jackchuka-gh-dep.html
+- Zer0codestuff/gh-issue-scout - category: PR & Issues; status: active; stars snapshot: 0; license: MIT; verified_at: 2026-08-29; install: `gh extension install Zer0codestuff/gh-issue-scout`; summary: Find recent, active, and apparently unclaimed GitHub issues with transparent scoring.; best_for: Contributors choosing an active issue before they invest time in a fix.; avoid_if: You need a maintainer dashboard or automated issue claiming.; detail: https://sjh9714.github.io/gh-extension-atlas/extensions/zer0codestuff-gh-issue-scout.html
 - gennaro-tedesco/gh-i - category: PR & Issues; status: watch; stars snapshot: 72; license: Apache-2.0; verified_at: 2026-06-08; install: `gh extension install gennaro-tedesco/gh-i`; summary: Interactively search GitHub issues.; best_for: Maintainers searching issues without opening the browser.; avoid_if: You need project-management features beyond search.; detail: https://sjh9714.github.io/gh-extension-atlas/extensions/gennaro-tedesco-gh-i.html
 - KOBA789/gh-sql - category: PR & Issues; status: stale; stars snapshot: 134; license: NOASSERTION; verified_at: 2026-06-08; install: `gh extension install KOBA789/gh-sql`; summary: Query GitHub Projects data with SQL.; best_for: Advanced users exploring GitHub Projects data.; avoid_if: You want a beginner-friendly project dashboard.; detail: https://sjh9714.github.io/gh-extension-atlas/extensions/koba789-gh-sql.html
 - samcoe/gh-triage - category: PR & Issues; status: stale; stars snapshot: 34; license: MIT; verified_at: 2026-06-08; install: `gh extension install samcoe/gh-triage`; summary: Triage GitHub issues from the terminal.; best_for: Maintainers processing issue queues.; avoid_if: You need an actively maintained triage tool.; detail: https://sjh9714.github.io/gh-extension-atlas/extensions/samcoe-gh-triage.html

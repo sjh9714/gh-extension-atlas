@@ -221,9 +221,9 @@
       <h1>PR &amp; Issues GitHub CLI Extensions</h1>
       <p class="lead">Review pull requests, issues, comments, and maintainer queues from the terminal.</p>
       <div class="meta">
-        <span class="pill">11 extensions</span>
-        <span class="pill">8 active</span>
-        <span class="pill">Reviewed 2026-06-08</span>
+        <span class="pill">12 extensions</span>
+        <span class="pill">9 active</span>
+        <span class="pill">Reviewed 2026-08-29</span>
       </div>
       <div class="actions">
         <a href="../">Searchable catalog</a>
@@ -241,7 +241,7 @@
     <section class="panel">
       <p>Use this page when you want a focused entry point for the PR &amp; Issues category. The full catalog can filter the same entries by status, ownership, search text, and Top Picks.</p>
       <div class="actions">
-        <button type="button" id="copy-category-installs" data-install-all="gh extension install github/gh-stack&#10;gh extension install agynio/gh-pr-review&#10;gh extension install valeriobelli/gh-milestone&#10;gh extension install InditexTech/gh-sherpa&#10;gh extension install hectcastro/gh-metrics&#10;gh extension install kawarimidoll/gh-prism&#10;gh extension install einride/gh-dependabot&#10;gh extension install jackchuka/gh-dep&#10;gh extension install gennaro-tedesco/gh-i&#10;gh extension install KOBA789/gh-sql&#10;gh extension install samcoe/gh-triage">Copy all 11 install commands</button>
+        <button type="button" id="copy-category-installs" data-install-all="gh extension install github/gh-stack&#10;gh extension install agynio/gh-pr-review&#10;gh extension install valeriobelli/gh-milestone&#10;gh extension install InditexTech/gh-sherpa&#10;gh extension install hectcastro/gh-metrics&#10;gh extension install kawarimidoll/gh-prism&#10;gh extension install einride/gh-dependabot&#10;gh extension install jackchuka/gh-dep&#10;gh extension install Zer0codestuff/gh-issue-scout&#10;gh extension install gennaro-tedesco/gh-i&#10;gh extension install KOBA789/gh-sql&#10;gh extension install samcoe/gh-triage">Copy all 12 install commands</button>
         <span class="hint" id="copy-feedback" aria-live="polite"></span>
       </div>
     </section>
@@ -322,6 +322,13 @@
             <td><code>gh extension install jackchuka/gh-dep</code></td>
           </tr>
           <tr>
+            <td><a class="repo" href="../extensions/zer0codestuff-gh-issue-scout.html">Zer0codestuff/gh-issue-scout</a><br><span>Find recent, active, and apparently unclaimed GitHub issues with transparent scoring.</span></td>
+            <td>Contributors choosing an active issue before they invest time in a fix.</td>
+            <td><span class="status active">active</span></td>
+            <td>0</td>
+            <td><code>gh extension install Zer0codestuff/gh-issue-scout</code></td>
+          </tr>
+          <tr>
             <td><a class="repo" href="../extensions/gennaro-tedesco-gh-i.html">gennaro-tedesco/gh-i</a><br><span>Interactively search GitHub issues.</span></td>
             <td>Maintainers searching issues without opening the browser.</td>
             <td><span class="status watch">watch</span></td>
@@ -353,7 +360,7 @@
 
     button.addEventListener("click", async () => {
       await copyText(button.dataset.installAll);
-      feedback.textContent = "Copied 11 install commands.";
+      feedback.textContent = "Copied 12 install commands.";
       window.clearTimeout(feedback.timeout);
       feedback.timeout = window.setTimeout(() => {
         feedback.textContent = "";

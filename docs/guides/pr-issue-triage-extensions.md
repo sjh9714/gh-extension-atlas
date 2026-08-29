@@ -15,6 +15,7 @@ The short version:
 | Bulk triage dependency update queues | [`gh-dep`](https://github.com/jackchuka/gh-dep) | It is a TUI for teams with many Dependabot or Renovate PRs. |
 | Measure PR review health | [`gh-metrics`](https://github.com/hectcastro/gh-metrics) | It summarizes PR timing and review metrics instead of individual PR details. |
 | Search issues interactively | [`gh-i`](https://github.com/gennaro-tedesco/gh-i) | It is a focused issue search flow; verify fit because it is marked `watch`. |
+| Rank apparently unclaimed contributor issues | [`gh-issue-scout`](https://github.com/Zer0codestuff/gh-issue-scout) | It scores recent issues and filters assignment or recent claim evidence. |
 | Create branches and PRs from issues | [`gh-sherpa`](https://github.com/InditexTech/gh-sherpa) | It is good when work starts from a Jira or GitHub issue. |
 | Manage milestones from the terminal | [`gh-milestone`](https://github.com/valeriobelli/gh-milestone) | It is useful when milestone planning is part of maintainer work. |
 | Query GitHub Projects with SQL | [`gh-sql`](https://github.com/KOBA789/gh-sql) | It is powerful for advanced project data queries, but verify compatibility because it is stale. |
@@ -79,6 +80,14 @@ Install:
 
 ```sh
 gh extension install gennaro-tedesco/gh-i
+```
+
+Use [`gh-issue-scout`](https://github.com/Zer0codestuff/gh-issue-scout) when you are choosing work across repositories. It ranks recent issues by transparent activity signals and filters assignment or recent claim comments. Use `gh-i` instead when you want an interactive issue search without availability scoring.
+
+Install:
+
+```sh
+gh extension install Zer0codestuff/gh-issue-scout
 ```
 
 Use [`gh-sherpa`](https://github.com/InditexTech/gh-sherpa) when work starts from a Jira or GitHub issue and you want branch and PR creation to follow.

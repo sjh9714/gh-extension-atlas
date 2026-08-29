@@ -29,6 +29,7 @@ gh extension install hectcastro/gh-metrics
 gh extension install kawarimidoll/gh-prism
 gh extension install einride/gh-dependabot
 gh extension install jackchuka/gh-dep
+gh extension install Zer0codestuff/gh-issue-scout
 gh extension install gennaro-tedesco/gh-i
 gh extension install KOBA789/gh-sql
 gh extension install samcoe/gh-triage

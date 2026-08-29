@@ -266,6 +266,11 @@ const prIssueGuideRows = [
     why: "A focused issue search flow; verify fit because it is marked watch.",
   },
   {
+    need: "Rank apparently unclaimed contributor issues",
+    repo: "Zer0codestuff/gh-issue-scout",
+    why: "Scores recent issues and filters assignment or recent claim evidence.",
+  },
+  {
     need: "Create branches and PRs from issues",
     repo: "InditexTech/gh-sherpa",
     why: "Good when work starts from a Jira or GitHub issue.",
