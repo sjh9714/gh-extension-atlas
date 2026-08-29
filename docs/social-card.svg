@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
   <title id="title">GitHub CLI Extension Atlas</title>
-  <desc id="desc">A curated catalog of 68 GitHub CLI extensions.</desc>
+  <desc id="desc">A curated catalog of 69 GitHub CLI extensions.</desc>
   <rect width="1200" height="630" fill="#f6f8fa"/>
   <rect x="64" y="64" width="1072" height="502" rx="28" fill="#ffffff" stroke="#d0d7de" stroke-width="2"/>
   <rect x="64" y="64" width="1072" height="108" rx="28" fill="#0969da"/>
@@ -9,11 +9,11 @@
   <text x="112" y="236" fill="#1f2328" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="58" font-weight="800">Choose a useful gh extension faster.</text>
   <text x="112" y="298" fill="#57606a" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="30">Curated field guide, comparison docs, starter packs, and a searchable catalog.</text>
   <g>
-    <text x="112" y="374" fill="#1f2328" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="48" font-weight="800">68</text>
+    <text x="112" y="374" fill="#1f2328" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="48" font-weight="800">69</text>
     <text x="112" y="412" fill="#57606a" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="22">curated extensions</text>
   </g>
   <g>
-    <text x="386" y="374" fill="#1f2328" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="48" font-weight="800">49</text>
+    <text x="386" y="374" fill="#1f2328" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="48" font-weight="800">50</text>
     <text x="386" y="412" fill="#57606a" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="22">active</text>
   </g>
   <g>
@@ -26,5 +26,5 @@
   </g>
   <rect x="112" y="488" width="456" height="46" rx="23" fill="#ddf4ff"/>
   <text x="140" y="520" fill="#0969da" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="22">sjh9714.github.io/gh-extension-atlas</text>
-  <text x="812" y="520" fill="#57606a" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="22">Reviewed snapshot: 2026-06-08</text>
+  <text x="812" y="520" fill="#57606a" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="22">Reviewed snapshot: 2026-08-29</text>
 </svg>

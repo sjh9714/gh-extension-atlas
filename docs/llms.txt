@@ -13,7 +13,7 @@
 - FAQ: https://sjh9714.github.io/gh-extension-atlas/faq.md
 - API manifest: https://sjh9714.github.io/gh-extension-atlas/api/index.json
 - Full LLM context: https://sjh9714.github.io/gh-extension-atlas/llms-full.txt
-- Reviewed snapshot: 2026-06-08
+- Reviewed snapshot: 2026-08-29
 
 ## What This Is
 
@@ -67,7 +67,7 @@ GitHub CLI Extension Atlas helps users choose a useful `gh` extension faster whe
 - AI/Agents: 4 extensions, 4 active - https://sjh9714.github.io/gh-extension-atlas/categories/ai-agents.html
 - Dashboard/TUI: 8 extensions, 7 active - https://sjh9714.github.io/gh-extension-atlas/categories/dashboard-tui.html
 - Notifications: 4 extensions, 4 active - https://sjh9714.github.io/gh-extension-atlas/categories/notifications.html
-- PR & Issues: 11 extensions, 8 active - https://sjh9714.github.io/gh-extension-atlas/categories/pr-issues.html
+- PR & Issues: 12 extensions, 9 active - https://sjh9714.github.io/gh-extension-atlas/categories/pr-issues.html
 - Repo & Branch: 11 extensions, 5 active - https://sjh9714.github.io/gh-extension-atlas/categories/repo-branch.html
 - Search: 9 extensions, 7 active - https://sjh9714.github.io/gh-extension-atlas/categories/search.html
 - Security/Admin: 14 extensions, 8 active - https://sjh9714.github.io/gh-extension-atlas/categories/security-admin.html

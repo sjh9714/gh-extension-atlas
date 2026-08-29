@@ -5,8 +5,8 @@ A compact quick reference for choosing a first GitHub CLI extension from the rev
 - Repository: https://github.com/sjh9714/gh-extension-atlas
 - Searchable catalog: https://sjh9714.github.io/gh-extension-atlas/
 - Workflow chooser: https://sjh9714.github.io/gh-extension-atlas/chooser.html
-- Reviewed snapshot: 2026-06-08
-- Catalog size: 68 extensions
+- Reviewed snapshot: 2026-08-29
+- Catalog size: 69 extensions
 
 ## Pick By Workflow
 

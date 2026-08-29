@@ -7,9 +7,9 @@ A curated field guide to useful GitHub CLI extensions: what to install, when to 
 - Workflow chooser: https://sjh9714.github.io/gh-extension-atlas/chooser.html
 - Cheatsheet: https://sjh9714.github.io/gh-extension-atlas/cheatsheet.md
 - Agent guide: https://sjh9714.github.io/gh-extension-atlas/agent-guide.md
-- Reviewed snapshot: 2026-06-08
-- Catalog size: 68 extensions
-- Status counts: 49 active, 9 watch, 10 stale
+- Reviewed snapshot: 2026-08-29
+- Catalog size: 69 extensions
+- Status counts: 50 active, 9 watch, 10 stale
 
 ## Start Here
 

@@ -1,16 +1,16 @@
 {
   "name": "gh-extension-atlas",
   "version": "0.2.23",
-  "generated_at": "2026-06-08",
+  "generated_at": "2026-08-29",
   "source": "https://github.com/sjh9714/gh-extension-atlas",
   "homepage": "https://sjh9714.github.io/gh-extension-atlas/",
   "counts": {
-    "extensions": 68,
+    "extensions": 69,
     "top_picks": 10,
     "categories": 8,
     "starter_packs": 8,
     "recommendations": 8,
-    "active": 49,
+    "active": 50,
     "watch": 9,
     "stale": 10
   },
@@ -80,8 +80,8 @@
     {
       "name": "PR & Issues",
       "slug": "pr-issues",
-      "count": 11,
-      "active": 8,
+      "count": 12,
+      "active": 9,
       "page": "https://sjh9714.github.io/gh-extension-atlas/categories/pr-issues.html",
       "json": "https://sjh9714.github.io/gh-extension-atlas/api/categories/pr-issues.json",
       "install_commands": "https://sjh9714.github.io/gh-extension-atlas/install/categories/pr-issues.txt"

@@ -496,6 +496,22 @@
     "status": "active"
   },
   {
+    "repo": "Zer0codestuff/gh-issue-scout",
+    "name": "issue-scout",
+    "category": "PR & Issues",
+    "summary": "Find recent, active, and apparently unclaimed GitHub issues with transparent scoring.",
+    "install": "gh extension install Zer0codestuff/gh-issue-scout",
+    "best_for": "Contributors choosing an active issue before they invest time in a fix.",
+    "avoid_if": "You need a maintainer dashboard or automated issue claiming.",
+    "stars": 0,
+    "license": "MIT",
+    "last_pushed_at": "2026-08-29T21:39:07Z",
+    "archived": false,
+    "official": false,
+    "verified_at": "2026-08-29",
+    "status": "active"
+  },
+  {
     "repo": "gennaro-tedesco/gh-i",
     "name": "i",
     "category": "PR & Issues",
